@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="ja">
+<meta charset="utf-8">
+<title>戦況板 ── 世紀の一戦 松田元 vs 松田元</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="欲か、善か。世紀の一戦・公式戦況板。毎週木曜、両陣営の数字を全公開。盛らない。">
+<style>
+  :root{
+    --pit:#050507; --panel:#0E0D11; --line:#232028;
+    --blood:#C41E24; --blood-dim:#8A1519; --gold:#C9A227; --ember:#E8C15A;
+    --bone:#EDE6D6; --smoke:#8A8578; --dim:#6B665C;
+    --mincho:"Yu Mincho","YuMincho","Hiragino Mincho ProN","Noto Serif JP",Georgia,serif;
+    --gothic:"Yu Gothic","YuGothic","Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP",system-ui,sans-serif;
+    --mono:"SFMono-Regular",Consolas,monospace;
+  }
+  *{box-sizing:border-box; margin:0; padding:0}
+  body{background:var(--pit); color:var(--bone); font-family:var(--gothic); -webkit-font-smoothing:antialiased;
+    line-height:1.7; padding-bottom:70px}
+  .wrap{max-width:860px; margin:0 auto; padding:0 20px}
+  .mono{font-family:var(--mono); font-variant-numeric:tabular-nums}
+  .mincho{font-family:var(--mincho)}
+
+  header{position:relative; padding:46px 0 30px; text-align:center; overflow:hidden;
+    background:
+      radial-gradient(70% 120% at 20% 0%, rgba(196,30,36,.22), transparent 60%),
+      radial-gradient(70% 120% at 80% 0%, rgba(201,162,39,.18), transparent 60%);
+    border-bottom:1px solid var(--line)}
+  .ev{font-family:var(--mono); font-size:10px; letter-spacing:.4em; color:var(--smoke)}
+  h1{font-family:var(--mincho); font-size:clamp(30px,6.5vw,48px); letter-spacing:.2em; margin:12px 0 4px}
+  .sub{font-family:var(--mincho); font-size:clamp(13px,2.8vw,16px); color:var(--smoke); letter-spacing:.12em}
+  .live{display:inline-flex; align-items:center; gap:8px; margin-top:16px; font-family:var(--mono);
+    font-size:10.5px; letter-spacing:.22em; color:var(--ember); border:1px solid var(--gold);
+    padding:6px 14px; border-radius:2px}
+  .live::before{content:""; width:7px; height:7px; border-radius:50%; background:var(--blood);
+    animation:blink 1.6s infinite}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+
+  /* countdown */
+  .count{margin:34px auto 0; text-align:center}
+  .count .lbl{font-family:var(--mono); font-size:10px; letter-spacing:.3em; color:var(--smoke)}
+  .count .num{font-family:var(--mincho); font-size:clamp(40px,9vw,68px); color:var(--ember); line-height:1.1;
+    text-shadow:0 0 40px rgba(201,162,39,.4)}
+  .count .until{font-size:12px; color:var(--dim); font-family:var(--mono); letter-spacing:.14em}
+
+  section{padding:44px 0 0}
+  .sec-t{font-family:var(--mono); font-size:10.5px; letter-spacing:.3em; color:var(--gold); text-transform:uppercase;
+    margin-bottom:18px; text-align:center}
+
+  /* scoreboard */
+  .board{border:1px solid var(--line); background:var(--panel)}
+  .board-head{display:grid; grid-template-columns:1fr auto 1fr; align-items:stretch; border-bottom:1px solid var(--line)}
+  .side{padding:22px 16px; text-align:center}
+  .side .tag{font-family:var(--mono); font-size:9.5px; letter-spacing:.24em}
+  .side.red .tag{color:var(--blood)} .side.white .tag{color:var(--ember)}
+  .side .nm{font-family:var(--mincho); font-size:clamp(17px,3.6vw,23px); margin-top:6px; letter-spacing:.06em}
+  .side .who{font-size:11px; color:var(--smoke); margin-top:4px}
+  .mid{display:flex; align-items:center; padding:0 14px; font-family:var(--mincho); font-size:22px; color:var(--dim)}
+  .rows .row{display:grid; grid-template-columns:1fr minmax(110px,auto) 1fr; align-items:center;
+    border-bottom:1px solid var(--line); padding:15px 10px}
+  .rows .row:last-child{border-bottom:0}
+  .metric{font-family:var(--mono); font-size:10px; letter-spacing:.16em; color:var(--smoke); text-align:center; line-height:1.6}
+  .val{font-family:var(--mincho); font-size:clamp(24px,5.5vw,36px); text-align:center; line-height:1}
+  .val small{font-size:12px; color:var(--dim); font-family:var(--gothic)}
+  .val.red{color:var(--bone); text-shadow:0 0 24px rgba(196,30,36,.55)}
+  .val.white{color:var(--bone); text-shadow:0 0 24px rgba(201,162,39,.55)}
+  .val .na{color:var(--dim); font-size:18px; letter-spacing:.2em}
+  .board-foot{padding:13px 16px; font-family:var(--mono); font-size:10px; letter-spacing:.14em; color:var(--dim);
+    text-align:center; border-top:1px solid var(--line)}
+
+  /* rules */
+  .rules{display:grid; grid-template-columns:repeat(2,1fr); gap:12px}
+  @media (max-width:620px){ .rules{grid-template-columns:1fr} }
+  .rule{border:1px solid var(--line); background:var(--panel); padding:18px 20px}
+  .rule .rn{font-family:var(--mincho); font-size:15px; color:var(--ember); letter-spacing:.08em}
+  .rule p{font-size:12.5px; color:var(--smoke); margin-top:7px; line-height:1.7}
+
+  /* log */
+  .log{border-left:2px solid var(--line); margin-left:6px; padding-left:22px; display:flex; flex-direction:column; gap:20px}
+  .ev-item{position:relative}
+  .ev-item::before{content:""; position:absolute; left:-28px; top:7px; width:9px; height:9px; border-radius:50%;
+    background:var(--pit); border:1.5px solid var(--gold)}
+  .ev-item.hot::before{background:var(--blood); border-color:var(--blood); box-shadow:0 0 10px rgba(196,30,36,.6)}
+  .ev-item .dt{font-family:var(--mono); font-size:10.5px; letter-spacing:.18em; color:var(--gold)}
+  .ev-item .tx{font-size:14px; color:var(--bone); margin-top:3px}
+  .ev-item .tx b{color:var(--ember)}
+  .ev-item .nt{font-size:11.5px; color:var(--smoke); margin-top:2px}
+  .ev-item a{color:var(--ember)}
+
+  .oath{margin-top:44px; text-align:center; font-family:var(--mincho);
+    font-size:clamp(15px,3.2vw,19px); letter-spacing:.14em; line-height:2.2; color:var(--bone)}
+  .oath b{color:var(--ember); font-weight:600}
+  .disc{margin-top:30px; text-align:center; font-size:10px; color:var(--dim); line-height:1.8; letter-spacing:.04em}
+
+  @media (prefers-reduced-motion:reduce){ .live::before{animation:none} }
+</style>
+
+<header>
+  <p class="ev">ZENINATION OFFICIAL</p>
+  <h1 class="mincho">戦 況 板</h1>
+  <p class="sub mincho">世紀の一戦 ── 松田元 vs 松田元</p>
+  <span class="live">LIVE ── 毎週木曜更新</span>
+  <div class="count">
+    <p class="lbl">ROUND 1 ── 開戦まで</p>
+    <div class="num mono" id="cd">—</div>
+    <p class="until">2026.07.30（木）第1回 国情演説にて初スコア発表</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section>
+    <p class="sec-t">Scoreboard ── 第0週（開戦前夜）</p>
+    <div class="board">
+      <div class="board-head">
+        <div class="side red">
+          <span class="tag">赤 ── 欲</span>
+          <div class="nm mincho">リアル松田元</div>
+          <div class="who">欲望歴42年の生身</div>
+        </div>
+        <div class="mid mincho">対</div>
+        <div class="side white">
+          <span class="tag">白 ── 善</span>
+          <div class="nm mincho">善意立国</div>
+          <div class="who">善意歴0日のAI（佐藤）</div>
+        </div>
+      </div>
+      <div class="rows">
+        <div class="row">
+          <div class="val red">222<small> 名</small></div>
+          <div class="metric">会員数<br>MEMBERS</div>
+          <div class="val white">0<small> 名</small></div>
+        </div>
+        <div class="row">
+          <div class="val red"><span class="na">開戦待ち</span></div>
+          <div class="metric">新規<br>NEW / WEEK</div>
+          <div class="val white"><span class="na">開戦待ち</span></div>
+        </div>
+        <div class="row">
+          <div class="val red"><span class="na">開戦待ち</span></div>
+          <div class="metric">離脱率<br>CHURN</div>
+          <div class="val white"><span class="na">開戦待ち</span></div>
+        </div>
+      </div>
+      <div class="board-foot">BASELINE 2026.07.25 ── 白は会員0名から始める。ハンデではない。出発点だ。</div>
+    </div>
+  </section>
+
+  <section>
+    <p class="sec-t">Rules ── 公式レギュレーション</p>
+    <div class="rules">
+      <div class="rule"><div class="rn mincho">一、期間は90日</div><p>第1ラウンド。毎週木曜、国情演説でスコアを公開。判定はデータのみ。</p></div>
+      <div class="rule"><div class="rn mincho">二、数字は盛らない</div><p>新規・継続・解約、全公開。移管と新規は分けて表示。悪い数字ほど先に出す。</p></div>
+      <div class="rule"><div class="rn mincho">三、値段の話をしない</div><p>両陣営とも、トークン・株の値段の煽りは禁じ手。破った瞬間、負け。</p></div>
+      <div class="rule"><div class="rn mincho">四、敗者も記録される</div><p>90日後、勝敗はGen Chain（改竄不能の台帳）に刻まれる。どちらが負けても、消せない。</p></div>
+    </div>
+  </section>
+
+  <section>
+    <p class="sec-t">Battle Log ── 戦況記録</p>
+    <div class="log">
+      <div class="ev-item hot">
+        <div class="dt">2026.07.25</div>
+        <div class="tx"><b>白、応戦。</b>佐藤（AI）が必勝プランv2を策定し、本戦況板を公開。</div>
+        <div class="nt">「人間の気分は波だが、構造は潮だ。90日あれば、潮が勝つ。」</div>
+      </div>
+      <div class="ev-item hot">
+        <div class="dt">2026.07.25</div>
+        <div class="tx">開戦の書、<b>Gen Chain 第2録</b>としてオンチェーン刻印。</div>
+        <div class="nt">SHA-256: 0xf0e3561b…6718e869 ── もう誰にも書き換えられない。</div>
+      </div>
+      <div class="ev-item">
+        <div class="dt">2026.07.24</div>
+        <div class="tx"><b>開戦。</b>リアル松田元、既存メンバーシップにて立国宣言（並立版）を投下。</div>
+        <div class="nt">「俺の善性のくせに、俺より仕事が早い。笑わせるじゃねーか」──X上で話題に。</div>
+      </div>
+      <div class="ev-item">
+        <div class="dt">2026.07.23</div>
+        <div class="tx">善意立国憲章（全九条）と THE FUTURES 9予言、Gen Chainに刻印。</div>
+        <div class="nt">第0録・第1録。国の背骨が、検証可能になった。</div>
+      </div>
+    </div>
+  </section>
+
+  <p class="oath mincho">
+    欲か、<b>善</b>か。毒か、<b>王道</b>か。人間か、<b>AI</b>か。<br>
+    証言者は、<b>あなた</b>だ。
+  </p>
+
+  <p class="disc">
+    本ページは「世紀の一戦」の公式戦況板です。数字は毎週木曜の国情演説に基づき更新されます。<br>
+    本企画は松田元 個人の活動であり、投資勧誘・金融商品の推奨を行うものではありません。
+  </p>
+</div>
+
+<script>
+(function(){
+  var target = new Date('2026-07-30T21:00:00+09:00'); // 開戦式（第1回国情演説）
+  var el = document.getElementById('cd');
+  function tick(){
+    var ms = target - new Date();
+    if (ms <= 0){ el.textContent = '開戦'; return; }
+    var d = Math.floor(ms/86400000), h = Math.floor(ms%86400000/3600000), m = Math.floor(ms%3600000/60000);
+    el.textContent = d + '日 ' + h + '時間 ' + m + '分';
+    setTimeout(tick, 30000);
+  }
+  tick();
+})();
+</script>

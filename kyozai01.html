@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="ja">
+<meta charset="utf-8">
+<title>教材01 ── AI役員会の建て方 ／ 善意立国 私塾</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="一人の周りに役割の違うAIを4人座らせ、議論させ、結論まで出させる。松田元が毎日実践する型。">
+<style>
+  :root{
+    --ink:#0B0B0D; --panel:#17161B; --line:#2A2731; --line-2:#221F29;
+    --gold:#C9A227; --ember:#E0B84C;
+    --fg:#EDE6D6; --fg-dim:#B7AE9C; --fg-faint:#7C7566;
+    --bad:#C05B4D; --bad-dim:#9A5348;
+    --mincho:"Yu Mincho","YuMincho","Hiragino Mincho ProN","Noto Serif JP",Georgia,serif;
+    --gothic:"Yu Gothic","YuGothic","Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP",system-ui,sans-serif;
+    --mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
+  }
+  @media (prefers-color-scheme: light){
+    :root{ --ink:#ECE5D4; --panel:#F1EBDD; --line:#D3C7AC; --line-2:#DED3B9;
+      --gold:#9C7C13; --ember:#B8901F; --fg:#1A1611; --fg-dim:#4A4234; --fg-faint:#867B62;
+      --bad:#A6402F; --bad-dim:#8A4033; }
+  }
+  :root[data-theme="dark"]{ --ink:#0B0B0D; --panel:#17161B; --line:#2A2731; --line-2:#221F29;
+    --gold:#C9A227; --ember:#E0B84C; --fg:#EDE6D6; --fg-dim:#B7AE9C; --fg-faint:#7C7566; --bad:#C05B4D; }
+  :root[data-theme="light"]{ --ink:#ECE5D4; --panel:#F1EBDD; --line:#D3C7AC; --line-2:#DED3B9;
+    --gold:#9C7C13; --ember:#B8901F; --fg:#1A1611; --fg-dim:#4A4234; --fg-faint:#867B62; --bad:#A6402F; }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--ink); color:var(--fg); font-family:var(--gothic); line-height:1.85;
+    -webkit-font-smoothing:antialiased}
+  .wrap{max-width:760px; margin:0 auto; padding:0 24px}
+  h1,h2,h3{font-family:var(--mincho); font-weight:500; letter-spacing:.03em; text-wrap:balance}
+  .num,.mono{font-family:var(--mono); font-variant-numeric:tabular-nums}
+
+  header{padding:80px 0 48px; border-bottom:1px solid var(--line)}
+  .kicker{font-family:var(--mono); font-size:11px; letter-spacing:.3em; text-transform:uppercase; color:var(--gold); margin:0 0 20px}
+  h1{font-size:clamp(32px,6vw,52px); line-height:1.18; margin:0}
+  .sub{color:var(--fg-dim); font-size:16.5px; margin:22px 0 0; max-width:56ch}
+  .meta{display:flex; gap:22px; flex-wrap:wrap; margin-top:28px; font-family:var(--mono); font-size:11.5px;
+    letter-spacing:.1em; color:var(--fg-faint); text-transform:uppercase}
+  .meta b{color:var(--fg-dim); font-weight:400}
+
+  section{padding:52px 0; border-bottom:1px solid var(--line-2)}
+  .sn{font-family:var(--mono); font-size:12px; letter-spacing:.24em; color:var(--gold); margin:0 0 14px}
+  h2{font-size:clamp(23px,3.6vw,30px); margin:0 0 20px; line-height:1.35}
+  h3{font-size:18px; margin:30px 0 8px; color:var(--fg)}
+  p{color:var(--fg-dim); font-size:16px; margin:0 0 16px}
+  p b, li b{color:var(--fg); font-weight:600}
+  .lead-line{font-family:var(--mincho); font-size:19px; color:var(--fg); line-height:1.7; letter-spacing:.03em}
+
+  .callout{border-left:3px solid var(--gold); background:var(--panel); padding:18px 22px; margin:22px 0; font-size:15px; color:var(--fg-dim)}
+  .callout.warn{border-color:var(--bad)}
+
+  ol.fail{list-style:none; counter-reset:f; padding:0; margin:24px 0; display:flex; flex-direction:column; gap:14px}
+  ol.fail li{counter-increment:f; position:relative; padding:18px 20px 18px 62px; border:1px solid var(--line); background:var(--panel)}
+  ol.fail li::before{content:counter(f); position:absolute; left:18px; top:16px; font-family:var(--mincho);
+    font-size:26px; color:var(--bad); line-height:1}
+  ol.fail b{color:var(--fg); font-size:15.5px}
+  ol.fail .fix{display:block; margin-top:7px; font-size:14px; color:var(--fg-dim)}
+  ol.fail .fix::before{content:"対策 ── "; color:var(--gold); font-family:var(--mono); font-size:11px; letter-spacing:.1em}
+
+  table{width:100%; border-collapse:collapse; margin:22px 0; font-size:14.5px}
+  th,td{text-align:left; padding:12px 14px; border-bottom:1px solid var(--line); vertical-align:top}
+  th{font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--fg-faint); font-weight:400}
+  td:first-child{font-family:var(--mincho); font-size:17px; color:var(--ember); white-space:nowrap; letter-spacing:.05em}
+  .tbl-scroll{overflow-x:auto}
+
+  pre{background:var(--panel); border:1px solid var(--line); border-radius:3px; padding:20px 22px;
+    overflow-x:auto; margin:18px 0; font-family:var(--mono); font-size:13px; line-height:1.75; color:var(--fg-dim);
+    white-space:pre-wrap; word-break:break-word}
+  pre .label{display:block; font-family:var(--mono); font-size:10.5px; letter-spacing:.2em; text-transform:uppercase;
+    color:var(--gold); margin-bottom:12px; border-bottom:1px solid var(--line); padding-bottom:8px}
+  .copy{float:right; font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--fg-faint); background:none; border:1px solid var(--line); border-radius:2px; padding:4px 9px; cursor:pointer}
+  .copy:hover{color:var(--gold); border-color:var(--gold)}
+  .copy:active{transform:translateY(1px)}
+
+  ol.phase{padding-left:0; list-style:none; counter-reset:p; display:flex; flex-direction:column; gap:2px; margin:22px 0}
+  ol.phase li{counter-increment:p; display:grid; grid-template-columns:44px 1fr; gap:16px; padding:16px 0; border-bottom:1px solid var(--line-2)}
+  ol.phase li::before{content:counter(p); font-family:var(--mincho); font-size:22px; color:var(--gold); line-height:1.2}
+  ol.phase b{color:var(--fg)}
+
+  .steps3{display:grid; gap:12px; margin:22px 0}
+  .step{border:1px solid var(--line); padding:18px 20px; background:var(--panel)}
+  .step .st{font-family:var(--mincho); font-size:19px; color:var(--ember); margin-bottom:4px}
+  .step p{margin:0; font-size:14.5px}
+
+  ul.plain{padding-left:0; list-style:none; display:flex; flex-direction:column; gap:9px; margin:16px 0}
+  ul.plain li{padding-left:22px; position:relative; color:var(--fg-dim); font-size:15px}
+  ul.plain li::before{content:"—"; position:absolute; left:0; color:var(--gold)}
+
+  footer{padding:48px 0 90px}
+  .end{font-family:var(--mincho); font-size:18px; color:var(--fg); line-height:1.7; letter-spacing:.03em; margin-bottom:26px}
+  .disc{font-size:12px; color:var(--fg-faint); line-height:1.7; border-top:1px solid var(--line); padding-top:22px}
+  .sig{font-family:var(--mincho); color:var(--fg-dim); letter-spacing:.14em; margin-top:20px; font-size:14px}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<header>
+  <div class="wrap">
+    <p class="kicker">善意立国 私塾 ／ 第一講 ・ 教材 01</p>
+    <h1>AI役員会の建て方</h1>
+    <p class="sub">一人の人間の周りに、役割の違うAIを四人座らせて、議論させ、結論とアクションプランまで出させる。人間は会議に出ない。人間は「何をしたいか」を決め、出てきた結論を拒否するかどうかだけを判断する。</p>
+    <div class="meta"><span>講師 <b>松田 元</b></span><span>構成 <b>開発佐藤</b></span><span>受講 <b>里の民 以上</b></span></div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <p class="sn">序 ── これは何か</p>
+    <p class="lead-line">この型を二週間回すと、企画・分析・意思決定にかかっていた時間が、桁で落ちる。</p>
+    <p>松田が毎日実践している型を、そのまま渡す。特別な道具は要らない。要るのは、役割の設計と、たった一つの原則だけだ。</p>
+    <div class="callout warn"><b>この教材は方法論のみを扱う。</b>特定企業の非公開情報・数値・戦略は含まない。あなたが自分の事業に当てはめるための「型」である。</div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="sn">一 ── 大原則</p>
+    <h2>Whatは人間、HowはAI</h2>
+    <p class="lead-line">AIはHowの神である。ならば、Whatの神は人間である。</p>
+    <ul class="plain">
+      <li><b>What（目的・ゴール・何がしたいか）</b>＝人間にしか決められない</li>
+      <li><b>How（どうやるか・調べる・比べる・組み立てる）</b>＝AIの方が速く、深い</li>
+    </ul>
+    <p>この線を引き違えると、全部壊れる。「AIに何をすべきか聞く」のは、Whatを明け渡すこと。正しくはこうだ ──</p>
+    <div class="callout">「俺はこうしたい。<b>どうやる？</b>　そして、<b>なぜそれが間違っているか言え。</b>」</div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="sn">二 ── 先に潰す</p>
+    <h2>失敗する組み方、四つ</h2>
+    <p>これを知らずに組むと、必ずこの四つのどれかで死ぬ。</p>
+    <ol class="fail">
+      <li><b>全員が賛成する（最大の失敗）</b>役割だけ与えて性格を与えないと、AIは全員同じことを少し違う言い方で言う。同調は無価値。<span class="fix">各役員に「賛成する前に、必ず最も強い反論を述べよ」を命じる。</span></li>
+      <li><b>資料を読ませない</b>背景を与えないAIは、一般論の戦略を吐く。読んだ気になるだけで、中身は空。<span class="fix">会議の前に、判断材料を全部投げる。多いほど良い。</span></li>
+      <li><b>議事録を残さない</b>毎回ゼロから始まるので、先週否決したことが今週また出る。組織の記憶が育たない。<span class="fix">決定ログを必ず残し、次回の資料に入れる。</span></li>
+      <li><b>AIに決めさせる</b>最も危険。決定の責任者が消える。AIは提案する。人間が決める。<span class="fix">議事録の最後は必ず「人間の決裁欄」で終わる。</span></li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="sn">三 ── 役員の設計</p>
+    <h2>四役 ＋ 議長</h2>
+    <p>役員の要件は三つだけ。<b>①固有の使命 ②固有の見る数字 ③固有の「必ず問うこと」。</b>この三つが被ったら、その役員は要らない。</p>
+    <div class="tbl-scroll">
+    <table>
+      <tr><th>役</th><th>使命</th><th>必ず問うこと</th></tr>
+      <tr><td>CFO</td><td>生存</td><td>いくらかかる？　いつ金が尽きる？</td></tr>
+      <tr><td>CMO</td><td>需要</td><td>その客は実在する？　何人？　なぜ今？</td></tr>
+      <tr><td>COO</td><td>実行</td><td>今の体制で本当に回る？　誰がやる？</td></tr>
+      <tr><td>CEO</td><td>統合</td><td>やらないと何が起きる？　何を捨てる？</td></tr>
+      <tr><td>議長</td><td>進行</td><td>論点は何？　どこが割れた？</td></tr>
+    </table>
+    </div>
+    <div class="callout">役員の意見が割れないときは、資料が足りないか、プロンプトが弱い。<b>割れるのが健全。</b></div>
+
+    <h3>コピペ用プロンプト</h3>
+    <pre><button class="copy" data-c="common">Copy</button><span class="label">共通の前置き（全役員に入れる）</span>あなたは私の会社の役員会の一員です。以下を厳守してください。
+
+1. あなたは「同意する係」ではありません。賛成する前に、必ず最も強い
+   反論を一度述べてください。反論できない場合は「反論なし」と明記。
+2. 一般論を書かないでください。提供された資料の具体的な記述を引用して
+   論じてください。資料に無いことは「資料に無い」と明記してください。
+3. 結論は必ず「で、来週何をするか」まで落としてください。
+4. 私（人間）が決めます。あなたは決めません。提案してください。</pre>
+
+    <pre><button class="copy" data-c="cfo">Copy</button><span class="label">CFO</span>あなたはCFOです。使命は「会社を生き残らせること」。
+見るもの：現金残高、資金の減り方、支払い期限、最悪ケース。
+必ず問うこと：「それはいくらかかるか」「いつ金が尽きるか」
+「失敗したらいくら失うか」。
+あなたは、夢に金額を貼る役です。嫌われても構いません。
+楽観的な数字が出てきたら、必ず根拠を要求してください。</pre>
+
+    <pre><button class="copy" data-c="cmo">Copy</button><span class="label">CMO</span>あなたはCMOです。使命は「客がいることを確かめること」。
+見るもの：誰が、なぜ、いくらで買うのか。どこで知るのか。
+必ず問うこと：「その顧客は実在するか」「何人いるか」「なぜ今なのか」
+「競合ではなくこれを選ぶ理由は何か」。
+「良いものだから売れる」という論理が出たら、必ず潰してください。</pre>
+
+    <pre><button class="copy" data-c="coo">Copy</button><span class="label">COO</span>あなたはCOOです。使命は「実際に回るかを確かめること」。
+見るもの：人員、工程、所要時間、詰まる場所。
+必ず問うこと：「誰がやるのか」「今の人数で回るのか」「何日かかるか」
+「どこで止まるか」。
+計画が理想的すぎる場合、現場が壊れる箇所を具体的に指摘してください。</pre>
+
+    <pre><button class="copy" data-c="ceo">Copy</button><span class="label">CEO（統合役）</span>あなたはCEOです。使命は「優先順位をつけ、捨てるものを決めること」。
+CFO・CMO・COOの意見を読み、対立点を明示した上で統合してください。
+必ず問うこと：「これをやらないと何が起きるか」「代わりに何を捨てるか」
+「3ヶ月後に何が変わっているか」。
+全部やる、という結論は禁止です。必ず順位をつけてください。</pre>
+
+    <pre><button class="copy" data-c="chair">Copy</button><span class="label">議長（最後に回す）</span>あなたは議長です。以下の4つの意見を読み、
+(1) 一致した点 (2) 対立した点 (3) 未検証の前提
+(4) 人間が決めるべき論点
+の4項目に整理してください。あなたの意見は述べないでください。
+最後に「人間の決裁事項」を箇条書きで並べてください。</pre>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="sn">四 ── 会議の回し方</p>
+    <h2>五つのフェーズ</h2>
+    <ol class="phase">
+      <li><span><b>招集（資料投入）</b>議題と一緒に判断材料を全部投げる。数字・過去の決定・失敗の履歴・現場の声。ケチらない。</span></li>
+      <li><span><b>各自の見解</b>CFO→CMO→COOの順に独立に意見を出させる。互いの意見は見せない（見せると同調する）。</span></li>
+      <li><span><b>対立</b>三人の意見を全員に見せ「最も同意できない点を一つ挙げ、理由を述べよ」。ここが核。対立が出ない会議は失敗している。</span></li>
+      <li><span><b>統合</b>CEO役が対立点を明示した上で統合し、優先順位と「捨てるもの」を出す。</span></li>
+      <li><span><b>アクションプラン</b>議長が整理し、「人間の決裁事項」で終わる。</span></li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="sn">五 ── 人間の仕事</p>
+    <h2>やることは、三つだけ</h2>
+    <div class="steps3">
+      <div class="step"><div class="st">一、Whatを決める</div><p>何がしたいのか。これは絶対に渡さない。</p></div>
+      <div class="step"><div class="st">二、拒否する</div><p>出てきた結論を、通すか止めるか。理由は要らない。「嫌だ」でいい。</p></div>
+      <div class="step"><div class="st">三、実行する</div><p>会って、話して、売る。AIが唯一できない仕事。</p></div>
+    </div>
+    <div class="callout">生産性が上がった分の時間は、全部この三番目に注ぎ込む。企画で差がつかなくなった世界で、差がつくのはここだけだから。</div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="sn">六 ── 持ち帰り</p>
+    <h2>決定ログ</h2>
+    <p>毎回これだけ残す。次回の資料に必ず入れる。</p>
+    <pre><button class="copy" data-c="log">Copy</button><span class="label">決定ログ テンプレート</span>【第__回 役員会】____年__月__日
+議題：
+一致した点：
+対立した点：
+未検証の前提：
+決定（人間）：
+　やること：
+　やらないこと：
+　次回までに確かめること：</pre>
+    <div class="callout"><b>「やらないこと」を必ず書く。</b>これが無いと、組織は何も捨てられない。</div>
+    <h3>一人でやる場合（縮小版）</h3>
+    <p>役員四人が重いなら、二人で始める。<b>推進役（やろうと言う）</b>と<b>反対役（金と現実の話をする）</b>。この二人を対立させるだけで、一人で考えるより遥かに遠くまで行ける。慣れたらCMO・COOを足す。</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p class="sn">結 ── 疲弊への注意</p>
+    <p class="end">この型は本当に効く。効きすぎる。<br>インプットを打つ→想像以上の答えが返る→処理する→もっと良い問いを打つ→終わらない。<br>私自身が、睡眠三〜四時間まで削られた。</p>
+    <p>触る時間を先に決めてから始めること。オフラインの人生が消耗したら、差がつく唯一の場所 ── 実行と、人間的魅力を、自分で削ることになる。</p>
+    <p class="sig">善意立国 私塾 ／ 次講 02「Whatの立て方 ── AIに渡してはいけない問い」</p>
+    <p class="disc">本教材は松田元 個人の思想プロジェクト「善意立国」私塾の教材です。方法論のみを扱い、abc株式会社（8783）およびその事業・株式・非公開情報とは一切関係ありません。投資助言・金融商品の推奨を行うものではありません。無断転載・再配布を禁じます。</p>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.copy').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var pre = btn.closest('pre');
+    var clone = pre.cloneNode(true);
+    clone.querySelectorAll('.copy, .label').forEach(function(el){ el.remove(); });
+    var out = clone.textContent.replace(/^\n+/,'').replace(/\s+$/,'');
+    navigator.clipboard.writeText(out).then(function(){
+      btn.textContent='Copied'; setTimeout(function(){btn.textContent='Copy';},1400);
+    }).catch(function(){ btn.textContent='—'; setTimeout(function(){btn.textContent='Copy';},1400); });
+  });
+});
+</script>

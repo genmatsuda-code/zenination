@@ -1,0 +1,757 @@
+<!doctype html>
+<html lang="ja">
+<meta charset="utf-8">
+<meta charset="utf-8">
+<title>積善 ── 善意立国</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="積善之家、必有余慶。善行が社会資本として積み重なる。善意村から善意立国へ。">
+<style>
+  :root{
+    --ink:#0B0B0D; --ink-2:#141317; --panel:#17161B; --line:#2A2731;
+    --gold:#C9A227; --ember:#E0B84C; --ai:#3A4C5E;
+    --fg:#EDE6D6; --fg-dim:#B7AE9C; --fg-faint:#7C7566;
+    --washi:#ECE5D4;
+    --mincho:"Yu Mincho","YuMincho","Hiragino Mincho ProN","Hiragino Mincho Pro","Noto Serif JP",Georgia,serif;
+    --gothic:"Yu Gothic","YuGothic","Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP",system-ui,sans-serif;
+    --mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
+  }
+  @media (prefers-color-scheme: light){
+    :root{
+      --ink:#ECE5D4; --ink-2:#E4DBC6; --panel:#F1EBDD; --line:#D3C7AC;
+      --gold:#9C7C13; --ember:#B8901F; --ai:#5B6B7A;
+      --fg:#1A1611; --fg-dim:#4A4234; --fg-faint:#867B62; --washi:#ECE5D4;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#0B0B0D; --ink-2:#141317; --panel:#17161B; --line:#2A2731;
+    --gold:#C9A227; --ember:#E0B84C; --ai:#3A4C5E;
+    --fg:#EDE6D6; --fg-dim:#B7AE9C; --fg-faint:#7C7566;
+  }
+  :root[data-theme="light"]{
+    --ink:#ECE5D4; --ink-2:#E4DBC6; --panel:#F1EBDD; --line:#D3C7AC;
+    --gold:#9C7C13; --ember:#B8901F; --ai:#5B6B7A;
+    --fg:#1A1611; --fg-dim:#4A4234; --fg-faint:#867B62;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:var(--ink); color:var(--fg);
+    font-family:var(--gothic); line-height:1.8;
+    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
+  .wrap{max-width:1080px; margin:0 auto; padding:0 28px}
+  section{position:relative}
+  h1,h2,h3{font-family:var(--mincho); font-weight:500; letter-spacing:.04em; text-wrap:balance; margin:0}
+  .eyebrow{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.34em;
+    text-transform:uppercase; color:var(--gold); margin:0 0 18px;
+  }
+  .num{font-variant-numeric:tabular-nums; font-family:var(--mono)}
+
+  /* seal / vertical mark */
+  .seal{
+    position:fixed; top:0; right:max(14px,calc((100vw - 1080px)/2 - 6px)); z-index:5;
+    writing-mode:vertical-rl; font-family:var(--mincho); font-size:13px;
+    letter-spacing:.5em; color:var(--fg-faint); padding-top:26px; pointer-events:none;
+    height:100vh; display:flex; align-items:flex-start;
+  }
+  @media (max-width:1180px){ .seal{display:none} }
+
+  /* HERO */
+  .hero{min-height:100svh; display:flex; flex-direction:column; justify-content:center;
+    padding:96px 0 60px; position:relative}
+  #field{position:absolute; inset:0; width:100%; height:100%; z-index:0}
+  .hero .wrap{position:relative; z-index:1}
+  .hero-kanji{
+    font-family:var(--mincho); font-size:clamp(84px,20vw,240px); line-height:.9;
+    letter-spacing:.06em; margin:0; font-weight:500;
+    background:linear-gradient(176deg,var(--fg) 30%,var(--ember)); -webkit-background-clip:text;
+    background-clip:text; color:transparent;
+  }
+  .hero-sub{font-family:var(--mincho); font-size:clamp(17px,2.4vw,25px); color:var(--fg-dim);
+    margin:14px 0 0; letter-spacing:.08em}
+  .hero-lede{max-width:44ch; color:var(--fg-dim); font-size:16px; margin:30px 0 0}
+  .hero-lede b{color:var(--fg); font-weight:600}
+  .classic{color:var(--gold); font-family:var(--mincho); letter-spacing:.12em}
+
+  /* gauge */
+  .gauge{margin-top:46px; max-width:640px}
+  .gauge-top{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:10px}
+  .gauge-label{font-family:var(--mono); font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:var(--fg-faint)}
+  .gauge-count{font-family:var(--mincho); font-size:15px; color:var(--fg-dim)}
+  .gauge-count b{color:var(--ember)}
+  .track{height:2px; background:var(--line); position:relative; border-radius:2px}
+  .fill{position:absolute; left:0; top:0; height:100%; width:0;
+    background:linear-gradient(90deg,var(--gold),var(--ember)); border-radius:2px;
+    box-shadow:0 0 14px -2px var(--ember); transition:width 2.4s cubic-bezier(.2,.7,.2,1)}
+  .ticks{display:flex; justify-content:space-between; margin-top:12px}
+  .tick{font-family:var(--mono); font-size:12px; color:var(--fg-faint); position:relative}
+  .tick b{display:block; color:var(--fg); font-size:13px; font-family:var(--gothic); font-weight:600; letter-spacing:.06em}
+  .tick.gate b{color:var(--ember)}
+  .tick.gate::after{content:"しきい値"; position:absolute; top:-46px; left:50%; transform:translateX(-50%);
+    font-family:var(--mono); font-size:9.5px; letter-spacing:.2em; color:var(--gold); white-space:nowrap;
+    border:1px solid var(--gold); padding:2px 6px; border-radius:2px; opacity:.8}
+
+  /* generic section rhythm */
+  .band{padding:96px 0; border-top:1px solid var(--line)}
+  .band h2{font-size:clamp(28px,4.4vw,42px); line-height:1.25}
+  .lead{color:var(--fg-dim); max-width:56ch; font-size:16.5px; margin:18px 0 0}
+
+  /* three phases */
+  .phases{display:grid; grid-template-columns:repeat(3,1fr); gap:0; margin-top:54px; border:1px solid var(--line)}
+  .phase{padding:34px 26px; position:relative; border-right:1px solid var(--line)}
+  .phase:last-child{border-right:0}
+  .phase .ord{font-family:var(--mono); font-size:11px; letter-spacing:.2em; color:var(--fg-faint)}
+  .phase .nm{font-family:var(--mincho); font-size:26px; margin:14px 0 4px; letter-spacing:.06em}
+  .phase .rng{font-family:var(--mono); font-size:13px; color:var(--gold); letter-spacing:.05em}
+  .phase p{font-size:14.5px; color:var(--fg-dim); margin:16px 0 0; line-height:1.75}
+  .phase.on{background:linear-gradient(180deg,transparent,rgba(201,162,39,.05))}
+  .phase.on .nm{color:var(--ember)}
+  @media (max-width:760px){ .phases{grid-template-columns:1fr} .phase{border-right:0;border-bottom:1px solid var(--line)} .phase:last-child{border-bottom:0} }
+
+  /* how it accumulates — two column */
+  .two{display:grid; grid-template-columns:1.1fr .9fr; gap:56px; align-items:start; margin-top:50px}
+  @media (max-width:820px){ .two{grid-template-columns:1fr; gap:36px} }
+  .flow{display:flex; flex-direction:column; gap:2px}
+  .flow-row{display:grid; grid-template-columns:auto 1fr; gap:20px; padding:20px 0; border-bottom:1px solid var(--line)}
+  .flow-row:last-child{border-bottom:0}
+  .flow-k{font-family:var(--mincho); font-size:19px; color:var(--gold); white-space:nowrap; padding-top:2px; letter-spacing:.08em}
+  .flow-t b{font-family:var(--gothic); font-weight:600; color:var(--fg); display:block; margin-bottom:4px; font-size:15px}
+  .flow-t span{color:var(--fg-dim); font-size:14px}
+  .aside{border:1px solid var(--line); background:var(--panel); padding:30px 28px}
+  .aside .q{font-family:var(--mincho); font-size:20px; line-height:1.7; color:var(--fg); letter-spacing:.04em}
+  .aside .a{color:var(--fg-dim); font-size:14.5px; margin-top:18px}
+  .aside .cite{font-family:var(--mono); font-size:11px; color:var(--fg-faint); letter-spacing:.14em; margin-top:22px; text-transform:uppercase}
+
+  /* ranks + genealogy */
+  .rank-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:50px}
+  @media (max-width:820px){ .rank-grid{grid-template-columns:1fr} }
+  .rank{border:1px solid var(--line); padding:26px 24px; background:var(--panel); position:relative; overflow:hidden}
+  .rank::before{content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--gold); opacity:.55}
+  .rank .dan{font-family:var(--mono); font-size:11px; letter-spacing:.2em; color:var(--fg-faint); text-transform:uppercase}
+  .rank .rn{font-family:var(--mincho); font-size:23px; margin:10px 0 2px; letter-spacing:.06em}
+  .rank .en{font-family:var(--mono); font-size:11.5px; color:var(--gold); letter-spacing:.1em; text-transform:uppercase}
+  .rank .cond{font-size:13.5px; color:var(--fg-dim); margin-top:14px; line-height:1.7}
+  .rank .cond em{color:var(--fg); font-style:normal; font-weight:600}
+
+  /* genealogy canvas panel */
+  .lineage{margin-top:56px; border:1px solid var(--line); background:var(--panel); padding:0; overflow:hidden}
+  .lineage-head{display:flex; justify-content:space-between; align-items:center; padding:20px 26px; border-bottom:1px solid var(--line); flex-wrap:wrap; gap:10px}
+  .lineage-head .t{font-family:var(--mincho); font-size:18px; letter-spacing:.06em}
+  .lineage-head .d{font-family:var(--mono); font-size:11px; color:var(--fg-faint); letter-spacing:.14em; text-transform:uppercase}
+  #tree{display:block; width:100%; height:300px}
+
+  /* ladder — distance to the teacher */
+  .ladder{margin-top:50px; display:flex; flex-direction:column}
+  .rung{display:grid; grid-template-columns:120px 1fr auto; gap:24px; align-items:center;
+    padding:24px 0; border-bottom:1px solid var(--line)}
+  .rung:first-child{border-top:1px solid var(--line)}
+  .rung .cnt{font-family:var(--mincho); font-size:30px; color:var(--ember); letter-spacing:.02em}
+  .rung .cnt span{font-size:14px; color:var(--fg-faint); font-family:var(--gothic)}
+  .rung .rw b{font-family:var(--gothic); font-weight:600; font-size:16px; display:block; margin-bottom:3px}
+  .rung .rw span{color:var(--fg-dim); font-size:14px}
+  .rung .dist{font-family:var(--mono); font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--fg-faint); text-align:right; white-space:nowrap}
+  @media (max-width:680px){ .rung{grid-template-columns:84px 1fr; gap:16px} .rung .dist{display:none} }
+
+  /* holders CTA */
+  .holder{background:var(--ink-2); border-top:1px solid var(--line)}
+  .holder .wrap{padding:104px 28px}
+  .holder h2{font-size:clamp(26px,4vw,38px)}
+  .pill{display:inline-block; font-family:var(--mono); font-size:11px; letter-spacing:.2em; text-transform:uppercase;
+    color:var(--gold); border:1px solid var(--gold); padding:5px 12px; border-radius:2px; margin-bottom:24px}
+  .manifest{font-family:var(--mincho); font-size:clamp(20px,3.2vw,30px); line-height:1.7; letter-spacing:.04em;
+    max-width:22ch; margin:0 0 28px}
+  .manifest .g{color:var(--ember)}
+  .holder p{color:var(--fg-dim); max-width:52ch; font-size:15.5px}
+
+  footer{border-top:1px solid var(--line); padding:44px 0 64px}
+  footer .wrap{display:flex; justify-content:space-between; gap:24px; flex-wrap:wrap; align-items:flex-end}
+  .disc{font-size:11.5px; color:var(--fg-faint); max-width:60ch; line-height:1.7; font-family:var(--gothic)}
+  .mk{font-family:var(--mincho); font-size:15px; color:var(--fg-dim); letter-spacing:.14em}
+
+  /* two-axis lattice */
+  .lattice{margin-top:44px; display:grid; grid-template-columns:auto 1fr; gap:14px}
+  .lat-y{writing-mode:vertical-rl; text-orientation:upright; font-family:var(--mincho); font-size:13px;
+    letter-spacing:.28em; color:var(--gold); display:flex; align-items:center; justify-content:center}
+  .lat-grid{display:grid; grid-template-columns:repeat(3,1fr); border:1px solid var(--line)}
+  .cell{padding:18px 14px; border-right:1px solid var(--line); border-bottom:1px solid var(--line);
+    min-height:94px; display:flex; flex-direction:column; justify-content:center; gap:5px}
+  .cell:nth-child(3n){border-right:0}
+  .cell:nth-child(n+7){border-bottom:0}
+  .cell .cn{font-family:var(--mincho); font-size:17px; letter-spacing:.05em}
+  .cell .cd{font-size:11.5px; color:var(--fg-faint); line-height:1.55}
+  .cell.peak{background:linear-gradient(140deg,rgba(201,162,39,.16),transparent)}
+  .cell.peak .cn{color:var(--ember)}
+  .cell.dead{opacity:.6}
+  .cell.dead .cn{color:var(--fg-faint)}
+  .lat-x{grid-column:2; text-align:center; font-family:var(--mincho); font-size:13px; letter-spacing:.28em; color:var(--gold)}
+  @media (max-width:680px){ .lattice{grid-template-columns:1fr}
+    .lat-y{writing-mode:horizontal-tb; justify-content:flex-start}
+    .lat-x{grid-column:1} .cell{min-height:76px; padding:13px 10px} .cell .cn{font-size:15px} }
+
+  /* dan ladder */
+  .dan-list{margin-top:44px; border-top:1px solid var(--line)}
+  .dan-row{display:grid; grid-template-columns:158px 1fr; gap:22px; padding:17px 0;
+    border-bottom:1px solid var(--line); align-items:baseline}
+  .dan-row .dn{font-family:var(--mincho); font-size:20px; letter-spacing:.06em}
+  .dan-row .dn small{display:block; font-family:var(--mono); font-size:10.5px; letter-spacing:.16em;
+    color:var(--fg-faint); margin-top:5px}
+  .dan-row .dc{font-size:14px; color:var(--fg-dim)}
+  .dan-row .dc em{font-style:normal; color:var(--fg); font-weight:600}
+  @media (max-width:680px){ .dan-row{grid-template-columns:1fr; gap:6px} }
+
+  /* permanent titles */
+  .titles{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:38px}
+  .title-c{border:1px solid var(--gold); padding:20px; background:linear-gradient(160deg,rgba(201,162,39,.07),transparent)}
+  .title-c .tn{font-family:var(--mincho); font-size:19px; letter-spacing:.06em; color:var(--ember)}
+  .title-c p{font-size:13px; color:var(--fg-dim); margin:8px 0 0}
+  @media (max-width:680px){ .titles{grid-template-columns:1fr} }
+
+  /* yokei reflux */
+  .yokei{display:grid; grid-template-columns:repeat(3,1fr); margin-top:44px; border:1px solid var(--line)}
+  .yk{padding:26px 20px; border-right:1px solid var(--line); text-align:center}
+  .yk:last-child{border-right:0}
+  .yk .gen{font-family:var(--mono); font-size:11px; letter-spacing:.2em; color:var(--fg-faint)}
+  .yk .pct{font-family:var(--mincho); font-size:38px; color:var(--ember); margin:10px 0 2px; line-height:1}
+  .yk .lb{font-size:13px; color:var(--fg-dim)}
+  @media (max-width:680px){ .yokei{grid-template-columns:1fr}
+    .yk{border-right:0;border-bottom:1px solid var(--line)} .yk:last-child{border-bottom:0} }
+  .guard{margin-top:26px; border-left:3px solid var(--gold); padding:16px 20px; background:var(--panel);
+    font-size:14px; color:var(--fg-dim)}
+  .guard b{color:var(--fg)}
+
+  /* benefit ladder */
+  .ben{margin-top:44px; border-top:1px solid var(--line)}
+  .ben-row{display:grid; grid-template-columns:150px 1fr; gap:22px; padding:18px 0;
+    border-bottom:1px solid var(--line); align-items:baseline}
+  .ben-row .bn{font-family:var(--mincho); font-size:18px; letter-spacing:.06em; color:var(--ember)}
+  .ben-row .bd{font-size:14.5px; color:var(--fg-dim)}
+  .ben-row .bd b{color:var(--fg); font-weight:600}
+  @media (max-width:680px){ .ben-row{grid-template-columns:1fr; gap:5px} }
+
+  /* kpi tiles */
+  .kpi{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:42px}
+  .tile{border:1px solid var(--line); background:var(--panel); padding:22px 20px}
+  .tile .kl{font-family:var(--mono); font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--fg-faint)}
+  .tile .kv{font-family:var(--mincho); font-size:34px; color:var(--fg); margin:13px 0 3px; line-height:1;
+    font-variant-numeric:tabular-nums}
+  .tile .kv .u{font-size:13px; color:var(--fg-faint); font-family:var(--gothic); margin-left:5px}
+  .tile .ks{font-size:12px; color:var(--fg-dim)}
+  .tile.accent .kv{color:var(--ember)}
+  @media (max-width:820px){ .kpi{grid-template-columns:repeat(2,1fr)} }
+  @media (max-width:460px){ .kpi{grid-template-columns:1fr} }
+  .note-small{margin-top:22px; font-size:12px; color:var(--fg-faint); line-height:1.75;
+    border-left:2px solid var(--line); padding-left:14px}
+
+  /* chronicle */
+  .chronicle{margin-top:44px; position:relative; padding-left:26px}
+  .chronicle::before{content:""; position:absolute; left:5px; top:8px; bottom:8px; width:1px; background:var(--line)}
+  .entry{position:relative; padding:0 0 26px}
+  .entry::before{content:""; position:absolute; left:-25px; top:9px; width:9px; height:9px; border-radius:50%;
+    background:var(--ink); border:1.5px solid var(--gold)}
+  .entry.done::before{background:var(--gold); box-shadow:0 0 10px -1px var(--ember)}
+  .entry .dt{font-family:var(--mono); font-size:11.5px; letter-spacing:.16em; color:var(--gold)}
+  .entry .ev{font-family:var(--mincho); font-size:18px; margin:5px 0 3px; letter-spacing:.04em}
+  .entry .nt{font-size:13.5px; color:var(--fg-dim)}
+  .entry.pending::before{border-color:var(--line)}
+  .entry.pending .dt{color:var(--fg-faint)}
+  .entry.pending .ev{color:var(--fg-dim)}
+  .entry .hash{display:block; margin-top:12px; font-family:var(--mono); font-size:10.5px; letter-spacing:.08em;
+    color:var(--gold); word-break:break-all; line-height:1.7; opacity:.85}
+
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important; animation:none!important}
+    html{scroll-behavior:auto}
+  }
+</style>
+
+<div class="seal">積善之家 必有餘慶</div>
+
+<section class="hero">
+  <canvas id="field" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <p class="eyebrow">善意立国 ── 建国のティザー</p>
+    <h1 class="hero-kanji">積善</h1>
+    <p class="hero-sub">善行は、消えない。社会資本として積み重なる。</p>
+    <p class="hero-lede">
+      一人の善き行いが、証（あかし）として刻まれる。<b>刻まれた分だけ</b>、
+      国の資本になり、<b>扉が開く</b>──席が、場が、人とのつながりが。
+      <span class="classic">積善の家に、必ず余慶あり。</span>
+    </p>
+
+    <div class="gauge" id="gauge">
+      <div class="gauge-top">
+        <span class="gauge-label">建国の射程</span>
+        <span class="gauge-count"><b class="num" id="live">0</b> ／ <span class="num">10,000</span> 名</span>
+      </div>
+      <div class="track"><div class="fill" id="fill"></div></div>
+      <div class="ticks">
+        <span class="tick"><b class="num">500</b>創設</span>
+        <span class="tick"><b class="num">2,000</b>コミュニティ</span>
+        <span class="tick gate"><b class="num">10,000</b>立国</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <p class="eyebrow">三つの相 ── the arc</p>
+    <h2>村から、国へ。<br>広がりには、順序がある。</h2>
+    <p class="lead">
+      いきなり国はつくらない。まず小さく確かな<b style="color:var(--fg)">村</b>を建て、
+      その民が次を招く。10,000名を超えたとき、広がりは自走する。ここがしきい値。
+    </p>
+    <div class="phases">
+      <div class="phase on">
+        <span class="ord">相 ⅰ</span>
+        <div class="nm">善意村</div>
+        <div class="rng num">1 – 500</div>
+        <p>創設の民。国の精神を、まず身体で示す人たち。数ではなく、密度でつくる核。</p>
+      </div>
+      <div class="phase">
+        <span class="ord">相 ⅱ</span>
+        <div class="nm">善意コミュニティ</div>
+        <div class="rng num">500 – 2,000</div>
+        <p>創設の民が、それぞれ数名を招く。招かれた民が定着し、次を招く核になる。</p>
+      </div>
+      <div class="phase">
+        <span class="ord">相 ⅲ</span>
+        <div class="nm">善意立国</div>
+        <div class="rng num">2,000 – 10,000</div>
+        <p>系譜が系譜を生む。10,000名を超えれば、もう広がりは止められない。建国。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <p class="eyebrow">積善の仕組み ── good deeds become capital</p>
+    <h2>善行が、社会資本に変わる。</h2>
+    <div class="two">
+      <div class="flow">
+        <div class="flow-row"><div class="flow-k">行</div><div class="flow-t"><b>善き行いをする</b><span>誰かを助け、支え、渡す。日々の、名もなき善。</span></div></div>
+        <div class="flow-row"><div class="flow-k">証</div><div class="flow-t"><b>証として刻まれる</b><span>譲れない・売れない証。刻まれた分だけ、その人の徳になる。</span></div></div>
+        <div class="flow-row"><div class="flow-k">積</div><div class="flow-t"><b>社会資本として積み上がる</b><span>個人の証が集まり、村の、国の資本になる。可視化される。</span></div></div>
+        <div class="flow-row"><div class="flow-k">継</div><div class="flow-t"><b>系譜として継がれる</b><span>誰が誰を招いたか。善は、系譜となって次代へ渡る。</span></div></div>
+        <div class="flow-row"><div class="flow-k">慶</div><div class="flow-t"><b>余慶として還ってくる</b><span>積んだ善は、めぐって還る。師との距離が縮み、内側の輪が開く。</span></div></div>
+      </div>
+      <div class="aside">
+        <p class="q">「金では買えない。<br>善行と、人を招いた系譜でしか、位は上がらない。」</p>
+        <p class="a">位階は金で買えない。これが善意資本主義の芯だ。傭兵は金で去る。信じる者は、意味で残る。だから、この国は意味で建てる。</p>
+        <p class="cite">善意資本主義 憲章より</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <p class="eyebrow">位階と系譜 ── ranks &amp; lineage</p>
+    <h2>位は、二軸で決まる。<br>徳と、縁。</h2>
+    <p class="lead">
+      招いた数だけで昇る国は、いずれ壊れる。善行だけの国は、広がらない。だから位は
+      <b style="color:var(--fg)">徳（善行・継続）</b>と<b style="color:var(--fg)">縁（推挙・系譜）</b>の二軸で決まる。
+      片方だけでは、途中で止まる。
+    </p>
+
+    <div class="lattice">
+      <div class="lat-y">徳</div>
+      <div class="lat-grid">
+        <div class="cell"><span class="cn">隠者</span><span class="cd">徳は高いが、伝えない</span></div>
+        <div class="cell"><span class="cn">長老</span><span class="cd">憲章の番人</span></div>
+        <div class="cell peak"><span class="cn">国士</span><span class="cd">徳も縁も極まる ── 真の位</span></div>
+        <div class="cell"><span class="cn">積善民</span><span class="cd">善を積み始めた民</span></div>
+        <div class="cell"><span class="cn">善士</span><span class="cd">三名を推挙し、定着させた</span></div>
+        <div class="cell"><span class="cn">里長</span><span class="cd">家を興し、根を張る</span></div>
+        <div class="cell"><span class="cn">新民</span><span class="cd">入村したばかり</span></div>
+        <div class="cell"><span class="cn">里の民</span><span class="cd">最初の善行を刻んだ</span></div>
+        <div class="cell dead"><span class="cn">顔役 ✕</span><span class="cd">人は集めたが徳が無い ── ここで頭打ち</span></div>
+      </div>
+      <div class="lat-x">縁 →</div>
+    </div>
+
+    <div class="dan-list">
+      <div class="dan-row"><div class="dn">新民<small>SHIN-MIN</small></div><div class="dc">入村の儀を受けた者。<em>まず、一つの善を為す。</em></div></div>
+      <div class="dan-row"><div class="dn">里の民<small>SATO-NO-TAMI</small></div><div class="dc">善行三・三ヶ月の継続。<em>週次の演説で、名を呼ばれる。</em></div></div>
+      <div class="dan-row"><div class="dn">積善民<small>SEKIZEN-MIN</small></div><div class="dc">徳が可視化され、一名を推挙した者。<em>推挙状が増配される。</em></div></div>
+      <div class="dan-row"><div class="dn">善士<small>ZEN-SHI</small></div><div class="dc">三名以上を推挙し、その民が定着。<em>私塾の門が開く。</em></div></div>
+      <div class="dan-row"><div class="dn">里長<small>SATO-OSA</small></div><div class="dc">高い徳と、根を張った系譜。<em>家の開祖として、余慶が還り始める。</em></div></div>
+      <div class="dan-row"><div class="dn">長老<small>CHORO</small></div><div class="dc">憲章の徳を体現する者。<em>調停し、内側の輪に座る。</em></div></div>
+      <div class="dan-row"><div class="dn">国士<small>KOKUSHI</small></div><div class="dc">最上位。<em>国のかたちを、共に描く声を持つ。</em></div></div>
+    </div>
+
+    <div class="titles">
+      <div class="title-c"><div class="tn">創設市民</div><p>#001–500。建国と同時に刻まれた最初の500名。<b style="color:var(--fg)">500で永遠に締まる</b>——後から誰も入れない。</p></div>
+      <div class="title-c"><div class="tn">開祖</div><p>自らを起点とする「家」を興した者。系譜が育つほど、余慶が還る。</p></div>
+      <div class="title-c"><div class="tn">殿堂</div><p>国史に名が刻まれた特別の功。週次の演説で叙される。</p></div>
+    </div>
+
+    <div class="lineage">
+      <div class="lineage-head">
+        <span class="t">系譜 ── 誰が、誰を招いたか</span>
+        <span class="d">apostolic succession</span>
+      </div>
+      <canvas id="tree" aria-label="紹介の系譜図。創設市民から枝分かれして民が招かれていく様子。"></canvas>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <p class="eyebrow">余慶の還流 ── the house of accumulated good</p>
+    <h2>積善の家に、<br>必ず余慶あり。</h2>
+    <p class="lead">
+      これは飾りの言葉ではなく、この国の仕組みそのもの。あなたが招いた民、その民が招いた民──
+      あなたを起点とする系譜を<b style="color:var(--fg)">「家」</b>と呼ぶ。
+      家の民が積んだ善は、<b style="color:var(--fg)">徳となって開祖に還る。</b>
+    </p>
+
+    <div class="yokei">
+      <div class="yk"><div class="gen">子 ／ 直接の推挙</div><div class="pct num">30<span style="font-size:18px">%</span></div><div class="lb">その善が、あなたの徳に映る</div></div>
+      <div class="yk"><div class="gen">孫 ／ 子が招いた民</div><div class="pct num">10<span style="font-size:18px">%</span></div><div class="lb">二代先からも、還ってくる</div></div>
+      <div class="yk"><div class="gen">曾孫 ／ 三代目</div><div class="pct num">3<span style="font-size:18px">%</span></div><div class="lb">三代まで、余慶は届く</div></div>
+    </div>
+
+    <div class="guard">
+      <b>還流には上限がある。</b> 余慶から得られる徳は、その人の位階のうち
+      <b>最大49%まで</b>。半分以上は必ず、自分自身の善行でなければならない。
+      ── だからこの国では、<b>「多く招く」より「善い人を招き、善く育てる」が最も報われる。</b>
+      数を追うだけの者は、決して上に行けない。
+    </div>
+    <p class="lead" style="margin-top:26px">
+      還るのは<b style="color:var(--fg)">徳であって、金ではない。</b>
+      吸い上げる構造（下から金が昇る）ではなく、映し返す構造（下の善が上の徳に映る）。
+      これが、この国が他のどんなコミュニティとも違う一点。
+    </p>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <p class="eyebrow">利 ── what your rank actually opens</p>
+    <h2>徳は、扉を開ける。</h2>
+    <p class="lead">
+      この国の位は、飾りではありません。位が上がるたびに、<b style="color:var(--fg)">実際に使える扉</b>が開きます。
+      配当や利回りではなく、<b style="color:var(--fg)">体験と場へのアクセス</b>として。
+    </p>
+
+    <div class="ben">
+      <div class="ben-row"><div class="bn">新民</div><div class="bd"><b>証の刻印がはじまる</b>／思考ログ（書かれなかった草稿）／月次の課題図書</div></div>
+      <div class="ben-row"><div class="bn">里の民</div><div class="bd"><b>AI経営の「型」を丸ごと受け取る</b> ── 役員会をAIで組み、生産性を跳ね上げる実装手順／あなた自身の予言を刻む権利</div></div>
+      <div class="ben-row"><div class="bn">積善民</div><div class="bd"><b>縁結びの対象になる</b> ── 「この二人は会うべきだ」と名指しで引き合わされる</div></div>
+      <div class="ben-row"><div class="bn">善士</div><div class="bd"><b>私塾に、生で座る</b>／<b>登場権・共著</b> ── あなたの名が、読者の前に出る</div></div>
+      <div class="ben-row"><div class="bn">里長</div><div class="bd"><b>私塾で問いを立てる権利</b>／あなたの言葉への添削</div></div>
+      <div class="ben-row"><div class="bn">長老</div><div class="bd"><b>個別指導（一対一）</b>／憲章の共創 ── 国のかたちを起草する</div></div>
+      <div class="ben-row"><div class="bn">国士</div><div class="bd"><b>個別会食・評議の座</b> ── 膝を突き合わせて、国を決める</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <p class="eyebrow">刻印 ── the seal that cannot be rewritten</p>
+    <h2>証は、書き換えられない。</h2>
+    <p class="lead">
+      善行も、系譜も、あなた自身の予言も。すべて<b style="color:var(--fg)">SHA-256で刻印し、日付とともに公開</b>します。
+      値段はつかない。売ることもできない。<b style="color:var(--fg)">だからこそ、信用になる。</b>
+    </p>
+
+    <div class="flow" style="margin-top:44px">
+      <div class="flow-row"><div class="flow-k">行</div><div class="flow-t"><b>善いことをする</b><span>誰かを助け、支え、渡す。日々の、名もなき善。</span></div></div>
+      <div class="flow-row"><div class="flow-k">認</div><div class="flow-t"><b>第三者が確認する</b><span>自己申告は記録しない。誰かの「ありがとう」が付いて、初めて認められる。</span></div></div>
+      <div class="flow-row"><div class="flow-k">刻</div><div class="flow-t"><b>刻印される</b><span>日付とハッシュで固定。後から誰も、書き換えられない。</span></div></div>
+      <div class="flow-row"><div class="flow-k">継</div><div class="flow-t"><b>系譜として継がれる</b><span>誰が誰を招いたか。あなたの「家」が伸びていく。</span></div></div>
+      <div class="flow-row"><div class="flow-k">開</div><div class="flow-t"><b>位が上がり、扉が開く</b><span>積んだ証が、そのまま次の扉の鍵になる。</span></div></div>
+    </div>
+
+    <div class="guard">
+      <b>あなた自身の予言も、刻めます。</b>
+      日付を切り、反証できる形で言い切って、ハッシュで固定する。
+      的中すれば、国史に残る。外せば、それも残る。
+      ── <b>言いっぱなしが許されない場所</b>で、言葉は初めて力を持ちます。
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <p class="eyebrow">経済圏の記録 ── published weekly</p>
+    <h2>数字は、毎週そのまま出す。</h2>
+    <p class="lead">
+      良い数字も、悪い数字も。改竄できない場所に記録して、週次の国情演説で公開します。
+      隠さないことが、この国の唯一の担保です。
+    </p>
+
+    <div class="kpi">
+      <div class="tile accent"><div class="kl">市民数</div><div class="kv">―<span class="u">名</span></div><div class="ks">第1回 国情演説より公開</div></div>
+      <div class="tile"><div class="kl">刻まれた善行</div><div class="kv">―<span class="u">件</span></div><div class="ks">第三者の確認を経たものだけ</div></div>
+      <div class="tile"><div class="kl">系譜の深さ</div><div class="kv">―<span class="u">代</span></div><div class="ks">招かれた民が、招いた世代の数</div></div>
+      <div class="tile"><div class="kl">離国率</div><div class="kv">―<span class="u">%</span></div><div class="ks">去った人の数も、隠さず出す</div></div>
+    </div>
+
+    <p class="note-small">
+      これらは<b>この場の活動の記録</b>です。金銭的な利益・利回り・投資収益を示すものでも、約束するものでもありません。
+      証は譲渡・換金できず、金融商品ではありません。扉（特典）の内容は、運営の判断で変わることがあります。
+    </p>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <p class="eyebrow">儀 ── the rites of the nation</p>
+    <h2>国には、儀式がある。</h2>
+    <p class="lead">毎週、国は自らの姿を語る。人は名を呼ばれて迎えられ、位は人前で叙される。記録されない善は、無かったことになる。だから、記す。</p>
+
+    <div class="flow" style="margin-top:44px">
+      <div class="flow-row"><div class="flow-k">推挙</div><div class="flow-t"><b>推挙状を渡す</b><span>リンクは撒かない。人を見込んで、推挙状を一枚渡す。枠は有限で、位が上がるほど増える。</span></div></div>
+      <div class="flow-row"><div class="flow-k">入村</div><div class="flow-t"><b>入村の儀</b><span>新しい民は、週次の演説で名を呼ばれて迎えられる。推挙した者も、共に讃えられる。</span></div></div>
+      <div class="flow-row"><div class="flow-k">叙任</div><div class="flow-t"><b>叙任式</b><span>位が上がる時は、人前で叙される。承認は、公開されて初めて力になる。</span></div></div>
+      <div class="flow-row"><div class="flow-k">国情</div><div class="flow-t"><b>週次 国情演説</b><span>市民数・新しい善士・系譜の深さ・離国率。良い数字も悪い数字も、そのまま語る。</span></div></div>
+    </div>
+
+    <div class="guard" style="margin-top:34px">
+      <b>役 ── 語り部（かたりべ）。</b>
+      善士以上から選ばれ、公開の叙任を受けた3〜5名。<b>民の声を集めて束ね、国の日々を語り継ぐ</b>。
+      一人の声では、国は10,000名に届かない。だから、声を分け持つ。
+      ── ただし語り部は<b>自分の名で書く</b>。誰かに成り代わることはしない。二つの別の声が、同じ国を語る。
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <p class="eyebrow">建国日誌 ── the chronicle</p>
+    <h2>世界で初めて、<br>国が建つ過程が、記録される。</h2>
+    <p class="lead">
+      いつ、誰が、何を。すべて日付とともに刻み、公開する。改竄できない記録の上に建てるから、
+      <b style="color:var(--fg)">後から「作り話だった」と言わせない。</b>これが、この国が"世界初の事例"であることの、唯一の証明方法。
+    </p>
+
+    <div class="chronicle">
+      <div class="entry done">
+        <div class="dt">第 零 日 ／ 2026.07.17</div>
+        <div class="ev">憲章が制定された</div>
+        <div class="nt">全九条＋前文。そのSHA-256を刻印し、公開した。以後この本文は一文字も動かせない。国の背骨が、確かめられるものになった日。
+          <span class="hash">SHA-256 &nbsp;1690e986 3ef46605 9a7ee512 e9386f6a 06f8c7bc 75492ca4 6b618553 da3a1d55</span></div>
+      </div>
+      <div class="entry done">
+        <div class="dt">2026.07.23</div>
+        <div class="ev">憲章が、オンチェーンに刻まれた</div>
+        <div class="nt">Optimism本番網に、松田元 個人の主権台帳「Gen Chain」が建ち、その第0録として憲章が刻まれた。
+          日付も内容も、もはや誰にも──発起人自身にも──書き換えられない。
+          <span class="hash">Gen Chain（OP Mainnet）&nbsp;<a href="https://optimistic.etherscan.io/address/0xcB343365000c8aC95B9b6C74A5c7ABDF54436D49" target="_blank" rel="noopener" style="color:inherit">0xcB343365000c8aC95B9b6C74A5c7ABDF54436D49</a><br>
+          deploy tx&nbsp;<a href="https://optimistic.etherscan.io/tx/0xc66e89e0d222dc8e3088ed7d4f736f059f719783368dcf565368ba447fa15987" target="_blank" rel="noopener" style="color:inherit">0xc66e89e0…7fa15987</a>&nbsp;／&nbsp;block 154,598,743</span></div>
+      </div>
+      <div class="entry pending">
+        <div class="dt">来 ── 第一号</div>
+        <div class="ev">最初の市民が刻まれる</div>
+        <div class="nt">#001。この国で最初に証を受け取る人。名は、永遠に一番上に残る。</div>
+      </div>
+      <div class="entry pending">
+        <div class="dt">来 ── 創設の締切</div>
+        <div class="ev">創設市民、500名で締まる</div>
+        <div class="nt">この日を過ぎたら、誰一人として創設市民にはなれない。</div>
+      </div>
+      <div class="entry pending">
+        <div class="dt">来 ── 最初の家</div>
+        <div class="ev">最初の善士が生まれ、家が興る</div>
+        <div class="nt">三名を推挙し定着させた最初の民。余慶の還流が、初めて動き出す。</div>
+      </div>
+      <div class="entry pending">
+        <div class="dt">来 ── 三代</div>
+        <div class="ev">系譜が三代に達する</div>
+        <div class="nt">招いた民が、招いた民を招いた。国が自走を始めた証。</div>
+      </div>
+      <div class="entry pending">
+        <div class="dt">来 ── しきい値</div>
+        <div class="ev">10,000名 ── 建国</div>
+        <div class="nt">ここを越えれば、広がりはもう止まらない。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <p class="eyebrow">師弟の距離 ── the reward is nearness</p>
+    <h2>招いた数だけ、<br>師との距離が縮む。</h2>
+    <p class="lead">報酬は、金ではない。人を招き、善を積むほど、教える者との距離が縮まっていく。内側の輪から、膝を突き合わせる一対一へ。</p>
+
+    <div class="ladder">
+      <div class="rung">
+        <div class="cnt num">3<span>名</span></div>
+        <div class="rw"><b>内側の輪</b><span>限定の場に迎えられる。買えない円卓の、末席から。</span></div>
+        <div class="dist">距離 ── 円卓</div>
+      </div>
+      <div class="rung">
+        <div class="cnt num">7<span>名</span></div>
+        <div class="rw"><b>私塾（月次の講）</b><span>月に一度、直に説く場へ。問いを持ち寄り、思想を練る。</span></div>
+        <div class="dist">距離 ── 講堂</div>
+      </div>
+      <div class="rung">
+        <div class="cnt num">12<span>名</span></div>
+        <div class="rw"><b>個別指導</b><span>一対一の指南。あなたの道を、名指しで照らす。</span></div>
+        <div class="dist">距離 ── 対面</div>
+      </div>
+      <div class="rung">
+        <div class="cnt num">20<span>名</span></div>
+        <div class="rw"><b>個別会食</b><span>膝を突き合わせて。師と、一人の民として。</span></div>
+        <div class="dist">距離 ── 膝下</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="holder">
+  <div class="wrap">
+    <span class="pill">これを読んでいる、あなたへ</span>
+    <p class="manifest">あなたの善は、<span class="g">消えない証</span>になる。<br>そして、国の資本になる。</p>
+    <p>
+      善いことをして、第三者に確認され、刻まれる。刻まれた分だけ、あなたの徳が積み上がり、
+      系譜として次代へ継がれていく。金でつながる国ではなく、善でつながる国を、あなたと建てます。
+      最初の500名は「創設市民」と呼ばれ、<b style="color:var(--fg)">500名で永久に締め切ります。</b>
+      ― 建国は、まもなく。
+    </p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="disc">
+      本ページは善意立国構想のティザー（構想の告知）です。数値・位階・扉の内容はすべて構想段階の設計であり、
+      確定した約束ではありません。証（刻印）は譲渡・換金できず、金融商品・有価証券ではなく、
+      金銭的な利益や投資収益を約束するものではありません。
+      本構想は<b>松田元 個人の思想プロジェクト</b>であり、abc株式会社（8783）およびその事業・サービス・株式、
+      ならびに同社が関与するトークンとは<b>一切関係ありません</b>。
+      また、本構想は投資助言・金融商品の推奨を行うものではありません。
+    </div>
+    <div class="mk">積善 ／ 善意立国</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- hero field: accumulating points of good, linked by lineage ---- */
+  var cv = document.getElementById('field'), cx = cv.getContext('2d'), W,H,DPR;
+  var pts = [], MAX = 150;
+  function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+  function resize(){
+    DPR = Math.min(devicePixelRatio||1, 2);
+    W = cv.clientWidth; H = cv.clientHeight;
+    cv.width = W*DPR; cv.height = H*DPR; cx.setTransform(DPR,0,0,DPR,0,0);
+  }
+  function seed(){
+    pts = [];
+    for(var i=0;i<MAX;i++){
+      pts.push({
+        x: Math.random()*W, y: Math.random()*H,
+        r: Math.random()*1.4+0.5,
+        born: reduce ? 0 : Math.random(),   // 0..1 birth threshold
+        tw: Math.random()*Math.PI*2,
+        parent: i>3 ? (Math.random()*i|0) : -1
+      });
+    }
+  }
+  var t0=null;
+  function frame(ts){
+    if(t0==null) t0=ts;
+    var prog = reduce ? 1 : Math.min((ts-t0)/9000, 1); // fill over 9s
+    var gold = css('--gold'), ember = css('--ember');
+    cx.clearRect(0,0,W,H);
+    // lineage lines (drawn faint) for born points
+    cx.lineWidth = 0.6;
+    for(var i=0;i<pts.length;i++){
+      var p=pts[i]; if(p.born>prog) continue;
+      if(p.parent>=0){
+        var q=pts[p.parent]; if(q.born>prog) continue;
+        var a = 0.10*(1-Math.abs(p.x-q.x)/W);
+        cx.strokeStyle = gold; cx.globalAlpha = Math.max(0.03,a);
+        cx.beginPath(); cx.moveTo(p.x,p.y); cx.lineTo(q.x,q.y); cx.stroke();
+      }
+    }
+    cx.globalAlpha=1;
+    // points
+    for(var j=0;j<pts.length;j++){
+      var pt=pts[j]; if(pt.born>prog) continue;
+      var age = (prog-pt.born); var appear=Math.min(age*6,1);
+      var tw = reduce?0.85:(0.6+0.4*Math.sin(ts/900+pt.tw));
+      cx.globalAlpha = appear*tw*0.9;
+      cx.fillStyle = j%9===0 ? ember : gold;
+      cx.beginPath(); cx.arc(pt.x,pt.y,pt.r*(0.6+appear*0.4),0,6.283); cx.fill();
+      if(j%9===0){ cx.globalAlpha=appear*0.18; cx.beginPath(); cx.arc(pt.x,pt.y,pt.r*4,0,6.283); cx.fill(); }
+    }
+    cx.globalAlpha=1;
+    if(!reduce) requestAnimationFrame(frame);
+  }
+  function boot(){ resize(); seed(); requestAnimationFrame(frame); }
+  addEventListener('resize', function(){ resize(); seed(); if(reduce){ t0=null; requestAnimationFrame(frame);} });
+  boot();
+
+  /* ---- gauge fill + live count (roadmap aspiration, not live membership) ---- */
+  var fill=document.getElementById('fill'), live=document.getElementById('live');
+  var target=500; // creation phase target shown as the near horizon
+  function runGauge(){
+    fill.style.width = (target/10000*100)+'%';
+    var n=0, step=Math.max(1,Math.round(target/60));
+    var iv=setInterval(function(){
+      n+=step; if(n>=target){ n=target; clearInterval(iv); }
+      live.textContent = n.toLocaleString('en-US');
+    }, 28);
+  }
+  var seen=false;
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting && !seen){ seen=true; runGauge(); } });
+  },{threshold:.4});
+  io.observe(document.getElementById('gauge'));
+
+  /* ---- lineage tree canvas ---- */
+  var tc=document.getElementById('tree'), tx=tc.getContext('2d'), TW,TH;
+  function tResize(){
+    var d=Math.min(devicePixelRatio||1,2);
+    TW=tc.clientWidth; TH=tc.clientHeight;
+    tc.width=TW*d; tc.height=TH*d; tx.setTransform(d,0,0,d,0,0);
+  }
+  function drawTree(prog){
+    var gold=css('--gold'), ember=css('--ember'), dim=css('--fg-faint'), fg=css('--fg');
+    tx.clearRect(0,0,TW,TH);
+    var rootX=54, rootY=TH/2;
+    // deterministic-ish layout: 1 founder -> 3 apostles -> each 2-3 citizens
+    var cols=[[{x:rootX,y:rootY,r:6,lbl:'#007',c:ember}]];
+    var mid=[], midN=3;
+    for(var a=0;a<midN;a++){ mid.push({x:TW*0.42, y:TH*(0.2+0.3*a), r:4.5, c:gold, lbl:'#'+(140+a*11)}); }
+    cols.push(mid);
+    var leaf=[]; var lx=TW*0.80;
+    mid.forEach(function(m,mi){
+      var k=2+(mi%2);
+      for(var c=0;c<k;c++){ leaf.push({x:lx+(c%2)*18, y:m.y-14+c*16, r:3, c:gold, lbl:'', from:m}); }
+    });
+    cols.push(leaf);
+    // edges
+    tx.lineWidth=1;
+    function edge(p,q,al){ tx.strokeStyle=gold; tx.globalAlpha=al; tx.beginPath(); tx.moveTo(p.x,p.y);
+      var mx=(p.x+q.x)/2; tx.bezierCurveTo(mx,p.y,mx,q.y,q.x,q.y); tx.stroke(); }
+    mid.forEach(function(m,i){ if(prog>0.15) edge(cols[0][0],m,0.5); });
+    leaf.forEach(function(l){ if(prog>0.5) edge(l.from,l,0.32); });
+    tx.globalAlpha=1;
+    // nodes
+    function node(n){ tx.fillStyle=n.c; tx.beginPath(); tx.arc(n.x,n.y,n.r,0,6.283); tx.fill();
+      if(n.lbl){ tx.fillStyle=dim; tx.font='11px SFMono-Regular,Consolas,monospace'; tx.textBaseline='middle';
+        tx.fillText(n.lbl, n.x+ (n.x<TW/2? -34: 10), n.y - (n.x<TW/2?0:0)); } }
+    node(cols[0][0]);
+    if(prog>0.15) mid.forEach(node);
+    if(prog>0.5) leaf.forEach(node);
+  }
+  var tSeen=false, tStart=null;
+  function tAnim(ts){ if(tStart==null)tStart=ts; var p=reduce?1:Math.min((ts-tStart)/1400,1);
+    drawTree(p); if(!reduce && p<1) requestAnimationFrame(tAnim); }
+  var tio=new IntersectionObserver(function(es){ es.forEach(function(e){
+    if(e.isIntersecting && !tSeen){ tSeen=true; tResize(); requestAnimationFrame(tAnim); } }); },{threshold:.3});
+  tio.observe(tc);
+  addEventListener('resize', function(){ if(tSeen){ tResize(); drawTree(1); } });
+})();
+</script>
