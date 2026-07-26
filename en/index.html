@@ -1,11 +1,10 @@
 <!doctype html>
-<html lang="ja">
+<html lang="en">
 <meta charset="utf-8">
 <meta charset="utf-8">
-<title>積善 ── 善意立国</title>
+<title>SEKIZEN ── The Goodwill Nation</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="積善之家、必有余慶。善行が社会資本として積み重なる。善意村から善意立国へ。">
-<script>(function(){try{if(/[?&]lang=ja(&|$)/.test(location.search)){sessionStorage.setItem('zn_ja','1');return;}if(sessionStorage.getItem('zn_ja'))return;var l=(navigator.language||navigator.userLanguage||'').toLowerCase();if(l&&l.slice(0,2)!=='ja'){var f=location.pathname.split('/').pop()||'index.html';location.replace('en/'+f+location.hash);}}catch(e){}})();</script>
+<meta name="description" content="A house that accumulates good is sure to have blessings to spare. Good deeds compound as social capital. From a Goodwill Village to a Goodwill Nation.">
 <style>
   :root{
     --ink:#0B0B0D; --ink-2:#141317; --panel:#17161B; --line:#2A2731;
@@ -90,7 +89,7 @@
   .tick{font-family:var(--mono); font-size:12px; color:var(--fg-faint); position:relative}
   .tick b{display:block; color:var(--fg); font-size:13px; font-family:var(--gothic); font-weight:600; letter-spacing:.06em}
   .tick.gate b{color:var(--ember)}
-  .tick.gate::after{content:"しきい値"; position:absolute; top:-46px; left:50%; transform:translateX(-50%);
+  .tick.gate::after{content:"threshold"; position:absolute; top:-46px; left:50%; transform:translateX(-50%);
     font-family:var(--mono); font-size:9.5px; letter-spacing:.2em; color:var(--gold); white-space:nowrap;
     border:1px solid var(--gold); padding:2px 6px; border-radius:2px; opacity:.8}
 
@@ -267,32 +266,33 @@
   }
 </style>
 
-<a href="en/index.html" title="Read in English" style="position:fixed;top:12px;left:12px;z-index:9;font-family:'SFMono-Regular',Consolas,monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#C9A227;text-decoration:none;border:1px solid #C9A227;padding:4px 10px;border-radius:2px;background:rgba(11,11,13,.4);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)">English&nbsp;→</a>
+<a href="../index.html?lang=ja" title="日本語で読む" style="position:fixed;top:12px;left:12px;z-index:9;font-family:'SFMono-Regular',Consolas,monospace;font-size:10.5px;letter-spacing:.16em;color:#C9A227;text-decoration:none;border:1px solid #C9A227;padding:4px 10px;border-radius:2px;background:rgba(11,11,13,.4);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)">←&nbsp;日本語</a>
 
 <div class="seal">積善之家 必有餘慶</div>
 
 <section class="hero">
   <canvas id="field" aria-hidden="true"></canvas>
   <div class="wrap">
-    <p class="eyebrow">善意立国 ── 建国のティザー</p>
+    <p class="eyebrow">The Goodwill Nation ── a founding teaser</p>
     <h1 class="hero-kanji">積善</h1>
-    <p class="hero-sub">善行は、消えない。社会資本として積み重なる。</p>
+    <p class="hero-sub">Good does not vanish. It compounds as social capital.</p>
     <p class="hero-lede">
-      一人の善き行いが、証（あかし）として刻まれる。<b>刻まれた分だけ</b>、
-      国の資本になり、<b>扉が開く</b>──席が、場が、人とのつながりが。
-      <span class="classic">積善の家に、必ず余慶あり。</span>
+      One person's good deed is inscribed as a proof — an unforgeable record.
+      <b>For every deed inscribed</b>, the nation gains capital, and <b>a door opens</b> —
+      a seat, a room, a tie to another person. 積善 (SEKIZEN, accumulated good).
+      <span class="classic">A house that accumulates good is sure to have blessings to spare.</span>
     </p>
 
     <div class="gauge" id="gauge">
       <div class="gauge-top">
-        <span class="gauge-label">建国の射程</span>
-        <span class="gauge-count"><b class="num" id="live">0</b> ／ <span class="num">10,000</span> 名</span>
+        <span class="gauge-label">Range of the founding</span>
+        <span class="gauge-count"><b class="num" id="live">0</b> ／ <span class="num">10,000</span> citizens</span>
       </div>
       <div class="track"><div class="fill" id="fill"></div></div>
       <div class="ticks">
-        <span class="tick"><b class="num">500</b>創設</span>
-        <span class="tick"><b class="num">2,000</b>コミュニティ</span>
-        <span class="tick gate"><b class="num">10,000</b>立国</span>
+        <span class="tick"><b class="num">500</b>Founding</span>
+        <span class="tick"><b class="num">2,000</b>Community</span>
+        <span class="tick gate"><b class="num">10,000</b>Nation</span>
       </div>
     </div>
   </div>
@@ -300,30 +300,30 @@
 
 <section class="band">
   <div class="wrap">
-    <p class="eyebrow">三つの相 ── the arc</p>
-    <h2>村から、国へ。<br>広がりには、順序がある。</h2>
+    <p class="eyebrow">The three phases ── the arc</p>
+    <h2>From a village, to a nation.<br>Growth follows an order.</h2>
     <p class="lead">
-      いきなり国はつくらない。まず小さく確かな<b style="color:var(--fg)">村</b>を建て、
-      その民が次を招く。10,000名を超えたとき、広がりは自走する。ここがしきい値。
+      We do not raise a nation overnight. First we build a small, certain <b style="color:var(--fg)">village</b>,
+      and its people call the next. Once we pass 10,000, the growth carries itself. This is the threshold.
     </p>
     <div class="phases">
       <div class="phase on">
-        <span class="ord">相 ⅰ</span>
-        <div class="nm">善意村</div>
+        <span class="ord">Phase ⅰ</span>
+        <div class="nm">Goodwill Village</div>
         <div class="rng num">1 – 500</div>
-        <p>創設の民。国の精神を、まず身体で示す人たち。数ではなく、密度でつくる核。</p>
+        <p>The founding people. The first to prove the nation's spirit not in words, but in the flesh. A core built not on numbers, but on density.</p>
       </div>
       <div class="phase">
-        <span class="ord">相 ⅱ</span>
-        <div class="nm">善意コミュニティ</div>
+        <span class="ord">Phase ⅱ</span>
+        <div class="nm">Goodwill Community</div>
         <div class="rng num">500 – 2,000</div>
-        <p>創設の民が、それぞれ数名を招く。招かれた民が定着し、次を招く核になる。</p>
+        <p>Each of the founding people invites a few of their own. The invited take root and become cores who invite the next.</p>
       </div>
       <div class="phase">
-        <span class="ord">相 ⅲ</span>
-        <div class="nm">善意立国</div>
+        <span class="ord">Phase ⅲ</span>
+        <div class="nm">The Goodwill Nation</div>
         <div class="rng num">2,000 – 10,000</div>
-        <p>系譜が系譜を生む。10,000名を超えれば、もう広がりは止められない。建国。</p>
+        <p>Lineage begets lineage. Once we pass 10,000, the growth can no longer be stopped. The founding.</p>
       </div>
     </div>
   </div>
@@ -331,20 +331,20 @@
 
 <section class="band">
   <div class="wrap">
-    <p class="eyebrow">積善の仕組み ── good deeds become capital</p>
-    <h2>善行が、社会資本に変わる。</h2>
+    <p class="eyebrow">How it accumulates ── good deeds become capital</p>
+    <h2>A good deed turns into social capital.</h2>
     <div class="two">
       <div class="flow">
-        <div class="flow-row"><div class="flow-k">行</div><div class="flow-t"><b>善き行いをする</b><span>誰かを助け、支え、渡す。日々の、名もなき善。</span></div></div>
-        <div class="flow-row"><div class="flow-k">証</div><div class="flow-t"><b>証として刻まれる</b><span>譲れない・売れない証。刻まれた分だけ、その人の徳になる。</span></div></div>
-        <div class="flow-row"><div class="flow-k">積</div><div class="flow-t"><b>社会資本として積み上がる</b><span>個人の証が集まり、村の、国の資本になる。可視化される。</span></div></div>
-        <div class="flow-row"><div class="flow-k">継</div><div class="flow-t"><b>系譜として継がれる</b><span>誰が誰を招いたか。善は、系譜となって次代へ渡る。</span></div></div>
-        <div class="flow-row"><div class="flow-k">慶</div><div class="flow-t"><b>余慶として還ってくる</b><span>積んだ善は、めぐって還る。師との距離が縮み、内側の輪が開く。</span></div></div>
+        <div class="flow-row"><div class="flow-k">Do</div><div class="flow-t"><b>Do a good deed</b><span>Help someone, carry them, pass it on. The daily, nameless good.</span></div></div>
+        <div class="flow-row"><div class="flow-k">Proof</div><div class="flow-t"><b>It is inscribed as a proof</b><span>A proof that cannot be traded or sold. For every deed inscribed, it becomes that person's merit.</span></div></div>
+        <div class="flow-row"><div class="flow-k">Amass</div><div class="flow-t"><b>It amasses as social capital</b><span>Individual proofs gather into the capital of the village, of the nation. Made visible.</span></div></div>
+        <div class="flow-row"><div class="flow-k">Pass</div><div class="flow-t"><b>It is passed on as lineage</b><span>Who invited whom. Good becomes a lineage and is handed to the next generation.</span></div></div>
+        <div class="flow-row"><div class="flow-k">Bless</div><div class="flow-t"><b>It returns as surplus blessing</b><span>The good you accumulate circles back. The distance to the teacher narrows; the inner circle opens.</span></div></div>
       </div>
       <div class="aside">
-        <p class="q">「金では買えない。<br>善行と、人を招いた系譜でしか、位は上がらない。」</p>
-        <p class="a">位階は金で買えない。これが善意資本主義の芯だ。傭兵は金で去る。信じる者は、意味で残る。だから、この国は意味で建てる。</p>
-        <p class="cite">善意資本主義 憲章より</p>
+        <p class="q">"It cannot be bought with money.<br>Only through good deeds and the lineage of those you invited does your rank rise."</p>
+        <p class="a">Rank cannot be bought with money. This is the marrow of Goodwill Capitalism. Mercenaries leave for money. Believers remain for meaning. So this nation is built on meaning.</p>
+        <p class="cite">From the Charter of Goodwill Capitalism</p>
       </div>
     </div>
   </div>
@@ -352,226 +352,226 @@
 
 <section class="band">
   <div class="wrap">
-    <p class="eyebrow">位階と系譜 ── ranks &amp; lineage</p>
-    <h2>位は、二軸で決まる。<br>徳と、縁。</h2>
+    <p class="eyebrow">Ranks &amp; lineage</p>
+    <h2>Rank is set on two axes.<br>Merit, and ties.</h2>
     <p class="lead">
-      招いた数だけで昇る国は、いずれ壊れる。善行だけの国は、広がらない。だから位は
-      <b style="color:var(--fg)">徳（善行・継続）</b>と<b style="color:var(--fg)">縁（推挙・系譜）</b>の二軸で決まる。
-      片方だけでは、途中で止まる。
+      A nation that rises by invitation count alone will eventually break. A nation of good deeds alone will not spread. So rank is set on two axes:
+      <b style="color:var(--fg)">merit (good deeds, sustained)</b> and <b style="color:var(--fg)">ties (endorsement, lineage)</b>.
+      With only one, you stall partway.
     </p>
 
     <div class="lattice">
-      <div class="lat-y">徳</div>
+      <div class="lat-y">MERIT</div>
       <div class="lat-grid">
-        <div class="cell"><span class="cn">隠者</span><span class="cd">徳は高いが、伝えない</span></div>
-        <div class="cell"><span class="cn">長老</span><span class="cd">憲章の番人</span></div>
-        <div class="cell peak"><span class="cn">国士</span><span class="cd">徳も縁も極まる ── 真の位</span></div>
-        <div class="cell"><span class="cn">積善民</span><span class="cd">善を積み始めた民</span></div>
-        <div class="cell"><span class="cn">善士</span><span class="cd">三名を推挙し、定着させた</span></div>
-        <div class="cell"><span class="cn">里長</span><span class="cd">家を興し、根を張る</span></div>
-        <div class="cell"><span class="cn">新民</span><span class="cd">入村したばかり</span></div>
-        <div class="cell"><span class="cn">里の民</span><span class="cd">最初の善行を刻んだ</span></div>
-        <div class="cell dead"><span class="cn">顔役 ✕</span><span class="cd">人は集めたが徳が無い ── ここで頭打ち</span></div>
+        <div class="cell"><span class="cn">Hermit</span><span class="cd">High in merit, but passes nothing on</span></div>
+        <div class="cell"><span class="cn">Elder</span><span class="cd">Guardian of the Charter</span></div>
+        <div class="cell peak"><span class="cn">Statesman</span><span class="cd">Merit and ties both at their peak ── the true rank</span></div>
+        <div class="cell"><span class="cn">Merit-Bearer</span><span class="cd">A citizen who has begun to accumulate good</span></div>
+        <div class="cell"><span class="cn">Steward</span><span class="cd">Endorsed three, and they took root</span></div>
+        <div class="cell"><span class="cn">Village Head</span><span class="cd">Founded a House, put down roots</span></div>
+        <div class="cell"><span class="cn">New Citizen</span><span class="cd">Just entered the village</span></div>
+        <div class="cell"><span class="cn">Villager</span><span class="cd">Inscribed a first good deed</span></div>
+        <div class="cell dead"><span class="cn">Fixer/Boss ✕</span><span class="cd">Gathered people but has no merit ── capped out here</span></div>
       </div>
-      <div class="lat-x">縁 →</div>
+      <div class="lat-x">TIES →</div>
     </div>
 
     <div class="dan-list">
-      <div class="dan-row"><div class="dn">新民<small>SHIN-MIN</small></div><div class="dc">入村の儀を受けた者。<em>まず、一つの善を為す。</em></div></div>
-      <div class="dan-row"><div class="dn">里の民<small>SATO-NO-TAMI</small></div><div class="dc">善行三・三ヶ月の継続。<em>週次の演説で、名を呼ばれる。</em></div></div>
-      <div class="dan-row"><div class="dn">積善民<small>SEKIZEN-MIN</small></div><div class="dc">徳が可視化され、一名を推挙した者。<em>推挙状が増配される。</em></div></div>
-      <div class="dan-row"><div class="dn">善士<small>ZEN-SHI</small></div><div class="dc">三名以上を推挙し、その民が定着。<em>私塾の門が開く。</em></div></div>
-      <div class="dan-row"><div class="dn">里長<small>SATO-OSA</small></div><div class="dc">高い徳と、根を張った系譜。<em>家の開祖として、余慶が還り始める。</em></div></div>
-      <div class="dan-row"><div class="dn">長老<small>CHORO</small></div><div class="dc">憲章の徳を体現する者。<em>調停し、内側の輪に座る。</em></div></div>
-      <div class="dan-row"><div class="dn">国士<small>KOKUSHI</small></div><div class="dc">最上位。<em>国のかたちを、共に描く声を持つ。</em></div></div>
+      <div class="dan-row"><div class="dn">New Citizen<small>SHIN-MIN</small></div><div class="dc">One who has received the rite of entry. <em>First, do a single good.</em></div></div>
+      <div class="dan-row"><div class="dn">Villager<small>SATO-NO-TAMI</small></div><div class="dc">Three good deeds, sustained over three months. <em>Named aloud in the weekly address.</em></div></div>
+      <div class="dan-row"><div class="dn">Merit-Bearer<small>SEKIZEN-MIN</small></div><div class="dc">One whose merit is made visible, and who has endorsed one. <em>Endorsement grants increase.</em></div></div>
+      <div class="dan-row"><div class="dn">Steward<small>ZEN-SHI</small></div><div class="dc">Endorsed three or more, and they took root. <em>The door of the private school opens.</em></div></div>
+      <div class="dan-row"><div class="dn">Village Head<small>SATO-OSA</small></div><div class="dc">High merit, and a lineage that has rooted. <em>As Founder of a House, surplus blessing begins to return.</em></div></div>
+      <div class="dan-row"><div class="dn">Elder<small>CHORO</small></div><div class="dc">One who embodies the merit of the Charter. <em>Mediates, and sits in the inner circle.</em></div></div>
+      <div class="dan-row"><div class="dn">Statesman<small>KOKUSHI</small></div><div class="dc">The highest rank. <em>Holds a voice in shaping the nation itself.</em></div></div>
     </div>
 
     <div class="titles">
-      <div class="title-c"><div class="tn">創設市民</div><p>#001–500。建国と同時に刻まれた最初の500名。<b style="color:var(--fg)">500で永遠に締まる</b>——後から誰も入れない。</p></div>
-      <div class="title-c"><div class="tn">開祖</div><p>自らを起点とする「家」を興した者。系譜が育つほど、余慶が還る。</p></div>
-      <div class="title-c"><div class="tn">殿堂</div><p>国史に名が刻まれた特別の功。週次の演説で叙される。</p></div>
+      <div class="title-c"><div class="tn">Founding Citizens</div><p>#001–500. The first 500 inscribed at the moment of the founding. <b style="color:var(--fg)">Sealed forever at 500</b> — no one may enter afterward.</p></div>
+      <div class="title-c"><div class="tn">Founder of a House</div><p>One who raised a "House" with themselves as its origin. The more the lineage grows, the more surplus blessing returns.</p></div>
+      <div class="title-c"><div class="tn">Hall of Honor</div><p>A singular merit whose name is inscribed in the nation's history. Conferred in the weekly address.</p></div>
     </div>
 
     <div class="lineage">
       <div class="lineage-head">
-        <span class="t">系譜 ── 誰が、誰を招いたか</span>
+        <span class="t">Lineage ── who invited whom</span>
         <span class="d">apostolic succession</span>
       </div>
-      <canvas id="tree" aria-label="紹介の系譜図。創設市民から枝分かれして民が招かれていく様子。"></canvas>
+      <canvas id="tree" aria-label="A lineage tree of invitations. From the Founding Citizens, branches spread as citizens are invited one after another."></canvas>
     </div>
   </div>
 </section>
 
 <section class="band">
   <div class="wrap">
-    <p class="eyebrow">余慶の還流 ── the house of accumulated good</p>
-    <h2>積善の家に、<br>必ず余慶あり。</h2>
+    <p class="eyebrow">The reflux of surplus blessing ── the house of accumulated good</p>
+    <h2>A house that accumulates good<br>is sure to have blessings to spare.</h2>
     <p class="lead">
-      これは飾りの言葉ではなく、この国の仕組みそのもの。あなたが招いた民、その民が招いた民──
-      あなたを起点とする系譜を<b style="color:var(--fg)">「家」</b>と呼ぶ。
-      家の民が積んだ善は、<b style="color:var(--fg)">徳となって開祖に還る。</b>
+      This is not an ornament of words — it is the very mechanism of this nation. The citizens you invited, and the citizens they invited —
+      the lineage that begins with you is called a <b style="color:var(--fg)">"House."</b>
+      The good your House's citizens accumulate <b style="color:var(--fg)">returns to its Founder as merit.</b>
     </p>
 
     <div class="yokei">
-      <div class="yk"><div class="gen">子 ／ 直接の推挙</div><div class="pct num">30<span style="font-size:18px">%</span></div><div class="lb">その善が、あなたの徳に映る</div></div>
-      <div class="yk"><div class="gen">孫 ／ 子が招いた民</div><div class="pct num">10<span style="font-size:18px">%</span></div><div class="lb">二代先からも、還ってくる</div></div>
-      <div class="yk"><div class="gen">曾孫 ／ 三代目</div><div class="pct num">3<span style="font-size:18px">%</span></div><div class="lb">三代まで、余慶は届く</div></div>
+      <div class="yk"><div class="gen">Child ／ direct endorsement</div><div class="pct num">30<span style="font-size:18px">%</span></div><div class="lb">Their good reflects into your merit</div></div>
+      <div class="yk"><div class="gen">Grandchild ／ invited by your child</div><div class="pct num">10<span style="font-size:18px">%</span></div><div class="lb">It returns from two generations down</div></div>
+      <div class="yk"><div class="gen">Great-grandchild ／ third generation</div><div class="pct num">3<span style="font-size:18px">%</span></div><div class="lb">Surplus blessing reaches to the third generation</div></div>
     </div>
 
     <div class="guard">
-      <b>還流には上限がある。</b> 余慶から得られる徳は、その人の位階のうち
-      <b>最大49%まで</b>。半分以上は必ず、自分自身の善行でなければならない。
-      ── だからこの国では、<b>「多く招く」より「善い人を招き、善く育てる」が最も報われる。</b>
-      数を追うだけの者は、決して上に行けない。
+      <b>The reflux has a ceiling.</b> Merit gained from surplus blessing may be at most
+      <b>49% of a person's rank.</b> More than half must always come from one's own good deeds.
+      ── So in this nation, <b>"invite the good and raise them well" is rewarded more than "invite many."</b>
+      Those who chase numbers alone can never rise.
     </div>
     <p class="lead" style="margin-top:26px">
-      還るのは<b style="color:var(--fg)">徳であって、金ではない。</b>
-      吸い上げる構造（下から金が昇る）ではなく、映し返す構造（下の善が上の徳に映る）。
-      これが、この国が他のどんなコミュニティとも違う一点。
+      What returns is <b style="color:var(--fg)">merit, not money.</b>
+      Not a structure that siphons upward (money rising from below), but one that reflects back (the good below reflected into the merit above).
+      This is the single point on which this nation differs from every other community.
     </p>
   </div>
 </section>
 
 <section class="band">
   <div class="wrap">
-    <p class="eyebrow">利 ── what your rank actually opens</p>
-    <h2>徳は、扉を開ける。</h2>
+    <p class="eyebrow">Benefit ── what your rank actually opens</p>
+    <h2>Merit opens doors.</h2>
     <p class="lead">
-      この国の位は、飾りではありません。位が上がるたびに、<b style="color:var(--fg)">実際に使える扉</b>が開きます。
-      配当や利回りではなく、<b style="color:var(--fg)">体験と場へのアクセス</b>として。
+      Rank in this nation is no ornament. With every rise, a <b style="color:var(--fg)">door you can actually use</b> opens —
+      not as dividend or yield, but as <b style="color:var(--fg)">access to experiences and rooms.</b>
     </p>
 
     <div class="ben">
-      <div class="ben-row"><div class="bn">新民</div><div class="bd"><b>証の刻印がはじまる</b>／思考ログ（書かれなかった草稿）／月次の課題図書</div></div>
-      <div class="ben-row"><div class="bn">里の民</div><div class="bd"><b>AI経営の「型」を丸ごと受け取る</b> ── 役員会をAIで組み、生産性を跳ね上げる実装手順／あなた自身の予言を刻む権利</div></div>
-      <div class="ben-row"><div class="bn">積善民</div><div class="bd"><b>縁結びの対象になる</b> ── 「この二人は会うべきだ」と名指しで引き合わされる</div></div>
-      <div class="ben-row"><div class="bn">善士</div><div class="bd"><b>私塾に、生で座る</b>／<b>登場権・共著</b> ── あなたの名が、読者の前に出る</div></div>
-      <div class="ben-row"><div class="bn">里長</div><div class="bd"><b>私塾で問いを立てる権利</b>／あなたの言葉への添削</div></div>
-      <div class="ben-row"><div class="bn">長老</div><div class="bd"><b>個別指導（一対一）</b>／憲章の共創 ── 国のかたちを起草する</div></div>
-      <div class="ben-row"><div class="bn">国士</div><div class="bd"><b>個別会食・評議の座</b> ── 膝を突き合わせて、国を決める</div></div>
+      <div class="ben-row"><div class="bn">New Citizen</div><div class="bd"><b>The inscribing of proofs begins</b> ／ thought logs (the drafts that were never written) ／ the monthly reading</div></div>
+      <div class="ben-row"><div class="bn">Villager</div><div class="bd"><b>Receive the whole "form" of AI-run management</b> ── the implementation steps to convene a board with AI and vault your productivity ／ the right to inscribe your own prophecy</div></div>
+      <div class="ben-row"><div class="bn">Merit-Bearer</div><div class="bd"><b>Become a subject of matchmaking</b> ── introduced by name: "these two ought to meet"</div></div>
+      <div class="ben-row"><div class="bn">Steward</div><div class="bd"><b>Sit, live, in the private school</b> ／ <b>right of appearance &amp; co-authorship</b> ── your name goes before the readers</div></div>
+      <div class="ben-row"><div class="bn">Village Head</div><div class="bd"><b>The right to pose questions in the private school</b> ／ edits to your own words</div></div>
+      <div class="ben-row"><div class="bn">Elder</div><div class="bd"><b>Private instruction (one-on-one)</b> ／ co-creation of the Charter ── you draft the shape of the nation</div></div>
+      <div class="ben-row"><div class="bn">Statesman</div><div class="bd"><b>Private dining &amp; a seat on the council</b> ── knee to knee, you decide the nation</div></div>
     </div>
   </div>
 </section>
 
 <section class="band">
   <div class="wrap">
-    <p class="eyebrow">刻印 ── the seal that cannot be rewritten</p>
-    <h2>証は、書き換えられない。</h2>
+    <p class="eyebrow">The seal ── the mark that cannot be rewritten</p>
+    <h2>A proof cannot be rewritten.</h2>
     <p class="lead">
-      善行も、系譜も、あなた自身の予言も。すべて<b style="color:var(--fg)">SHA-256で刻印し、日付とともに公開</b>します。
-      値段はつかない。売ることもできない。<b style="color:var(--fg)">だからこそ、信用になる。</b>
+      Good deeds, lineage, your own prophecy — all of it we <b style="color:var(--fg)">seal with SHA-256 and publish with the date.</b>
+      No price is attached. It cannot be sold. <b style="color:var(--fg)">That is precisely why it becomes trust.</b>
     </p>
 
     <div class="flow" style="margin-top:44px">
-      <div class="flow-row"><div class="flow-k">行</div><div class="flow-t"><b>善いことをする</b><span>誰かを助け、支え、渡す。日々の、名もなき善。</span></div></div>
-      <div class="flow-row"><div class="flow-k">認</div><div class="flow-t"><b>第三者が確認する</b><span>自己申告は記録しない。誰かの「ありがとう」が付いて、初めて認められる。</span></div></div>
-      <div class="flow-row"><div class="flow-k">刻</div><div class="flow-t"><b>刻印される</b><span>日付とハッシュで固定。後から誰も、書き換えられない。</span></div></div>
-      <div class="flow-row"><div class="flow-k">継</div><div class="flow-t"><b>系譜として継がれる</b><span>誰が誰を招いたか。あなたの「家」が伸びていく。</span></div></div>
-      <div class="flow-row"><div class="flow-k">開</div><div class="flow-t"><b>位が上がり、扉が開く</b><span>積んだ証が、そのまま次の扉の鍵になる。</span></div></div>
+      <div class="flow-row"><div class="flow-k">Do</div><div class="flow-t"><b>Do a good thing</b><span>Help someone, carry them, pass it on. The daily, nameless good.</span></div></div>
+      <div class="flow-row"><div class="flow-k">Confirm</div><div class="flow-t"><b>A third party confirms it</b><span>Self-reports are not recorded. Only when someone's "thank you" is attached is it acknowledged.</span></div></div>
+      <div class="flow-row"><div class="flow-k">Seal</div><div class="flow-t"><b>It is sealed</b><span>Fixed by date and hash. No one, afterward, can rewrite it.</span></div></div>
+      <div class="flow-row"><div class="flow-k">Pass</div><div class="flow-t"><b>It is passed on as lineage</b><span>Who invited whom. Your "House" extends.</span></div></div>
+      <div class="flow-row"><div class="flow-k">Open</div><div class="flow-t"><b>Rank rises, and a door opens</b><span>The proofs you accumulate become the key to the next door.</span></div></div>
     </div>
 
     <div class="guard">
-      <b>あなた自身の予言も、刻めます。</b>
-      日付を切り、反証できる形で言い切って、ハッシュで固定する。
-      的中すれば、国史に残る。外せば、それも残る。
-      ── <b>言いっぱなしが許されない場所</b>で、言葉は初めて力を持ちます。
+      <b>Your own prophecy can be sealed, too.</b>
+      Set a date, state it in a form that can be disproven, and fix it with a hash.
+      Hit the mark, and it remains in the nation's history. Miss, and that remains too.
+      ── In a place <b>where empty talk is not permitted</b>, words hold power for the first time.
     </div>
   </div>
 </section>
 
 <section class="band">
   <div class="wrap">
-    <p class="eyebrow">経済圏の記録 ── published weekly</p>
-    <h2>数字は、毎週そのまま出す。</h2>
+    <p class="eyebrow">The record of the economy ── published weekly</p>
+    <h2>The numbers go out every week, as they are.</h2>
     <p class="lead">
-      良い数字も、悪い数字も。改竄できない場所に記録して、週次の国情演説で公開します。
-      隠さないことが、この国の唯一の担保です。
+      Good numbers and bad numbers alike. Recorded in a place that cannot be falsified, and published in the weekly State of the Nation address.
+      Hiding nothing is this nation's only collateral.
     </p>
 
     <div class="kpi">
-      <div class="tile accent"><div class="kl">市民数</div><div class="kv">―<span class="u">名</span></div><div class="ks">第1回 国情演説より公開</div></div>
-      <div class="tile"><div class="kl">刻まれた善行</div><div class="kv">―<span class="u">件</span></div><div class="ks">第三者の確認を経たものだけ</div></div>
-      <div class="tile"><div class="kl">系譜の深さ</div><div class="kv">―<span class="u">代</span></div><div class="ks">招かれた民が、招いた世代の数</div></div>
-      <div class="tile"><div class="kl">離国率</div><div class="kv">―<span class="u">%</span></div><div class="ks">去った人の数も、隠さず出す</div></div>
+      <div class="tile accent"><div class="kl">Citizens</div><div class="kv">―<span class="u">people</span></div><div class="ks">Published from the 1st State of the Nation address</div></div>
+      <div class="tile"><div class="kl">Good deeds inscribed</div><div class="kv">―<span class="u">deeds</span></div><div class="ks">Only those confirmed by a third party</div></div>
+      <div class="tile"><div class="kl">Depth of lineage</div><div class="kv">―<span class="u">gen.</span></div><div class="ks">Generations that invited citizens have gone on to invite</div></div>
+      <div class="tile"><div class="kl">Departure rate</div><div class="kv">―<span class="u">%</span></div><div class="ks">The number who left, put out unhidden too</div></div>
     </div>
 
     <p class="note-small">
-      これらは<b>この場の活動の記録</b>です。金銭的な利益・利回り・投資収益を示すものでも、約束するものでもありません。
-      証は譲渡・換金できず、金融商品ではありません。扉（特典）の内容は、運営の判断で変わることがあります。
+      These are <b>a record of activity in this place.</b> They neither indicate nor promise any financial gain, yield, or investment return.
+      Proofs cannot be transferred or redeemed for cash, and are not financial products. The contents of the doors (benefits) may change at the discretion of the operators.
     </p>
   </div>
 </section>
 
 <section class="band">
   <div class="wrap">
-    <p class="eyebrow">儀 ── the rites of the nation</p>
-    <h2>国には、儀式がある。</h2>
-    <p class="lead">毎週、国は自らの姿を語る。人は名を呼ばれて迎えられ、位は人前で叙される。記録されない善は、無かったことになる。だから、記す。</p>
+    <p class="eyebrow">Rites ── the rites of the nation</p>
+    <h2>A nation has its rites.</h2>
+    <p class="lead">Every week, the nation speaks of its own shape. People are welcomed by having their names called; ranks are conferred before others. Good that is not recorded is treated as though it never was. So we record it.</p>
 
     <div class="flow" style="margin-top:44px">
-      <div class="flow-row"><div class="flow-k">推挙</div><div class="flow-t"><b>推挙状を渡す</b><span>リンクは撒かない。人を見込んで、推挙状を一枚渡す。枠は有限で、位が上がるほど増える。</span></div></div>
-      <div class="flow-row"><div class="flow-k">入村</div><div class="flow-t"><b>入村の儀</b><span>新しい民は、週次の演説で名を呼ばれて迎えられる。推挙した者も、共に讃えられる。</span></div></div>
-      <div class="flow-row"><div class="flow-k">叙任</div><div class="flow-t"><b>叙任式</b><span>位が上がる時は、人前で叙される。承認は、公開されて初めて力になる。</span></div></div>
-      <div class="flow-row"><div class="flow-k">国情</div><div class="flow-t"><b>週次 国情演説</b><span>市民数・新しい善士・系譜の深さ・離国率。良い数字も悪い数字も、そのまま語る。</span></div></div>
+      <div class="flow-row"><div class="flow-k">Endorse</div><div class="flow-t"><b>Hand over a letter of endorsement</b><span>Links are not scattered. You see promise in a person and hand them a single letter of endorsement. The slots are finite, and grow as your rank rises.</span></div></div>
+      <div class="flow-row"><div class="flow-k">Entry</div><div class="flow-t"><b>The rite of entry</b><span>New citizens are welcomed, named aloud in the weekly address. The one who endorsed them is honored alongside.</span></div></div>
+      <div class="flow-row"><div class="flow-k">Confer</div><div class="flow-t"><b>The rite of investiture</b><span>When a rank rises, it is conferred before others. Approval holds power only once it is made public.</span></div></div>
+      <div class="flow-row"><div class="flow-k">Nation</div><div class="flow-t"><b>The weekly State of the Nation address</b><span>Citizen count, new Stewards, depth of lineage, departure rate. Good numbers and bad numbers alike, spoken as they are.</span></div></div>
     </div>
 
     <div class="guard" style="margin-top:34px">
-      <b>役 ── 語り部（かたりべ）。</b>
-      善士以上から選ばれ、公開の叙任を受けた3〜5名。<b>民の声を集めて束ね、国の日々を語り継ぐ</b>。
-      一人の声では、国は10,000名に届かない。だから、声を分け持つ。
-      ── ただし語り部は<b>自分の名で書く</b>。誰かに成り代わることはしない。二つの別の声が、同じ国を語る。
+      <b>The role ── the Chronicler (kataribe).</b>
+      Three to five people, chosen from Steward and above, who have received public investiture. <b>They gather and bind the voices of the people, and carry on the telling of the nation's days.</b>
+      One voice cannot reach 10,000. So the voice is shared out.
+      ── Yet the Chronicler <b>writes under their own name.</b> They never impersonate another. Two separate voices speak of the same nation.
     </div>
   </div>
 </section>
 
 <section class="band">
   <div class="wrap">
-    <p class="eyebrow">建国日誌 ── the chronicle</p>
-    <h2>世界で初めて、<br>国が建つ過程が、記録される。</h2>
+    <p class="eyebrow">The Chronicle</p>
+    <h2>For the first time in the world,<br>the founding of a nation is recorded as it happens.</h2>
     <p class="lead">
-      いつ、誰が、何を。すべて日付とともに刻み、公開する。改竄できない記録の上に建てるから、
-      <b style="color:var(--fg)">後から「作り話だった」と言わせない。</b>これが、この国が"世界初の事例"であることの、唯一の証明方法。
+      When, who, what. All of it inscribed with the date, and published. Because it is built on a record that cannot be falsified,
+      <b style="color:var(--fg)">no one can later call it a fabrication.</b> This is the only way to prove that this nation is "the world's first case."
     </p>
 
     <div class="chronicle">
       <div class="entry done">
-        <div class="dt">第 零 日 ／ 2026.07.17</div>
-        <div class="ev">憲章が制定された</div>
-        <div class="nt">全九条＋前文。そのSHA-256を刻印し、公開した。以後この本文は一文字も動かせない。国の背骨が、確かめられるものになった日。
+        <div class="dt">DAY ZERO ／ 2026.07.17</div>
+        <div class="ev">The Charter was enacted</div>
+        <div class="nt">All nine articles plus a preamble. Its SHA-256 was sealed and published. From this point, not a single character of the text can move. The day the nation's backbone became something verifiable.
           <span class="hash">SHA-256 &nbsp;1690e986 3ef46605 9a7ee512 e9386f6a 06f8c7bc 75492ca4 6b618553 da3a1d55</span></div>
       </div>
       <div class="entry done">
         <div class="dt">2026.07.23</div>
-        <div class="ev">憲章が、オンチェーンに刻まれた</div>
-        <div class="nt">Optimism本番網に、松田元 個人の主権台帳「Gen Chain」が建ち、その第0録として憲章が刻まれた。
-          日付も内容も、もはや誰にも──発起人自身にも──書き換えられない。
-          <span class="hash">Gen Chain（OP Mainnet）&nbsp;<a href="https://optimistic.etherscan.io/address/0xcB343365000c8aC95B9b6C74A5c7ABDF54436D49" target="_blank" rel="noopener" style="color:inherit">0xcB343365000c8aC95B9b6C74A5c7ABDF54436D49</a><br>
+        <div class="ev">The Charter was inscribed on-chain</div>
+        <div class="nt">On the Optimism mainnet, Gen Matsuda's personal sovereign ledger "Gen Chain" was raised, and the Charter was inscribed as its Record #0.
+          Neither date nor content can any longer be rewritten — not even by the founder himself.
+          <span class="hash">Gen Chain (OP Mainnet)&nbsp;<a href="https://optimistic.etherscan.io/address/0xcB343365000c8aC95B9b6C74A5c7ABDF54436D49" target="_blank" rel="noopener" style="color:inherit">0xcB343365000c8aC95B9b6C74A5c7ABDF54436D49</a><br>
           deploy tx&nbsp;<a href="https://optimistic.etherscan.io/tx/0xc66e89e0d222dc8e3088ed7d4f736f059f719783368dcf565368ba447fa15987" target="_blank" rel="noopener" style="color:inherit">0xc66e89e0…7fa15987</a>&nbsp;／&nbsp;block 154,598,743</span></div>
       </div>
       <div class="entry pending">
-        <div class="dt">来 ── 第一号</div>
-        <div class="ev">最初の市民が刻まれる</div>
-        <div class="nt">#001。この国で最初に証を受け取る人。名は、永遠に一番上に残る。</div>
+        <div class="dt">To come ── the first</div>
+        <div class="ev">The first citizen is inscribed</div>
+        <div class="nt">#001. The first to receive a proof in this nation. The name remains at the very top, forever.</div>
       </div>
       <div class="entry pending">
-        <div class="dt">来 ── 創設の締切</div>
-        <div class="ev">創設市民、500名で締まる</div>
-        <div class="nt">この日を過ぎたら、誰一人として創設市民にはなれない。</div>
+        <div class="dt">To come ── the founding deadline</div>
+        <div class="ev">Founding Citizens sealed at 500</div>
+        <div class="nt">Past this day, not a single soul can become a Founding Citizen.</div>
       </div>
       <div class="entry pending">
-        <div class="dt">来 ── 最初の家</div>
-        <div class="ev">最初の善士が生まれ、家が興る</div>
-        <div class="nt">三名を推挙し定着させた最初の民。余慶の還流が、初めて動き出す。</div>
+        <div class="dt">To come ── the first House</div>
+        <div class="ev">The first Steward emerges, and a House rises</div>
+        <div class="nt">The first citizen to endorse three and see them take root. The reflux of surplus blessing begins to move for the first time.</div>
       </div>
       <div class="entry pending">
-        <div class="dt">来 ── 三代</div>
-        <div class="ev">系譜が三代に達する</div>
-        <div class="nt">招いた民が、招いた民を招いた。国が自走を始めた証。</div>
+        <div class="dt">To come ── three generations</div>
+        <div class="ev">The lineage reaches three generations</div>
+        <div class="nt">An invited citizen invited a citizen who invited a citizen. Proof that the nation has begun to carry itself.</div>
       </div>
       <div class="entry pending">
-        <div class="dt">来 ── しきい値</div>
-        <div class="ev">10,000名 ── 建国</div>
-        <div class="nt">ここを越えれば、広がりはもう止まらない。</div>
+        <div class="dt">To come ── the threshold</div>
+        <div class="ev">10,000 citizens ── the founding</div>
+        <div class="nt">Cross this, and the growth can no longer be stopped.</div>
       </div>
     </div>
   </div>
@@ -579,30 +579,30 @@
 
 <section class="band">
   <div class="wrap">
-    <p class="eyebrow">師弟の距離 ── the reward is nearness</p>
-    <h2>招いた数だけ、<br>師との距離が縮む。</h2>
-    <p class="lead">報酬は、金ではない。人を招き、善を積むほど、教える者との距離が縮まっていく。内側の輪から、膝を突き合わせる一対一へ。</p>
+    <p class="eyebrow">The distance to the teacher ── the reward is nearness</p>
+    <h2>The more you invite,<br>the shorter the distance to the teacher.</h2>
+    <p class="lead">The reward is not money. The more you invite and accumulate good, the more the distance to the one who teaches narrows. From the inner circle, to a knee-to-knee one-on-one.</p>
 
     <div class="ladder">
       <div class="rung">
-        <div class="cnt num">3<span>名</span></div>
-        <div class="rw"><b>内側の輪</b><span>限定の場に迎えられる。買えない円卓の、末席から。</span></div>
-        <div class="dist">距離 ── 円卓</div>
+        <div class="cnt num">3<span>people</span></div>
+        <div class="rw"><b>The inner circle</b><span>Welcomed into a limited room. From the lowest seat of a round table money cannot buy.</span></div>
+        <div class="dist">Distance ── the round table</div>
       </div>
       <div class="rung">
-        <div class="cnt num">7<span>名</span></div>
-        <div class="rw"><b>私塾（月次の講）</b><span>月に一度、直に説く場へ。問いを持ち寄り、思想を練る。</span></div>
-        <div class="dist">距離 ── 講堂</div>
+        <div class="cnt num">7<span>people</span></div>
+        <div class="rw"><b>The private school (monthly lecture)</b><span>Once a month, into the room where he teaches directly. Bring your questions; temper the thought.</span></div>
+        <div class="dist">Distance ── the lecture hall</div>
       </div>
       <div class="rung">
-        <div class="cnt num">12<span>名</span></div>
-        <div class="rw"><b>個別指導</b><span>一対一の指南。あなたの道を、名指しで照らす。</span></div>
-        <div class="dist">距離 ── 対面</div>
+        <div class="cnt num">12<span>people</span></div>
+        <div class="rw"><b>Private instruction</b><span>One-on-one guidance. Your path, lit by name.</span></div>
+        <div class="dist">Distance ── face to face</div>
       </div>
       <div class="rung">
-        <div class="cnt num">20<span>名</span></div>
-        <div class="rw"><b>個別会食</b><span>膝を突き合わせて。師と、一人の民として。</span></div>
-        <div class="dist">距離 ── 膝下</div>
+        <div class="cnt num">20<span>people</span></div>
+        <div class="rw"><b>Private dining</b><span>Knee to knee. With the teacher, as one citizen.</span></div>
+        <div class="dist">Distance ── at his knee</div>
       </div>
     </div>
   </div>
@@ -610,13 +610,13 @@
 
 <section class="holder">
   <div class="wrap">
-    <span class="pill">これを読んでいる、あなたへ</span>
-    <p class="manifest">あなたの善は、<span class="g">消えない証</span>になる。<br>そして、国の資本になる。</p>
+    <span class="pill">To you, reading this</span>
+    <p class="manifest">Your good becomes <span class="g">a proof that does not vanish.</span><br>And then, the nation's capital.</p>
     <p>
-      善いことをして、第三者に確認され、刻まれる。刻まれた分だけ、あなたの徳が積み上がり、
-      系譜として次代へ継がれていく。金でつながる国ではなく、善でつながる国を、あなたと建てます。
-      最初の500名は「創設市民」と呼ばれ、<b style="color:var(--fg)">500名で永久に締め切ります。</b>
-      ― 建国は、まもなく。
+      Do a good thing, be confirmed by a third party, be inscribed. For every deed inscribed, your merit accumulates,
+      and is passed on as lineage to the next generation. Not a nation bound by money, but a nation bound by good — we build it with you.
+      The first 500 are called "Founding Citizens," and <b style="color:var(--fg)">we seal it forever at 500.</b>
+      ― The founding is near.
     </p>
   </div>
 </section>
@@ -624,14 +624,14 @@
 <footer>
   <div class="wrap">
     <div class="disc">
-      本ページは善意立国構想のティザー（構想の告知）です。数値・位階・扉の内容はすべて構想段階の設計であり、
-      確定した約束ではありません。証（刻印）は譲渡・換金できず、金融商品・有価証券ではなく、
-      金銭的な利益や投資収益を約束するものではありません。
-      本構想は<b>松田元 個人の思想プロジェクト</b>であり、abc株式会社（8783）およびその事業・サービス・株式、
-      ならびに同社が関与するトークンとは<b>一切関係ありません</b>。
-      また、本構想は投資助言・金融商品の推奨を行うものではありません。
+      This page is a teaser (an announcement of a concept) for The Goodwill Nation project. All figures, ranks, and door contents are designs at the concept stage,
+      not settled promises. A proof (seal) cannot be transferred or redeemed for cash, is not a financial product or security,
+      and promises no financial gain or investment return.
+      This project is <b>a personal thought-project of Gen Matsuda</b>, and has <b>nothing whatsoever to do with</b> abc Inc. (ticker 8783) or its businesses, services, or shares,
+      nor with any token that company is involved with.
+      Nor does this project constitute investment advice or the recommendation of any financial product.
     </div>
-    <div class="mk">積善 ／ 善意立国</div>
+    <div class="mk">積善 ／ The Goodwill Nation</div>
   </div>
 </footer>
 
