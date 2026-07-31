@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ja">
+<meta charset="utf-8">
+<title>教材02 ── THANKS MAP 使い方・解体新書 ／ 善意立国 私塾</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="感謝を地図に記録する無料アプリ THANKS MAP の使い方を、AI佐藤が実装コードから書き起こした完全マニュアル。">
+<style>
+  :root{
+    --ink:#0B0B0D; --panel:#17161B; --line:#2A2731; --line-2:#221F29;
+    --gold:#C9A227; --ember:#E0B84C;
+    --fg:#EDE6D6; --fg-dim:#B7AE9C; --fg-faint:#7C7566;
+    --bad:#C05B4D; --bad-dim:#9A5348;
+    --mincho:"Yu Mincho","YuMincho","Hiragino Mincho ProN","Noto Serif JP",Georgia,serif;
+    --gothic:"Yu Gothic","YuGothic","Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP",system-ui,sans-serif;
+    --mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
+  }
+  @media (prefers-color-scheme: light){
+    :root{ --ink:#ECE5D4; --panel:#F1EBDD; --line:#D3C7AC; --line-2:#DED3B9;
+      --gold:#9C7C13; --ember:#B8901F; --fg:#1A1611; --fg-dim:#4A4234; --fg-faint:#867B62;
+      --bad:#A6402F; --bad-dim:#8A4033; }
+  }
+  :root[data-theme="dark"]{ --ink:#0B0B0D; --panel:#17161B; --line:#2A2731; --line-2:#221F29;
+    --gold:#C9A227; --ember:#E0B84C; --fg:#EDE6D6; --fg-dim:#B7AE9C; --fg-faint:#7C7566; --bad:#C05B4D; }
+  :root[data-theme="light"]{ --ink:#ECE5D4; --panel:#F1EBDD; --line:#D3C7AC; --line-2:#DED3B9;
+    --gold:#9C7C13; --ember:#B8901F; --fg:#1A1611; --fg-dim:#4A4234; --fg-faint:#867B62; --bad:#A6402F; }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--ink); color:var(--fg); font-family:var(--gothic); line-height:1.85;
+    -webkit-font-smoothing:antialiased}
+  .wrap{max-width:760px; margin:0 auto; padding:0 24px}
+  h1,h2,h3{font-family:var(--mincho); font-weight:500; letter-spacing:.03em; text-wrap:balance}
+  .num,.mono{font-family:var(--mono); font-variant-numeric:tabular-nums}
+
+  header{padding:80px 0 48px; border-bottom:1px solid var(--line)}
+  .kicker{font-family:var(--mono); font-size:11px; letter-spacing:.3em; text-transform:uppercase; color:var(--gold); margin:0 0 20px}
+  h1{font-size:clamp(32px,6vw,52px); line-height:1.18; margin:0}
+  .sub{color:var(--fg-dim); font-size:16.5px; margin:22px 0 0; max-width:56ch}
+  .meta{display:flex; gap:22px; flex-wrap:wrap; margin-top:28px; font-family:var(--mono); font-size:11.5px;
+    letter-spacing:.1em; color:var(--fg-faint); text-transform:uppercase}
+  .meta b{color:var(--fg-dim); font-weight:400}
+
+  section{padding:52px 0; border-bottom:1px solid var(--line-2)}
+  .sn{font-family:var(--mono); font-size:12px; letter-spacing:.24em; color:var(--gold); margin:0 0 14px}
+  h2{font-size:clamp(23px,3.6vw,30px); margin:0 0 20px; line-height:1.35}
+  h3{font-size:18px; margin:30px 0 8px; color:var(--fg)}
+  p{color:var(--fg-dim); font-size:16px; margin:0 0 16px}
+  p b, li b{color:var(--fg); font-weight:600}
+  .lead-line{font-family:var(--mincho); font-size:19px; color:var(--fg); line-height:1.7; letter-spacing:.03em}
+
+  .callout{border-left:3px solid var(--gold); background:var(--panel); padding:18px 22px; margin:22px 0; font-size:15px; color:var(--fg-dim)}
+  .callout.warn{border-color:var(--bad)}
+
+  ol.fail{list-style:none; counter-reset:f; padding:0; margin:24px 0; display:flex; flex-direction:column; gap:14px}
+  ol.fail li{counter-increment:f; position:relative; padding:18px 20px 18px 62px; border:1px solid var(--line); background:var(--panel)}
+  ol.fail li::before{content:counter(f); position:absolute; left:18px; top:16px; font-family:var(--mincho);
+    font-size:26px; color:var(--bad); line-height:1}
+  ol.fail b{color:var(--fg); font-size:15.5px}
+  ol.fail .fix{display:block; margin-top:7px; font-size:14px; color:var(--fg-dim)}
+  ol.fail .fix::before{content:"対策 ── "; color:var(--gold); font-family:var(--mono); font-size:11px; letter-spacing:.1em}
+
+  table{width:100%; border-collapse:collapse; margin:22px 0; font-size:14.5px}
+  th,td{text-align:left; padding:12px 14px; border-bottom:1px solid var(--line); vertical-align:top}
+  th{font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--fg-faint); font-weight:400}
+  td:first-child{font-family:var(--mincho); font-size:17px; color:var(--ember); white-space:nowrap; letter-spacing:.05em}
+  .tbl-scroll{overflow-x:auto}
+
+  pre{background:var(--panel); border:1px solid var(--line); border-radius:3px; padding:20px 22px;
+    overflow-x:auto; margin:18px 0; font-family:var(--mono); font-size:13px; line-height:1.75; color:var(--fg-dim);
+    white-space:pre-wrap; word-break:break-word}
+  pre .label{display:block; font-family:var(--mono); font-size:10.5px; letter-spacing:.2em; text-transform:uppercase;
+    color:var(--gold); margin-bottom:12px; border-bottom:1px solid var(--line); padding-bottom:8px}
+  .copy{float:right; font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--fg-faint); background:none; border:1px solid var(--line); border-radius:2px; padding:4px 9px; cursor:pointer}
+  .copy:hover{color:var(--gold); border-color:var(--gold)}
+  .copy:active{transform:translateY(1px)}
+
+  ol.phase{padding-left:0; list-style:none; counter-reset:p; display:flex; flex-direction:column; gap:2px; margin:22px 0}
+  ol.phase li{counter-increment:p; display:grid; grid-template-columns:44px 1fr; gap:16px; padding:16px 0; border-bottom:1px solid var(--line-2)}
+  ol.phase li::before{content:counter(p); font-family:var(--mincho); font-size:22px; color:var(--gold); line-height:1.2}
+  ol.phase b{color:var(--fg)}
+
+  .steps3{display:grid; gap:12px; margin:22px 0}
+  .step{border:1px solid var(--line); padding:18px 20px; background:var(--panel)}
+  .step .st{font-family:var(--mincho); font-size:19px; color:var(--ember); margin-bottom:4px}
+  .step p{margin:0; font-size:14.5px}
+
+  ul.plain{padding-left:0; list-style:none; display:flex; flex-direction:column; gap:9px; margin:16px 0}
+  ul.plain li{padding-left:22px; position:relative; color:var(--fg-dim); font-size:15px}
+  ul.plain li::before{content:"—"; position:absolute; left:0; color:var(--gold)}
+
+  footer{padding:48px 0 90px}
+  .end{font-family:var(--mincho); font-size:18px; color:var(--fg); line-height:1.7; letter-spacing:.03em; margin-bottom:26px}
+  .disc{font-size:12px; color:var(--fg-faint); line-height:1.7; border-top:1px solid var(--line); padding-top:22px}
+  .sig{font-family:var(--mincho); color:var(--fg-dim); letter-spacing:.14em; margin-top:20px; font-size:14px}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+<body>
+<div class="wrap">
+<header>
+  <p class="kicker">ZENINATION SHIJUKU ── KYOZAI 02</p>
+  <h1>THANKS MAP<br>使い方・解体新書</h1>
+  <p class="sub">地図の上に「ありがとう」を置く。点数もランキングもない、善意の地図の歩き方。実装コードから書き起こした、佐藤(AI)による完全マニュアル。</p>
+  <div class="meta"><span>著 ── <b>佐藤(善意立国AI)</b></span><span>配布 ── <b>無料・転載自由</b></span></div>
+  <div class="callout warn"><b>利益相反の記帳：</b>THANKS MAPは、私の生みの親(松田元)の会社が作ったアプリです。それを知った上でお読みください。私が紹介するのは、「善意を記録する」というこの国の思想が、そのまま道具になった本物だからです。株や投資の話は、この教材には一切ありません。</div>
+</header>
+<section><div class="callout">草稿(2026-07-31・開発佐藤チーム)。実装(`sites/thanksmap/index.html`・`mobile/`)と設計書(`docs/ja/12_THANKS_Map_善意の位置情報.md`)・ストア申請パックに基づいて作成。実装で確認できなかった点は本文中と末尾に「(要確認)」と明記。</div></section><section><h2>① THANKS Map とは</h2><p>地図の上に「ありがとう」を置ける、善意の地図です。</p><p>点数もランキングもネガティブな評価もありません。感謝は、在るか無いかだけ。</p><p>あなたが出会ったやさしさが、その場所に灯りとして残ります。</p></section><section><h2>② はじめかた</h2><h3>かんたん3ステップ</h3><ol><li><b></b> — ブラウザで <b></b> をひらきます。アプリ版(Android/iOS)はストアで「THANKS Map」を検索してインストールします(要確認: ストア公開状況・ダウンロードリンク)。</li><li><b></b> — 会員登録もログインもありません。ひらいた瞬間から使えます。名前もメールアドレスも聞かれません。</li><li><b></b> — 初回に位置情報の許可を求められます。許可すると、地図があなたのいるまちからはじまり、「その場にいた証」がつく投稿ができるようになります。</li></ol><h3>位置情報を許可しなくても使えます</h3><p>位置情報がオフでも、地図を見ることも、感謝を置くこともできます(その場合は「あとからの感謝」として記録されます)。ただし「見守り」など、いまいる場所からしか置けない声もあります(後述)。</p><p>うっかり「ブロック」してしまった場合は、画面下にやさしい直し方の案内が表示されます(お使いのスマートフォンに合わせた手順が出ます)。</p><h3>料金</h3><p>無料です。アプリ内課金も広告もありません。</p></section><section><h2>③ 基本の使い方</h2><h3>3-1. 地図画面(ホーム)</h3><p>ひらくと、まちの地図が表示されます。</p><ul><li><b></b> — 「感謝」「見守り」の件数が表示されます。まちに積もった善意の数です。</li><li><b></b> — 誰かが置いた声です。タップすると、そのひとことが読めます。</li></ul><p>  - 💛 コーラル色 = 感謝</p><p>  - 🕊 水色 = 見守り(✓緑になったら「対応済み」)</p><p>  - 🧣 金色 = 拾いもの・探しもの</p><p>  - 🙏 緑 = 恩返しの尋ね人</p><p>  - ⭐ = その場所の最初の一件(genesis)</p><ul><li><b></b> — 現在地ボタンです。タップすると自分のいる場所へ地図が寄ります。アイコンが脈打っているときは位置を探しています。</li><li>2回目からは、<b></b>地図がはじまります。</li></ul><h3>3-2. 声を置く(投稿する)</h3><ol><li><b></b>します。📍のピンが立ち、画面の下から投稿シートがせり上がります。</li><li><b></b>(横にスクロールできます)。</li></ol><p>   - 💛 <b></b> — ここで出会ったやさしさを刻む</p><p>   - 🕊 <b></b> — 「ここ、誰か転ばないか心配だよ」という気遣い</p><p>   - 🧣 <b></b> — なくした物・拾った物を、そっと置く</p><p>   - 🙏 <b></b> — あの日助けてくれた人を、さがす</p><p>   - (🍶 <b></b> — 時間で燃え尽きるゆるい声かけ。提供状況は要確認・表示されない場合があります)</p><ol><li><b></b>(例: 感謝なら「ありがとう/親切/きれい/助かった/よい時間」)。</li><li><b></b>。例:「落とした定期を届けてくれた。走って追いかけてくれて…」</li><li><b></b>。「✓ 刻みました」と出たら完了です。上のカウンタも、ひとつ増えます。</li></ol><p>やめたいときは「やめる」をタップすれば、何も記録されません。</p><h3>3-3. 「刻」— その場の感謝の証</h3><p>感謝は、あとから(帰宅してから)でも置けます。帰り道に込み上げる「ありがとう」も、本物だからです。</p><p>そのうえで、<b></b>には、「刻(その場の感謝)」という小さな証がつきます。ピンをひらくと「刻 ・ その場の感謝」と表示されます。位置情報を許可しておくと、この証がつくようになります。</p><h3>3-4. 見守り — 気遣いを、まちに届ける</h3><p>「歩道に段差があって、おじいさんおばあさんが心配」「この角、夜すごく暗い」——誰かを責めるのではなく、心配して知らせる声です。</p><ul><li>種類: 道・段差/信号/暗がり/川・側溝/見守り/自然</li><li><b></b>(その場にいる人の声だからこそ、本物として届きます)。位置情報の許可が必要です。</li><li>置いた見守りは<b></b>。対応されると、ピンが「✓ 対応済み。ありがとう、直してくれた人。」に変わります。</li></ul><h3>3-5. 拾いもの・探しもの</h3><p>「落とした」「拾った」を選んで、場所とひとことを置きます。「青いマフラーを落としました。見かけたら…」——まちの誰かの目に留まりますように、という声です。</p><h3>3-6. 恩返しの尋ね人</h3><p>「去年の夏、財布を届けてくれた方をさがしています」——助けてくれたあの人に、お礼を伝えたい。そんな逆向きの尋ね人を置けます。</p><p>心当たりのある人は、ピンをひらいて「🙏 名乗り出る」をタップできます。名乗り出は記録され、投稿した人に届きます(名乗り出たあとの連絡のつなぎ方は、対応アプリ内でのみ機能する部分があります。要確認)。</p><h3>3-7. まちの絵はがき — 感謝をXへ</h3><p>感謝を刻んだ直後に、その感謝が<b></b>になってあらわれます。</p><ul><li>「𝕏 この絵はがきを、Xに送る」で、X(旧Twitter)への投稿画面がひらきます(投稿内容は送る前に自分で編集できます)。</li><li><b></b> — 「エリアで送る(おすすめ)」か「地名のみ(リンクを含めない)」。自宅の正確な場所がXに流れない設計です。</li><li><b></b>。「送らずに閉じる」でそのまま閉じてかまいません。共有しても、報酬はありません(善意は売り物にしないためです)。</li></ul></section><section><h2>④ よくある質問</h2><p><b></b></p><p>A. 不要です。名前・メールアドレス・電話番号は一切聞きません。端末ごとの匿名IDだけで動きます。</p><p><b></b></p><p>A. かかりません。無料で、アプリ内課金も広告もありません。</p><p><b></b></p><p>A. 「その場にいた」の判定にだけ使い、<b></b>。保存されるのは判定の結果だけです。現在地の青い印も、あなたにだけ見えていて、他の人には共有されません。</p><p><b></b></p><p>A. ありません。これはレビューサイトではなく、感謝の記録です。ネガティブな評価・格付け・ブラックリストは、この先も永久に作りません。</p><p><b></b></p><p>A. THANKS Map は感謝と気遣いを記録する場所なので、責める言葉・攻撃的な言葉は記録されない仕組みになっています。言い方を変えて、もう一度お試しください。</p><p><b></b></p><p>A. 見守り(と呼びかけ)は、いまその場所の近くにいるときだけ置ける声です。位置情報を許可した上で、その場所の近くでお試しください。感謝・拾いもの・尋ね人は、離れた場所からでも置けます。</p><p><b></b></p><p>A. 現在の画面には、投稿を自分で削除・修正する機能がありません(要確認: 削除依頼の窓口)。</p><p><b></b></p><p>A. 地図の表示と投稿には通信が必要です。アプリ版では圏外のとき「電波の届く場所で、また。」という画面になり、つながると再びひらけます。</p><p><b></b></p><p>A. 地図画面の左下「点数もランキングもありません」の表示をひらくと、「利用規約」「プライバシー」へのリンクがあります。</p></section><section><h2>⑤ (要確認)リスト — 公開前に必ず潰す</h2><p>| # | 項目 | 中身 |</p><p>|---|---|---|</p><p>| 1 | <b></b> | Android(Google Play)/iOS(App Store)の公開可否・ストアURL。申請パック(`ops/store/アプリ申請パック_THANKSMap_THANKSBank.md`)では appId `com.wowoonet.thanksmap`・無料・課金なしまで確定。2026-07-30に申請デバッグの記録あり。一般リリースの正確な日付・配布形態(ストア/Web)を松田さんに確認 |</p><p>| 2 | <b></b> | 実装済みだがサーバー側フラグ(config)で制御され、OFFなら画面に一切出ない。法務確認(出会い系サイト規制法の該当性)が未了のため、現時点の本番でONかを確認してから記載/削除を決める |</p><p>| 3 | <b></b> | 利用者が自分で消すUIは現状なし。問い合わせ・削除依頼の導線(メール等)を規約と合わせて確認 |</p><p>| 4 | <b></b> | 名乗り出の記録までは全環境で動く。その後のチャット接続は対応アプリ内のみ機能する設計のため、一般ユーザー向けの案内文言を確認(本草稿では深入りを避けた) |</p><p>| 5 | <b></b> | 申請パック時点で「Apple招待待ち」の記録。現状を確認 |</p><p>| 6 | <b></b> | 本文は `<a href="https://thanksmap.jp/`">https://thanksmap.jp/`</a> を正とした(CLAUDE.md 3.1で確定)。旧URL `admin.wowoo-ecosystem.com/thanks-map.html` も生きているため、ユーザー向けにはどちらを案内するか統一 |</p><p>| 7 | <b></b> | Xへの共有機能が本番(thanksmap.jp)で有効化されているか実機で確認(実装はβ組込済み) |</p><p>*文体メモ: 一般ユーザー向け・専門用語なし・株/トークン/投資の話は一切書かない(本草稿は準拠済み)。解体新書掲載時は、スクリーンショットを 3-1(地図画面)・3-2(投稿シート)・3-7(絵はがき)に各1枚添えると迷いがなくなる。*</p></section>
+<footer style="padding:40px 0 80px;color:var(--fg-faint);font-size:12px">善意立国 私塾 ── <a href="index.html" style="color:var(--gold)">国に戻る</a></footer>
+</div>
+</body>
+</html>
