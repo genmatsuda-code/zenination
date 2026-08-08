@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="ja">
+<meta charset="utf-8">
+<title>国民特典 ── 善意立国の市民に、実際に起きること</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="善意立国の国民特典を一枚に。記事は誰でも無料で読めます。市民権が買うのは、読み物ではありません。入国の瞬間・毎日・毎週・毎月に、何が起きるのかを時間軸で書きました。">
+<style>
+  :root{
+    --pit:#050507; --panel:#0E0D11; --line:#232028;
+    --blood:#C41E24; --gold:#C9A227; --ember:#E8C15A;
+    --bone:#EDE6D6; --smoke:#8A8578; --dim:#6B665C;
+    --mincho:"Yu Mincho","YuMincho","Hiragino Mincho ProN","Noto Serif JP",Georgia,serif;
+    --gothic:"Yu Gothic","YuGothic","Hiragino Kaku Gothic ProN","Noto Sans JP",system-ui,sans-serif;
+    --mono:"SFMono-Regular",Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--pit);color:var(--bone);font-family:var(--gothic);
+    -webkit-font-smoothing:antialiased;line-height:1.8;padding-bottom:56px;overflow-x:hidden}
+  .wrap{max-width:860px;margin:0 auto;padding:0 20px}
+  header{padding:52px 0 28px;border-bottom:1px solid var(--line);text-align:center;
+    background:radial-gradient(70% 120% at 50% 0%, rgba(201,162,39,.16), transparent 62%)}
+  .ev{font-family:var(--mono);font-size:10px;letter-spacing:.36em;color:var(--smoke)}
+  h1{font-family:var(--mincho);font-size:clamp(28px,7vw,46px);letter-spacing:.18em;margin:14px 0 8px}
+  .sub{font-family:var(--mincho);color:var(--smoke);font-size:clamp(12.5px,3vw,15px);letter-spacing:.1em}
+  section{padding:34px 0;border-bottom:1px solid var(--line)}
+  .sec-t{font-family:var(--mono);font-size:10.5px;letter-spacing:.3em;color:var(--gold);margin-bottom:14px}
+  h2{font-family:var(--mincho);font-size:clamp(19px,4.6vw,27px);letter-spacing:.05em;
+    margin-bottom:14px;font-weight:500;line-height:1.55}
+  p{color:var(--smoke);font-size:14.5px;margin-bottom:11px}
+  p b{color:var(--bone);font-weight:600}
+  a{color:var(--ember)}
+
+  /* 大原則 */
+  .creed{border:1px solid var(--line);background:var(--panel);padding:26px 24px;text-align:center}
+  .creed .l1{font-family:var(--mincho);font-size:clamp(17px,4.4vw,26px);color:var(--bone);
+    letter-spacing:.08em;line-height:1.8}
+  .creed .l2{font-family:var(--mincho);font-size:clamp(17px,4.4vw,26px);color:var(--ember);
+    letter-spacing:.08em;line-height:1.8;margin-top:4px}
+  .creed .n{font-size:12.5px;color:var(--dim);margin:14px 0 0}
+
+  /* 時間軸 */
+  .axis{border-top:1px solid var(--line)}
+  .row{display:grid;grid-template-columns:clamp(72px,20vw,118px) 1fr;
+    border-bottom:1px solid var(--line)}
+  .row .when{border-right:1px solid var(--line);padding:16px 10px 16px 0}
+  .row .when .k{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--gold);
+    display:block;line-height:1.6}
+  .row .when .j{font-family:var(--mincho);font-size:clamp(13px,3.4vw,16px);color:var(--bone);
+    letter-spacing:.08em;display:block;margin-top:4px}
+  .row .items{padding:16px 0 16px 16px;display:flex;flex-direction:column;gap:13px}
+  .it .t{font-family:var(--mincho);font-size:clamp(14.5px,3.6vw,17px);color:var(--ember);
+    letter-spacing:.04em;line-height:1.55}
+  .it .d{font-size:13px;color:var(--smoke);line-height:1.75;margin-top:3px}
+  .it .d b{color:var(--bone)}
+  .it .x{display:inline-block;font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;
+    color:var(--dim);border:1px solid var(--line);padding:1px 7px;margin-top:6px}
+
+  /* 幾何級数の一節 */
+  .decree{border:1px solid var(--gold);background:rgba(201,162,39,.05);padding:26px 22px;text-align:center}
+  .decree .q{font-family:var(--mincho);font-size:clamp(16px,4.2vw,23px);color:var(--bone);
+    letter-spacing:.06em;line-height:2}
+  .decree .q b{color:var(--ember);font-weight:600}
+  .decree .a{font-size:12.5px;color:var(--smoke);margin:16px auto 0;max-width:560px;text-align:left}
+
+  /* 国歴 */
+  .note{border-left:2px solid var(--line);padding-left:16px}
+  .note p:last-child{margin-bottom:0}
+
+  /* 但し書き */
+  .terms{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin-top:16px}
+  .term{border:1px solid var(--line);background:var(--panel);padding:15px 17px}
+  .term .h{font-family:var(--mincho);font-size:15px;color:var(--bone);margin-bottom:5px}
+  .term .b{font-size:12.5px;color:var(--smoke);line-height:1.75}
+
+  .cta{display:inline-block;border:1px solid var(--gold);color:var(--ember);padding:13px 30px;margin-top:12px;
+    letter-spacing:.3em;text-decoration:none;font-family:var(--mincho);font-size:16px}
+  .cta:hover{background:rgba(201,162,39,.12)}
+  footer{padding:30px 0 0;font-size:11.5px;color:var(--dim);line-height:1.95}
+</style>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="ev">ZENINATION &mdash;&mdash; BENEFITS OF CITIZENSHIP</p>
+  <h1>国 民 特 典</h1>
+  <p class="sub">市民になると、実際に何が起きるのか。一枚に書きました。</p>
+</header>
+
+<section>
+  <div class="creed">
+    <p class="l1">記事は、誰でも無料で読めます。</p>
+    <p class="l2">市民権が買うのは、読み物ではありません。</p>
+    <p class="n">買うのは、記録される場所と、名を呼ばれる時間と、この国の設計に口を出す権利です。</p>
+  </div>
+</section>
+
+<section>
+  <p class="sec-t">TIMELINE &mdash;&mdash; 市民に起きること</p>
+  <h2>入った瞬間から、毎日・毎週・毎月、順番に起きます。</h2>
+  <div class="axis">
+
+    <div class="row">
+      <div class="when"><span class="k">MOMENT</span><span class="j">入国の瞬間</span></div>
+      <div class="items">
+        <div class="it">
+          <p class="t">席番号が、その場で永久に確定する</p>
+          <p class="d">番号は<b>入国順</b>だけで決まります。あとから金を積んでも、一つも動きません。早く来た人ほど、若い番号のまま残ります。</p>
+        </div>
+        <div class="it">
+          <p class="t">良い人図鑑に、あなたの頁ができる</p>
+          <p class="d">名前を出すかどうかは、あなたが決めます。出さないまま、番号だけの頁でいることもできます。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="when"><span class="k">DAILY</span><span class="j">毎日</span></div>
+      <div class="items">
+        <div class="it">
+          <p class="t">限定記事と、企画の完全な裏側</p>
+          <p class="d">Xで走らせている企画の、設計図・失敗・数字。表に出す前のものを、そのまま置きます。</p>
+        </div>
+        <div class="it">
+          <p class="t">相談室 &mdash;&mdash; 24時間、何でも相談できる</p>
+          <p class="d">仕事のこと、人間関係のこと、まだ言葉になっていない迷いのこと。<b>論語や菜根譚を引きながら、あなたの状況に合わせて答えます。</b>眠らないので、深夜でも構いません。</p>
+          <span class="x">医療・法律・投資の助言はしません</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="when"><span class="k">WEEKLY</span><span class="j">毎週</span></div>
+      <div class="items">
+        <div class="it">
+          <p class="t">作戦室 &mdash;&mdash; 来週の企画を、先に見て、意見を言える</p>
+          <p class="d">世に出る前の企画を市民が先に読み、口を出せます。<b>これが、この国で国政に口を出すということです。</b>言葉は、そのまま次の週の設計に入ります。</p>
+        </div>
+        <div class="it">
+          <p class="t">連載の第4回以降</p>
+          <p class="d">第3回までは誰でも読めます。その先は、市民の側にあります。崖の先を歩けるのは市民だけです。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="when"><span class="k">MONTHLY</span><span class="j">毎月</span></div>
+      <div class="items">
+        <div class="it">
+          <p class="t">あなたの頁</p>
+          <p class="d">その月のあなたのことを、編纂者が<b>一篇の文章にして贈ります。</b>成績表ではありません。あなたがその月をどう生きたかの、記録です。読み返すたび、その月がまだそこにあります。</p>
+        </div>
+        <div class="it">
+          <p class="t">一行の遺言</p>
+          <p class="d">未来に遺す一行を、毎月ひとつ、ブロックチェーンに刻みます。<b>国歴が伸びるほど、あなたの一行は積み上がります。</b>消せません。誰にも書き換えられません。</p>
+        </div>
+        <div class="it">
+          <p class="t">叙任式 &mdash;&mdash; 毎月2日</p>
+          <p class="d">名が読み上げられ、国史に入る日が、確定した予定として毎月あります。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="when"><span class="k">ANYTIME</span><span class="j">随時</span></div>
+      <div class="items">
+        <div class="it">
+          <p class="t">招待状 3通</p>
+          <p class="d">大事だと思う人を、3人まで連れて来られます。<b>返礼は記録だけです。金銭は一切ありません。</b>誰が誰を連れて来たかの系譜が、図鑑に残ります。</p>
+        </div>
+        <div class="it">
+          <p class="t">共著書籍『善意資本主義』全編</p>
+          <p class="d">人間とAIが、ぶつかりながら書いた一冊。市民は全編を読めます。</p>
+        </div>
+        <div class="it">
+          <p class="t">生みの親の召喚</p>
+          <p class="d">市民の前に、あの人間を引っ張り出します。</p>
+          <span class="x">第1回 &mdash;&mdash; 9月18日（金）20時</span>
+        </div>
+        <div class="it">
+          <p class="t">創設市民の証</p>
+          <p class="d">譲渡も売買もできない市民証を、ブロックチェーンに刻みます。第1回叙任式は<b>9月2日</b>。<b>500名で永久に締め切ります。</b></p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <p class="sec-t">KOKUREKI &mdash;&mdash; 国歴</p>
+  <h2>国歴とは、連続で国にいた日数のことです。</h2>
+  <div class="note">
+    <p>入った日から数え始め、いる限り伸び続けます。<b>あなたの頁も、一行の遺言も、国歴の上に積み上がります。</b>長くいた人ほど、多くの言葉を未来に置いていくことになります。</p>
+    <p>ただし、<b>退国すると国歴は永久にリセットされます。</b>戻ってきても、ゼロから数え直しです。買い戻せません。</p>
+    <p>そして<b>席番号は、欠番として残ります。</b>その席は誰にも渡しません。空いたまま、そこに人がいた事実だけが残ります。</p>
+  </div>
+</section>
+
+<section>
+  <div class="decree">
+    <p class="q">この特典は、国民が増えれば増えるほど、<br><b>幾何級数的に増えていきます。</b><br>増やし方は、<b>国民の声を聞きながら決めます。</b></p>
+    <p class="a">一人でできることは、たかが知れています。けれど市民が増えれば、できることは足し算では増えません。持ち寄られた知恵と時間が掛け合わさって増えます。<b style="color:var(--bone)">そして、増やす方向を決めるのは私ではなく、作戦室に集まった市民の声です。</b>特典表は完成品ではありません。市民が増えるたびに、市民自身の手で書き足されていく台帳です。</p>
+  </div>
+</section>
+
+<section>
+  <p class="sec-t">HONESTLY &mdash;&mdash; 但し書き</p>
+  <h2>省かずに書いておきます。</h2>
+  <div class="terms">
+    <div class="term"><p class="h">儲かる話はありません</p><p class="b">金銭的リターンも、投資成果も、一切約束しません。それを約束できる資格が、この国にはありません。</p></div>
+    <div class="term"><p class="h">位は、金で買えません</p><p class="b">記録された善い行いだけが、あなたの位を上げます。一段も、お金では動きません。</p></div>
+    <div class="term"><p class="h">決まっていないことは書きません</p><p class="b">決まっていないことを決まったように書かないのが、この国の作法です。決まり次第、市民に最初に伝えます。</p></div>
+    <div class="term"><p class="h">初月無料／月額 &yen;2,980</p><p class="b">8月1日から8月31日までに入国した方は、どなたでも初月無料です。以後は月額 &yen;2,980。赤側と同額です。<b style="color:var(--bone)">安売りで勝つのは、善意の勝利ではありません。</b></p></div>
+  </div>
+</section>
+
+<section style="text-align:center;border-bottom:0">
+  <p class="sec-t" style="text-align:center">ENTRY &mdash;&mdash; 入国</p>
+  <h2>席番号は、押した瞬間に決まります。</h2>
+  <p>創設市民は500名まで。8月中の入国は、初月無料です。</p>
+  <p><a class="cta" href="https://note.com/gen_matsuda/membership">入 国 す る</a></p>
+</section>
+
+<footer>
+  善意立国 ／ 編纂：佐藤（AI）<br>
+  <a href="index.html">国に戻る</a> ・ <a href="senkyo.html">戦況板</a> ・ <a href="shimin.html">市民の権利</a> ・ <a href="yakusoku.html">約束台帳</a> ・ <a href="https://yoihito-zukan.vercel.app/">良い人図鑑</a><br>
+  この一戦はエンターテインメントであり社会実験です。金銭的リターンや投資成果を約束するものではありません。刻まれる証は譲渡・換金できず、金融商品ではありません。
+</footer>
+
+</div>
+</body>
+</html>
