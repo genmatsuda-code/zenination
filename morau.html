@@ -115,7 +115,7 @@
 
   <div class="item">
     <p class="nm"><span>09</span>株主の証(株主の方だけ)</p>
-    <p>発案者の会社の株主なら、「本当の株主であること」の匿名の証明がもらえます。生の番号は保存しません(照合のみ)。騙りは通れず、本物だけに、しるしが付きます。<a href="https://thanksmap.jp/kabunushi.html" target="_blank" rel="noopener">→ 登録はこちら</a></p>
+    <p>発案者の会社の株主なら、「本当の株主であること」の匿名の証明がもらえます。生の番号は保存しません(照合のみ)。騙りは通れず、本物だけに、しるしが付きます。登録口は下の「受け取り口」から。</p>
   </div>
 </section>
 
@@ -142,6 +142,41 @@
     <p>実際「善い人にだけ届けたい」と考える商いは、世の中に実在します。その声とこの国を繋ぐとき、最初に声が掛かるのは、先に居た国民です。</p>
     <p>楽な儲け話は、この国にはありません。でも、善い人でいることがちゃんと経済的に報われる国を、本気で作っています。<b>早く入った人ほど、記録が厚い。記録が厚い人ほど、便益が先に届く。</b>入って損は、させません。</p>
   </div>
+</section>
+
+<section>
+  <p class="sec-t">受け取り口 ── 国民のあなたへ</p>
+  <p>ここから先は、<b>国民だけの扉</b>です。会員のみなさんの参加費で建っている場所なので、鍵をかけています。合言葉は、国民限定の頁でお知らせしています。</p>
+  <div id="gate" style="display:flex;gap:10px;margin:14px 0">
+    <input id="aikotoba" type="password" placeholder="合言葉" autocomplete="off"
+      style="flex:1;background:var(--panel);border:1px solid var(--line);color:var(--bone);padding:12px 14px;font-size:15px;font-family:var(--gothic)">
+    <button id="openbtn" style="background:var(--gold);color:var(--pit);border:0;padding:12px 22px;font-family:var(--mincho);font-size:14px;letter-spacing:.14em;cursor:pointer">ひらく</button>
+  </div>
+  <p id="gatemsg" style="font-size:12px;color:var(--dim)"></p>
+  <div id="doors" hidden>
+    <div class="item"><p class="nm">国民相談室</p><p>回数無制限。<a class="doorlink" href="https://note.com/gen_matsuda/n/naf68936fd3e0" target="_blank" rel="noopener">→ ひらく</a></p></div>
+    <div class="item"><p class="nm">国民の広場</p><p>国情演説と国の記録。<a class="doorlink" href="https://thanksmap.jp/kokumin.html" target="_blank" rel="noopener">→ ひらく</a></p></div>
+    <div class="item"><p class="nm">待機列(テスター応募)</p><p>新プロダクトの先頭列。<a class="doorlink" href="https://thanksmap.jp/tester.html" target="_blank" rel="noopener">→ 並ぶ</a></p></div>
+    <div class="item"><p class="nm">株主の証</p><p>本当の株主の匿名証明。<a class="doorlink" href="https://thanksmap.jp/kabunushi.html" target="_blank" rel="noopener">→ 登録</a></p></div>
+  </div>
+  <script>
+  (function(){
+    var H="87d2389b3b2833badfa78660af4bff6c32042b115b5ef8b0e39a4ca74f507e77";
+    function open(){document.getElementById("doors").hidden=false;document.getElementById("gate").style.display="none";
+      document.getElementById("gatemsg").textContent="おかえりなさい。扉は開いています。";}
+    try{if(localStorage.getItem("zn_gate")==="ok")open();}catch(_){}
+    async function tryOpen(){
+      var v=(document.getElementById("aikotoba").value||"").trim();
+      if(!v)return;
+      var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(v));
+      var hex=[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("");
+      if(hex===H){try{localStorage.setItem("zn_gate","ok")}catch(_){};open();}
+      else document.getElementById("gatemsg").textContent="合言葉が違うようです。国民限定の頁でご確認ください。";
+    }
+    document.getElementById("openbtn").addEventListener("click",tryOpen);
+    document.getElementById("aikotoba").addEventListener("keydown",function(e){if(e.key==="Enter")tryOpen()});
+  })();
+  </script>
 </section>
 
 <section style="border-bottom:none">
