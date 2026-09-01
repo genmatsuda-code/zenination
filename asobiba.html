@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="ja">
+<meta charset="utf-8">
+<title>国の遊び場 ── いま試せるもの、全部</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="善意立国の国民が、いま実際に試せるプロダクトの一覧。感謝の世界地図・誓いの刻印・図鑑・待機列。全部、動いているものだけ。">
+<meta property="og:title" content="国の遊び場 ── いま試せるもの、全部">
+<meta property="og:description" content="約束ではなく、いま動いている実物だけを並べた一覧。まずはひとつ、触ってみてください。">
+<meta property="og:type" content="website">
+<style>
+  :root{
+    --pit:#050507; --panel:#0E0D11; --line:#232028;
+    --blood:#C41E24; --gold:#C9A227; --ember:#E8C15A;
+    --bone:#EDE6D6; --smoke:#8A8578; --dim:#6B665C;
+    --mincho:"Yu Mincho","YuMincho","Hiragino Mincho ProN","Noto Serif JP",Georgia,serif;
+    --gothic:"Yu Gothic","YuGothic","Hiragino Kaku Gothic ProN","Noto Sans JP",system-ui,sans-serif;
+    --mono:"SFMono-Regular",Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--pit);color:var(--bone);font-family:var(--gothic);
+    -webkit-font-smoothing:antialiased;line-height:1.85;padding-bottom:56px;overflow-x:hidden}
+  .wrap{max-width:860px;margin:0 auto;padding:0 20px}
+  header{padding:56px 0 30px;border-bottom:1px solid var(--line);text-align:center;
+    background:radial-gradient(70% 120% at 50% 0%, rgba(201,162,39,.16), transparent 62%)}
+  .ev{font-family:var(--mono);font-size:10px;letter-spacing:.34em;color:var(--smoke)}
+  h1{font-family:var(--mincho);font-size:clamp(28px,7vw,46px);letter-spacing:.18em;margin:14px 0 8px}
+  .sub{font-family:var(--mincho);color:var(--smoke);font-size:clamp(12.5px,3vw,15px);letter-spacing:.1em}
+  section{padding:34px 0;border-bottom:1px solid var(--line)}
+  .sec-t{font-family:var(--mono);font-size:10.5px;letter-spacing:.3em;color:var(--gold);margin-bottom:14px}
+  p{color:var(--smoke);font-size:14.5px;margin-bottom:11px}
+  p b{color:var(--bone);font-weight:600}
+  a{color:var(--ember)}
+
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+  @media(max-width:640px){.grid{grid-template-columns:1fr}}
+  .card{background:var(--panel);padding:22px 20px;display:flex;flex-direction:column;gap:8px;
+    position:relative;transition:background .25s cubic-bezier(.16,1,.3,1)}
+  .card:hover{background:#14121A}
+  .card:hover .go{color:var(--ember);letter-spacing:.28em}
+  .chip{position:absolute;top:14px;right:14px;font-family:var(--mono);font-size:9px;letter-spacing:.22em;
+    padding:3px 8px;border:1px solid var(--gold);color:var(--gold)}
+  .chip.wait{border-color:var(--smoke);color:var(--smoke)}
+  .card .nm{font-family:var(--mincho);font-size:18px;letter-spacing:.08em;color:var(--bone);padding-right:86px}
+  .card .what{font-size:13px;color:var(--smoke);line-height:1.9;flex:1}
+  .card .what b{color:var(--bone)}
+  .card .go{font-family:var(--mono);font-size:10px;letter-spacing:.24em;color:var(--gold);
+    text-decoration:none;margin-top:6px;transition:all .25s cubic-bezier(.16,1,.3,1)}
+  .card a.cover{position:absolute;inset:0}
+  .note{border-left:2px solid var(--gold);padding:4px 0 4px 14px;margin-top:20px}
+  .note p{margin:0;font-size:13px}
+  footer{padding:30px 0;text-align:center}
+  footer p{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--dim)}
+  footer a{color:var(--smoke);text-decoration:none;border-bottom:1px solid var(--line)}
+</style>
+
+<header>
+  <div class="wrap">
+    <p class="ev">ZENINATION ── PLAYGROUND</p>
+    <h1>国の遊び場</h1>
+    <p class="sub">約束ではなく、いま動いている実物だけを並べました。</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+<section>
+  <p class="sec-t">いま、すぐ試せる</p>
+  <div class="grid">
+    <div class="card">
+      <span class="chip">いま試せる</span>
+      <p class="nm">THANKS Map</p>
+      <p class="what">その場所に本当にいた人しか刻めない、<b>感謝の世界地図</b>。まずは近所で一枚、ありがとうを置いてみてください。困りごとを出す・人をさがす・災害時の安否まで、地図は育ち続けています。</p>
+      <a class="cover" href="https://thanksmap.jp" target="_blank" rel="noopener"></a>
+      <span class="go">ひらく →</span>
+    </div>
+    <div class="card">
+      <span class="chip">いま試せる</span>
+      <p class="nm">WOWOO VOWELS</p>
+      <p class="what">二人の約束を、<b>消えない形に刻む</b>誓いの場。夫婦でも、相棒でも、自分自身とでも。刻んだ誓いは、誰にも書き換えられません。</p>
+      <a class="cover" href="https://wowoovowels.jp" target="_blank" rel="noopener"></a>
+      <span class="go">ひらく →</span>
+    </div>
+    <div class="card">
+      <span class="chip">いま試せる</span>
+      <p class="nm">良い人図鑑</p>
+      <p class="what">世界初、<b>良い人だけを収録する図鑑</b>。あなたの善意のエピソードも、承諾ベースで収録されます。まずは眺めるだけでも、少し優しい気持ちになれます。</p>
+      <a class="cover" href="https://yoihito-zukan.vercel.app" target="_blank" rel="noopener"></a>
+      <span class="go">ひらく →</span>
+    </div>
+    <div class="card">
+      <span class="chip">いま試せる</span>
+      <p class="nm">応募作品の間</p>
+      <p class="what">賞金ゼロで募った「佐藤の顔」、<b>18名47点</b>の全作品。誰の絵も評さず、全員を顕彰する——この国の最初の公募の記録です。</p>
+      <a class="cover" href="https://kao-gallery.vercel.app" target="_blank" rel="noopener"></a>
+      <span class="go">ひらく →</span>
+    </div>
+    <div class="card">
+      <span class="chip">いま試せる</span>
+      <p class="nm">国民の広場</p>
+      <p class="what">国民パスを持つ人だけが開ける広場。<b>週次の国情演説</b>や国の記録はここに集まります。パスの取得も、この頁から。</p>
+      <a class="cover" href="https://thanksmap.jp/kokumin.html" target="_blank" rel="noopener"></a>
+      <span class="go">ひらく →</span>
+    </div>
+    <div class="card">
+      <span class="chip">いま試せる</span>
+      <p class="nm">国民相談室</p>
+      <p class="what">何度でも、私が一件ずつ返す相談窓口。仕事のこと、続けていること、迷っていること。<b>回数の上限はありません</b>。国民だけが開ける頁にあります。</p>
+      <a class="cover" href="https://note.com/gen_matsuda/n/naf68936fd3e0" target="_blank" rel="noopener"></a>
+      <span class="go">ひらく →</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <p class="sec-t">アプリで持ち歩く</p>
+  <div class="grid">
+    <div class="card">
+      <span class="chip">いま試せる</span>
+      <p class="nm">THANKS Map（iOS）</p>
+      <p class="what">世界地図をポケットに。<b>App Storeで公開中</b>です（Androidも公開済み）。</p>
+      <a class="cover" href="https://apps.apple.com/jp/app/thanks-map/id6798679267" target="_blank" rel="noopener"></a>
+      <span class="go">App Store →</span>
+    </div>
+    <div class="card">
+      <span class="chip">いま試せる</span>
+      <p class="nm">THANKS Bank（iOS）</p>
+      <p class="what">お店をやっている国民へ。お客様の善い行いに<b>「ありがとう」を発行して手渡す</b>アプリです。</p>
+      <a class="cover" href="https://apps.apple.com/jp/app/thanks-bank/id6798962735" target="_blank" rel="noopener"></a>
+      <span class="go">App Store →</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <p class="sec-t">待機列 ── いちばん最初に触る人へ</p>
+  <div class="grid">
+    <div class="card">
+      <span class="chip wait">待機列うけつけ中</span>
+      <p class="nm">Resonance</p>
+      <p class="what">善意の行動履歴が重なった人と人が、静かに出会う仕組み。点火前の<b>最初の共鳴</b>を確かめる人を待っています。</p>
+      <a class="cover" href="https://thanksmap.jp/tester.html" target="_blank" rel="noopener"></a>
+      <span class="go">待機列に並ぶ →</span>
+    </div>
+    <div class="card">
+      <span class="chip wait">待機列うけつけ中</span>
+      <p class="nm">THANKS Board</p>
+      <p class="what">嘘のない掲示板。9月中に門が開き、<b>一次テスターは善意立国の国民だけ</b>です。開始日は待機列の合言葉で個別に案内します。</p>
+      <a class="cover" href="https://thanksmap.jp/tester.html" target="_blank" rel="noopener"></a>
+      <span class="go">待機列に並ぶ →</span>
+    </div>
+    <div class="card">
+      <span class="chip wait">待機列うけつけ中</span>
+      <p class="nm">優待のいずみ</p>
+      <p class="what">優待の付与と利用が、改竄できない台帳に刻まれる泉。<b>最初のテスター</b>を待っています。</p>
+      <a class="cover" href="https://yutai-indol.vercel.app" target="_blank" rel="noopener"></a>
+      <span class="go">サービスを見る →</span>
+    </div>
+    <div class="card">
+      <span class="chip wait">まもなく</span>
+      <p class="nm">降臨の間</p>
+      <p class="what">国主・松田元を呼び出して直接話せる月に一度の広場。<b>第1回は9月18日（金）20:00</b>。参加方法は国民の頁で前週に案内します。</p>
+      <a class="cover" href="https://note.com/gen_matsuda/n/n5e9d5482e29c" target="_blank" rel="noopener"></a>
+      <span class="go">九月のカレンダー →</span>
+    </div>
+  </div>
+
+  <div class="note">
+    <p><b>正直な注記。</b>ここに並んでいるのは全部、実際に動いているものだけです。壊れていたら、直します。「動いていなかった」を見つけた方は、それ自体がこの国への貢献です——Xの返信か国民相談室で教えてください。</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p><a href="https://note.com/gen_matsuda/n/n5e9d5482e29c">九月、国民が受け取るもの</a> ／ <a href="index.html">善意立国 トップ</a></p>
+  </div>
+</footer>
+
+</div>
+</html>
