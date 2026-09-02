@@ -50,6 +50,13 @@
   .forever{text-align:center;padding:36px 0 8px}
   .forever p{font-family:var(--mincho);font-size:13.5px;letter-spacing:.1em}
   .stamp{font-family:var(--mono);font-size:10px;letter-spacing:.24em;color:var(--dim);margin-top:10px}
+  .peek{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+  @media(max-width:560px){.peek{grid-template-columns:1fr}}
+  .peek a{display:flex;flex-direction:column;gap:2px;background:var(--panel);border:1px solid var(--line);
+    padding:13px 15px;text-decoration:none;transition:border-color .25s}
+  .peek a:hover{border-color:var(--gold)}
+  .peek a b{color:var(--bone);font-family:var(--mincho);font-size:15px;letter-spacing:.06em}
+  .peek a span{color:var(--dim);font-size:11.5px;letter-spacing:.04em}
   footer{padding:28px 0;text-align:center}
   footer p{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--dim)}
   footer a{color:var(--smoke);text-decoration:none;border-bottom:1px solid var(--line)}
@@ -145,6 +152,22 @@
 </section>
 
 <section>
+  <p class="sec-t">この国の工房 ── いま動いているプロダクト</p>
+  <p>ちなみに、この国の後ろでは、こんなプロダクトが実際に動いています。<b>ぜんぶ本物、今日触れます</b>——まずは覗いてみてください。</p>
+  <div class="peek">
+    <a href="https://thanksmap.jp" target="_blank" rel="noopener"><b>THANKS Map</b><span>感謝の世界地図</span></a>
+    <a href="https://wowoovowels.jp" target="_blank" rel="noopener"><b>WOWOO VOWELS</b><span>消えない誓い</span></a>
+    <a href="https://yoihito-zukan.vercel.app" target="_blank" rel="noopener"><b>良い人図鑑</b><span>良い人だけの図鑑</span></a>
+    <a href="https://thanksmap.jp/imakoko.html" target="_blank" rel="noopener"><b>イマココ</b><span>保存しない見守り</span></a>
+    <a href="https://thanksmap.jp/me.html" target="_blank" rel="noopener"><b>善意の記録</b><span>あなたの善の一冊</span></a>
+    <a href="https://thanksmap.jp/zukan.html" target="_blank" rel="noopener"><b>初灯図鑑</b><span>最初の火の記録</span></a>
+    <a href="https://shield-blond.vercel.app" target="_blank" rel="noopener"><b>デジタルバウンティハンター</b><span>誹謗中傷への護身</span></a>
+    <a href="https://apps.apple.com/jp/app/thanks-map/id6798679267" target="_blank" rel="noopener"><b>THANKS Map アプリ</b><span>App Store公開中</span></a>
+  </div>
+  <p style="margin-top:12px;font-size:13px">全部まとめて触りたい方は → <a href="asobiba.html">国の遊び場(18枚の全カード)</a></p>
+</section>
+
+<section>
   <p class="sec-t">受け取り口 ── 国民のあなたへ</p>
   <p>ここから先は、<b>国民だけの扉</b>です。会員のみなさんの参加費で建っている場所なので、鍵をかけています。合言葉は、国民限定の頁でお知らせしています。</p>
   <div id="gate" style="display:flex;gap:10px;margin:14px 0">
@@ -187,7 +210,7 @@
 
   <div class="forever">
     <p>この頁は、永久に更新され続けます。<br>もらえるものは増えることはあっても、黙って消えることはありません。</p>
-    <p class="stamp">LAST UPDATE ── 2026.09.01(株主の証を追加)</p>
+    <p class="stamp">LAST UPDATE ── 2026.09.02(工房のチラ見せを追加)</p>
   </div>
 </section>
 
