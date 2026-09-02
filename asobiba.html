@@ -277,6 +277,7 @@
     if(hex===H){
       try{localStorage.setItem("zn_gate","ok")}catch(_){}
       unlockAll();
+      document.getElementById("gv-msg").textContent="";
       document.getElementById("gateveil").hidden=true;
       if(pendingHref)window.open(pendingHref,"_blank","noopener");
     }else{
