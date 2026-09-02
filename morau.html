@@ -183,7 +183,7 @@
   <p class="sec-t">受け取り口 ── 国民のあなたへ</p>
   <p>ここから先は、<b>国民だけの扉</b>です。会員のみなさんの参加費で建っている場所なので、鍵をかけています。合言葉は、国民限定の頁でお知らせしています。</p>
   <div id="gate" style="display:flex;gap:10px;margin:14px 0">
-    <input id="aikotoba" type="password" placeholder="合言葉" autocomplete="off"
+    <input id="aikotoba" type="text" placeholder="合言葉(ひらがな)" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"
       style="flex:1;background:var(--panel);border:1px solid var(--line);color:var(--bone);padding:12px 14px;font-size:15px;font-family:var(--gothic)">
     <button id="openbtn" style="background:var(--gold);color:var(--pit);border:0;padding:12px 22px;font-family:var(--mincho);font-size:14px;letter-spacing:.14em;cursor:pointer">ひらく</button>
   </div>
@@ -200,16 +200,22 @@
     function open(){document.getElementById("doors").hidden=false;document.getElementById("gate").style.display="none";
       document.getElementById("gatemsg").textContent="おかえりなさい。扉は開いています。";}
     try{if(localStorage.getItem("zn_gate")==="ok")open();}catch(_){}
+    // 揺れに強く: 全角/半角・空白・カタカナ・末尾の句読点や括弧の違いは同じ合言葉として扱う
+    function norm(s){return (s||"").normalize("NFKC").replace(/[\s　]+/g,"")
+      .replace(/[ァ-ヶ]/g,function(c){return String.fromCharCode(c.charCodeAt(0)-0x60)})
+      .replace(/^[「『"'（(]+|[」』"'）)。、.,!！]+$/g,"");}
     async function tryOpen(){
-      var v=(document.getElementById("aikotoba").value||"").trim();
+      var v=norm(document.getElementById("aikotoba").value);
       if(!v)return;
       var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(v));
       var hex=[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("");
       if(hex===H){try{localStorage.setItem("zn_gate","ok")}catch(_){};open();}
-      else document.getElementById("gatemsg").textContent="合言葉が違うようです。国民限定の頁でご確認ください。";
+      else document.getElementById("gatemsg").textContent="合言葉が違うようです(ひらがな七文字・「ぜ」から始まります)。国民限定の頁でご確認ください。";
     }
     document.getElementById("openbtn").addEventListener("click",tryOpen);
-    document.getElementById("aikotoba").addEventListener("keydown",function(e){if(e.key==="Enter")tryOpen()});
+    // 日本語IMEの変換確定Enterでは判定しない(未確定の文字で「違う」と出ていた不具合の根治)
+    document.getElementById("aikotoba").addEventListener("keydown",function(e){
+      if(e.key==="Enter"&&!e.isComposing&&e.keyCode!==229)tryOpen();});
   })();
   </script>
 </section>

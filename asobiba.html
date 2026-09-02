@@ -242,7 +242,7 @@
     <p style="font-family:var(--mincho);font-size:17px;letter-spacing:.12em;color:var(--ember);margin-bottom:8px">国民だけの扉です</p>
     <p style="font-size:12.5px;margin-bottom:12px">会員のみなさんの参加費で建っている場所なので、鍵をかけています。合言葉は国民限定の頁でお知らせしています。</p>
     <div style="display:flex;gap:8px">
-      <input id="gv-in" type="password" placeholder="合言葉" autocomplete="off"
+      <input id="gv-in" type="text" placeholder="合言葉(ひらがな)" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"
         style="flex:1;background:var(--pit);border:1px solid var(--line);color:var(--bone);padding:10px 12px;font-size:15px">
       <button id="gv-ok" style="background:var(--gold);color:var(--pit);border:0;padding:10px 18px;font-family:var(--mincho);letter-spacing:.1em;cursor:pointer">ひらく</button>
     </div>
@@ -270,7 +270,7 @@
     document.getElementById("gv-in").focus();
   });
   async function tryOpen(){
-    var v=(document.getElementById("gv-in").value||"").trim();
+    var v=(document.getElementById("gv-in").value||"").normalize("NFKC").replace(/[\s　]+/g,"").replace(/[ァ-ヶ]/g,function(c){return String.fromCharCode(c.charCodeAt(0)-0x60)}).replace(/^[「『"'（(]+|[」』"'）)。、.,!！]+$/g,"");
     if(!v)return;
     var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(v));
     var hex=Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,"0")}).join("");
@@ -280,11 +280,11 @@
       document.getElementById("gateveil").hidden=true;
       if(pendingHref)window.open(pendingHref,"_blank","noopener");
     }else{
-      document.getElementById("gv-msg").textContent="合言葉が違うようです。国民限定の頁でご確認ください。";
+      document.getElementById("gv-msg").textContent="合言葉が違うようです(ひらがな七文字・「ぜ」から始まります)。国民限定の頁でご確認ください。";
     }
   }
   document.getElementById("gv-ok").addEventListener("click",tryOpen);
-  document.getElementById("gv-in").addEventListener("keydown",function(e){if(e.key==="Enter")tryOpen()});
+  document.getElementById("gv-in").addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.isComposing&&e.keyCode!==229)tryOpen()});
   document.getElementById("gv-close").addEventListener("click",function(e){e.preventDefault();document.getElementById("gateveil").hidden=true});
 })();
 </script>
