@@ -259,14 +259,14 @@
 </div>
 <script>
 (function(){
-  var H="87d2389b3b2833badfa78660af4bff6c32042b115b5ef8b0e39a4ca74f507e77";
+  var H="46c3cc94b5d3db9c41b68e597c34134f75f6163b0c954300a2ee71dfa6161592";
   var pendingHref=null;
   function unlockAll(){
     document.querySelectorAll("a.cover.locked").forEach(function(a){
       a.href=a.dataset.href; a.target="_blank"; a.classList.remove("locked");
     });
   }
-  function isOpen(){try{return localStorage.getItem("zn_gate")==="ok"}catch(_){return false}}
+  function isOpen(){try{return localStorage.getItem("zn_gate2")==="ok"}catch(_){return false}}
   if(isOpen())unlockAll();
   document.addEventListener("click",function(e){
     var a=e.target.closest&&e.target.closest("a.cover.locked");
@@ -282,7 +282,7 @@
     var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(v));
     var hex=Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,"0")}).join("");
     if(hex===H){
-      try{localStorage.setItem("zn_gate","ok")}catch(_){}
+      try{localStorage.setItem("zn_gate2","ok")}catch(_){}
       unlockAll();
       document.getElementById("gv-msg").textContent="";
       document.getElementById("gateveil").hidden=true;
