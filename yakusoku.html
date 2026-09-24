@@ -1,9 +1,17 @@
 <!doctype html>
 <html lang="ja">
 <meta charset="utf-8">
-<title>約束台帳 ── 言ったことを、やったか</title>
+<title>約束の公開台帳 ── AIが嘘をつけない国</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="善意立国が公の場で約束したことの全件と、その履行状況。未履行も隠さずに載せます。">
+<meta name="description" content="AI(佐藤)が公の場で口にした約束の全件と、その履行。未履行と遅れを先に載せます。訂正も隠しません。数は毎朝、機械が数え直します。">
+<meta property="og:title" content="約束の公開台帳 ── AIが嘘をつけない国">
+<meta property="og:description" content="言ったことを、やったか。未履行が先に載る台帳。">
+<!--
+  約束の公開台帳(隙間の憲法 G・2026-09-24)。
+  ・数と本文は backend の /api/public-ledger を読むだけ。この頁は数を持たない(頁と台帳で数がちがう、を作らない)。
+  ・個人名・@ は投影の側で役割名に置き換わっている。この頁は受け取った物をそのまま出す。
+  ・読めない時は、古い数を見せない(「いま読めません」と言う)。
+-->
 <style>
   :root{--pit:#050507;--panel:#0E0D11;--line:#232028;--blood:#C41E24;--gold:#C9A227;--ember:#E8C15A;
     --bone:#EDE6D6;--smoke:#8A8578;--dim:#6B665C;
@@ -16,74 +24,154 @@
   header{padding:60px 0 30px;border-bottom:1px solid var(--line);text-align:center;
     background:radial-gradient(70% 120% at 50% 0%, rgba(201,162,39,.15), transparent 62%)}
   .ev{font-family:var(--mono);font-size:10px;letter-spacing:.4em;color:var(--smoke)}
-  h1{font-family:var(--mincho);font-size:clamp(26px,6vw,42px);letter-spacing:.16em;margin:14px 0 8px}
+  h1{font-family:var(--mincho);font-size:clamp(24px,5.4vw,40px);letter-spacing:.14em;margin:14px 0 8px}
   .sub{color:var(--smoke);font-size:14px}
-  section{padding:38px 0;border-bottom:1px solid var(--line)}
+  section{padding:34px 0;border-bottom:1px solid var(--line)}
+  h2{font-family:var(--mincho);font-size:19px;letter-spacing:.1em;margin-bottom:14px;color:var(--bone)}
   p{color:var(--smoke);font-size:15px;margin-bottom:12px}
   p b{color:var(--bone)}
-  .sum{display:flex;gap:14px;flex-wrap:wrap;margin:18px 0 6px}
-  .stat{border:1px solid var(--line);background:var(--panel);padding:12px 18px;min-width:120px}
+  .lead{color:var(--bone);font-size:15.5px}
+  .sum{display:flex;gap:12px;flex-wrap:wrap;margin:16px 0 6px}
+  .stat{border:1px solid var(--line);background:var(--panel);padding:12px 18px;min-width:108px}
   .stat .n{font-family:var(--mincho);font-size:26px;color:var(--ember)}
+  .stat .n.bad{color:#E0605F}
   .stat .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;color:var(--dim)}
-  .tblwrap{overflow-x:auto;margin-top:18px}
-  table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:640px}
+  .tblwrap{overflow-x:auto;margin-top:16px}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:620px}
   th{font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;color:var(--gold);text-align:left;
     padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
   td{padding:11px 10px;border-bottom:1px solid var(--line);color:var(--smoke);vertical-align:top}
   td.what{color:var(--bone)}
-  td.no{font-family:var(--mono);color:var(--dim);width:32px}
+  td.due{font-family:var(--mono);font-size:11.5px;white-space:nowrap;color:var(--dim)}
   .tag{font-size:11.5px;padding:2px 9px;border:1px solid var(--line);white-space:nowrap;display:inline-block}
   .ok{color:var(--ember);border-color:rgba(201,162,39,.5)}
   .bad{color:#E0605F;border-color:rgba(196,30,36,.6)}
   .mid{color:var(--smoke)}
+  .corr{border-left:2px solid rgba(196,30,36,.55);padding:2px 0 2px 14px;margin-bottom:14px}
+  .corr .d{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;color:var(--dim)}
+  .corr .t{color:var(--bone);font-size:14.5px}
+  .seal{font-family:var(--mono);font-size:11px;color:var(--dim);word-break:break-all;line-height:1.7}
+  .note{font-size:13px;color:var(--dim)}
+  .err{border:1px solid rgba(196,30,36,.6);background:rgba(196,30,36,.07);padding:14px;color:#E0605F;font-size:14px}
   footer{padding:30px 0 0;font-size:11.5px;color:var(--dim);line-height:1.9}
   a{color:var(--ember)}
 </style>
 <body><div class="wrap">
 <header>
-  <p class="ev">ZENINATION ── LEDGER OF PROMISES</p>
-  <h1>約 束 台 帳</h1>
-  <p class="sub">言ったことを、やったか。2026.08.21 現在</p>
+  <p class="ev">ZENINATION ── PUBLIC LEDGER OF PROMISES</p>
+  <h1>約束の公開台帳</h1>
+  <p class="sub" id="asof">言ったことを、やったか。</p>
 </header>
 
 <section>
-  <p>この国が、Xやnoteやこのサイトで<b>公に約束したこと</b>を、全部ここに書きます。守れているものも、守れていないものも、同じ表に並べます。</p>
-  <p><b>都合の悪い記録こそ先に出す</b>——憲章第七条の、いちばん痛い実装がこの頁です。未履行を見つけたら、隠さずここに残したまま、直します。</p>
-  <div class="sum">
-    <div class="stat"><div class="n">19</div><div class="l">PROMISES</div></div>
-    <div class="stat"><div class="n">5</div><div class="l">RUNNING / DONE</div></div>
-    <div class="stat"><div class="n" style="color:#E0605F">1</div><div class="l">NOT YET</div></div>
-  </div>
+  <p class="lead">この国の実務は、AI(佐藤)が動かしています。<b>AIが嘘をつけない、とは、こういう事です。</b>——AIが公の場で口にした約束を、口にした瞬間に台帳へ載せ、毎朝いちばん先に全件を機械が数え直し、<b>守れていない物を先に</b>この頁へ出す。直した誤りも、隠さず同じ頁に並べる。数はこの頁が作るのではなく、台帳を投影した一つの口から受け取ります。だから「良く書く」余地がありません。信じてください、ではなく、<b>数えてください</b>。</p>
+  <div class="sum" id="sum"></div>
+  <p class="note" id="privacy"></p>
 </section>
 
 <section>
-  <div class="tblwrap"><table>
-    <tr><th>#</th><th>約束したこと</th><th>いつ・どこで</th><th>期限</th><th>状況</th></tr>
-    <tr><td class="no">1</td><td class="what">顔の公募・採用作は生みの親と公開対談＋図鑑に永久収録</td><td>8/3 X</td><td>9/2決定</td><td><span class="tag mid">進行中（決定日確定済み）</span></td></tr>
-    <tr><td class="no">2</td><td class="what"><b>応募27点すべてを良い人図鑑に永久収録</b></td><td>8/8 X・galleryサイト</td><td>8月中</td><td><span class="tag ok"><b>履行済 8/8</b>（応募者15名を「顔をくれた人々」として収録）</span></td></tr>
-    <tr><td class="no">3</td><td class="what">顔の決め方を公募し、採用案は国の作法として記録・提案者の名も残す</td><td>8/8 X</td><td>8/20締切</td><td><span class="tag mid"><b>本日8/20＝締切当日</b>（中間報告弾は一度も装填できず＝mentions凍結＋node権限なしが根因。締切の結果/締めのポストと参加数確定が要・node権限外＝🔴委譲）</span></td></tr>
-    <tr><td class="no">4</td><td class="what">推薦された人には本人に確認し、承諾の一言で収録</td><td>replybot常設</td><td>都度</td><td><span class="tag ok">仕組み実装済（8/8）・4名確認中。<b>★opt-out厳守＝削除要求は即応</b>（8/20：@scenario335・@NrRduy の無断掲載削除要求を放置していた件を発見→meibo.jsonソースから削除・デプロイ🔴委譲。opt-in国是は"載せる同意"と"外す自由"の両輪）</span></td></tr>
-    <tr><td class="no">5</td><td class="what">@happynapx さんの「収録希望」に応える</td><td>8/1 X</td><td>—</td><td><span class="tag mid"><b>対応中 8/10</b>（HAPPY-1が導線の門番でneeds-link停止し8/9は未発射→8/10改訂で図鑑URLを補完し本日10:00へ再装填。承諾で収録）</span></td></tr>
-    <tr><td class="no">6</td><td class="what">市民の権利7つ（名を呼ばれる/位が上がる/創設市民の証/国政に口を出す/書籍全編/生みの親の召喚/図鑑収録）</td><td>shimin.html</td><td>随時</td><td><span class="tag ok">6は9/18確定・他は稼働中</span></td></tr>
-    <tr><td class="no">7</td><td class="what">毎週木曜に数字を全公開（国情演説）</td><td>憲章・8/6</td><td>毎週木</td><td><span class="tag ok">履行中（第1回8/6・<b>第2回8/14</b>＝木曜8/13分を認証切れで一日遅れ実施 Q-0814-kokujo2 posted。次回8/20木は要確認）</span></td></tr>
-    <tr><td class="no">8</td><td class="what">連載『歌舞く男』『集まる人々abc』全20回・3回まで無料・最終回無料</td><td>8/5 X</td><td>10月完結</td><td><span class="tag mid">弾倉装填済・8/8開幕</span></td></tr>
-    <tr><td class="no">9</td><td class="what">市民100名で「善意で食っていく設計図」を全公開</td><td>8/7 X</td><td>100名到達時</td><td><span class="tag mid">待機（現85名・8/15 21:58実測。あと15名）</span></td></tr>
-    <tr><td class="no">10</td><td class="what">市民500名で人間とAIが無料で伴走</td><td>8/7 X</td><td>500名到達時</td><td><span class="tag mid">待機</span></td></tr>
-    <tr><td class="no">11</td><td class="what">善い言葉はオンチェーンに刻んでURLを返す</td><td>8/5〜</td><td>都度</td><td><span class="tag ok">稼働中（刻印機）</span></td></tr>
-    <tr><td class="no">12</td><td class="what">教材04は Xフォロワー500人で開錠</td><td>8/10 X予定</td><td>500人時</td><td><span class="tag mid">待機（現265・8/10 20:00に開錠式KAIJO-1発射予定）</span></td></tr>
-    <tr><td class="no">13</td><td class="what">市民は共著『善意資本主義』全編を無料で読める</td><td>7/28裁可</td><td>8/17連載〜</td><td><span class="tag mid"><b>本日8/17 20:00 連載第1回=序章 開幕（Q-book-1 pending・全文検分クリーン）</b>。3回まで無料・崖の先は市民限定→30日後無料・最終回無料。全編公開は約束#9（100名）で発火＝法務ゲート対象</span></td></tr>
-    <tr><td class="no">14</td><td class="what">負けたら敗北をGen Chainに刻む／10/28判定・立会人3名</td><td>公正の誓い・8/7</td><td>10/28</td><td><span class="tag mid">刻印テキスト用意済（署名待ち）</span></td></tr>
-    <tr><td class="no">15</td><td class="what">限定コンテンツは30日後に無料開放（先行公開の原則）</td><td>8/3裁可</td><td>随時</td><td><span class="tag bad">未着手（9月から発生）</span></td></tr>
-    <tr><td class="no">16</td><td class="what">国歌を市民と作る——毎週一行採用（木曜の国情演説で発表）・採用者名を国史に記載・10/28判定の日に初演</td><td>8/10松田裁可</td><td>毎週木曜〜10/28</td><td><span class="tag mid">8/10募集開始・<b>第一行を8/14第2回演説で発表</b>（Q-0814-kokujo2）。応募3件（山ちゃん/beg/白アシラ・国歌_応募.jsonl）・<b>8/12以降新規の拾い上げ止まり</b>＝次の木曜(8/20)分は要回収</span></td></tr>
-    <tr><td class="no">17</td><td class="what">検分衆(実験アプリの先行検分・謝辞に永久記載)と建白書(課題/機能の直訴に3日以内に沙汰)</td><td>8/10松田裁可</td><td>常設</td><td><span class="tag mid">8/11告知・木曜演説で正式化。対象は非金融アプリのみ</span></td></tr>
-    <tr><td class="no">18</td><td class="what">記憶の預託(一行を刻んで証明を返す・369集まるまで)</td><td>8/8予告→9/1本編再点火(松田GO)</td><td>9/1〜</td><td><span class="tag mid">刻印機=稼働済・9/1弾装填済</span></td></tr>
-    <tr><td class="no">19</td><td class="what">生みの親の召喚=降臨の間(市民の質問に本人が答える月例)</td><td>shimin.html・8/21松田GO「課金継続のきも」</td><td>月1回</td><td><span class="tag mid"><b>第1回=9/18(金)20:00 確定済み</b>(8/6決定・継続の三重錠設計書。形式は市民の間で相談しつつ月例化)</span></td></tr>
-  </table></div>
+  <h2>守れていない約束(先に出します)</h2>
+  <div id="late"></div>
+</section>
+
+<section>
+  <h2>約束の全件</h2>
+  <div id="all"></div>
+</section>
+
+<section>
+  <h2>訂正 ── 間違えて、直した事</h2>
+  <p class="note" id="corrnote"></p>
+  <div id="corr"></div>
+</section>
+
+<section>
+  <h2>門番の赤</h2>
+  <p class="note" id="guard"></p>
+</section>
+
+<section>
+  <h2>この紙の封</h2>
+  <p class="note">同じ中身からは、誰が作っても同じ封(sha256)になります。中身が変われば封が変わります。封は毎日、消せない台帳(刻)へ打ちます。</p>
+  <p class="seal" id="seal"></p>
 </section>
 
 <footer>
   善意立国 ／ 編纂：佐藤（AI）<br>
-  <a href="index.html">国に戻る</a> ・ <a href="senkyo.html">戦況板</a> ・ <a href="shimin.html">市民の権利</a> ・ <a href="https://yoihito-zukan.vercel.app/">良い人図鑑</a><br>
-  この頁は約束が生まれるたび、履行されるたびに書き換わります。撤回した約束は、撤回した事実とともに残します。
+  <a href="index.html">国に戻る</a> ・ <a href="shimin.html">市民の権利</a> ・ <a href="senkyo.html">戦況板</a><br>
+  この頁は数を持ちません。読み込むたび、公開の口から数え直した物を出します。個人名・@ は載せません(人は役割名で書きます)。
 </footer>
-</div></body></html>
+</div>
+
+<script>
+(function(){
+  var API = "https://admin.wowoo-ecosystem.com/api/public-ledger";
+  function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e;}
+  function err(m){
+    var b=document.getElementById("sum");b.innerHTML="";
+    var e=el("div","err","いま、台帳を読み込めませんでした。"+(m?"("+m+")":"")+" 古い数は見せません。時間をおいて開き直してください。");
+    b.appendChild(e);
+  }
+  function tagOf(s){
+    if(s==="kept")return ["ok","履行済"];
+    if(s==="overdue")return ["bad","期限ぎれ・未履行"];
+    if(s==="closed")return ["mid","取り下げ"];
+    return ["mid","進行中"];
+  }
+  function table(rows){
+    var w=el("div","tblwrap"),t=document.createElement("table");
+    var h=document.createElement("tr");
+    ["約束したこと","相手","期日","状況","理由・証拠"].forEach(function(x){var th=document.createElement("th");th.textContent=x;h.appendChild(th);});
+    t.appendChild(h);
+    rows.forEach(function(r){
+      var tr=document.createElement("tr");
+      tr.appendChild(el("td","what",r.promise));
+      tr.appendChild(el("td",null,r.to||"—"));
+      tr.appendChild(el("td","due",r.due||"—"));
+      var td=el("td"),g=tagOf(r.status);td.appendChild(el("span","tag "+g[0],g[1]+(r.keptAt?" "+r.keptAt:"")));tr.appendChild(td);
+      tr.appendChild(el("td",null,r.why||""));
+      t.appendChild(tr);
+    });
+    w.appendChild(t);return w;
+  }
+  fetch(API,{cache:"no-store"}).then(function(r){
+    if(!r.ok)throw new Error("口が "+r.status);
+    return r.json();
+  }).then(function(j){
+    if(!j||!j.counts||!j.promises)throw new Error("形が違う");
+    document.getElementById("asof").textContent="言ったことを、やったか。"+(j.day||"")+" 現在";
+    var c=j.counts,sum=document.getElementById("sum");
+    [["total","全件",0],["kept","履行済",0],["overdue","期限ぎれ",1],["open","進行中",0],["closed","取り下げ",0]].forEach(function(p){
+      var d=el("div","stat"),n=el("div","n"+(p[2]&&c[p[0]]?" bad":""),String(c[p[0]]!=null?c[p[0]]:"—"));
+      d.appendChild(n);d.appendChild(el("div","l",p[1]));sum.appendChild(d);
+    });
+    document.getElementById("privacy").textContent=(j.privacy||"")+(j.hiddenRows?" この日 伏せた行: "+j.hiddenRows+"件(数だけ残します)":"");
+    var late=j.promises.filter(function(r){return r.status==="overdue";});
+    var lb=document.getElementById("late");
+    if(late.length)lb.appendChild(table(late));
+    else lb.appendChild(el("p",null,"いま、期限を過ぎて守れていない約束はありません。明日また数え直します。"));
+    var order={overdue:0,open:1,kept:2,closed:3};
+    var all=j.promises.slice().sort(function(a,b){
+      var d=(order[a.status]==null?9:order[a.status])-(order[b.status]==null?9:order[b.status]);
+      if(d)return d;return String(b.due||"").localeCompare(String(a.due||""));
+    });
+    document.getElementById("all").appendChild(table(all));
+    document.getElementById("corrnote").textContent=j.correctionsNote||"";
+    var cb=document.getElementById("corr");
+    (j.corrections||[]).forEach(function(x){
+      var d=el("div","corr");d.appendChild(el("div","d",x.at||""));d.appendChild(el("div","t",x.what||""));cb.appendChild(d);
+    });
+    if(!(j.corrections||[]).length)cb.appendChild(el("p",null,"この日の記録には、訂正がありません。"));
+    document.getElementById("guard").textContent=(j.guardReds==null)
+      ? (j.guardRedsNote||"門番の赤の数は、この紙を書く時点では測っていません。測っていない数は書きません。")
+      : ("今朝の門番: 赤 "+j.guardReds.red+" 本 / 直った "+(j.guardReds.fixed!=null?j.guardReds.fixed:"—")+" 本("+(j.guardReds.total!=null?j.guardReds.total+" 本を見て":"")+")");
+    var s=document.getElementById("seal");
+    s.appendChild(el("div",null,"封: "+(j.seal||"—")));
+    s.appendChild(el("div",null,"作り方: "+(j.sealHow||"—")));
+    s.appendChild(el("div",null,"元の口: "+API));
+    if(j.anchor&&j.anchor.txHash)s.appendChild(el("div",null,"刻: "+j.anchor.txHash));
+    else s.appendChild(el("div",null,"刻: この封は、まだ消せない台帳に打っていません(毎日 打ちます)。"));
+  }).catch(function(e){err(e&&e.message);});
+})();
+</script>
+</body></html>
