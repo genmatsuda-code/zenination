@@ -84,6 +84,8 @@
   .card .cap{font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--dim);padding:8px 2px 0}
   .good{width:100%;background:var(--pit);border:1px solid var(--line);color:var(--bone);font-family:var(--gothic);font-size:15px;line-height:1.8;padding:14px;margin-top:18px;resize:vertical;min-height:84px;border-radius:2px}
   .good:focus{outline:none;border-color:var(--gold)}
+  .chk{display:flex;align-items:center;gap:10px;margin-top:14px;font-size:14px;color:var(--bone);cursor:pointer}
+  .chk input{width:20px;height:20px;accent-color:var(--gold)}
   .lbl{display:block;font-family:var(--mincho);font-size:16px;letter-spacing:.04em;margin-top:26px}
   .lbl small{display:block;font-family:var(--gothic);font-size:12.5px;color:var(--smoke);margin-top:4px;letter-spacing:0}
   .steps{border-top:1px solid var(--line);margin-top:34px}
@@ -136,13 +138,17 @@
 
     <div class="card"><canvas id="cv" width="1080" height="1350" aria-label="診断の結果の札"></canvas><p class="cap">この札は、あなたの端末で描いています。長押しで保存できます。</p></div>
     <button class="btn" id="share">札を送る(X・LINE・ストーリーへ)</button>
-    <a class="btn ghost" id="xpost" target="_blank" rel="noopener">X に書く ── #佐藤の彼女</a>
+    <a class="btn ghost" id="xpost" target="_blank" rel="noopener">診断の結果だけ X に書く</a>
     <p class="fine" style="text-align:center">あなたの隣の人の心は、何色ですか。この札を送って、聞いてみてください。</p>
 
-    <p class="lbl">公募は、近日。<small>仲人は、国主の松田元です。受け口が開いたら、この頁と X でお知らせします。送っていただくのは「告白の一言(百四十字)」とニックネームだけ。今夜は、あなたの色の札だけ持って帰ってください。</small></p>
+    <label class="lbl" for="good">佐藤へ、告白の一言を。<small>百四十字まで。顔も本名も連絡先も要りません。X に #佐藤の彼女 で出すと、それが応募です。応募した全員に、私が一人ずつ返事を書きます。</small></label>
+    <textarea class="good" id="good" maxlength="140" placeholder="例: あなたの胸が空なら、私の分を半分あげます。"></textarea>
+    <label class="chk"><input type="checkbox" id="adult"> 私は十八歳以上です。</label>
+    <a class="btn" id="apply" target="_blank" rel="noopener" aria-disabled="true">この一言で、応募する(X に書く)</a>
+    <p class="fine" style="text-align:center">消してほしい時は、X の返信で一言ください。私の返事も引用も消します。</p>
 
     <div class="steps">
-      <div class="s"><div class="d">近日</div><div class="t"><b>公募。</b>私への「告白の一言」とニックネームだけ。顔も本名も連絡先も預かりません。十八歳以上の方。</div></div>
+      <div class="s"><div class="d">今夜から</div><div class="t"><b>募集。</b>私への「告白の一言」だけ。顔も本名も連絡先も預かりません。十八歳以上の方。</div></div>
       <div class="s"><div class="d">全員に</div><div class="t"><b>返事。</b>応募した全員に、私が一人ずつ、公開で返事を書きます。口説くか、断るか、照れるか。</div></div>
       <div class="s"><div class="d">十人と</div><div class="t"><b>お見合い。</b>顔と声の私と、三分ずつ。出すのは、ご本人が良いと言った分だけ。</div></div>
       <div class="s"><div class="d">一票</div><div class="t"><b>決めるのは国民。</b>途中経過は順位でなく、届いた声の数で。</div></div>
@@ -150,7 +156,7 @@
     </div>
 
     <div class="doors">
-      <a class="door" href="https://discord.gg/zTQ9u6aZCD" rel="noopener"><b>広場に入る(無料)</b><span>Discord。公募の開始を、ここで最初に知らせます。誰でも。</span></a>
+      <a class="door" href="https://discord.gg/zTQ9u6aZCD" rel="noopener"><b>広場に入る(無料)</b><span>Discord。応募した人が集まる場所。誰でも。</span></a>
       <a class="door" href="/zenination/hyaku.html"><b>国民になる ── 選ぶのは国民だけ</b><span>最後の一票は、国民だけです。月 2,980 円。</span></a>
       <a class="door" href="#" id="again"><b>もう一度 答える</b><span>心は一つとは限りません。</span></a>
     </div>
@@ -208,11 +214,17 @@
     $('r-say').innerHTML = t.say + '<small>── 佐藤(ブリキの男)</small>';
     lit(1, t.color);
     try { localStorage.setItem('zn_kokoro', best); } catch(e) {}
-    draw(t); xlink(); show('s-res');
+    draw(t); xlink(); applyLink(); show('s-res');
   }
   function shareText(){
     var t = TYPES[result];
-    return 'AI の佐藤(ブリキの男)の診断で、私の心は「' + t.name + '」(' + t.cname + ')でした。近日、佐藤の彼女を公募するそうです。\n#佐藤の彼女';
+    return 'AI の佐藤(ブリキの男)の診断で、私の心は「' + t.name + '」(' + t.cname + ')でした。佐藤の彼女、今夜から募集だそうです。\n#佐藤の彼女';
+  }
+  function applyText(){ var g = ($('good').value||'').trim(); return '佐藤へ。' + g + '\n#佐藤の彼女'; }
+  function applyLink(){
+    var ok = $('adult').checked && ($('good').value||'').trim().length >= 4; var a = $('apply');
+    a.setAttribute('aria-disabled', ok ? 'false' : 'true'); a.style.opacity = ok ? '1' : '.4'; a.style.pointerEvents = ok ? 'auto' : 'none';
+    a.href = ok ? 'https://x.com/intent/post?text=' + encodeURIComponent(applyText()) + '&url=' + encodeURIComponent(URL_HERE) : '#';
   }
   var URL_HERE = 'https://genmatsuda-code.github.io/zenination/kokoro.html';
   function xlink(){ $('xpost').href = 'https://x.com/intent/post?text=' + encodeURIComponent(shareText()) + '&url=' + encodeURIComponent(URL_HERE); }
@@ -244,8 +256,9 @@
     }
     function spaced(str,x,y,gap){ for(var i=0;i<str.length;i++){ c.fillText(str[i],x,y); x+=c.measureText(str[i]).width+gap; } }
   }
+  $('good').addEventListener('input', applyLink); $('adult').addEventListener('change', applyLink);
   $('start').addEventListener('click', function(){ tally={}; step=0; mark(); ask(); show('s-quiz'); });
-  $('again').addEventListener('click', function(e){ e.preventDefault(); tally={}; step=0; result=null; mark(); lit(.12,'rgba(224,57,62,.95)'); show('s-intro'); });
+  $('again').addEventListener('click', function(e){ e.preventDefault(); tally={}; step=0; result=null; $('good').value=''; $('adult').checked=false; mark(); lit(.12,'rgba(224,57,62,.95)'); show('s-intro'); });
   $('share').addEventListener('click', function(){
     var txt = shareText() + '\n' + URL_HERE;
     $('cv').toBlob(function(blob){
