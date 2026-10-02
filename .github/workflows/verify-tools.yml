@@ -1,0 +1,37 @@
+# 道具の頁の門番(2026-10-02 新設)
+#
+# ★ それまで、この地所には CI が一つも無かった。
+#   門番を手元でしか回さないなら、忘れた日に黙って通る——「呼ばれない門番は、門番ではない」。
+name: verify-tools
+
+on:
+  push:
+    paths:
+      - 'yuugen.html'
+      - 'dougu.html'
+      - 'tools/**'
+      - '.github/workflows/verify-tools.yml'
+  workflow_dispatch:
+
+jobs:
+  tools:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - name: '持株の有言実行率(数え方と言い方)'
+        run: node tools/verify-yuugen.js
+      - name: '同・変異つき(守りを外したら赤になる証明)'
+        if: always()
+        run: node tools/verify-yuugen.js --mutants
+      - name: '棚と実物が食い違っていないか(押させてから断らない)'
+        if: always()
+        run: |
+          grep -q 'yuugen.html' dougu.html || { echo '::error::棚から道具へ行けない'; exit 1; }
+          # ★的は**その道具の行**だけ。頁の他の場所の言及まで赤にすると、正しい文まで直させることになる
+          if grep -A3 "yuugen.html" dougu.html | grep -q "証券コード"; then
+            echo '::error::棚の道具の行がまだ「証券コード」と言っている(実物は 開示の文を貼る)'; exit 1
+          fi
+          echo '棚と実物が揃っている'

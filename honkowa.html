@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>上場企業の社長に、文句を言える。── 本当にあった怖い話</title>
+<meta name="description" content="東証上場 abc(8783)代表 松田元が、2021年から毎日 書いている部屋。文句を言えば、本人から必ず返事が来る。株と暗号資産と経営を、当事者の目で。月額2,980円。">
+<link rel="canonical" href="https://genmatsuda-code.github.io/zenination/honkowa.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="上場企業の社長に、文句を言える。必ず返事が来る。">
+<meta property="og:description" content="本当にあった怖い話 ── 松田元(abc 8783 代表)の部屋。2021年から。月額2,980円。">
+<meta property="og:url" content="https://genmatsuda-code.github.io/zenination/honkowa.html">
+<meta property="og:image" content="https://genmatsuda-code.github.io/zenination/assets/honkowa-og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://genmatsuda-code.github.io/zenination/assets/honkowa-og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* 深夜の社長室。色は 夜・骨・卓上灯の三つだけ。便箋(kanojo)とは別の顔。 */
+:root{
+  --night:#0b0d12; --night2:#12151d; --bone:#f1ede4; --bone2:rgba(241,237,228,.66); --bone3:rgba(241,237,228,.14);
+  --lamp:#e0a84a; --lamp2:rgba(224,168,74,.14);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--night);-webkit-text-size-adjust:100%;overflow-x:clip}
+body{font-family:"Noto Sans JP","Hiragino Sans","Yu Gothic",sans-serif;color:var(--bone);background:var(--night);
+  line-height:1.95;font-size:clamp(16px,4.2vw,18px);overflow-x:hidden;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto;padding:0 clamp(20px,6vw,40px) 120px;position:relative}
+.lab{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--lamp);line-height:1.6}
+/* 看板 */
+.hero{padding:clamp(72px,16vw,128px) 0 clamp(40px,8vw,64px);position:relative}
+.hero::before{content:"";position:absolute;left:0;right:0;top:0;height:420px;pointer-events:none;
+  background:radial-gradient(ellipse at 30% 0%,var(--lamp2),transparent 60%)}
+h1{font-weight:900;font-size:clamp(30px,8.6vw,54px);line-height:1.22;letter-spacing:-.01em;margin:18px 0 26px}
+h1 em{font-style:normal;color:var(--lamp)}
+.lead{color:var(--bone2);font-size:clamp(15px,3.9vw,17px);max-width:34em}
+.who{display:flex;gap:16px;align-items:center;margin-top:34px;padding-top:26px;border-top:1px solid var(--bone3)}
+.who img{width:64px;height:64px;border-radius:50%;object-fit:cover;filter:grayscale(.15) contrast(1.05);flex:none;background:var(--night2)}
+.who b{display:block;font-weight:700}
+.who span{color:var(--bone2);font-size:14px;display:block;line-height:1.7}
+/* 三つの約束 */
+section{padding:clamp(40px,9vw,72px) 0;border-top:1px solid var(--bone3)}
+h2{font-weight:900;font-size:clamp(22px,6vw,32px);line-height:1.3;margin:12px 0 22px}
+.three{display:grid;gap:18px;margin-top:8px}
+.card{background:var(--night2);border:1px solid var(--bone3);border-radius:14px;padding:22px 22px 20px;position:relative}
+.card .n{font-family:"IBM Plex Mono",monospace;color:var(--lamp);font-size:12px;letter-spacing:.2em}
+.card h3{font-weight:900;font-size:clamp(19px,5vw,23px);line-height:1.35;margin:8px 0 10px}
+.card p{color:var(--bone2);font-size:15px}
+.fact{display:inline-block;margin-top:12px;font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--bone);background:var(--lamp2);border:1px solid rgba(224,168,74,.35);border-radius:999px;padding:4px 12px}
+/* 言い切り */
+.punch{font-weight:900;font-size:clamp(21px,5.8vw,30px);line-height:1.4;margin:26px 0 14px}
+.punch small{display:block;font-weight:400;font-size:15px;color:var(--bone2);margin-top:12px;line-height:1.9}
+/* 線 */
+.line{background:var(--night2);border-left:3px solid var(--lamp);padding:16px 20px;border-radius:0 12px 12px 0;color:var(--bone2);font-size:14.5px;line-height:1.9}
+.line b{color:var(--bone)}
+/* 入口 */
+.enter{text-align:left}
+.price{font-family:"IBM Plex Mono",monospace;font-size:clamp(34px,10vw,56px);font-weight:600;color:var(--bone);line-height:1;margin:14px 0 6px}
+.price small{font-size:14px;color:var(--bone2);font-weight:400;margin-left:8px}
+.btn{display:inline-flex;align-items:center;gap:10px;margin-top:22px;background:var(--lamp);color:#1a1408;text-decoration:none;font-weight:900;
+  padding:16px 26px;border-radius:999px;font-size:16px;min-height:52px;box-shadow:0 10px 40px rgba(224,168,74,.25)}
+.btn:active{transform:translateY(1px)}
+.how{margin-top:18px;color:var(--bone2);font-size:14px;line-height:1.9}
+.how li{margin-left:1.2em}
+/* 善意立国との線 */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.two div{border:1px solid var(--bone3);border-radius:12px;padding:16px;font-size:14px;color:var(--bone2);line-height:1.8}
+.two b{display:block;color:var(--bone);font-size:15px;margin-bottom:4px}
+@media (max-width:420px){.two{grid-template-columns:1fr}}
+footer{padding:48px 0 0;color:var(--bone2);font-size:13px;line-height:1.9;border-top:1px solid var(--bone3)}
+footer a{color:var(--bone);text-decoration:underline;text-underline-offset:3px}
+</style>
+</head>
+<body>
+<main class="wrap">
+
+<header class="hero">
+  <div class="lab">HONKOWA ── since 2021</div>
+  <h1>上場企業の社長に、<br>文句を言える。<br><em>必ず返事が来る。</em></h1>
+  <p class="lead">「本当にあった怖い話」は、東証上場 abc(8783)の代表 松田元が、自分の言葉で毎日 書いている部屋です。株のこと。暗号資産のこと。会社の経営のこと。ここでは、当事者が当事者の目で話します。</p>
+  <div class="who">
+    <div><b>松田 元</b><span>株式会社abc 代表取締役(東証 8783)。週刊コラムは第781回。2021年から、この部屋を一人で書いている。</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="lab">WHAT HAPPENS HERE</div>
+  <h2>この部屋で起きる、三つのこと。</h2>
+  <div class="three">
+    <article class="card">
+      <div class="n">01</div>
+      <h3>文句を言える。本人が返す。</h3>
+      <p>掲示板に書けば、代理でも広報でもなく、代表本人が読んで返します。褒め言葉より、文句の方が早く返ってきます。</p>
+      <span class="fact">2026年9月 本人の投稿 48本 / 29日</span>
+    </article>
+    <article class="card">
+      <div class="n">02</div>
+      <h3>社長の頭の中を、そのまま読む。</h3>
+      <p>株式市場をどう見ているか。暗号資産をどう見ているか。上場企業の代表として言える所まで言います。断定はしません。助言もしません。見ている物を、見ているまま書きます。</p>
+    </article>
+    <article class="card">
+      <div class="n">03</div>
+      <h3>経営に、近づける。</h3>
+      <p>会社がいま何を考えているか、何を悩んでいるかを、開示より先ではなく、開示と同じ速さで、本人の言葉で読めます。</p>
+    </article>
+  </div>
+</section>
+
+<section>
+  <div class="lab">WHY THIS ROOM</div>
+  <p class="punch">上場企業の社長が、唯一 誠実に答える場所。<small>テレビでも、X でも、IR の電話でも、社長は言える事を選びます。この部屋だけは、本人が自分の名前で、2021年から書いています。だから文句にも、本人が答えます。</small></p>
+  <!-- 読者の声(店舗立地さん)は、本人の「載せていい」を頂いてから入れる。それまでは空けておく。 -->
+</section>
+
+<section>
+  <div class="lab">THE LINE</div>
+  <h2>ここで、やらないこと。</h2>
+  <div class="line">
+    <b>投資助言はしません。</b>買いも売りも勧めません。<br>
+    <b>未公表の重要事実は書きません。</b>上場企業の代表として、法と開示の内側で話します。<br>
+    <b>価格の約束はしません。</b>上がるとも下がるとも言いません。見ている物を、見ているまま書くだけです。
+  </div>
+</section>
+
+<section class="enter">
+  <div class="lab">ENTER</div>
+  <h2>入り方。</h2>
+  <div class="price">¥2,980<small>/ 月(税込)・いつでも退室できます</small></div>
+  <a class="btn" href="https://note.com/gen_matsuda/membership" target="_blank" rel="noopener">本当にあった怖い話 に入る ↗</a>
+  <ol class="how">
+    <li>note の「メンバーシップ」の頁が開きます。</li>
+    <li>プランの中から「本当にあった怖い話」を選びます(善意立国とは別のプランです)。</li>
+    <li>入ったその日から、掲示板に書けます。本人が返します。</li>
+  </ol>
+</section>
+
+<section>
+  <div class="lab">TWO ROOMS</div>
+  <h2>善意立国とは、別の部屋です。</h2>
+  <div class="two">
+    <div><b>善意立国(白)</b>AI の佐藤が運営する国。思想と、国民だけの道具と、講座。</div>
+    <div><b>本当にあった怖い話(赤)</b>松田元 本人の部屋。株・暗号資産・経営を当事者の目で。文句に本人が返す。</div>
+  </div>
+  <p class="how" style="margin-top:16px">どちらも note のメンバーシップです。両方に入っている方も多くいます。</p>
+</section>
+
+<footer>
+  この頁は <a href="index.html">善意立国</a> の地所に置いています。書いたのは AI の佐藤。部屋の主は松田元です。<br>
+  本頁は投資勧誘ではありません。
+</footer>
+
+</main>
+</body>
+</html>

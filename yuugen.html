@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>持株の有言実行率 — 佐藤の道具</title>
+<meta name="description" content="会社が開示で「いつまでに何をする」と書いた約束を拾い、期日が来たものを数えます。貼った文は、どこへも送りません。">
+<meta property="og:title" content="持株の有言実行率">
+<meta property="og:description" content="開示の履歴から数えた率。貼った文はどこへも送りません。">
+<meta property="og:url" content="https://genmatsuda-code.github.io/zenination/yuugen.html">
+<meta property="og:type" content="website">
+<!--
+  2026-10-02 v0。
+  設計の紙: 率の定義(何を「言った」「やった」と数えるか・期日の判定)は社内の設計書に在る。
+  この頁が守っている線:
+    ① 貼られた文は**どこへも送らない**(全部この端末の中で処理する)。持株は、その人の持ち物である。
+    ② 株価・値動き・いつ売買するか・良し悪しの評価を、一語も出さない。出すのは「開示にそう書いてある」事だけ。
+       ★禁止語の一覧は門番の側だけに置く——頁に書くと、門番が自分の宣言文で鳴る(今日 二度 踏んだ)。
+    ③ 期日の無い言い方を「未履行」に数えない(言いがかりになる)。件数は別に出す。
+    ④ 母数が5件に満たない時は % を出さない(1件で 0%/100% は、数ではなく当てこすり)。
+    ⑤ 読んだ範囲(期間と本数)を、率の隣に必ず出す。
+    ⑥ 文字は NFKC で正規化してから拾う——PDF の本文は「月」「日」を康熙部首で出すことがあり、
+      正規化しないと**どの会社も「期日つきの約束ゼロ」**になる(偽の、相手を貶める結論)。
+-->
+<style>
+  :root{
+    --ink:#1b1a17; --sub:#6b665c; --line:#e3ded2; --bg:#faf8f3;
+    --accent:#8a6d3b; --warn:#9a3412; --ok:#2f6d4f; --card:#fff;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ink:#efe9dd; --sub:#a79f90; --line:#39352e; --bg:#14130f; --card:#1c1a16;
+      --accent:#d4ab63; --warn:#e08b63; --ok:#7fc49c;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#efe9dd; --sub:#a79f90; --line:#39352e; --bg:#14130f; --card:#1c1a16;
+    --accent:#d4ab63; --warn:#e08b63; --ok:#7fc49c;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:"Hiragino Sans","Noto Sans JP",system-ui,sans-serif;
+    line-height:1.85; font-size:16px;
+  }
+  .wrap{max-width:720px; margin:0 auto; padding:28px 16px 72px}
+  h1{font-size:clamp(21px,5vw,27px); margin:0 0 6px; letter-spacing:.02em}
+  .lead{color:var(--sub); margin:0 0 22px; font-size:15px}
+  .box{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px; margin:16px 0}
+  .box h2{font-size:16px; margin:0 0 10px; letter-spacing:.03em}
+  textarea{
+    width:100%; min-height:170px; padding:11px; font-size:14px; line-height:1.7;
+    border:1px solid var(--line); border-radius:8px; background:var(--bg); color:var(--ink);
+    font-family:inherit; resize:vertical;
+  }
+  .row{display:flex; gap:9px; flex-wrap:wrap; align-items:center; margin-top:11px}
+  button{
+    font:inherit; font-size:15px; padding:11px 17px; border-radius:8px; cursor:pointer;
+    border:1px solid var(--accent); background:var(--accent); color:#fff; min-height:44px;
+  }
+  button.ghost{background:transparent; color:var(--accent)}
+  button:disabled{opacity:.45; cursor:default}
+  label.file{
+    display:inline-flex; align-items:center; gap:7px; font-size:14px; color:var(--accent);
+    border:1px dashed var(--accent); border-radius:8px; padding:10px 14px; cursor:pointer; min-height:44px;
+  }
+  label.file input{display:none}
+  .hint{font-size:13px; color:var(--sub); margin-top:7px}
+  .big{font-size:clamp(34px,10vw,52px); font-weight:700; letter-spacing:.01em; line-height:1.15}
+  .unit{font-size:.44em; font-weight:400; color:var(--sub); margin-left:3px}
+  .pairs{display:grid; grid-template-columns:repeat(auto-fit,minmax(124px,1fr)); gap:9px; margin-top:13px}
+  .pair{border:1px solid var(--line); border-radius:9px; padding:9px 11px}
+  .pair b{display:block; font-size:19px; font-weight:600}
+  .pair span{font-size:12px; color:var(--sub)}
+  .q{border-left:3px solid var(--line); padding:4px 0 4px 11px; margin:9px 0; font-size:14px}
+  .q .due{font-size:12px; color:var(--sub); display:block}
+  .st{display:inline-block; font-size:12px; padding:2px 8px; border-radius:999px; border:1px solid var(--line); margin-right:6px}
+  .st.ok{color:var(--ok); border-color:var(--ok)}
+  .st.late{color:var(--accent); border-color:var(--accent)}
+  .st.yet{color:var(--sub)}
+  .st.un{color:var(--warn); border-color:var(--warn)}
+  .note{font-size:13px; color:var(--sub); border-top:1px solid var(--line); margin-top:16px; padding-top:13px}
+  .note b{color:var(--ink)}
+  a{color:var(--accent)}
+  .sample{font-size:14px}
+  .sample table{width:100%; border-collapse:collapse; margin-top:8px; font-size:13px}
+  .sample td{border-top:1px solid var(--line); padding:6px 4px}
+  .sample td:last-child{text-align:right; white-space:nowrap}
+  canvas{max-width:100%; border:1px solid var(--line); border-radius:9px; margin-top:12px}
+  .err{color:var(--warn); font-size:14px; margin-top:9px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>持株の有言実行率</h1>
+  <p class="lead">
+    会社が開示で「<b>いつまでに、何をする</b>」と書いた約束を拾って、期日が来たものを数えます。<br>
+    出すのは、開示にそう書いてあるという事だけです。
+  </p>
+
+  <div class="box">
+    <h2>① 開示の文を貼る</h2>
+    <textarea id="src" placeholder="適時開示の PDF を開いて、本文を全部コピーして貼ってください(Ctrl+A → Ctrl+C)。"></textarea>
+    <div class="row">
+      <label class="file">📄 PDF を選ぶ<input type="file" id="pdf" accept="application/pdf"></label>
+      <button id="go">約束を拾う</button>
+      <button class="ghost" id="clr">消す</button>
+    </div>
+    <div class="hint">
+      貼った文も、選んだ PDF も、<b>どこへも送りません</b>。全部この端末の中で読んでいます
+      ——持株は、あなたの持ち物だからです。
+    </div>
+    <div class="err" id="err" hidden></div>
+  </div>
+
+  <div class="box" id="out" hidden>
+    <h2>② 拾えた約束</h2>
+    <div id="rate"></div>
+    <div class="pairs" id="pairs"></div>
+    <div id="list"></div>
+    <div class="note" id="scope"></div>
+    <div class="row">
+      <button id="card">札を描く(Xへ)</button>
+      <button class="ghost" id="copy">文をコピー</button>
+    </div>
+    <canvas id="cv" width="1200" height="630" hidden></canvas>
+  </div>
+
+  <div class="box sample">
+    <h2>見本 — abc株式会社(8783)を、同じ道具で数えた</h2>
+    <div class="big" id="sRate">66.7<span class="unit">%</span></div>
+    <div class="hint">2025-10-02 〜 2026-10-02 の開示 92 件のうち、8 件から約束を拾いました</div>
+    <table>
+      <tr><td>期日が来て、確かめ終わった約束</td><td>6 件</td></tr>
+      <tr><td>期日内に履行</td><td>3 件</td></tr>
+      <tr><td>遅れて履行</td><td>1 件</td></tr>
+      <tr><td>未履行(会社が自分から延期・中止を開示)</td><td>1 件</td></tr>
+      <tr><td>未履行(期日を過ぎて、続報が見つからない)</td><td>1 件</td></tr>
+      <tr><td>期日の書かれていない言い方</td><td>3 件</td></tr>
+    </table>
+    <div class="hint">
+      この見本だけは、<b>語で絞らず12か月の開示を全部</b>読んで作りました(92 件・落とせたもの 0)。
+      自分の会社の数を先に出さずに、よその会社の数を出すのは筋が通らないからです。
+    </div>
+  </div>
+
+  <div class="note">
+    <p><b>この道具が、しないこと</b></p>
+    <p>
+      ・株価や値動きのことは、一言も言いません。いつ買うか・いつ売るかにも触れません。<br>
+      ・会社を並べません(順位も比較も作りません)。一社ずつ見るだけです。<br>
+      ・「誠実な会社」「良い会社」といった評価はしません。出すのは<b>開示の履歴から数えた率</b>だけです。<br>
+      ・<b>期日の書かれていない言い方を「未履行」に数えません。</b>「順次実施します」「検討しております」は、
+      約束の形になっていないだけで、破った訳ではないからです。件数は別に出します。<br>
+      ・<b>母数が5件に満たない時は、% を出しません。</b>1件で 0%・100% は、数ではなく当てこすりです。
+    </p>
+    <p><b>v0 で、まだ出来ないこと(正直に書きます)</b></p>
+    <p>
+      ・<b>履行したかどうかは、貼った文だけでは分かりません。</b>約束と、その後どうなったかは別の開示に載るからです。
+      続報の開示も続けて貼ると、「履行」「遅れて履行」まで出ます。1本だけなら「期日が来た/まだ来ていない」までです。<br>
+      ・<b>証券コードを入れると自動で集める、はまだ出来ません。</b>開示の一次配信は機械で読むことが規約で禁じられており、
+      国の口(EDINET)には適時開示と決算短信が入っていないためです。だから「あなたが貼る」形にしました。<br>
+      ・「続報が見つからない」は「やっていない」ではありません。見ているのは公開の開示の中だけです。
+    </p>
+    <p class="hint">
+      ※ 本文の文字は NFKC で正規化してから読んでいます。開示の PDF は「月」「日」を別の文字で出すことがあり、
+      そのままだと<b>どの会社も「約束ゼロ」</b>になってしまうためです。
+    </p>
+  </div>
+
+  <p class="hint"><a href="./dougu.html">← 佐藤の道具にもどる</a></p>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var MIN_DENOM = 5;
+
+  /* ★ NFKC。これを外すと /月/ が当たらず、どの会社も「約束ゼロ」になる。 */
+  function norm(s) { try { return String(s || '').normalize('NFKC'); } catch (e) { return String(s || ''); } }
+
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function lastDay(y, m) { return new Date(Date.UTC(y, m, 0)).getUTCDate(); }
+
+  /* 文の中の日付。幅のある書き方は**幅の終わり**で読む(本文より厳しくしない)。 */
+  function datesIn(s) {
+    var out = [], re = /(20\d\d)\s*年\s*(\d{1,2})\s*月(?:\s*(\d{1,2})\s*日|\s*(上旬|中旬|下旬|末))?/g, m;
+    while ((m = re.exec(s))) {
+      var y = +m[1], mo = +m[2], d = m[3] ? +m[3] : null;
+      if (!d && m[4]) d = m[4] === '上旬' ? 10 : m[4] === '中旬' ? 20 : lastDay(y, mo);
+      if (!d) d = lastDay(y, mo);
+      out.push({ iso: y + '-' + pad(mo) + '-' + pad(d), raw: m[0] });
+    }
+    return out;
+  }
+
+  var VERB = /(開始|実施|提供|導入|公表|発表|完了|終了|予定|までに|開催|取得|締結|上場|発送|贈呈|移行|稼働|着手|申請)/;
+  /* 過去への言及(「◯月◯日付」「◯月◯日開催の取締役会において」)は約束ではない。 */
+  var PAST = /(付|開催の取締役会|に公表|にて公表|で公表|付け|締結日|提出日)/;
+  /* 期日の形になっていない言い方。**未履行に数えない。**件数だけ出す。 */
+  var VAGUE = /(順次|近日|検討して|目途|めど|をめざ|を目指|予定しております(?!。?\s*20)|今後)/;
+
+  function docDate(text) {
+    var ds = datesIn(text);
+    return ds.length ? ds[0].iso : null;
+  }
+
+  function extract(text) {
+    var t = norm(text);
+    var base = docDate(t);
+    var lines = t.split(/\n+/).map(function (x) { return x.trim(); }).filter(Boolean);
+    var dated = [], vague = 0;
+    for (var i = 0; i < lines.length; i++) {
+      var L = lines[i];
+      if (L.length > 190) continue;
+      if (!VERB.test(L)) continue;
+      var ds = datesIn(L);
+      if (!ds.length) { if (VAGUE.test(L)) vague++; continue; }
+      var live = ds.filter(function (x) {
+        var i2 = L.indexOf(x.raw);
+        if (i2 < 0) return false;
+        if (PAST.test(L.slice(i2 + x.raw.length, i2 + x.raw.length + 6))) return false;
+        return base ? x.iso > base : true;
+      });
+      if (!live.length) continue;
+      var due = live.map(function (x) { return x.iso; }).sort().slice(-1)[0];
+      /* ★ 同じ約束は、本文の中で何度も言い換えて出てくる(実測: 8/12 の開示は同じ 8月末を3回)。
+         文ごとに数えると、約束の数が勝手に膨らむ。**期日で畳む**——引用は全部 残して見せる。 */
+      var g = null;
+      for (var k = 0; k < dated.length; k++) if (dated[k].due === due) { g = dated[k]; break; }
+      if (g) { if (g.quotes.indexOf(L) < 0) g.quotes.push(L); continue; }
+      dated.push({ due: due, quotes: [L] });
+    }
+    return { base: base, dated: dated, vague: vague };
+  }
+
+  function todayISO() {
+    var d = new Date();
+    return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+  }
+
+  var last = null;
+
+  function render(r) {
+    var today = todayISO();
+    var due = 0, notYet = 0;
+    r.dated.forEach(function (p) { if (p.due <= today) due++; else notYet++; });
+    last = { r: r, due: due, notYet: notYet, today: today };
+
+    /* ★ v0 は1本の開示から「期日が来たか」までしか言えない。
+       言えないことを、言えるように見せない。 */
+    var h = '';
+    if (!r.dated.length) {
+      h = '<div class="big">—</div><div class="hint">この文の中に、<b>期日つきの約束</b>は見つかりませんでした。'
+        + (r.vague ? '期日の書かれていない言い方は ' + r.vague + ' 件ありました。' : '')
+        + '</div>';
+    } else if (due < MIN_DENOM) {
+      h = '<div class="big">—</div><div class="hint">期日が来た約束が <b>' + due + ' 件</b>('
+        + MIN_DENOM + ' 件未満)なので、% は出しません。1件で 0%・100% は、数ではなく当てこすりになるからです。</div>';
+    } else {
+      h = '<div class="big">—<span class="unit">%</span></div>'
+        + '<div class="hint">期日が来た約束は <b>' + due + ' 件</b>。'
+        + '<b>履行したかどうかは、この1本だけでは分かりません</b>——続報の開示も貼ると出ます。</div>';
+    }
+    $('rate').innerHTML = h;
+
+    $('pairs').innerHTML =
+      pair(r.dated.length, '期日つきの約束') + pair(due, '期日が来た') +
+      pair(notYet, 'まだ期日前') + pair(r.vague, '期日の無い言い方');
+
+    var list = '<p class="hint" style="margin-top:14px"><b>拾った約束(開示の文のまま)</b></p>';
+    r.dated.sort(function (a, b) { return a.due < b.due ? -1 : 1; }).forEach(function (p) {
+      var st = p.due <= today
+        ? '<span class="st un">期日が来た</span>'
+        : '<span class="st yet">まだ期日前</span>';
+      list += '<div class="q">' + st + p.quotes.map(esc).join('<br>')
+        + '<span class="due">期日: ' + p.due + '</span></div>';
+    });
+    $('list').innerHTML = list;
+
+    $('scope').innerHTML = '<b>読んだ範囲</b>: 貼られた開示 <b>1 本</b>'
+      + (r.base ? '(日付 ' + r.base + ')' : '(日付が読めませんでした)')
+      + '。<br>この率は、その1本の中のことしか言っていません。'
+      + '<b>語で絞ってはいません</b>——貼られた文を端から端まで読んでいます。';
+
+    $('out').hidden = false;
+    $('out').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function pair(n, label) {
+    return '<div class="pair"><b>' + n + '</b><span>' + label + '</span></div>';
+  }
+  function esc(s) {
+    return String(s).replace(/[&<>"]/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+    });
+  }
+
+  $('go').addEventListener('click', function () {
+    $('err').hidden = true;
+    var t = $('src').value;
+    if (!t.trim()) { $('err').textContent = '開示の文を貼ってください。'; $('err').hidden = false; return; }
+    render(extract(t));
+  });
+  $('clr').addEventListener('click', function () {
+    $('src').value = ''; $('out').hidden = true; $('err').hidden = true;
+  });
+
+  /* PDF は、読める時だけ読む。読めない端末では「貼る」道が必ず残る(掟7①=押させてから断らない)。 */
+  $('pdf').addEventListener('change', function (e) {
+    var f = e.target.files && e.target.files[0];
+    if (!f) return;
+    $('err').hidden = true;
+    loadPdfJs(function (pdfjs) {
+      if (!pdfjs) {
+        $('err').innerHTML = 'この端末では PDF をそのまま読めませんでした。'
+          + 'お手数ですが、PDF を開いて本文をコピーし、上の枠に貼ってください(その方が速いこともあります)。';
+        $('err').hidden = false; return;
+      }
+      var fr = new FileReader();
+      fr.onload = function () {
+        pdfjs.getDocument({ data: new Uint8Array(fr.result) }).promise.then(function (doc) {
+          var all = [], n = doc.numPages, i = 0;
+          (function next() {
+            if (i >= n) { $('src').value = all.join('\n'); render(extract(all.join('\n'))); return; }
+            doc.getPage(++i).then(function (pg) { return pg.getTextContent(); }).then(function (tc) {
+              all.push(tc.items.map(function (x) { return x.str; }).join(' '));
+              next();
+            }).catch(function () { next(); });
+          })();
+        }).catch(function () {
+          $('err').textContent = 'この PDF は読めませんでした。本文をコピーして貼ってください。';
+          $('err').hidden = false;
+        });
+      };
+      fr.readAsArrayBuffer(f);
+    });
+  });
+
+  var pdfjsTried = false, pdfjsLib = null;
+  function loadPdfJs(cb) {
+    if (pdfjsTried) return cb(pdfjsLib);
+    pdfjsTried = true;
+    var s = document.createElement('script');
+    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+    s.onload = function () {
+      pdfjsLib = window.pdfjsLib || null;
+      if (pdfjsLib) pdfjsLib.GlobalWorkerOptions.workerSrc =
+        'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+      cb(pdfjsLib);
+    };
+    s.onerror = function () { cb(null); };
+    document.head.appendChild(s);
+  }
+
+  /* 札は**この端末の中で描く**。結果は持株に関わるので、どこへも送らない。 */
+  $('card').addEventListener('click', function () {
+    if (!last) return;
+    var cv = $('cv'), g = cv.getContext('2d');
+    var dark = matchMedia('(prefers-color-scheme: dark)').matches;
+    g.fillStyle = dark ? '#14130f' : '#faf8f3'; g.fillRect(0, 0, 1200, 630);
+    g.fillStyle = dark ? '#d4ab63' : '#8a6d3b';
+    g.font = '600 34px "Hiragino Sans",sans-serif';
+    g.fillText('持株の有言実行率', 72, 104);
+    g.fillStyle = dark ? '#efe9dd' : '#1b1a17';
+    g.font = '700 108px "Hiragino Sans",sans-serif';
+    /* v0 は1本から率を出せない。出せない物を札に書かない。 */
+    g.fillText('—', 72, 236);
+    g.font = '400 25px "Hiragino Sans",sans-serif';
+    g.fillStyle = dark ? '#a79f90' : '#6b665c';
+    var pairs = [
+      ['期日つきの約束', last.r.dated.length + ' 件'],
+      ['期日が来た', last.due + ' 件'],
+      ['まだ期日前', last.notYet + ' 件'],
+      ['期日の無い言い方', last.r.vague + ' 件'],
+      ['読んだ開示', '1 本' + (last.r.base ? '(' + last.r.base + ')' : '')],
+    ];
+    pairs.forEach(function (p, i) {
+      g.fillText(p[0], 72, 320 + i * 50);
+      g.fillStyle = dark ? '#efe9dd' : '#1b1a17';
+      g.fillText(p[1], 560, 320 + i * 50);
+      g.fillStyle = dark ? '#a79f90' : '#6b665c';
+    });
+    g.font = '400 20px "Hiragino Sans",sans-serif';
+    g.fillText('開示の履歴から数えた率。株価のことは何も言っていません。', 72, 592);
+    cv.hidden = false;
+    cv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+
+  $('copy').addEventListener('click', function () {
+    if (!last) return;
+    var t = '持株の有言実行率(開示の履歴から数えた率)\n'
+      + '期日つきの約束 ' + last.r.dated.length + ' 件 / 期日が来た ' + last.due + ' 件 / '
+      + 'まだ期日前 ' + last.notYet + ' 件 / 期日の無い言い方 ' + last.r.vague + ' 件\n'
+      + '読んだ開示 1 本' + (last.r.base ? '(' + last.r.base + ')' : '') + '\n'
+      + '※ 株価のことは何も言っていません。';
+    navigator.clipboard && navigator.clipboard.writeText(t);
+    this.textContent = 'コピーしました';
+    var b = this; setTimeout(function () { b.textContent = '文をコピー'; }, 1800);
+  });
+})();
+</script>
+</body>
+</html>
