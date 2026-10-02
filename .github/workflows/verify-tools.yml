@@ -50,14 +50,22 @@ jobs:
             exit 1
           fi
           echo '競合コピー 0 本'
-      - name: '公開面の頁が、棚から辿れるか(迷子の頁を置き去りにしない)'
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      # ★置き換え(2026-10-02): 前は `for F in yuugen.html` の**決め打ち**だった。
+      #   それでは、出た下書き(どこからも辿れない頁)を一本も捕まえられない
+      #   ——漏れたのは、まさにそういう頁だった。§6「的を決め打ちの一覧にしない・数え直す」。
+      - name: 'どこからも辿れない頁が増えていないか(漏れの一番 分かりやすい形)'
+        run: node tools/verify-no-orphan.js
+      - name: '同・変異つき(下書きが増えたら赤になる証明)'
+        if: always()
+        run: node tools/verify-no-orphan.js --mutants
+      - name: '(旧)棚から道具へ行けるか'
         run: |
           MISS=0
-          for F in yuugen.html; do
-            if ! grep -q "$F" index.html dougu.html; then
-              echo "::error::$F へ行く道が無い"
-              MISS=1
-            fi
-          done
+          if ! grep -q 'yuugen.html' dougu.html; then
+            echo "::error::棚から道具へ行けない"
+            MISS=1
+          fi
           [ "$MISS" = "0" ] || exit 1
           echo '道は在る'
