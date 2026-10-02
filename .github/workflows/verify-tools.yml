@@ -1,4 +1,4 @@
-# 道具の頁の門番(2026-10-02 新設)
+# 道具の頁と、公開面の門番(2026-10-02 新設)
 #
 # ★ それまで、この地所には CI が一つも無かった。
 #   門番を手元でしか回さないなら、忘れた日に黙って通る——「呼ばれない門番は、門番ではない」。
@@ -6,11 +6,6 @@ name: verify-tools
 
 on:
   push:
-    paths:
-      - 'yuugen.html'
-      - 'dougu.html'
-      - 'tools/**'
-      - '.github/workflows/verify-tools.yml'
   workflow_dispatch:
 
 jobs:
@@ -30,8 +25,39 @@ jobs:
         if: always()
         run: |
           grep -q 'yuugen.html' dougu.html || { echo '::error::棚から道具へ行けない'; exit 1; }
-          # ★的は**その道具の行**だけ。頁の他の場所の言及まで赤にすると、正しい文まで直させることになる
-          if grep -A3 "yuugen.html" dougu.html | grep -q "証券コード"; then
-            echo '::error::棚の道具の行がまだ「証券コード」と言っている(実物は 開示の文を貼る)'; exit 1
+          # ★的はその道具の行だけ。頁の他の場所の言及まで赤にすると、正しい文まで直させることになる
+          if grep -A3 'yuugen.html' dougu.html | grep -q '証券コード'; then
+            echo '::error::棚の道具の行がまだ「証券コード」と言っている(実物は 開示の文を貼る)'
+            exit 1
           fi
           echo '棚と実物が揃っている'
+
+  # ★2026-10-02: 佐藤が `git add -A` で、他の席の**未公開の下書き**と
+  #   OneDrive の競合コピー 2 本を、この公開面へ出した(同日に別の席が外した)。
+  #   .gitignore で add は物理的に塞いだが、別の名前で入る道は残る。
+  #   だから**出た事を、出た日に知る**。
+  leak:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: '公開面に、競合コピーが混ざっていないか'
+        run: |
+          HIT=$(git ls-files | grep -iE -- '-DESKTOP-|-デスクトップ-' || true)
+          if [ -n "$HIT" ]; then
+            echo "::error::OneDrive の競合コピーが公開面に在る"
+            echo "$HIT"
+            exit 1
+          fi
+          echo '競合コピー 0 本'
+      - name: '公開面の頁が、棚から辿れるか(迷子の頁を置き去りにしない)'
+        run: |
+          MISS=0
+          for F in yuugen.html; do
+            if ! grep -q "$F" index.html dougu.html; then
+              echo "::error::$F へ行く道が無い"
+              MISS=1
+            fi
+          done
+          [ "$MISS" = "0" ] || exit 1
+          echo '道は在る'
