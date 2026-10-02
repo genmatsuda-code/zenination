@@ -16,7 +16,11 @@
  */
 const fs = require('fs');
 const path = require('path');
-const { execSync } = require('child_process');
+/* ★2026-10-03: execSync は Windows では **cmd.exe 経由**で走り、窓が立ちうる。
+   ⚖️同日「いま出たよ！！！！うざい！！！！！！」——代表の画面に窓を出さない。
+   execFileSync なら git を**直に**起こすのでシェルを通さない。windowsHide も明示で付ける
+   (既定に頼らない=次に Node の既定が変わった日に黙って窓が戻る)。 */
+const { execFileSync } = require('child_process');
 const ROOT = path.join(__dirname, '..');
 const KNOWN_FILE = path.join(__dirname, 'known-standalone.txt');
 
@@ -30,7 +34,7 @@ function known() {
 
 /** 追跡下の html を数え直す(決め打ちしない)。 */
 function pages() {
-  return execSync('git ls-files', { cwd: ROOT, encoding: 'utf8' })
+  return execFileSync('git', ['ls-files'], { cwd: ROOT, encoding: 'utf8', windowsHide: true })
     .split('\n').map((s) => s.trim()).filter((s) => /\.html$/.test(s));
 }
 
