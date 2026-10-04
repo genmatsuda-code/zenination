@@ -220,7 +220,7 @@
       ? ('離れた方は ' + lc + ' 名。全員、同じ一日(' + jaDate(d.leftOn) + '・更新日)に離れました。')
       : '';
   }
-  fetch('/assets/kokumin-count.json', { cache: 'no-store' })
+  fetch('https://thanksmap.jp/assets/kokumin-count.json', { cache: 'no-store' })
     .then(function (r) { if (!r.ok) throw new Error('http'); return r.json(); })
     .then(draw)
     .catch(function () { quiet('いま人数を読めませんでした。番号は、先に入った順です。'); });
