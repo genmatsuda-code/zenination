@@ -17,3 +17,4 @@ faq.html               # よくある質問。LINE と記事から直に開く
 kyozai01.html          # 教材1。国民へ番号で渡す
 kyozai02_thanksmap.html # 教材2。同上
 kyozai03_wowoo.html    # 教材3。同上
+kourin.html            # 降臨の間 第一夜(9/18)の告知の頁(過去)。thanksmap.jp/kourin.html からの 308 の行き先として直に開く。第一夜の記録は kourin-kiroku.html(遊び場から辿れる)
