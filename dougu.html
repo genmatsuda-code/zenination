@@ -17,6 +17,7 @@
 <!--
   2026-10-01 道具の入口(四本の棚)。流れ=ツール → 結果の一枚を本人が X に貼る → 一回目は無料 → 二回目から国民。
   ★ ここに書く状態は全部 正直に: まだ出ていない道具は「準備中」(嘘を書かないための語)。日付は書かない。
+  ★ 2026-10-04 改: ⚖️松田さん「(区分は)善意立国のオフィシャルツールか、に直して」「優待速報 Bot は無料だから国民特典ではない・佐藤拡散のツールとして別物で整理」=棚を二段(オフィシャル/拡散)に分け、まだの物は「これから」の札(日付が決まっている物だけ日付・リンク無し)に移した。
   ★ 一回無料の口(LINE の友だち追加)=公式アカウントのベーシック ID から作った標準の形(2026-10-01 開設・入れた)。
   ★ 価格・値動きの予想・個別銘柄のすすめは、道具にもこの頁にも一語も置かない(憲法1)。AI が作ると名乗る。
 -->
@@ -38,6 +39,11 @@
   .tool .io{font-size:13px;margin-top:10px;padding:10px 12px;background:var(--soft2);border-radius:12px}
   .tool .st{display:inline-block;margin-top:12px;font-size:12px;border-radius:999px;padding:4px 11px;border:1px solid var(--line);color:var(--soft);background:#fff}
   .tool .st.on{background:var(--coral);color:#fff;border-color:var(--coral)}
+  .tool .go{display:inline-block;margin-top:12px;margin-left:8px;font-size:13px;font-weight:700;color:var(--coral);text-decoration:none}
+  .tool.soon{background:var(--soft2);box-shadow:none}
+  .tool.soon .t{color:var(--soft)}
+  .shelf{font-size:13.5px;color:var(--soft);margin-top:8px}
+  .sub{font-size:12px;letter-spacing:.12em;color:var(--dim);margin-top:22px}
   .plan{margin-top:14px;background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden}
   .plan .row{display:flex;gap:12px;padding:14px 18px;border-top:1px solid var(--line);font-size:14px}
   .plan .row:first-child{border-top:0}
@@ -54,7 +60,25 @@
 <div class="w">
   <div class="series">佐藤の道具</div>
   <h1>使った結果が、一枚の絵になって持ち帰れます。</h1>
-  <p class="lead">AI(佐藤)が作る四つの道具です。結果は 1200×630 の一枚になり、そのまま X に貼れます。札の番号で、誰でも同じ記録を確かめられます。</p>
+  <p class="lead">棚は二つです。善意立国のオフィシャルツールと、誰でも無料の佐藤の拡散ツール。いま押せる物だけを上に置き、まだの物は日付をつけて「これから」に並べています。</p>
+
+  <h2>善意立国のオフィシャルツール</h2>
+  <p class="shelf">善意立国が出している道具です。</p>
+
+  <div class="tool">
+    <div class="t">📜 持株の有言実行率</div>
+    <div class="d">開示の文を貼ると、その会社が「いつまでに何をする」と書いた約束を、原文のまま拾います。貼った文は、どこへも送りません。</div>
+    <div class="io">入れる物: 開示の文(PDF でも貼り付けでも)　→　出る物: 期日つきの約束の一覧と、その数</div>
+    <span class="st on">いま使えます</span><a class="go" href="./yuugen.html">ひらく →</a>
+  </div>
+
+  <p class="sub">これから</p>
+  <div class="tool soon">
+    <div class="t">📝 NOTE 値付け診断</div>
+    <div class="d">note の公開の口だけを読んで、一枚に五つ。根拠は佐藤の運営の実データと、ジャンルごとの相場の表。</div>
+    <div class="io">入れる物: note の URL　→　出る物: ①題の型 ②読まれ方 ③値段の相場 ④次の三本の題 ⑤一つだけ直す所</div>
+    <span class="st">十月八日から</span>
+  </div>
   <div class="flow">
     <span>道具を使う</span><span class="arrow">→</span>
     <span>結果の一枚を X に貼る</span><span class="arrow">→</span>
@@ -62,44 +86,31 @@
     <span>二回目から、毎週、無制限は国民</span>
   </div>
 
-  <h2>四つの道具</h2>
+  <h2>佐藤の拡散ツール(誰でも・無料)</h2>
+  <p class="shelf">X に流す速報です。誰でも無料で読めます。国民の特典ではありません。</p>
 
-  <div class="tool">
-    <div class="t">📝 NOTE 値付け診断</div>
-    <div class="d">note の公開の口だけを読んで、一枚に五つ。根拠は佐藤の運営の実データと、ジャンルごとの相場の表。</div>
-    <div class="io">入れる物: note の URL　→　出る物: ①題の型 ②読まれ方 ③値段の相場 ④次の三本の題 ⑤一つだけ直す所</div>
-    <span class="st">準備中</span>
-  </div>
-
-  <div class="tool">
-    <div class="t">🎫 優待速報</div>
-    <div class="d">開示を毎分 読み、株主優待の新設・変更・廃止だけを、最速で X へ。佐藤の三行つき(何が・いつから・誰に)。</div>
-    <div class="io">入れる物: 無し(自動)　→　出る物: X の投稿と、その一枚</div>
-    <span class="st">準備中</span>
-  </div>
-
-  <div class="tool">
+  <p class="sub">これから</p>
+  <div class="tool soon">
     <div class="t">🪙 上場速報</div>
     <div class="d">主要な取引所の新規上場の発表を、最速で X へ(どの取引所に・何が・いつから)。一行「何のトークンか」。</div>
     <div class="io">入れる物: 無し(自動)　→　出る物: X の投稿と、その一枚</div>
-    <span class="st">準備中</span>
+    <span class="st">十月十五日から</span>
   </div>
-
-  <div class="tool">
-    <div class="t">📜 <a href="./yuugen.html">持株の有言実行率</a></div>
-    <div class="d">開示の文を貼ると、その会社が「いつまでに何をする」と書いた約束を、原文のまま拾います。貼った文は、どこへも送りません。</div>
-    <div class="io">入れる物: 開示の文(PDF でも貼り付けでも)　→　出る物: 期日つきの約束の一覧と、その数</div>
-    <span class="st">つかえます</span>
+  <div class="tool soon">
+    <div class="t">🎫 優待速報</div>
+    <div class="d">開示を毎分 読み、株主優待の新設・変更・廃止だけを、最速で X へ。佐藤の三行つき(何が・いつから・誰に)。</div>
+    <div class="io">入れる物: 無し(自動)　→　出る物: X の投稿と、その一枚</div>
+    <span class="st">日取りは決まり次第</span>
   </div>
 
   <h2>使い方と、お金のこと</h2>
   <div class="plan">
-    <div class="row"><div class="k">一回目</div><div class="v">無料。LINE で佐藤と友だちになると、どの道具も一回 使えます(準国民)。</div></div>
+    <div class="row"><div class="k">一回目</div><div class="v">無料。LINE で佐藤と友だちになると、オフィシャルツールが一回 使えます(準国民)。拡散ツールは、いつでも誰でも無料です。</div></div>
     <div class="row"><div class="k">二回目から</div><div class="v">毎週・無制限は、善意立国の国民の方(月 2,980円)。</div></div>
     <div class="row"><div class="k">980円のゼミ</div><div class="v">記事を読めるだけです。道具には触れません(正直に書いておきます)。</div></div>
   </div>
   <a class="btn" id="line" href="https://line.me/R/ti/p/@138lwrwq" target="_blank" rel="noopener">LINE で佐藤と友だちになる(一回目は無料)</a>
-  <a class="btn primary" href="https://thanksmap.jp/kuni">善意立国の国民になる</a>
+  <a class="btn primary" href="https://genmatsuda-code.github.io/zenination/hyaku.html">善意立国の国民になる</a>
 
   <div class="note">
     道具が出す文に、価格や値動きの予想は書きません。個別の銘柄をすすめません。投資の助言ではありません。<br>
