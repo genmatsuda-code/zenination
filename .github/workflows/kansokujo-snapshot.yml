@@ -1,0 +1,67 @@
+# 善意観測所の写しを一時間ごとに焼く(2026-10-05 新設)
+#
+# ★ なぜ在るか(実測): 頁がブラウザから直接 Solana の公開 RPC を叩く作りにしていたが、
+#   **ブラウザからは三つとも断られる**(403 / 403 / 400)。本番を 375 幅の頭なし Chrome で開くと
+#   NYAN の段が全部「読めませんでした」だった。サーバからなら通るので、ここで読んで紙に置く。
+# ★ 鍵は要らない(公開の口だけ)。箱の read-only の鍵にも触らない。
+# ★ 一つも読めなかった回は、道具が**紙を書き替えない**(前の正しい写しを空で潰さない)。
+# ★ 正直な限界: GitHub の定時実行は、来ない時がある(当社の実測・2026-09-10)。
+#   だから頁は「写しをいつ作ったか」を必ず出し、三時間より古ければ「古い」と言う。
+#   来なかった事は、頁を見れば分かる——黙って古い数を新しいと見せない。
+name: kansokujo-snapshot
+
+on:
+  schedule:
+    - cron: '7 * * * *'
+  workflow_dispatch:
+  push:
+    paths:
+      - 'tools/kansokujo-snapshot.js'
+      - '.github/workflows/kansokujo-snapshot.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: kansokujo-snapshot
+  cancel-in-progress: false
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+
+      - name: 'チェーンを読んで写しを焼く'
+        run: node tools/kansokujo-snapshot.js
+
+      - name: '焼けた紙を確かめる(数が入っているか)'
+        run: |
+          node -e '
+            const s = require("./data/kansokujo.json");
+            const bad = [];
+            if (typeof s.nyan.supply !== "number" || !(s.nyan.supply > 0)) bad.push("NYAN の総数");
+            if (typeof s.wwb.supply !== "number" || !(s.wwb.supply > 0)) bad.push("WWB の総数");
+            if (!s.asOf || !isFinite(Date.parse(s.asOf))) bad.push("時刻");
+            const n = Object.values(s.nyan.wallets).filter(x => typeof x === "number").length;
+            const w = Object.values(s.wwb.wallets).filter(x => typeof x === "number").length;
+            console.log("読めた財布: NYAN " + n + " / WWB " + w + "・読めなかった " + (s.failed||[]).length + " 件");
+            if (n === 0) bad.push("NYAN の財布が一つも読めていない");
+            if (bad.length) { console.log("::error::写しが足りません: " + bad.join(" / ")); process.exit(1); }
+          '
+
+      - name: '変わっていたら置く'
+        run: |
+          git config user.name 'sato-snapshot'
+          git config user.email 'noreply@anthropic.com'
+          if git diff --quiet -- data/kansokujo.json; then
+            echo '写しは前と同じでした(置きません)'
+            exit 0
+          fi
+          git add data/kansokujo.json
+          git commit -m "善意観測所の写し($(TZ=Asia/Tokyo date '+%Y-%m-%d %H:%M') JST)"
+          git push
+          echo '置きました'

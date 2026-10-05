@@ -36,6 +36,55 @@ jobs:
           grep -q 'kansokujo.html' dougu.html || { echo '::error::棚から善意観測所へ行けない'; exit 1; }
           echo '道は在る'
 
+  # ★ 2026-10-05 新設。上の門番は**偽のチェーンの上で緑**だったのに、本番を本物のブラウザで開くと
+  #   NYAN の段が全部「読めませんでした」だった(ブラウザからの Solana の公開 RPC が 403)。
+  #   **門番が通っていない道が在った。** だからここで、本物のブラウザで本番の頁を開いて、
+  #   数字が出ていることを見る。playwright は、この仕事の中にだけ置く。
+  live:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - run: npm i -D playwright@1.47.2 && npx playwright install --with-deps chromium
+      - name: '本物のブラウザ(375 幅)で本番を開き、数字が出るか'
+        run: |
+          node -e '
+            const { chromium } = require("playwright");
+            (async () => {
+              const b = await chromium.launch();
+              const p = await b.newPage({ viewport: { width: 375, height: 812 } });
+              const errs = [];
+              p.on("pageerror", e => errs.push(String(e.message).slice(0, 120)));
+              await p.goto("https://genmatsuda-code.github.io/zenination/kansokujo.html", { waitUntil: "networkidle", timeout: 60000 });
+              await p.waitForTimeout(6000);
+              const sup = (await p.textContent("#nyanSupply")) || "";
+              const cards = (await p.textContent("#nyanCards")) || "";
+              const wwb = (await p.textContent("#wwbSupply")) || "";
+              const asof = (await p.textContent("#asof")) || "";
+              await p.screenshot({ path: "kansokujo-375.png", fullPage: true });
+              await b.close();
+              console.log("総数(NYAN): " + sup.trim());
+              console.log("総数(WWB): " + wwb.trim());
+              console.log("時刻: " + asof.trim().slice(0, 90));
+              const digits = /[0-9]{1,3}(,[0-9]{3})+/;
+              const bad = [];
+              if (!digits.test(sup)) bad.push("NYAN の総数が数で出ていない");
+              if (!digits.test(cards)) bad.push("NYAN の財布の枚数が一つも数で出ていない");
+              if (!digits.test(wwb)) bad.push("WWB の総数が数で出ていない");
+              if (/undefined|NaN|Invalid/.test(asof)) bad.push("時刻の行に意味の無い語が出ている");
+              if (errs.length) bad.push("頁の中で落ちた: " + errs[0]);
+              if (bad.length) { console.log("::error::" + bad.join(" / ")); process.exit(1); }
+              console.log("本物のブラウザで、数字が出ています");
+            })();
+          '
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: kansokujo-375
+          path: kansokujo-375.png
+
       - name: '棚と実物が食い違っていないか(押させてから断らない)'
         if: always()
         run: |
