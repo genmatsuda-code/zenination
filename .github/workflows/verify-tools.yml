@@ -21,6 +21,21 @@ jobs:
       - name: '同・変異つき(守りを外したら赤になる証明)'
         if: always()
         run: node tools/verify-yuugen.js --mutants
+      # ★ 2026-10-05 善意観測所。お金の動きを人に見せる頁なので、間違いの害が大きい。
+      #   数を焼き込んでいないか / 読めない日に「最後に読めた」と言うか /
+      #   人の名前が出ないか / 値段の語が無いか / 「開示に書かれている」の印に出所が在るか。
+      - name: '善意観測所(名札・数の出所・読めない日の言い方)'
+        if: always()
+        run: node tools/verify-kansokujo.js
+      - name: '同・変異つき(守りを外したら赤になる証明)'
+        if: always()
+        run: node tools/verify-kansokujo.js --mutants
+      - name: '棚から善意観測所へ行けるか'
+        if: always()
+        run: |
+          grep -q 'kansokujo.html' dougu.html || { echo '::error::棚から善意観測所へ行けない'; exit 1; }
+          echo '道は在る'
+
       - name: '棚と実物が食い違っていないか(押させてから断らない)'
         if: always()
         run: |

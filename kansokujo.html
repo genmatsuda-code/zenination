@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>善意観測所 — 名札のある財布の、いまの残高と動き</title>
+<meta name="description" content="チェーンの公開の記録を読んで、名札のある財布の残高と直近の動きを並べる道具です。確かめられた物にだけ名札を付けます。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="善意観測所">
+<meta property="og:title" content="善意観測所 — 名札のある財布の、いまの残高と動き">
+<meta property="og:description" content="チェーンの公開の記録を読んで並べているだけの頁です。確かめられた物にだけ名札を付けます。">
+<meta property="og:url" content="https://genmatsuda-code.github.io/zenination/kansokujo.html">
+<meta property="og:image" content="https://genmatsuda-code.github.io/zenination/assets/sato-portrait.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<!--
+  2026-10-05 新設。チェーンの公開の記録だけを読んで並べる頁。
+  ★ 線(ここを曲げない):
+    ① 書くのは「動いた」「受け取った」「送った」。「売った」「逃げた」とは書かない
+       ——送り先が取引所でも、売ったかどうかは記録から分からない。
+    ② 値段・値動き・時価・買いの勧めは、この頁に一語も置かない。数は枚数だけで見る。
+    ③ 名札は、確かめられた物だけ。開示に書かれている物は「開示に在る」と言い、
+       そうでない物は「受け取った/送った」という事実だけを名札にする(人や会社の名前は付けない)。
+    ④ 数は一つも焼き込まない。全部その場でチェーンから読む。
+       読めなかった時は、最後に読めた時刻を必ず出す(古い数を新しいと見せない)。
+    ⑤ 読み出しは一時間に一度まで(その端末の控えを使う)。公開の口に負担をかけない。
+  ★ 出せていない物は、出せていないと書く(⑥の段)。無料の口が断る呼び出しが在る。
+-->
+<style>
+  :root{--paper:#FBF7EF;--card:#fff;--line:#EBE3D3;--ink:#3A352C;--soft:#7C7263;--dim:#A79C8B;--coral:#F2795B;--soft2:#F6EEDF;--good:#4C8C6B}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:"Hiragino Maru Gothic ProN","Yu Gothic UI",system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.9;-webkit-font-smoothing:antialiased}
+  .w{max-width:600px;margin:0 auto;padding:44px 18px 80px}
+  .series{font-size:12px;color:var(--coral);letter-spacing:.2em;font-weight:700}
+  h1{font-size:25px;line-height:1.45;margin-top:8px;font-weight:700}
+  .honest{font-size:13px;color:var(--soft);margin-top:14px;background:var(--soft2);border:1px solid var(--line);border-radius:14px;padding:13px 15px}
+  .asof{font-size:12px;color:var(--dim);margin-top:12px}
+  .asof b{color:var(--soft)}
+  h2{font-size:14px;letter-spacing:.14em;color:var(--coral);margin-top:38px}
+  .shelf{font-size:13.5px;color:var(--soft);margin-top:8px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;margin-top:14px;box-shadow:0 6px 20px rgba(58,53,44,.05)}
+  .card .nm{font-size:16px;font-weight:700}
+  .card .ad{font-size:12px;color:var(--dim);margin-top:4px;word-break:break-all;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  .card .why{font-size:12.5px;color:var(--soft);margin-top:8px}
+  .bal{font-size:21px;font-weight:700;margin-top:10px}
+  .bal .u{font-size:12px;color:var(--dim);font-weight:400;margin-left:4px}
+  .bal.pending{font-size:14px;color:var(--dim);font-weight:400}
+  .moves{margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
+  .mv{font-size:12.5px;color:var(--soft);display:flex;gap:8px;padding:3px 0}
+  .mv .d{flex:0 0 76px;color:var(--dim)}
+  .mv a{color:var(--coral);text-decoration:none}
+  .tag{display:inline-block;font-size:11.5px;border-radius:999px;padding:3px 10px;border:1px solid var(--line);color:var(--soft);background:var(--soft2);margin-top:10px}
+  .tag.disc{background:var(--coral);color:#fff;border-color:var(--coral)}
+  .cant{background:var(--soft2);border:1px dashed var(--line);border-radius:16px;padding:16px;margin-top:14px;font-size:13px;color:var(--soft)}
+  .cant b{color:var(--ink)}
+  .note{font-size:12px;color:var(--dim);line-height:1.95;margin-top:34px}
+  .note a{color:var(--coral)}
+  .reload{display:inline-block;margin-top:14px;font-size:13px;font-weight:700;color:var(--coral);background:none;border:1px solid var(--line);border-radius:999px;padding:8px 16px;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="w">
+  <div class="series">善意観測所</div>
+  <h1>名札のある財布の、いまの残高と動き。</h1>
+
+  <p class="honest">この頁は、チェーンの公開の記録を読んで並べているだけです。誰の物かは、確かめられた物だけ名札を付けます。</p>
+  <p class="asof" id="asof">読み込んでいます…</p>
+  <button class="reload" id="reload" type="button">いま読み直す</button>
+
+  <h2>NYAN(Solana)</h2>
+  <p class="shelf" id="nyanSupply">総数を読んでいます…</p>
+  <div id="nyanCards"></div>
+
+  <h2>WWB(Optimism)</h2>
+  <p class="shelf" id="wwbSupply">総数を読んでいます…</p>
+  <div id="wwbCards"></div>
+
+  <h2>まだ出せていない物</h2>
+  <div class="cant">
+    <b>上位の持ち主の一覧(上位 20・持ち主の数)は、まだ出せていません。</b><br>
+    無料で誰でも叩ける口が、この呼び出しを断ります(2026-10-05 実測: Solana の公開 RPC 三つとも 429 / 403 / 400。一覧を作る呼び出しは重いので、無料の口では通りません)。
+    鍵の要る口を使えば読めますが、<b>鍵を頁に置かない</b>ので、置きません。読めるようになった日に、この段を数に差し替えます。<br>
+    <span style="color:var(--dim)">数が無いのに「0 件」と書くのは嘘になるので、空のまま置いています。</span>
+  </div>
+  <div class="cant">
+    <b>使われた量(決済に使われた NYAN の数)は、まだ始まっていません。</b><br>
+    決済が動き出したら、この段に数が入ります。
+  </div>
+
+  <!-- ★ この段は「何をしないか」を書く所。門番は、禁止語の検査からこの段だけを外して見る
+       (外せるのは、この段が在ることを門番が別に確かめているから)。 -->
+  <div class="note" id="honestNote">
+    この頁は、記録に在ることだけを書きます。「動いた」「受け取った」「送った」とだけ書き、その人が何をしたつもりかは書きません(送り先が取引所の受け口でも、記録からは分かりません)。<br>
+    値動きの見通し・時価・買う売るの勧めは、一語も置きません。投資の助言ではありません。<br>
+    数はその場でチェーンから読みます。読めなかった時は、最後に読めた時刻を上に出します。読み出しは一時間に一度までです(その端末の中に控えます)。<br>
+    この道具は AI(佐藤)が作っています。<a href="https://genmatsuda-code.github.io/zenination/dougu.html">道具の棚へ戻る</a>
+  </div>
+</div>
+
+<script>
+'use strict';
+/* ── 名札の表。ここに書くのは住所と、名札の根拠だけ。数は一つも書かない ── */
+var NYAN_MINT = 'FpECzw6x8RG4VBXfnVg3UJd8pq9CCxJUSWCKb4gebq8B';
+var WWB = '0x03cc5feF38896537c10Fcb30A53A1B12be101da6';
+
+var NYAN_WALLETS = [
+  /* ★ disclosed: true を付けるには src(出所の開示)が要る。門番が対で見るので、
+     根拠なしに「開示に書かれている」の印は付けられない。 */
+  { addr: 'Abt54GpGwR4rnFzrSiCnKhLf1Hj1GJ9qCCfZAz7Jknyv',
+    nm: '開示に書かれている、寄付の受領ウォレット', disclosed: true,
+    src: '2025-01-28 の開示「（開示事項の経過）当社子会社への「Nyanmaru Coin（$NYAN）」追加寄付に関するお知らせ」の本文',
+    why: 'その開示の本文に、このウォレットアドレスがそのまま書かれています。2024-12-19 / 12-25・2025-01-23 / 01-28 の受領が、チェーンの記録と日付で一行ずつ合い、2025-01-28 の分は枚数まで合います。',
+    trace: true },
+  { addr: 'D6T8HzLGHU4K2mgpSsRZHbYXwZ7RUQFmF8aeNeRyeyjT',
+    nm: '上の財布へ、送った側の財布',
+    why: '2024-12-18 から 2025-01-28 までの記録で、上の財布へ送った側として出ます。誰の物かは開示されていないので、名札は「送った」という事実だけです。' },
+  { addr: 'AZN2KdS2TLy4g49XSaYF3rwnhDtQhsDNAsAMSGix2yhM',
+    nm: '上の財布と、受け渡しが在った財布',
+    why: '2026-01-22 の記録で、上の財布との受け渡しに出ます。誰の物かは開示されていないので、名札は事実だけです。' },
+  { addr: 'EZsS49ApgjxcCbu7eufiFnfupSHJqP8JaRnXoYqUqjKB',
+    nm: '上の財布から、残っていた分を受け取った財布',
+    why: '2026-05-28 の記録で、上の財布から受け取った側として出ます。誰の物かは開示されていないので、名札は事実だけです。' }
+];
+
+/* OP 側。名前は、私たちが自分で公開している物の名前(人の名前ではない) */
+var WWB_WALLETS = [
+  { addr: '0x029972f6c9baf23ae0bf60bf666fd290257cd5e8', nm: '守り手の Safe', why: '多重署名の金庫(公開)' },
+  { addr: '0x152327f9fa1ccb7eced95a2973830dc9e2206ec2', nm: 'BurnRouterV2', why: '感謝を焚き上げに変える窓口' },
+  { addr: '0x28b3e7dac5322c081b26b1436a04936b6393330d', nm: 'RewardDistributorV2', why: '配布の窓口' },
+  { addr: '0x363bded187554f69102a6360d82a62ebebac444d', nm: 'OFT アダプタ', why: 'チェーンをまたぐ橋の受け口' },
+  { addr: '0x92433de259e47c4c7b8fc1b08c9a70d22cb30a45', nm: 'ChronoBurnCurve', why: '焚き上げの量を決める曲線' },
+  { addr: '0xeec825b330f579f958551bd0f4e40f07d3b38e31', nm: 'GoodwillGovernor', why: '善意コードの統治' },
+  { addr: '0x16e9020336088604b67a9e1af7f63508cec237da', nm: 'GuardedMeritWeight', why: '重みの台帳' },
+  { addr: '0xa90a6dd6af99767b29013414c5d1d7f3993f1bc5', nm: 'VowRegistry', why: '誓いの記録' },
+  { addr: '0x03cc5feF38896537c10Fcb30A53A1B12be101da6', nm: 'WWB 本体', why: 'トークンのコントラクトそのもの' }
+];
+
+var SOL_EPS = ['https://api.mainnet-beta.solana.com', 'https://solana-rpc.publicnode.com', 'https://solana.drpc.org'];
+var OP_EP = 'https://mainnet.optimism.io';
+var CACHE_KEY = 'kansokujo.snapshot.v1';
+var HOUR = 3600 * 1000;
+
+function el(id) { return document.getElementById(id); }
+function num(n) { return Number(n).toLocaleString('ja-JP', { maximumFractionDigits: 3 }); }
+function shortAddr(a) { return a.length > 16 ? (a.slice(0, 6) + '…' + a.slice(-4)) : a; }
+function jst(ms) {
+  try {
+    return new Date(ms).toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
+  } catch (e) { return new Date(ms).toISOString().slice(0, 16).replace('T', ' ') + ' UTC'; }
+}
+
+/* ── 控え。読めなかった日に「最後に読めた時刻」を出すためだけに在る ── */
+function loadCache() {
+  try { var s = localStorage.getItem(CACHE_KEY); return s ? JSON.parse(s) : null; } catch (e) { return null; }
+}
+function saveCache(snap) {
+  try { localStorage.setItem(CACHE_KEY, JSON.stringify(snap)); } catch (e) { /* 使えない端末でも頁は出る */ }
+}
+
+async function solRpc(method, params) {
+  for (var i = 0; i < SOL_EPS.length; i++) {
+    try {
+      var res = await fetch(SOL_EPS[i], {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: method, params: params })
+      });
+      if (!res.ok) continue;
+      var j = await res.json();
+      if (j.error) continue;
+      return { ok: true, result: j.result };
+    } catch (e) { /* 次の口へ */ }
+  }
+  return { ok: false };
+}
+
+async function opCall(to, data) {
+  try {
+    var res = await fetch(OP_EP, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'eth_call', params: [{ to: to, data: data }, 'latest'] })
+    });
+    if (!res.ok) return { ok: false };
+    var j = await res.json();
+    if (j.error || !j.result) return { ok: false };
+    return { ok: true, hex: j.result };
+  } catch (e) { return { ok: false }; }
+}
+
+/** 18 桁の整数を、枚数の文字列に(大きい数でも落ちないように BigInt で割る) */
+function from18(hex) {
+  var v = BigInt(hex);
+  var base = BigInt('1000000000000000000');
+  var whole = v / base;
+  var frac = (v % base).toString().padStart(18, '0').slice(0, 3).replace(/0+$/, '');
+  return Number(whole) + (frac ? Number('0.' + frac) : 0);
+}
+function pad32(addr) { return addr.toLowerCase().replace(/^0x/, '').padStart(64, '0'); }
+
+/** 一つの財布の NYAN を数える(その住所が持つ口を全部 足す) */
+async function nyanBalance(owner) {
+  var r = await solRpc('getTokenAccountsByOwner', [owner, { mint: NYAN_MINT }, { encoding: 'jsonParsed' }]);
+  if (!r.ok || !r.result) return null;
+  var total = 0, accounts = [];
+  for (var i = 0; i < r.result.value.length; i++) {
+    var info = r.result.value[i].account.data.parsed.info;
+    total += Number(info.tokenAmount.uiAmountString || 0);
+    accounts.push(r.result.value[i].pubkey);
+  }
+  return { amount: total, accounts: accounts };
+}
+
+/** 直近の動きを読む。相手と枚数は tx の前後の残高の差から取る */
+async function nyanMoves(tokenAccount, selfOwner, limit) {
+  var sg = await solRpc('getSignaturesForAddress', [tokenAccount, { limit: limit || 8 }]);
+  if (!sg.ok || !sg.result) return null;
+  var out = [];
+  for (var i = 0; i < sg.result.length && out.length < (limit || 8); i++) {
+    var s = sg.result[i];
+    var t = await solRpc('getTransaction', [s.signature, { encoding: 'jsonParsed', maxSupportedTransactionVersion: 0 }]);
+    if (!t.ok || !t.result) continue;
+    var meta = t.result.meta || {};
+    var by = {};
+    var add = function (arr, key) {
+      for (var k = 0; k < (arr || []).length; k++) {
+        var b = arr[k];
+        if (!b.owner) continue;
+        by[b.owner] = by[b.owner] || { pre: 0, post: 0 };
+        by[b.owner][key] += Number((b.uiTokenAmount || {}).uiAmountString || 0);
+      }
+    };
+    add(meta.preTokenBalances, 'pre');
+    add(meta.postTokenBalances, 'post');
+    var mine = by[selfOwner] ? (by[selfOwner].post - by[selfOwner].pre) : 0;
+    if (Math.abs(mine) < 1) continue;
+    var other = '';
+    for (var o in by) {
+      if (o === selfOwner) continue;
+      var d = by[o].post - by[o].pre;
+      if (Math.abs(d) >= 1 && ((mine > 0 && d < 0) || (mine < 0 && d > 0))) { other = o; break; }
+    }
+    out.push({
+      day: s.blockTime ? new Date(s.blockTime * 1000).toISOString().slice(0, 10) : '',
+      dir: mine > 0 ? 'in' : 'out',
+      amount: Math.abs(mine),
+      other: other,
+      sig: s.signature
+    });
+  }
+  return out;
+}
+
+/** 全部 読む。読めた物だけを snap に入れる(読めない物は undefined のまま=嘘を書かない) */
+async function readAll() {
+  var snap = { at: Date.now(), nyan: { wallets: {} }, wwb: { wallets: {} } };
+
+  var sup = await solRpc('getTokenSupply', [NYAN_MINT]);
+  if (sup.ok && sup.result) snap.nyan.supply = Number(sup.result.value.uiAmountString);
+
+  for (var i = 0; i < NYAN_WALLETS.length; i++) {
+    var w = NYAN_WALLETS[i];
+    var b = await nyanBalance(w.addr);
+    if (!b) continue;
+    var rec = { amount: b.amount };
+    if (w.trace && b.accounts.length) {
+      var mv = await nyanMoves(b.accounts[0], w.addr, 8);
+      if (mv) rec.moves = mv;
+    }
+    snap.nyan.wallets[w.addr] = rec;
+  }
+
+  var ts = await opCall(WWB, '0x18160ddd');
+  if (ts.ok) snap.wwb.supply = from18(ts.hex);
+  for (var k = 0; k < WWB_WALLETS.length; k++) {
+    var a = WWB_WALLETS[k].addr;
+    var r = await opCall(WWB, '0x70a08231' + pad32(a));
+    if (r.ok) snap.wwb.wallets[a] = { amount: from18(r.hex) };
+  }
+  return snap;
+}
+
+/* ── 描く ── */
+function moveLine(m) {
+  var who = m.other ? shortAddr(m.other) : '(相手が読めません)';
+  var verb = m.dir === 'in' ? '受け取った' : '送った';
+  return '<div class="mv"><span class="d">' + m.day + '</span><span>' + verb + ' ' + num(m.amount)
+    + ' / 相手 ' + who + ' <a href="https://solscan.io/tx/' + m.sig + '" target="_blank" rel="noopener">記録</a></span></div>';
+}
+
+function cardHtml(w, rec, unit) {
+  var h = '<div class="card">';
+  h += '<div class="nm">' + w.nm + '</div>';
+  h += '<div class="ad">' + w.addr + '</div>';
+  if (rec && typeof rec.amount === 'number') {
+    h += '<div class="bal">' + num(rec.amount) + '<span class="u">' + unit + '</span></div>';
+  } else {
+    h += '<div class="bal pending">いまの残高は、読めませんでした</div>';
+  }
+  h += '<div class="why">' + w.why + '</div>';
+  if (w.src) h += '<div class="why">出所: ' + w.src + '</div>';
+  h += '<span class="tag' + (w.disclosed ? ' disc' : '') + '">' + (w.disclosed ? '開示に書かれている住所' : '記録に出た住所(誰の物かは開示されていません)') + '</span>';
+  if (rec && rec.moves && rec.moves.length) {
+    h += '<div class="moves">';
+    for (var i = 0; i < rec.moves.length; i++) h += moveLine(rec.moves[i]);
+    h += '</div>';
+  }
+  return h + '</div>';
+}
+
+function draw(snap, fresh) {
+  el('asof').innerHTML = fresh
+    ? 'チェーンから読んだ時刻: <b>' + jst(snap.at) + '</b>(日本時間)'
+    : 'いまは読めませんでした。表示しているのは<b>最後に読めた ' + jst(snap.at) + '</b>(日本時間)の数です。';
+
+  el('nyanSupply').textContent = (typeof snap.nyan.supply === 'number')
+    ? ('総数 ' + num(snap.nyan.supply) + ' NYAN')
+    : '総数は読めませんでした';
+  var a = '';
+  for (var i = 0; i < NYAN_WALLETS.length; i++) a += cardHtml(NYAN_WALLETS[i], snap.nyan.wallets[NYAN_WALLETS[i].addr], 'NYAN');
+  el('nyanCards').innerHTML = a;
+
+  el('wwbSupply').textContent = (typeof snap.wwb.supply === 'number')
+    ? ('総数 ' + num(snap.wwb.supply) + ' WWB')
+    : '総数は読めませんでした';
+  var b = '';
+  for (var k = 0; k < WWB_WALLETS.length; k++) b += cardHtml(WWB_WALLETS[k], snap.wwb.wallets[WWB_WALLETS[k].addr], 'WWB');
+  el('wwbCards').innerHTML = b;
+}
+
+async function go(force) {
+  var cached = loadCache();
+  if (cached && !force) {
+    draw(cached, Date.now() - cached.at < HOUR);
+    if (Date.now() - cached.at < HOUR) return;   // 一時間は読み直さない(公開の口に負担をかけない)
+  }
+  el('asof').textContent = 'チェーンを読んでいます…';
+  var snap = null;
+  try { snap = await readAll(); } catch (e) { snap = null; }
+  var got = snap && (typeof snap.nyan.supply === 'number' || Object.keys(snap.nyan.wallets).length || Object.keys(snap.wwb.wallets).length);
+  if (got) { saveCache(snap); draw(snap, true); return; }
+  if (cached) { draw(cached, false); return; }
+  el('asof').textContent = 'いまチェーンが読めず、この端末に控えもありません。少し経ってから、もう一度 開いてください。';
+}
+
+el('reload').addEventListener('click', function () { go(true); });
+go(false);
+</script>
+</body>
+</html>
