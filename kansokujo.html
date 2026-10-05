@@ -117,7 +117,7 @@ var NYAN_WALLETS = [
     nm: '上の財布から、残っていた分を受け取った財布',
     why: '2026-05-28 の記録で、上の財布から受け取った側として出ます。誰の物かは開示されていないので、名札は事実だけです。' },
   { addr: '5Q544fKrFoe6tsEbD7S8EmxGTJYAKtTVhAW5Q5pge4j1',
-    nm: '板の中の NYAN(Raydium の NYAN/SOL の板)',
+    nm: '板の中の NYAN(Raydium の NYAN/SOL の板)', pool: true,
     why: 'この住所は、Raydium の板(NYAN/SOL)の金庫の持ち主です。この枚数は板に入っている NYAN で、誰か一人の持ち分ではありません。(2026-10-05 夜に、前の名札「いま NYAN がいちばん多く在る財布」を正しました)' },
   /* ★ 名札に枚数を書かない。枚数は写しの紙から出す(焼き込むと、動いた日から嘘になる) */
   { addr: 'CgH6BbwFanjEaNrn3dBqRKXVhcDYDsKCvUEPw6eGCHWw',
@@ -193,7 +193,7 @@ function cardHtml(w, amount, unit) {
   }
   h += '<div class="why">' + w.why + '</div>';
   if (w.src) h += '<div class="why">出所: ' + w.src + '</div>';
-  h += '<span class="tag' + (w.disclosed ? ' disc' : '') + '">' + (w.disclosed ? '開示に書かれている住所' : '記録に出た住所(誰の物かは開示されていません)') + '</span>';
+  h += '<span class="tag' + (w.disclosed ? ' disc' : '') + '">' + (w.pool ? '板の金庫(人の財布ではありません)' : w.disclosed ? '開示に書かれている住所' : '記録に出た住所(誰の物かは開示されていません)') + '</span>';
   return h + '</div>';
 }
 
