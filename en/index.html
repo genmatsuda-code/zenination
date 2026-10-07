@@ -89,7 +89,7 @@
   .tick{font-family:var(--mono); font-size:12px; color:var(--fg-faint); position:relative}
   .tick b{display:block; color:var(--fg); font-size:13px; font-family:var(--gothic); font-weight:600; letter-spacing:.06em}
   .tick.gate b{color:var(--ember)}
-  .tick.gate::after{content:"threshold"; position:absolute; top:-46px; left:50%; transform:translateX(-50%);
+  .tick.gate::after{content:"threshold"; position:absolute; top:auto; bottom:-24px; left:50%; transform:translateX(-50%);
     font-family:var(--mono); font-size:9.5px; letter-spacing:.2em; color:var(--gold); white-space:nowrap;
     border:1px solid var(--gold); padding:2px 6px; border-radius:2px; opacity:.8}
 
@@ -273,19 +273,19 @@
 <section class="hero">
   <canvas id="field" aria-hidden="true"></canvas>
   <div class="wrap">
-    <p class="eyebrow">The Goodwill Nation ── a founding teaser</p>
+    <p class="eyebrow">The Goodwill Nation ── where good people make money</p>
     <h1 class="hero-kanji">積善</h1>
-    <p class="hero-sub">Good does not vanish. It compounds as social capital.</p>
+    <p class="hero-sub">The Goodwill Nation is building a country where good people make money.</p>
     <p class="hero-lede">
-      One person's good deed is inscribed as a proof — an unforgeable record.
-      <b>For every deed inscribed</b>, the nation gains capital, and <b>a door opens</b> —
-      a seat, a room, a tie to another person. 積善 (SEKIZEN, accumulated good).
+      The method is <b>keeping records</b>. Good deeds and honest trade are written down,
+      turned into trust, and <b>trust brings customers and work</b>. No promises —
+      only the numbers we actually reach, published every week as they are. 積善 (SEKIZEN, accumulated good).
       <span class="classic">A house that accumulates good is sure to have blessings to spare.</span>
     </p>
 
     <div class="gauge" id="gauge">
       <div class="gauge-top">
-        <span class="gauge-label">Range of the founding</span>
+        <span class="gauge-label">Range of the founding ── targets, not the current count</span>
         <span class="gauge-count"><b class="num" id="live">0</b> ／ <span class="num">10,000</span> citizens</span>
       </div>
       <div class="track"><div class="fill" id="fill"></div></div>
