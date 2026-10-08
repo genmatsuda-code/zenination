@@ -1,12 +1,12 @@
 {
- "asOf": "2026-10-07T23:02:14.203Z",
+ "asOf": "2026-10-08T02:40:42.928Z",
  "nyan": {
   "wallets": {
    "Abt54GpGwR4rnFzrSiCnKhLf1Hj1GJ9qCCfZAz7Jknyv": 0,
    "D6T8HzLGHU4K2mgpSsRZHbYXwZ7RUQFmF8aeNeRyeyjT": 0,
    "AZN2KdS2TLy4g49XSaYF3rwnhDtQhsDNAsAMSGix2yhM": 0,
    "EZsS49ApgjxcCbu7eufiFnfupSHJqP8JaRnXoYqUqjKB": 0,
-   "5Q544fKrFoe6tsEbD7S8EmxGTJYAKtTVhAW5Q5pge4j1": 5305876675.1547,
+   "5Q544fKrFoe6tsEbD7S8EmxGTJYAKtTVhAW5Q5pge4j1": 5304627487.299446,
    "CgH6BbwFanjEaNrn3dBqRKXVhcDYDsKCvUEPw6eGCHWw": 1300000100
   },
   "supply": 49331401970.134
@@ -14,7 +14,7 @@
  "wwb": {
   "wallets": {
    "0x029972f6c9baf23ae0bf60bf666fd290257cd5e8": 8874000,
-   "0x152327f9fa1ccb7eced95a2973830dc9e2206ec2": 55355.231,
+   "0x152327f9fa1ccb7eced95a2973830dc9e2206ec2": 53746.358,
    "0x28b3e7dac5322c081b26b1436a04936b6393330d": 0,
    "0x363bded187554f69102a6360d82a62ebebac444d": 52754.394,
    "0x92433de259e47c4c7b8fc1b08c9a70d22cb30a45": 0,
@@ -24,7 +24,7 @@
    "0x03cc5fef38896537c10fcb30a53a1b12be101da6": 0,
    "0x5db284d904f0e5f477433e6132e30fa939c72849": 222115051.64
   },
-  "supply": 1110366140.014
+  "supply": 1110364531.14
  },
  "failed": []
 }
