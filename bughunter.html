@@ -254,6 +254,7 @@
     if (Date.now() / 1000 > Number(m.deadline)) say($('vMsg'), REASON.Expired, 'bad');
     $('vBtn').addEventListener('click', async function () {
       var btn = $('vBtn'), vm = $('vMsg');
+      if (!contractAddr) { say(vm, 'この証はまだ鎖に出ていません。出した日に、このリンクで受け取れるようになります。', 'bad'); return; }
       if (!window.ethereum) { say(vm, '財布が見つかりません。MetaMask などの財布のアプリの中のブラウザで、このリンクを開いてください。', 'bad'); return; }
       btn.disabled = true; btn.textContent = '財布をつないでいます…'; say(vm, '');
       try {
