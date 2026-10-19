@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="512" height="512" role="img" aria-label="松田元の忍者の印(一本の針)">
+<title>松田元の忍者の印(一本の針)</title>
+<defs>
+<mask id="cut"><rect width="128" height="128" fill="#fff"/><circle cx="112" cy="16" r="13" fill="#000"/></mask>
+</defs>
+<rect x="16" y="16" width="96" height="96" fill="none" stroke="#c5a059" stroke-width="1.3" mask="url(#cut)"/>
+<path d="M22 106L82.32 45.68L126 2L86.85 50.21L26.53 110.53Z" fill="#a8893f"/>
+<path d="M19.88 103.88L80.2 43.56L126 2L82.32 45.68L22 106Z" fill="#ebd095"/>
+</svg>
