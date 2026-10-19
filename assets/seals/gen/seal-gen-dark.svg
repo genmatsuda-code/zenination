@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="512" height="512" role="img" aria-label="国主の印(拇印)">
+<title>国主の印(拇印)</title>
+<defs>
+<filter id="skin" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">
+  <feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="3" seed="4" result="w"/>
+  <feDisplacementMap in="SourceGraphic" in2="w" scale="3.4" xChannelSelector="R" yChannelSelector="G" result="d1"/>
+  <feTurbulence type="fractalNoise" baseFrequency=".3" numOctaves="2" seed="17" result="w2"/>
+  <feDisplacementMap in="d1" in2="w2" scale="2.2" xChannelSelector="R" yChannelSelector="G" result="d"/>
+  <feTurbulence type="fractalNoise" baseFrequency=".6" numOctaves="3" seed="11" result="t"/>
+  <feColorMatrix in="t" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1.3 .4" result="m"/>
+  <feComposite in="d" in2="m" operator="in"/>
+</filter>
+<filter id="rag" x="-10%" y="-10%" width="120%" height="120%">
+  <feTurbulence type="fractalNoise" baseFrequency=".09" numOctaves="2" seed="9" result="w"/>
+  <feDisplacementMap in="SourceGraphic" in2="w" scale="9" xChannelSelector="R" yChannelSelector="G"/>
+</filter>
+<radialGradient id="fade" cx=".42" cy=".44" r=".58"><stop offset=".72" stop-color="#fff"/><stop offset=".9" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+<mask id="pad">
+  <path d="M100.35 66L99.54 83.13L92.1 97.57L80.49 109.88L67.71 114.85L54.49 115.86L41.15 109.29L31.91 99.47L25.98 82.71L23.77 66L24.95 49.32L32.95 31.7L41.61 20.53L54.62 17.89L68.13 13.78L79.49 21.45L92.25 32.03L97.79 48.09Z" transform="rotate(7 61 66)" fill="url(#fade)" filter="url(#rag)"/>
+  <path d="M79 19 Q89 32 99 47" stroke="#000" stroke-width="3.8" stroke-linecap="butt" fill="none"/>
+</mask>
+</defs>
+<g mask="url(#pad)" filter="url(#skin)">
+  <g fill="#e2553f"><ellipse cx="54" cy="62" rx="9" ry="6" transform="rotate(-20 54 62)"/><ellipse cx="62" cy="74" rx="7" ry="5" transform="rotate(15 62 74)"/><ellipse cx="48" cy="78" rx="6" ry="4" transform="rotate(-35 48 78)"/></g>
+  <g fill="none" stroke="#e2553f" stroke-linecap="butt">
+<path d="M52.4 106 C50.9 57.32 53.2 56.6 53.6 56 A2.4 2.4 0 0 1 58.4 56 C58.8 56.6 60.9 57.32 59.4 106" stroke-width="3" stroke-dasharray="30.86 1.02" stroke-dashoffset="1.84"/>
+<path d="M48.1 106.5 C46.6 59.75 49.45 57.98 49.85 56.5 A5.9 5.9 0 0 1 61.65 56.5 C62.05 57.98 64.65 59.75 63.15 106.5" stroke-width="3" stroke-dasharray="400 0" stroke-dashoffset="37.59"/>
+<path d="M43.8 107 C42.3 62.17 45.7 59.35 46.1 57 A9.4 9.4 0 0 1 64.9 57 C65.3 59.35 68.4 62.17 66.9 107" stroke-width="3" stroke-dasharray="21.82 1.21" stroke-dashoffset="29.84"/>
+<path d="M39.5 107.5 C38 64.6 41.95 60.73 42.35 57.5 A12.9 12.9 0 0 1 68.15 57.5 C68.55 60.73 72.15 64.6 70.65 107.5" stroke-width="2.8" stroke-dasharray="400 0" stroke-dashoffset="8.47"/>
+<path d="M35.2 108 C33.7 67.02 38.2 62.1 38.6 58 A16.4 16.4 0 0 1 71.4 58 C71.8 62.1 75.9 67.02 74.4 108" stroke-width="2.8" stroke-dasharray="14.69 1.03" stroke-dashoffset="37.47"/>
+<path d="M30.9 108.5 C29.4 69.44 34.45 63.48 34.85 58.5 A19.9 19.9 0 0 1 74.65 58.5 C75.05 63.48 79.65 69.44 78.15 108.5" stroke-width="2.8" stroke-dasharray="17.29 1.48" stroke-dashoffset="30.12"/>
+<path d="M26.6 109 C25.1 71.87 30.7 64.85 31.1 59 A23.4 23.4 0 0 1 77.9 59 C78.3 64.85 83.4 71.87 81.9 109" stroke-width="2.8" stroke-dasharray="23.9 1.82" stroke-dashoffset="28.32"/>
+<path d="M22.3 109.5 C20.8 74.3 26.95 66.22 27.35 59.5 A26.9 26.9 0 0 1 81.15 59.5 C81.55 66.22 87.15 74.3 85.65 109.5" stroke-width="2.8" stroke-dasharray="37.64 1.63" stroke-dashoffset="36.15"/>
+<path d="M18 110 C16.5 76.72 23.2 67.6 23.6 60 A30.4 30.4 0 0 1 84.4 60 C84.8 67.6 90.9 76.72 89.4 110" stroke-width="2.4" stroke-dasharray="17.61 1.83 35.74 1.63" stroke-dashoffset="24.77"/>
+<path d="M13.7 110.5 C12.2 79.15 19.45 68.97 19.85 60.5 A33.9 33.9 0 0 1 87.65 60.5 C88.05 68.97 94.65 79.15 93.15 110.5" stroke-width="2.4" stroke-dasharray="39.05 1.35 21.99 1.67 39.17 0.96" stroke-dashoffset="27.51"/>
+<path d="M9.4 111 C7.9 81.57 15.7 70.35 16.1 61 A37.4 37.4 0 0 1 90.9 61 C91.3 70.35 98.4 81.57 96.9 111" stroke-width="2.4" stroke-dasharray="38.25 2.12 30.6 1.76 17.24 2.09" stroke-dashoffset="22.01"/>
+<path d="M5.1 111.5 C3.6 84 11.95 71.72 12.35 61.5 A40.9 40.9 0 0 1 94.15 61.5 C94.55 71.72 102.15 84 100.65 111.5" stroke-width="2.4" stroke-dasharray="13.77 1.4 33.43 1.15 36.92 1.72" stroke-dashoffset="0.99"/>
+<path d="M0.8 112 C-0.7 86.42 8.2 73.1 8.6 62 A44.4 44.4 0 0 1 97.4 62 C97.8 73.1 105.9 86.42 104.4 112" stroke-width="2.4" stroke-dasharray="35.58 2.11 23.26 0.85" stroke-dashoffset="8.56"/>
+<path d="M-3.5 112 C-5 88.85 4.45 74.47 4.85 62.5 A47.9 47.9 0 0 1 100.65 62.5 C101.05 74.47 109.65 88.85 108.15 112" stroke-width="2.4" stroke-dasharray="28.67 1.56 36.18 1.84 12 1.49" stroke-dashoffset="25.92"/>
+<path d="M-7.8 112 C-9.3 91.27 0.7 75.85 1.1 63 A51.4 51.4 0 0 1 103.9 63 C104.3 75.85 113.4 91.27 111.9 112" stroke-width="2.4" stroke-dasharray="39.7 0.82 31.26 2.11" stroke-dashoffset="2.05"/>
+<path d="M56.4 61 L56 100" stroke-width="2.4" stroke-dasharray="22 1.2 30 1" />
+<path d="M8 117.5 Q 60 104.5 118 119.5" stroke-width="2.5" stroke-dasharray="20.18 1.74" stroke-dashoffset="25.32"/>
+<path d="M8 121.7 Q 60 108.7 118 123.7" stroke-width="2.35" stroke-dasharray="17.94 1.17" stroke-dashoffset="17.93"/>
+<path d="M8 125.9 Q 60 112.9 118 127.9" stroke-width="2.2" stroke-dasharray="27.08 1.38" stroke-dashoffset="26.22"/>
+  </g>
+</g>
+</svg>

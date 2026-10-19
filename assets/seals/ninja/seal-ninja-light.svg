@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="512" height="512" role="img" aria-label="松田元の忍者の印(切り絵の忍)">
+<title>松田元の忍者の印(切り絵の忍)</title>
+<defs>
+<linearGradient id="g" gradientUnits="userSpaceOnUse" x1="0" y1="13" x2="0" y2="116"><stop offset="0" stop-color="#c5a059"/><stop offset="1" stop-color="#8a6e35"/></linearGradient>
+<mask id="over"><rect width="128" height="128" fill="#fff"/>
+  <g stroke="#000" stroke-width="1.1" stroke-linecap="square"><path d="M102 23 L108 23"/><path d="M108 114 L113 119"/></g></mask>
+</defs>
+<g transform="rotate(-2 64 64)" fill="url(#g)" mask="url(#over)">
+  <path d="M30 14L104 13L104 23L30 24Z"/>
+  <path d="M94 23L104 23L104 48L88 62L82 56L94 46Z"/>
+  <path d="M61 24L74 24L60 50L42 68L32 71L49 48Z"/>
+  <path d="M41 38L49 35L56 45L50 50Z"/>
+  <path d="M52 77L63 77L64 100L70 106L100 106L100 96L110 94L110 116L66 116L54 106Z"/>
+  <path d="M40 81L50 83L54 97L41 96Z"/>
+  <path d="M74 84L84 86L85 106L75 104Z"/>
+  <path d="M92 72L102 74L103 96L93 94Z"/>
+  <path d="M41.5 69 L42.5 82" stroke="url(#g)" stroke-width="2.2" stroke-linecap="butt"/>
+</g>
+</svg>

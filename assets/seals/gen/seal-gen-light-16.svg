@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" role="img" aria-label="国主の印">
+<title>国主の印</title>
+<g transform="rotate(7 8 8.4)">
+<path d="M13.26 8.4L13.35 10.32L12.62 11.99L11.4 13.64L10.13 14.52L8.7 15.26L7.24 15.14L5.92 14.96L4.8 13.38L3.9 12.19L3.12 10.25L3.24 8.4L3.05 6.35L3.98 4.84L4.35 2.82L6 1.95L7.21 1.12L8.74 1.21L10.24 2.33L11.29 3.01L12.59 4.42L12.87 6.47Z" fill="#c8392b"/>
+<path d="M3.9 9.6 L6.4 9.1" stroke="#fff" stroke-width=".8"/>
+<path d="M8.9 2.1 L11.7 5.6" stroke="#fff" stroke-width="1.2"/>
+</g>
+</svg>
