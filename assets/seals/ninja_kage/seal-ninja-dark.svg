@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="512" height="512" role="img" aria-label="松田元の忍者の印(元の影)">
+<title>松田元の忍者の印(元の影)</title>
+<defs>
+<linearGradient id="kg" gradientUnits="userSpaceOnUse" x1="108" y1="102" x2="20" y2="56"><stop offset="0" stop-color="#ebd095"/><stop offset=".55" stop-color="#c5a059"/><stop offset="1" stop-color="#6e5a2c"/></linearGradient>
+</defs>
+<g transform="translate(2 100) scale(1 .5) skewX(-50) translate(-64 -114)" fill="url(#kg)">
+  <path d="M32 12L96 12L96 26L32 26Z"/>
+  <path d="M12 42L116 42L116 56L12 56Z"/>
+  <path d="M52 56L66 56L58 82L44 104L30 114L16 114L34 98L46 80Z"/>
+  <path d="M74 56L88 56L88 90L94 96L104 96L104 82L116 82L116 108L88 108L74 96Z"/>
+</g>
+<path d="M24 102.6 H110" stroke="#ebd095" stroke-width="2.4"/>
+</svg>
