@@ -101,6 +101,7 @@
           <dt>鎖</dt><dd id="bNet"></dd>
           <dt>契約</dt><dd id="bCon"></dd>
           <dt>印</dt><dd id="bProof"></dd>
+          <dt>発行の鍵の代</dt><dd id="bEpoch"></dd>
         </dl>
         <div class="proven" id="bProven" hidden></div>
         <button class="ghost" id="share" type="button">この確かめの頁を写す</button>
@@ -130,16 +131,16 @@
   // 鎖ごとの契約の住所。鎖に出した日にここへ書く(空=まだ出ていない)
   var NETS = {
     10:       { name: 'OP Mainnet', rpc: 'https://mainnet.optimism.io', exp: 'https://optimistic.etherscan.io', addr: '' },
-    11155420: { name: 'OP Sepolia(試しの鎖)', rpc: 'https://sepolia.optimism.io', exp: 'https://sepolia-optimism.etherscan.io', addr: '0x9f799D8CFf56D89b2ED268FAF6268da0082Dbc4F' },
+    11155420: { name: 'OP Sepolia(試しの鎖)', rpc: 'https://sepolia.optimism.io', exp: 'https://sepolia-optimism.etherscan.io', addr: '0x192B441aBf3912c70e7d2DC65cDA3A16eb573820' },
     31337:    { name: '手元の鎖', rpc: 'http://127.0.0.1:8545', exp: '', addr: '' }
   };
   var ABI = [
     'function tokenOf(address) view returns (uint256)',
-    'function recordOf(uint256) view returns (tuple(uint8 level, uint32 sinceMonth, bytes32 proof))',
+    'function recordOf(uint256) view returns (tuple(uint8 level, uint32 sinceMonth, bytes32 proof, uint32 epoch))',
     'function retired(address) view returns (bool)',
     'function claim(uint8 level, uint32 sinceMonth, bytes32 proof, uint256 issuedAt, uint256 deadline, bytes signature) returns (uint256)',
     'error NotIssuerSignature()', 'error Expired()', 'error BadLevel()', 'error BadMonth()', 'error NotHigher(uint8 current)',
-    'error Retired()', 'error TooLong()', 'error BadIssuedAt()', 'error NoToken()'
+    'error Retired()', 'error TooLong()', 'error BadIssuedAt()', 'error NoToken()', 'error VoucherUsed()'
   ];
   var REASON = {
     NotIssuerSignature: '引換券の署名が運営のものではないか、運営が引換券を出し直しています。新しいリンクを運営に頼んでください。',
@@ -149,7 +150,8 @@
     BadLevel: '引換券の段が読めません。運営に知らせてください。',
     BadMonth: '始めた月が合いません(段を上げる時は、最初の月のままです)。運営に知らせてください。',
     NotHigher: 'この財布はもう同じ段か、それより上の段の証を持っています。',
-    Retired: 'この財布は付け替えの元なので受け取れません。新しい財布で受け取ってください。'
+    Retired: 'この財布は付け替えの元なので受け取れません。新しい財布で受け取ってください。',
+    VoucherUsed: 'この引換券はもう使われています。証はもう届いているかもしれません。下で確かめてください。'
   };
   var E = window.ethers;
   var $ = function (id) { return document.getElementById(id); };
@@ -169,17 +171,21 @@
       if (!NETS[voucher.c] || !E.isAddress(voucher.a) || !voucher.m || !voucher.s) throw new Error('bad');
     } catch (e) { voucher = null; }
   }
-  // どの鎖のどの契約を見るか: 引換券 > ?chain= > 本番。本番の住所はこの頁に書いた物だけを使う
+  // どの鎖のどの契約を見るか: 引換券 > ?chain= > 本番。契約の住所はこの頁に書いた物だけを使う
+  // (2026-10-20 監査 I7: URL の住所で任意の契約を「証が在りました」と見せない・送り先にしない。手元の鎖の試しだけは ?c= を受ける)
   var chainId = voucher ? Number(voucher.c) : Number(q.get('chain') || 10);
   if (!NETS[chainId]) chainId = 10;
   var net = NETS[chainId];
   var contractAddr = net.addr;
-  if (chainId !== 10) {
+  if (chainId === 31337) {
     var over = voucher ? voucher.a : q.get('c');
     if (over && E.isAddress(over)) contractAddr = E.getAddress(over);
-  } else if (voucher && net.addr && E.getAddress(voucher.a) !== E.getAddress(net.addr)) {
-    voucher = 'mismatch';
+  } else if (voucher && (!net.addr || E.getAddress(voucher.a) !== E.getAddress(net.addr))) {
+    voucher = net.addr ? 'mismatch' : voucher;
   }
+  // 本人が示す控えの番号と塩は # の後ろ(頁の配り手にも履歴の URL にも残りにくい)。前の ?r=&s= も読む
+  var hq = new URLSearchParams(location.hash.replace(/^#/, ''));
+  var showRid = hq.get('r') || q.get('r'), showSalt = hq.get('s') || q.get('s');
   var reader = contractAddr ? new E.Contract(contractAddr, ABI, new E.JsonRpcProvider(net.rpc, chainId, { staticNetwork: true })) : null;
 
   function decodeErr(e) {
@@ -215,8 +221,9 @@
       $('bCon').innerHTML = '';
       if (net.exp) { var l = document.createElement('a'); l.href = net.exp + '/token/' + contractAddr + '?a=' + id.toString(); l.target = '_blank'; l.rel = 'noopener'; l.textContent = contractAddr; $('bCon').appendChild(l); } else { $('bCon').textContent = contractAddr; }
       $('bProof').textContent = r.proof;
+      $('bEpoch').textContent = '第 ' + String(r.epoch) + ' 代(運営が発行の鍵を替えると代が進みます)';
       // 本人が示した控えの番号(?r= と ?s=)を照らす
-      var rid = q.get('r'), salt = q.get('s'), pv = $('bProven');
+      var rid = showRid, salt = showSalt, pv = $('bProven');
       pv.hidden = true;
       if (rid && salt) {
         var ok = /^R-\d+$/.test(rid) && /^[0-9a-f]{32,}$/.test(salt) && E.id(rid + '|' + salt) === r.proof;
@@ -225,7 +232,7 @@
       }
       $('badge').style.display = 'block';
       say(msg, '証が在りました。', 'ok');
-      history.replaceState(null, '', location.pathname + '?a=' + a + (chainId !== 10 ? '&chain=' + chainId + '&c=' + contractAddr : '') + (rid && salt ? '&r=' + encodeURIComponent(rid) + '&s=' + encodeURIComponent(salt) : ''));
+      history.replaceState(null, '', location.pathname + '?a=' + a + (chainId !== 10 ? '&chain=' + chainId : '') + (chainId === 31337 ? '&c=' + contractAddr : '') + (rid && salt ? '#r=' + encodeURIComponent(rid) + '&s=' + encodeURIComponent(salt) : ''));
     } catch (e) {
       say(msg, '鎖が読めませんでした。少しおいてもう一度押してください。(' + String(e.shortMessage || e.message || e).slice(0, 80) + ')', 'bad');
     } finally { btn.disabled = false; btn.textContent = '確かめる'; }
