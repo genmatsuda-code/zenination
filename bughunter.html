@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="ja">
+<meta charset="utf-8">
+<title>バグ狩りの国民の証 ── 確かめる・受け取る</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="不具合を見つけて、直るまで付き合った善意立国の国民の記録。譲れない・売れない・値段の無い証です。財布の住所で誰でも確かめられます。">
+<meta property="og:title" content="バグ狩りの国民の証">
+<meta property="og:description" content="不具合を見つけて、直るまで付き合った国民の記録。譲れない・売れない・値段の無い証。">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<!--
+  2026-10-19 バグ狩りの国民の証(BugHunterSBT)を確かめる頁と、運営が届けた引換券で本人が受け取る頁。
+  鎖に載るのは段・始めた月・照合用の印だけ。名前・不具合の中身は載せない。値段・売買の話は書かない。
+  契約の住所は鎖に出した日にここへ書く(それまでは「まだ鎖に出ていません」と言う)。
+-->
+<style>
+  :root{
+    --ink:#0A0A0B; --ink2:#141416; --line:#26262A;
+    --paper:#ECE8DF; --mist:#9A968D; --dim:#6A675F;
+    --gold:#C9A227; --gold2:#E3C463; --red:#E0796B; --green:#8FC59A;
+    --mincho:"Shippori Mincho","Yu Mincho","YuMincho","Hiragino Mincho ProN","Noto Serif JP",Georgia,serif;
+    --gothic:"Yu Gothic","YuGothic","Hiragino Kaku Gothic ProN","Noto Sans JP",system-ui,sans-serif;
+    --mono:"SFMono-Regular",Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{background:var(--ink);color:var(--paper);font-family:var(--gothic);line-height:1.9;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:var(--gold2)}
+  main{max-width:680px;margin:0 auto;padding:44px 18px 72px}
+  .ev{font-family:var(--mono);font-size:10px;letter-spacing:.34em;color:var(--gold);display:block}
+  h1{font-family:var(--mincho);font-weight:700;font-size:clamp(30px,8.4vw,48px);letter-spacing:.08em;line-height:1.35;margin-top:12px}
+  .lead{font-family:var(--mincho);font-size:clamp(15px,4vw,17px);line-height:2.05;margin-top:18px}
+  .lead b{color:var(--gold2);font-weight:600}
+  .rule{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:26px}
+  .rule div{background:var(--ink2);padding:12px 10px;text-align:center}
+  .rule b{display:block;font-family:var(--mincho);font-size:15px;color:var(--gold2);letter-spacing:.06em}
+  .rule span{font-size:11.5px;color:var(--mist);line-height:1.6;display:block;margin-top:2px}
+  section{margin-top:48px}
+  h2{font-family:var(--mincho);font-weight:500;font-size:clamp(21px,5.6vw,27px);letter-spacing:.06em;margin-top:8px}
+  .card{margin-top:18px;background:var(--ink2);border:1px solid var(--line);border-left:2px solid var(--gold);padding:18px 16px}
+  label{font-size:12px;color:var(--mist);letter-spacing:.06em;display:block}
+  input{width:100%;margin-top:6px;background:var(--ink);border:1px solid var(--line);color:var(--paper);font-family:var(--mono);font-size:14px;padding:12px 10px;border-radius:0}
+  input:focus{outline:none;border-color:var(--gold)}
+  button{margin-top:12px;width:100%;min-height:48px;background:var(--gold);color:var(--ink);border:0;font-family:var(--gothic);font-weight:700;font-size:15px;letter-spacing:.08em;cursor:pointer;border-radius:0;transition:background .12s,opacity .12s}
+  button:hover{background:var(--gold2)}
+  button:disabled{opacity:.55;cursor:wait}
+  button.ghost{background:transparent;color:var(--gold2);border:1px solid var(--gold);font-weight:500}
+  .msg{margin-top:12px;font-size:14px;line-height:1.8;min-height:1.8em}
+  .msg.bad{color:var(--red)} .msg.ok{color:var(--green)}
+  .badge{margin-top:16px;border:1px solid var(--gold);padding:18px 16px;display:none;position:relative;overflow:hidden}
+  .badge::before{content:"";position:absolute;inset:0;background:radial-gradient(120% 80% at 100% 0%,rgba(201,162,39,.16),transparent 60%);pointer-events:none}
+  .badge .mark{font-size:34px;line-height:1}
+  .badge .nm{font-family:var(--mincho);font-size:clamp(20px,5.6vw,26px);letter-spacing:.06em;margin-top:8px}
+  .badge .since{font-size:14px;color:var(--mist);margin-top:2px}
+  .badge dl{margin-top:14px;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:12px}
+  .badge dt{color:var(--dim)} .badge dd{font-family:var(--mono);color:var(--mist);word-break:break-all}
+  .badge .proven{margin-top:12px;font-size:13px;color:var(--green)}
+  .v dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:13px;margin-top:6px}
+  .v dt{color:var(--dim)} .v dd{color:var(--paper);word-break:break-all}
+  .note{font-size:12.5px;color:var(--dim);line-height:1.9;margin-top:12px}
+  .how li{margin:6px 0 0 1.2em;font-size:14px;color:var(--mist)}
+  .how li b{color:var(--paper);font-weight:600}
+  footer{margin-top:56px;border-top:1px solid var(--line);padding-top:16px;font-size:12px;color:var(--dim)}
+  #toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);max-width:92vw;background:var(--paper);color:var(--ink);font-size:14px;padding:10px 16px;display:none;z-index:9}
+</style>
+<body>
+<main>
+  <span class="ev">BUG HUNTER · 善意立国</span>
+  <h1>バグ狩りの国民の証</h1>
+  <p class="lead">不具合を見つけて、<b>直るまで付き合った国民</b>の記録です。鎖に載るのは<b>段</b>と<b>始めた月</b>と<b>照合用の印</b>だけ。名前も、不具合の中身も載せません。</p>
+  <div class="rule">
+    <div><b>譲れない</b><span>本人の財布から動かない</span></div>
+    <div><b>売れない</b><span>値段の無い記録</span></div>
+    <div><b>上がるだけ</b><span>🏹 から 🦅 へ</span></div>
+  </div>
+
+  <section id="claimSec" hidden>
+    <span class="ev">RECEIVE</span>
+    <h2>引換券が届いています</h2>
+    <div class="card v">
+      <dl id="vInfo"></dl>
+      <div class="msg" id="vMsg" role="status" aria-live="polite"></div>
+      <button id="vBtn" type="button">財布をつないで受け取る</button>
+      <p class="note">手数料(ガス)は受け取る本人の財布から払います。運営は財布の鍵を持ちません。引換券は宛先の財布でしか使えません。</p>
+    </div>
+  </section>
+
+  <section>
+    <span class="ev">VERIFY</span>
+    <h2>財布の住所で確かめる</h2>
+    <div class="card">
+      <label for="addr">財布の住所(0x で始まる 42 文字)</label>
+      <input id="addr" inputmode="text" autocomplete="off" spellcheck="false" placeholder="0x…">
+      <div class="msg" id="msg" role="status" aria-live="polite"></div>
+      <button id="go" type="button">確かめる</button>
+      <div class="badge" id="badge">
+        <div class="mark" id="bMark"></div>
+        <div class="nm" id="bName"></div>
+        <div class="since" id="bSince"></div>
+        <dl>
+          <dt>鎖</dt><dd id="bNet"></dd>
+          <dt>契約</dt><dd id="bCon"></dd>
+          <dt>印</dt><dd id="bProof"></dd>
+        </dl>
+        <div class="proven" id="bProven" hidden></div>
+        <button class="ghost" id="share" type="button">この確かめの頁を写す</button>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <span class="ev">HOW</span>
+    <h2>証が届くまで</h2>
+    <ol class="how">
+      <li>不具合を見つけたら、Discord の <b>#🐛バグ狩り場</b> か、THANKS Map の「うまく動かない時は」から報せる。</li>
+      <li>再現できたら一匹。<b>三匹(うち一つは「直った」と確かめた)</b>で 🏹 バグ狩り、<b>十匹か重い一匹</b>で 🦅 名手。</li>
+      <li>運営が台帳で段を確かめ、あなたの財布宛ての<b>引換券のリンク</b>を届ける。開いて受け取るだけ。</li>
+    </ol>
+    <p class="note">数えるのは行いだけです。お金や持っている量は見ません。段は上がるだけで、下がりません。</p>
+  </section>
+
+  <footer>照合用の印は、控えの番号と 128 ビットの塩のハッシュです。番号を本人が示したい時だけ、運営から受け取った番号と塩をリンクに添えると、この頁が照らし合わせます。</footer>
+</main>
+<div id="toast" role="status"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.4/ethers.umd.min.js" integrity="sha384-6Zl0Pc8zjSz8KvmNeXRvUQgY4ryFb+BwDvKCmLYcBME0joAaru491tQgi9B7zsMM" crossorigin="anonymous"></script>
+<script>
+(function () {
+  'use strict';
+  // 鎖ごとの契約の住所。鎖に出した日にここへ書く(空=まだ出ていない)
+  var NETS = {
+    10:       { name: 'OP Mainnet', rpc: 'https://mainnet.optimism.io', exp: 'https://optimistic.etherscan.io', addr: '' },
+    11155420: { name: 'OP Sepolia(試しの鎖)', rpc: 'https://sepolia.optimism.io', exp: 'https://sepolia-optimism.etherscan.io', addr: '' },
+    31337:    { name: '手元の鎖', rpc: 'http://127.0.0.1:8545', exp: '', addr: '' }
+  };
+  var ABI = [
+    'function tokenOf(address) view returns (uint256)',
+    'function recordOf(uint256) view returns (tuple(uint8 level, uint32 sinceMonth, bytes32 proof))',
+    'function retired(address) view returns (bool)',
+    'function claim(uint8 level, uint32 sinceMonth, bytes32 proof, uint256 issuedAt, uint256 deadline, bytes signature) returns (uint256)',
+    'error NotIssuerSignature()', 'error Expired()', 'error BadLevel()', 'error BadMonth()', 'error NotHigher(uint8 current)',
+    'error Retired()', 'error TooLong()', 'error BadIssuedAt()', 'error NoToken()'
+  ];
+  var REASON = {
+    NotIssuerSignature: '引換券の署名が運営のものではないか、運営が引換券を出し直しています。新しいリンクを運営に頼んでください。',
+    Expired: '引換券の期限が過ぎています。新しいリンクを運営に頼んでください。',
+    TooLong: '引換券の期限が長すぎます(発行から 30 日まで)。新しいリンクを運営に頼んでください。',
+    BadIssuedAt: '引換券の発行の時刻が合いません。数分おいてもう一度押してください。',
+    BadLevel: '引換券の段が読めません。運営に知らせてください。',
+    BadMonth: '始めた月が合いません(段を上げる時は、最初の月のままです)。運営に知らせてください。',
+    NotHigher: 'この財布はもう同じ段か、それより上の段の証を持っています。',
+    Retired: 'この財布は付け替えの元なので受け取れません。新しい財布で受け取ってください。'
+  };
+  var E = window.ethers;
+  var $ = function (id) { return document.getElementById(id); };
+  var q = new URLSearchParams(location.search);
+  var toastT;
+  function toast(t) { var el = $('toast'); el.textContent = t; el.style.display = 'block'; clearTimeout(toastT); toastT = setTimeout(function () { el.style.display = 'none'; }, 4200); }
+  function say(el, t, kind) { el.textContent = t; el.className = 'msg' + (kind ? ' ' + kind : ''); if (t) { toast(t); el.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); } }
+  function ym(m) { m = Number(m); return Math.floor(m / 100) + '年' + (m % 100) + '月から'; }
+  function short(a) { return a.slice(0, 6) + '…' + a.slice(-4); }
+
+  // 引換券(?v=)を読む
+  var voucher = null;
+  if (q.get('v')) {
+    try {
+      var b64 = q.get('v').replace(/-/g, '+').replace(/_/g, '/');
+      voucher = JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(b64), function (c) { return c.charCodeAt(0); })));
+      if (!NETS[voucher.c] || !E.isAddress(voucher.a) || !voucher.m || !voucher.s) throw new Error('bad');
+    } catch (e) { voucher = null; }
+  }
+  // どの鎖のどの契約を見るか: 引換券 > ?chain= > 本番。本番の住所はこの頁に書いた物だけを使う
+  var chainId = voucher ? Number(voucher.c) : Number(q.get('chain') || 10);
+  if (!NETS[chainId]) chainId = 10;
+  var net = NETS[chainId];
+  var contractAddr = net.addr;
+  if (chainId !== 10) {
+    var over = voucher ? voucher.a : q.get('c');
+    if (over && E.isAddress(over)) contractAddr = E.getAddress(over);
+  } else if (voucher && net.addr && E.getAddress(voucher.a) !== E.getAddress(net.addr)) {
+    voucher = 'mismatch';
+  }
+  var reader = contractAddr ? new E.Contract(contractAddr, ABI, new E.JsonRpcProvider(net.rpc, chainId, { staticNetwork: true })) : null;
+
+  function decodeErr(e) {
+    var data = e && (e.data || (e.info && e.info.error && e.info.error.data) || (e.error && e.error.data));
+    try { if (data) { var p = new E.Interface(ABI).parseError(data); if (p && REASON[p.name]) return REASON[p.name]; } } catch (_) {}
+    if (e && e.revert && REASON[e.revert.name]) return REASON[e.revert.name];
+    if (e && (e.code === 'ACTION_REJECTED' || e.code === 4001)) return '財布で取り消されました。もう一度押せば受け取れます。';
+    return 'うまくいきませんでした: ' + String((e && (e.shortMessage || e.message)) || e).slice(0, 140);
+  }
+
+  // ── 確かめる ──
+  async function verify(addr) {
+    var btn = $('go'); var msg = $('msg');
+    $('badge').style.display = 'none';
+    addr = String(addr || '').trim();
+    if (!E.isAddress(addr)) { say(msg, '住所の形が違います。0x で始まる 42 文字を貼ってください。', 'bad'); return; }
+    if (!reader) { say(msg, 'この証はまだ鎖に出ていません。出した日に、この頁で確かめられるようになります。', 'bad'); return; }
+    btn.disabled = true; btn.textContent = '鎖を読んでいます…'; say(msg, '');
+    try {
+      var a = E.getAddress(addr);
+      var id = await reader.tokenOf(a);
+      if (id === 0n) {
+        var ret = await reader.retired(a);
+        say(msg, ret ? 'この財布は以前の持ち主の財布で、証は新しい財布へ付け替えられています。' : 'この財布には、まだ証がありません。', '');
+        return;
+      }
+      var r = await reader.recordOf(id);
+      var lv = Number(r.level);
+      $('bMark').textContent = lv === 2 ? '🦅' : '🏹';
+      $('bName').textContent = (lv === 2 ? 'バグ狩りの名手(Bug Hunter Master)' : 'バグ狩り(Bug Hunter)') + ' #' + id.toString();
+      $('bSince').textContent = ym(r.sinceMonth) + '・' + short(a);
+      $('bNet').textContent = net.name;
+      $('bCon').innerHTML = '';
+      if (net.exp) { var l = document.createElement('a'); l.href = net.exp + '/token/' + contractAddr + '?a=' + id.toString(); l.target = '_blank'; l.rel = 'noopener'; l.textContent = contractAddr; $('bCon').appendChild(l); } else { $('bCon').textContent = contractAddr; }
+      $('bProof').textContent = r.proof;
+      // 本人が示した控えの番号(?r= と ?s=)を照らす
+      var rid = q.get('r'), salt = q.get('s'), pv = $('bProven');
+      pv.hidden = true;
+      if (rid && salt) {
+        var ok = /^R-\d+$/.test(rid) && /^[0-9a-f]{32,}$/.test(salt) && E.id(rid + '|' + salt) === r.proof;
+        pv.hidden = false; pv.textContent = ok ? '本人が示した控えの番号 ' + rid + ' と、この証の印が一致しました。' : '示された番号と塩は、この証の印と一致しません。';
+        pv.style.color = ok ? 'var(--green)' : 'var(--red)';
+      }
+      $('badge').style.display = 'block';
+      say(msg, '証が在りました。', 'ok');
+      history.replaceState(null, '', location.pathname + '?a=' + a + (chainId !== 10 ? '&chain=' + chainId + '&c=' + contractAddr : '') + (rid && salt ? '&r=' + encodeURIComponent(rid) + '&s=' + encodeURIComponent(salt) : ''));
+    } catch (e) {
+      say(msg, '鎖が読めませんでした。少しおいてもう一度押してください。(' + String(e.shortMessage || e.message || e).slice(0, 80) + ')', 'bad');
+    } finally { btn.disabled = false; btn.textContent = '確かめる'; }
+  }
+  $('go').addEventListener('click', function () { verify($('addr').value); });
+  $('addr').addEventListener('keydown', function (e) { if (e.key === 'Enter') verify($('addr').value); });
+  $('share').addEventListener('click', function () {
+    var u = location.href; var b = $('share');
+    b.textContent = '写しています…';
+    (navigator.clipboard ? navigator.clipboard.writeText(u) : Promise.reject()).then(function () { b.textContent = '写しました'; toast('確かめの頁のリンクを写しました。'); }, function () { b.textContent = 'この頁の住所欄から写してください'; toast(u); })
+      .finally(function () { setTimeout(function () { b.textContent = 'この確かめの頁を写す'; }, 2600); });
+  });
+
+  // ── 受け取る(引換券がある時だけ) ──
+  if (voucher === 'mismatch') {
+    $('claimSec').hidden = false;
+    $('vBtn').hidden = true;
+    say($('vMsg'), 'この引換券は、本物の契約宛てではありません。開かずに運営に知らせてください。', 'bad');
+  } else if (voucher) {
+    var m = voucher.m;
+    $('claimSec').hidden = false;
+    var rows = [['段', Number(m.level) === 2 ? '🦅 バグ狩りの名手' : '🏹 バグ狩り'], ['始めた月', ym(m.sinceMonth)], ['宛先の財布', m.to],
+      ['期限', new Date(Number(m.deadline) * 1000).toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' }) + ' まで'], ['鎖', net.name]];
+    rows.forEach(function (r) { var dt = document.createElement('dt'); dt.textContent = r[0]; var dd = document.createElement('dd'); dd.textContent = r[1]; $('vInfo').appendChild(dt); $('vInfo').appendChild(dd); });
+    $('addr').value = m.to;
+    if (Date.now() / 1000 > Number(m.deadline)) say($('vMsg'), REASON.Expired, 'bad');
+    $('vBtn').addEventListener('click', async function () {
+      var btn = $('vBtn'), vm = $('vMsg');
+      if (!window.ethereum) { say(vm, '財布が見つかりません。MetaMask などの財布のアプリの中のブラウザで、このリンクを開いてください。', 'bad'); return; }
+      btn.disabled = true; btn.textContent = '財布をつないでいます…'; say(vm, '');
+      try {
+        var bp = new E.BrowserProvider(window.ethereum);
+        var accts = await bp.send('eth_requestAccounts', []);
+        if (!accts.length || E.getAddress(accts[0]) !== E.getAddress(m.to)) { say(vm, 'つないだ財布(' + (accts[0] ? short(accts[0]) : 'なし') + ')は引換券の宛先(' + short(m.to) + ')ではありません。宛先の財布に切り替えてください。', 'bad'); return; }
+        var cur = Number((await bp.getNetwork()).chainId);
+        if (cur !== chainId) {
+          btn.textContent = '鎖を切り替えています…';
+          try { await bp.send('wallet_switchEthereumChain', [{ chainId: '0x' + chainId.toString(16) }]); }
+          catch (e) { say(vm, '財布の鎖を「' + net.name + '」に切り替えてから、もう一度押してください。', 'bad'); return; }
+          bp = new E.BrowserProvider(window.ethereum);
+        }
+        var signer = await bp.getSigner();
+        var c = new E.Contract(contractAddr, ABI, signer);
+        btn.textContent = '財布で承認してください…';
+        await c.claim.staticCall(m.level, m.sinceMonth, m.proof, m.issuedAt, m.deadline, voucher.s);
+        var tx = await c.claim(m.level, m.sinceMonth, m.proof, m.issuedAt, m.deadline, voucher.s);
+        btn.textContent = '鎖に載るのを待っています…';
+        say(vm, '送りました。鎖に載るのを待っています(数十秒)。', '');
+        await tx.wait();
+        say(vm, '受け取りました。下で確かめられます。', 'ok');
+        btn.textContent = '受け取りました';
+        verify(m.to);
+        return;
+      } catch (e) {
+        say(vm, decodeErr(e), 'bad');
+      } finally {
+        if (btn.textContent !== '受け取りました') { btn.disabled = false; btn.textContent = '財布をつないで受け取る'; }
+      }
+    });
+  }
+
+  if (q.get('a')) { $('addr').value = q.get('a'); verify(q.get('a')); }
+})();
+</script>
+</body>
+</html>
