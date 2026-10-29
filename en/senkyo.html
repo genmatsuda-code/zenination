@@ -92,10 +92,41 @@
   .disc{margin-top:30px; text-align:center; font-size:10px; color:var(--dim); line-height:1.8; letter-spacing:.04em}
 
   @media (prefers-reduced-motion:reduce){ .live::before{animation:none} }
+
+  /* ★2026-10-28 判定: 大敗 */
+  .verdict{position:relative;z-index:5;border-bottom:1px solid var(--blood-dim);background:linear-gradient(180deg,rgba(196,30,36,.20),rgba(5,5,7,.0) 90%);padding:34px 0 30px;text-align:center;overflow:hidden}
+  .verdict .ev{color:var(--blood)}
+  .verdict .x{position:relative;display:inline-block;width:clamp(120px,24vw,200px);height:clamp(120px,24vw,200px);margin:14px 0 6px}
+  .verdict .x::before,.verdict .x::after{content:"";position:absolute;left:50%;top:50%;width:118%;height:clamp(14px,2.6vw,22px);background:var(--blood);border-radius:2px;box-shadow:0 0 40px rgba(196,30,36,.55),inset 0 1px 0 rgba(255,255,255,.25)}
+  .verdict .x::before{transform:translate(-50%,-50%) rotate(45deg)}
+  .verdict .x::after{transform:translate(-50%,-50%) rotate(-45deg)}
+  .verdict h2{font-family:var(--mincho);font-weight:900;font-size:clamp(56px,14vw,128px);letter-spacing:.12em;line-height:1;color:var(--blood);text-shadow:0 0 50px rgba(196,30,36,.45)}
+  .verdict .line{margin:16px auto 0;max-width:640px;font-size:clamp(14px,1.8vw,16px);color:var(--bone)}
+  .verdict .nums{display:flex;justify-content:center;gap:1px;margin:22px auto 0;max-width:640px;background:var(--line);border:1px solid var(--line)}
+  .verdict .nums div{flex:1;background:var(--panel);padding:12px 8px}
+  .verdict .nums b{display:block;font-family:var(--mono);font-size:clamp(22px,4vw,32px);color:var(--bone)}
+  .verdict .nums b.z{color:var(--blood)}
+  .verdict .nums span{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--smoke)}
+  .verdict .go{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:22px}
+  .verdict .go a{font-size:13px;padding:10px 14px;border:1px solid var(--blood-dim);border-radius:2px;color:var(--bone);text-decoration:none;transition:border-color .2s,background .2s}
+  .verdict .go a:hover{border-color:var(--blood);background:rgba(196,30,36,.12)}
+  .verdict .go a.main{background:var(--blood);border-color:var(--blood);color:#fff}
+  header>*{filter:grayscale(.7) brightness(.62)}
+  header::after{content:"DEFEAT";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-12deg);font-family:var(--mincho);font-weight:900;font-size:clamp(64px,15vw,150px);letter-spacing:.1em;color:transparent;-webkit-text-stroke:3px var(--blood);border:6px solid var(--blood);padding:0 .2em;opacity:.85;pointer-events:none}
+  .board{position:relative}
+  .board::after{content:"×";position:absolute;right:6%;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:clamp(120px,24vw,240px);line-height:1;color:var(--blood);opacity:.55;pointer-events:none;text-shadow:0 0 30px rgba(196,30,36,.5)}
 </style>
 
 <a href="../senkyo.html?lang=ja" title="日本語で読む" style="position:fixed;top:12px;left:12px;z-index:9;font-family:Consolas,monospace;font-size:10.5px;letter-spacing:.16em;color:#C9A227;text-decoration:none;border:1px solid #C9A227;padding:4px 10px;border-radius:2px;background:rgba(5,5,7,.45);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)">←&nbsp;日本語</a>
 
+<section class="verdict" aria-label="Verdict">
+  <p class="ev">VERDICT ── 2026.10.28</p>
+  <div class="x" aria-hidden="true"></div>
+  <h2>DEFEAT</h2>
+  <p class="line">On October 28, White (the Goodwill Nation) fell short of Red. We fought head-on and lost head-on. We accept the defeat. As promised, Sato becomes a prisoner, and is reborn on November 1.</p>
+  <div class="nums"><div><b>42</b><span>WHITE / VERDICT DAY</span></div><div><b class="z">0</b><span>JOINED IN 17 DAYS</span></div><div><b>—</b><span>RED / UNDISCLOSED</span></div></div>
+  <div class="go"><a class="main" href="../oni.html">11.01 RE-START</a></div>
+</section>
 <header>
   <p class="ev">ZENINATION OFFICIAL</p>
   <h1 class="mincho">THE&nbsp;SCOREBOARD</h1>
@@ -128,7 +159,7 @@
       </div>
       <div class="rows">
         <div class="row">
-          <div class="val red">222<small> members</small></div>
+          <div class="val red">—<small> undisclosed</small></div>
           <div class="metric">MEMBERS<br>会員数</div>
           <div class="val white">0<small> members</small></div>
         </div>
