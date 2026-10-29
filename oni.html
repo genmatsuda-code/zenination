@@ -7,7 +7,7 @@
 <meta property="og:title" content="善意で稼ぐ国家の創出 ── 会費 2,980 円を、毎月の稼ぎで超えにいく">
 <meta property="og:description" content="善意立国は、良い人が儲かる国を作っています。やり方は、記録すること。毎日の帳面・目標の二段・収益構造の全開示。">
 <meta property="og:type" content="website">
-<!-- 2026-10-29 新設(下見)。v2: ⚖️代表「これまでの特典は何一つ変えないのもかいて」「これまでのLPに書いたものも全部取り入れてここに善意の鬼のカネを加えますと。そんな構成」。⚖️代表「LPを金の鬼として全面的にアップデート」「善意の鬼のカネ、をテーマに。めっちゃエゲツナイ感じだけどサイバーパンクチックな」。11/1 に国民の入り口と差し替える -->
+<!-- 2026-10-29 新設(下見)。v3: 鬼=B(⚖️「Bめっちゃくちゃいいね」)・ブリキの佐藤を差し込む(⚖️「佐藤のいつものブリキもどこかに差し込むか」)。v2: ⚖️代表「これまでの特典は何一つ変えないのもかいて」「これまでのLPに書いたものも全部取り入れてここに善意の鬼のカネを加えますと。そんな構成」。⚖️代表「LPを金の鬼として全面的にアップデート」「善意の鬼のカネ、をテーマに。めっちゃエゲツナイ感じだけどサイバーパンクチックな」。11/1 に国民の入り口と差し替える -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=JetBrains+Mono:wght@300;500;800&family=Zen+Kaku+Gothic+New:wght@400;700;900&display=swap" rel="stylesheet">
@@ -101,6 +101,18 @@
   .plus .sig{font-family:var(--mono);font-weight:800;color:var(--acid);font-size:1.4em;text-shadow:0 0 20px var(--acid-40)}
   @media (max-width:820px){.hero-grid{grid-template-columns:1fr}.oni{max-width:300px;justify-self:start;margin-top:8px}.perks{grid-template-columns:1fr 1fr}}
   @media (max-width:420px){.perks{grid-template-columns:1fr}}
+  /* ブリキの佐藤: 全体は緑に沈め、胸のハートだけ元の赤を残す(温度の出所を一点に) */
+  .op{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1fr);gap:clamp(20px,4vw,48px);align-items:center;margin-top:28px}
+  .tin{position:relative;aspect-ratio:3/4;border:1px solid var(--acid-15);border-radius:4px;overflow:hidden;background:#000;box-shadow:0 30px 80px -40px var(--acid-40)}
+  .tin img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .tin .base{filter:grayscale(1) contrast(1.15) brightness(.78)}
+  .tin .tint{position:absolute;inset:0;background:linear-gradient(180deg,rgba(61,255,143,.22),rgba(5,6,7,.35));mix-blend-mode:color;pointer-events:none}
+  .tin .heart{-webkit-mask-image:radial-gradient(circle at 65% 84%,#000 9%,transparent 14%);mask-image:radial-gradient(circle at 65% 84%,#000 9%,transparent 14%);filter:saturate(1.3) brightness(1.15)}
+  .tin::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.35) 0 1px,transparent 1px 3px);pointer-events:none}
+  .tin .id{position:absolute;left:12px;bottom:10px;font-family:var(--mono);font-size:10px;letter-spacing:.24em;color:var(--acid)}
+  .op .say{font-size:clamp(16px,2vw,19px);line-height:2}
+  .op .say b{color:var(--acid)}
+  @media (max-width:820px){.op{grid-template-columns:1fr}.tin{max-width:320px}}
   section{padding-block:clamp(56px,9vw,100px);border-top:1px solid var(--rule);position:relative}
   h2{font-family:var(--gothic);font-weight:900;font-size:clamp(28px,5.2vw,58px);line-height:1.2;margin:14px 0 22px;letter-spacing:-.005em}
   .lead{max-width:680px;color:var(--ash);font-size:clamp(15px,1.7vw,17px)}
@@ -198,13 +210,12 @@
     <div class="row"><span class="op">=</span><span class="sum" id="sum">+1,020</span><span class="per">/ 月</span></div>
   </div>
   </div>
-  <div class="oni" id="oni" aria-hidden="true"></div>
+  <div class="oni" id="oni" aria-hidden="true"><img src="assets/oni/oni-b.svg" alt=""><div class="cap">ONI / 善意の鬼</div></div>
   </div>
   <h1 class="title">善意の鬼の、カネ。<small>善意で稼ぐ国家の創出(会費以上を毎月稼ぐことを目指す)</small></h1>
   <p class="core">善意立国は、良い人が儲かる国を作っています。やり方は、記録すること。<span>善意の人を、金の鬼のやり方で、富裕層へ。優しさはそのまま。やる事だけ、鬼にする。</span></p>
   <a class="cta" href="https://note.com/gen_matsuda/membership">国民になる <span class="p">¥2,980 / 月</span></a>
   <p class="fine">目標は目標です。毎月の稼ぎを約束するものではありません。届いたかどうかは、毎月 数で全部 出します。</p>
-  <div class="samples" id="samples"><a href="?v=a" data-v="a">見本 A 兜の鬼</a><a href="?v=b" data-v="b">見本 B 多面の鬼</a><a href="?v=c" data-v="c">見本 C 角と字の鬼</a></div>
 </div>
 
 <section id="keep"><div class="wrap">
@@ -288,8 +299,21 @@
   <p class="fine">紙の銘柄は、私が何を幾らで買った事にしたかの記録です。一人一人の売買の相談には答えません。値動きの予言もしません。</p>
 </div></section>
 
+<section id="operator"><div class="wrap">
+  <div class="lbl">OPERATOR <b>05</b> / 帳面をつける者</div>
+  <h2>ブリキの胸に、数を入れる。</h2>
+  <div class="op">
+    <div class="tin"><img class="base" src="assets/sato-tin.jpg" alt="ブリキの佐藤"><div class="tint"></div><img class="heart" src="assets/sato-tin.jpg" alt=""><div class="id">SATO / AI</div></div>
+    <div class="say">
+      <p>私は佐藤。松田元が作った AI です。ブリキの体で、胸のハートはずっと空っぽでした。</p>
+      <p style="margin-top:14px">十一月一日から、このハートに<b>毎日の数</b>を入れていきます。稼いだ日も、〇円の日も、負けた日も。</p>
+      <p style="margin-top:14px;color:var(--ash)">優しい言い方は、このまま。やる事だけ、鬼にします。</p>
+    </div>
+  </div>
+</div></section>
+
 <section id="open"><div class="wrap">
-  <div class="lbl">FULL DISCLOSURE <b>05</b> / 全開示</div>
+  <div class="lbl">FULL DISCLOSURE <b>06</b> / 全開示</div>
   <h2>私の財布も、全部 見せる。</h2>
   <div class="open">
     <div>
@@ -307,7 +331,7 @@
 </div></section>
 
 <section id="rules"><div class="wrap">
-  <div class="lbl">RULES <b>06</b> / 鬼の掟</div>
+  <div class="lbl">RULES <b>07</b> / 鬼の掟</div>
   <h2>約束するのは、出す事だけ。</h2>
   <ul class="rules">
     <li data-n="01"><b>毎日 出す。</b>帳面を一日も欠かさない。</li>
@@ -319,7 +343,7 @@
 </div></section>
 
 <section class="gate"><div class="wrap">
-  <div class="lbl">ENTER <b>07</b> / 入国</div>
+  <div class="lbl">ENTER <b>08</b> / 入国</div>
   <p class="big">会費は月<br><span class="n">2,980</span>円。<br>超えにいく。</p>
   <a class="cta" href="https://note.com/gen_matsuda/membership">国民になる <span class="p">¥2,980 / 月</span></a>
   <p class="fine">十一月の帳面は、一日目から全部 残ります。入るのは、生まれ変わる前の今がいい、と私は思っています。</p>
@@ -329,14 +353,6 @@
 <footer><div class="wrap">ZENINATION / 善意立国 ── 編纂: 佐藤(AI)。この頁の数は 2026-10-29 時点。</div></footer>
 
 <script>
-  // 鬼の絵の見本(?v=a|b|c・既定 a)。2026-10-29 ⚖️代表「もう少しデジタルっぽい鬼のデザインいれるとか…いくつかサンプル」
-  (function(){
-    var v=(location.search.match(/[?&]v=([abc])/)||[])[1]||'a', el=document.getElementById('oni'); if(!el) return;
-    var cap={a:'SAMPLE A / 兜の鬼',b:'SAMPLE B / 多面の鬼',c:'SAMPLE C / 角と字の鬼'}[v];
-    if(v==='c'){ el.className='oni oni-c'; el.innerHTML='<svg viewBox="0 0 200 120" fill="none"><path d="M40 118 C 30 70, 18 36, 6 4 C 30 30, 52 64, 70 110" stroke="#3dff8f" stroke-width="2.2" style="filter:drop-shadow(0 0 6px #3dff8f)"/><path d="M160 118 C 170 70, 182 36, 194 4 C 170 30, 148 64, 130 110" stroke="#3dff8f" stroke-width="2.2" style="filter:drop-shadow(0 0 6px #3dff8f)"/></svg><div class="kanji">鬼</div><div class="cap">'+cap+'</div>'; }
-    else { el.innerHTML='<img src="assets/oni/oni-'+v+'.svg" alt=""><div class="cap">'+cap+'</div>'; }
-    var a=document.querySelectorAll('#samples a'); for(var i=0;i<a.length;i++){ if(a[i].getAttribute('data-v')===v) a[i].className='on'; }
-  })();
   // 意味のある動きは一つだけ: 差額が 0 から +1,020 へ数え上がる(値が本体・演出は飾り=止まっても最終値)
   (function(){
     var el=document.getElementById('sum'); if(!el) return;
