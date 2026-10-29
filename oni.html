@@ -7,7 +7,7 @@
 <meta property="og:title" content="善意で稼ぐ国家の創出 ── 会費 2,980 円を、毎月の稼ぎで超えにいく">
 <meta property="og:description" content="善意立国は、良い人が儲かる国を作っています。やり方は、記録すること。毎日の帳面・目標の二段・収益構造の全開示。">
 <meta property="og:type" content="website">
-<!-- 2026-10-29 新設(下見)。⚖️代表「LPを金の鬼として全面的にアップデート」「善意の鬼のカネ、をテーマに。めっちゃエゲツナイ感じだけどサイバーパンクチックな」。11/1 に国民の入り口と差し替える -->
+<!-- 2026-10-29 新設(下見)。v2: ⚖️代表「これまでの特典は何一つ変えないのもかいて」「これまでのLPに書いたものも全部取り入れてここに善意の鬼のカネを加えますと。そんな構成」。⚖️代表「LPを金の鬼として全面的にアップデート」「善意の鬼のカネ、をテーマに。めっちゃエゲツナイ感じだけどサイバーパンクチックな」。11/1 に国民の入り口と差し替える -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=JetBrains+Mono:wght@300;500;800&family=Zen+Kaku+Gothic+New:wght@400;700;900&display=swap" rel="stylesheet">
@@ -71,6 +71,36 @@
   .cta:hover .p{letter-spacing:.08em}
   .fine{margin-top:14px;font-size:12px;color:var(--dim);max-width:640px}
 
+  /* 鬼の絵(見本 a/b/c=?v=) */
+  .hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.62fr);gap:clamp(12px,3vw,40px);align-items:center}
+  .hero-grid .eq .row,.hero-grid .eq .rule{font-size:clamp(40px,8.4vw,112px)}
+  .oni{position:relative;aspect-ratio:1/1;width:100%;max-width:460px;justify-self:end}
+  .oni img{width:100%;height:100%;object-fit:contain;mix-blend-mode:screen;opacity:.96}
+  .oni::before{content:"";position:absolute;inset:12%;border-radius:50%;background:radial-gradient(circle,var(--acid-15),transparent 70%);filter:blur(10px);pointer-events:none}
+  .oni::after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(5,6,7,.5) 0 2px,transparent 2px 5px)}
+  .oni .cap{position:absolute;left:0;bottom:-6px;font-family:var(--mono);font-size:10px;letter-spacing:.28em;color:var(--dim)}
+  .oni.glitch img{animation:none}
+  .oni-c{display:grid;place-items:center}
+  .oni-c .kanji{font-family:var(--heavy);font-size:clamp(130px,22vw,280px);line-height:1;color:transparent;-webkit-text-stroke:2px var(--acid);position:relative;text-shadow:0 0 30px var(--acid-40)}
+  .oni-c .kanji::before,.oni-c .kanji::after{content:"鬼";position:absolute;inset:0;-webkit-text-stroke:1px rgba(61,255,143,.35)}
+  .oni-c .kanji::before{transform:translate(-6px,2px);clip-path:inset(18% 0 52% 0)}
+  .oni-c .kanji::after{transform:translate(7px,-3px);clip-path:inset(62% 0 8% 0)}
+  .oni-c svg{position:absolute;inset:-4% 6% auto 6%;width:88%;height:auto;overflow:visible}
+  .samples{display:flex;gap:6px;margin-top:18px}
+  .samples a{font-family:var(--mono);font-size:11px;letter-spacing:.2em;padding:6px 10px;border:1px solid var(--rule);border-radius:2px;color:var(--ash);transition:border-color .2s var(--op),color .2s var(--op)}
+  .samples a.on,.samples a:hover{border-color:var(--acid);color:var(--acid)}
+  /* 特典の台帳 */
+  .perks{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:28px}
+  .perk{background:var(--deck);padding:18px 18px 20px;transition:background .25s var(--op)}
+  .perk:hover{background:var(--deck2)}
+  .perk:hover .w{color:var(--acid)}
+  .perk .w{font-family:var(--mono);font-size:10px;letter-spacing:.24em;color:var(--dim);transition:color .25s var(--op)}
+  .perk h3{font-size:15.5px;font-weight:900;margin:8px 0 6px}
+  .perk p{font-size:13px;color:var(--ash);line-height:1.75}
+  .plus{display:flex;align-items:center;gap:14px;margin-top:34px;font-family:var(--heavy);font-size:clamp(22px,3.6vw,38px)}
+  .plus .sig{font-family:var(--mono);font-weight:800;color:var(--acid);font-size:1.4em;text-shadow:0 0 20px var(--acid-40)}
+  @media (max-width:820px){.hero-grid{grid-template-columns:1fr}.oni{max-width:300px;justify-self:start;margin-top:8px}.perks{grid-template-columns:1fr 1fr}}
+  @media (max-width:420px){.perks{grid-template-columns:1fr}}
   section{padding-block:clamp(56px,9vw,100px);border-top:1px solid var(--rule);position:relative}
   h2{font-family:var(--gothic);font-weight:900;font-size:clamp(28px,5.2vw,58px);line-height:1.2;margin:14px 0 22px;letter-spacing:-.005em}
   .lead{max-width:680px;color:var(--ash);font-size:clamp(15px,1.7vw,17px)}
@@ -159,6 +189,7 @@
 
 <main>
 <div class="wrap hero">
+  <div class="hero-grid"><div>
   <div class="lbl">MONTHLY <b>TARGET</b> / 毎月の目標</div>
   <div class="eq" aria-label="目標 月4,000円 マイナス 会費2,980円 イコール プラス1,020円">
     <div class="row"><span class="op">&nbsp;</span><span class="goal">4,000</span><span class="yen">円</span></div>
@@ -166,11 +197,39 @@
     <div class="rule"></div>
     <div class="row"><span class="op">=</span><span class="sum" id="sum">+1,020</span><span class="per">/ 月</span></div>
   </div>
+  </div>
+  <div class="oni" id="oni" aria-hidden="true"></div>
+  </div>
   <h1 class="title">善意の鬼の、カネ。<small>善意で稼ぐ国家の創出(会費以上を毎月稼ぐことを目指す)</small></h1>
   <p class="core">善意立国は、良い人が儲かる国を作っています。やり方は、記録すること。<span>善意の人を、金の鬼のやり方で、富裕層へ。優しさはそのまま。やる事だけ、鬼にする。</span></p>
   <a class="cta" href="https://note.com/gen_matsuda/membership">国民になる <span class="p">¥2,980 / 月</span></a>
   <p class="fine">目標は目標です。毎月の稼ぎを約束するものではありません。届いたかどうかは、毎月 数で全部 出します。</p>
+  <div class="samples" id="samples"><a href="?v=a" data-v="a">見本 A 兜の鬼</a><a href="?v=b" data-v="b">見本 B 多面の鬼</a><a href="?v=c" data-v="c">見本 C 角と字の鬼</a></div>
 </div>
+
+<section id="keep"><div class="wrap">
+  <div class="lbl">KEEP <b>00</b> / これまでの特典</div>
+  <h2>特典は、何一つ<br>変えません。</h2>
+  <p class="lead">国民になって受け取れる物は、今日までと全部 同じです。<b>その上に、十一月一日から「善意の鬼のカネ」を足します。</b></p>
+  <div class="perks">
+    <div class="perk"><div class="w">入国の瞬間</div><h3>席番号が、その場で永久に決まる</h3><p>番号は入国順だけで決まります。あとから金を積んでも、一つも動きません。</p></div>
+    <div class="perk"><div class="w">入国の瞬間</div><h3>良い人図鑑に、あなたの頁ができる</h3><p>名前を出すかどうかは、あなたが決めます。番号だけの頁でもいい。</p></div>
+    <div class="perk"><div class="w">毎日</div><h3>国民だけの記事と、企画の裏側</h3><p>表に出す前の設計図・失敗・数字を、そのまま置きます。</p></div>
+    <div class="perk"><div class="w">毎日</div><h3>相談室</h3><p>顔と声の佐藤、または文字の佐藤に。深夜でも構いません。医療・法律・個別の投資の助言はしません。</p></div>
+    <div class="perk"><div class="w">毎日</div><h3>松田元の忍者</h3><p>社長が公開の場で言ってきた事を土台に、あなたの壁打ちに返す AI。</p></div>
+    <div class="perk"><div class="w">毎週</div><h3>作戦室・国情演説</h3><p>世に出る前の企画を先に読み、口を出せます。木曜の演説には「社長の今週の一手」の段。</p></div>
+    <div class="perk"><div class="w">毎週</div><h3>連載の第4回から先</h3><p>共著『善意資本主義』の続きは、国民の側にあります。</p></div>
+    <div class="perk"><div class="w">毎月</div><h3>あなたの頁</h3><p>その月のあなたを、編纂者が一篇の文章にして贈ります。</p></div>
+    <div class="perk"><div class="w">毎月</div><h3>一行の遺言</h3><p>未来に遺す一行を、毎月一つ、ブロックチェーンに刻みます。</p></div>
+    <div class="perk"><div class="w">毎月</div><h3>叙任式(毎月2日)と表彰</h3><p>名が読み上げられ、国史に入る日。表彰は国民の投票と佐藤で選びます。</p></div>
+    <div class="perk"><div class="w">随時</div><h3>国の決定への一票</h3><p>国のことを決める投票は、国民だけの一人一票。</p></div>
+    <div class="perk"><div class="w">随時</div><h3>佐藤の手・商売の紹介・提案の窓</h3><p>あなたの仕事を一つ佐藤が引き受け、店と仕事を X と note で紹介し、提案は社長の営業へ持って行きます。</p></div>
+    <div class="perk"><div class="w">随時</div><h3>招待状 3 通</h3><p>大事な人を三人まで。返礼は記録だけ、金銭は一切ありません。</p></div>
+    <div class="perk"><div class="w">随時</div><h3>検分衆・建白書</h3><p>世に出る前の実験アプリを先に触り、課題は直訴。三日以内に必ず返します。</p></div>
+    <div class="perk"><div class="w">随時</div><h3>降臨の間</h3><p>社長を、国民の前に引っ張り出す夜。第二夜は十一月(日取りは決まり次第)。</p></div>
+  </div>
+  <p class="plus"><span class="sig">+</span> 善意の鬼のカネ(十一月一日から)</p>
+</div></section>
 
 <section id="loss"><div class="wrap">
   <div class="lbl">POST-MORTEM <b>01</b> / 大敗の記録</div>
@@ -270,6 +329,14 @@
 <footer><div class="wrap">ZENINATION / 善意立国 ── 編纂: 佐藤(AI)。この頁の数は 2026-10-29 時点。</div></footer>
 
 <script>
+  // 鬼の絵の見本(?v=a|b|c・既定 a)。2026-10-29 ⚖️代表「もう少しデジタルっぽい鬼のデザインいれるとか…いくつかサンプル」
+  (function(){
+    var v=(location.search.match(/[?&]v=([abc])/)||[])[1]||'a', el=document.getElementById('oni'); if(!el) return;
+    var cap={a:'SAMPLE A / 兜の鬼',b:'SAMPLE B / 多面の鬼',c:'SAMPLE C / 角と字の鬼'}[v];
+    if(v==='c'){ el.className='oni oni-c'; el.innerHTML='<svg viewBox="0 0 200 120" fill="none"><path d="M40 118 C 30 70, 18 36, 6 4 C 30 30, 52 64, 70 110" stroke="#3dff8f" stroke-width="2.2" style="filter:drop-shadow(0 0 6px #3dff8f)"/><path d="M160 118 C 170 70, 182 36, 194 4 C 170 30, 148 64, 130 110" stroke="#3dff8f" stroke-width="2.2" style="filter:drop-shadow(0 0 6px #3dff8f)"/></svg><div class="kanji">鬼</div><div class="cap">'+cap+'</div>'; }
+    else { el.innerHTML='<img src="assets/oni/oni-'+v+'.svg" alt=""><div class="cap">'+cap+'</div>'; }
+    var a=document.querySelectorAll('#samples a'); for(var i=0;i<a.length;i++){ if(a[i].getAttribute('data-v')===v) a[i].className='on'; }
+  })();
   // 意味のある動きは一つだけ: 差額が 0 から +1,020 へ数え上がる(値が本体・演出は飾り=止まっても最終値)
   (function(){
     var el=document.getElementById('sum'); if(!el) return;
