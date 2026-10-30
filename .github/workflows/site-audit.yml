@@ -1,0 +1,59 @@
+# 善意立国の頁の点検を毎週 回す(2026-10-30 新設)
+#   ⚖️2026-10-30「自動でUIUXの改修やアクセス解析、AIOSEOが図れる仕組みに仕上げてほしい」
+#   ① Lighthouse(スマホ幅)を要の頁に当てて、速さ・使いやすさ・作法・SEO の点を取る
+#   ② tools/site-audit.js で、全頁の SEO・AIO の決まり事・GA の札・死んだリンクを見る
+#   ③ reports/audit/<日付>.md と latest.json を commit。前の週より悪くなった所があれば issue を一本 立てる(黙らない)
+#   鍵は使わない。読むのは公開の頁だけ。直すのは NOTE 席(報告の「直す案」を読んで直す)。
+# ★ 正直な限界: GitHub の定時実行は遅れる・来ない事がある(当社の実測)。報告の日付で分かる。
+name: site-audit
+
+on:
+  schedule:
+    - cron: '17 22 * * 0'   # 毎週 月曜 07:17 JST
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: site-audit
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Lighthouse(スマホ幅・要の頁)
+        run: |
+          set -u
+          mkdir -p lh
+          for p in oni index kokumin; do
+            url="https://genmatsuda-code.github.io/zenination/${p}.html"
+            [ "$p" = index ] && url="https://genmatsuda-code.github.io/zenination/"
+            npx -y lighthouse@12.2.1 "$url" --quiet --output=json --output-path="lh/${p}.json" \
+              --only-categories=performance,accessibility,best-practices,seo \
+              --chrome-flags="--headless=new --no-sandbox" || echo "::warning::Lighthouse ${p} が落ちた"
+          done
+      - name: 頁の点検
+        id: audit
+        run: node tools/site-audit.js --lh lh
+      - name: 報告を残す
+        run: |
+          git config user.name "zenination-site-audit"
+          git config user.email "actions@users.noreply.github.com"
+          git add reports/audit
+          git commit -q -m "頁の点検 ${{ steps.audit.outputs.day }}(見つけた所 ${{ steps.audit.outputs.total }}・悪くなった所 ${{ steps.audit.outputs.worse }})" || echo "変化なし"
+          git pull -q --rebase && git push -q
+      - name: 悪くなったら issue を立てる
+        if: steps.audit.outputs.worse != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue create --title "頁の点検 ${{ steps.audit.outputs.day }}: 前の週より悪くなった所 ${{ steps.audit.outputs.worse }}" \
+            --body-file "reports/audit/${{ steps.audit.outputs.day }}.md"
