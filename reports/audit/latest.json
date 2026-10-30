@@ -236,9 +236,7 @@
       "file": "oni.html",
       "url": "https://genmatsuda-code.github.io/zenination/oni.html",
       "status": 200,
-      "issues": [
-        "og:image が無い(X や LINE で貼った時の顔)"
-      ],
+      "issues": [],
       "title": "善意で稼ぐ国家の創出 ── 善意立国",
       "descLen": 111
     },
@@ -325,7 +323,26 @@
       "descLen": 56
     }
   ],
-  "lighthouse": {},
-  "total": 60,
+  "lighthouse": {
+    "index": {
+      "performance": 99,
+      "accessibility": 94,
+      "best-practices": 96,
+      "seo": 100
+    },
+    "kokumin": {
+      "performance": 99,
+      "accessibility": 93,
+      "best-practices": 96,
+      "seo": 100
+    },
+    "oni": {
+      "performance": 56,
+      "accessibility": 95,
+      "best-practices": 96,
+      "seo": 100
+    }
+  },
+  "total": 59,
   "worse": []
 }
