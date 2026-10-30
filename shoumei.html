@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="ja">
+<meta charset="utf-8">
+<title>国民の証の受け取り ── 善意立国</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="善意立国の国民の方へ。番号つきの国民の証(Zenination Citizen)を受け取る頁です。番号と財布のアドレスを入れると、国民限定の記事のコメントに貼る一行が出ます。">
+<meta name="robots" content="noindex">
+<!-- 2026-10-30 新設。受け取りの流れ=この頁で一行を作る → 国民限定の記事「国民の証の受け取り口」のコメントに貼る → 見張りが番号の持ち主と照らして名簿へ → 運営が発行。
+     この頁は何も送らない(入れた値は端末の中だけで使う)。アドレスの綴りの確かめ=EIP-55 のチェックサム。
+     住所はコメントに出さない: 「番号|住所」を運営の公開鍵で封じ(ECDH P-256→HKDF→AES-GCM)、コメントには番号と封だけを貼る。
+     封の作りの正=Fable佐藤資料/tools/citizen-sbt/shoumei-seal.js(開く側と試しも同じ所)。 -->
+<style>
+  :root{
+    --pit:#050507; --panel:#0E0D11; --line:#232028;
+    --blood:#C41E24; --gold:#C9A227; --ember:#E8C15A;
+    --bone:#EDE6D6; --smoke:#8A8578; --dim:#6B665C; --ok:#7FB77E;
+    --mincho:"Yu Mincho","YuMincho","Hiragino Mincho ProN","Noto Serif JP",Georgia,serif;
+    --gothic:"Yu Gothic","YuGothic","Hiragino Kaku Gothic ProN","Noto Sans JP",system-ui,sans-serif;
+    --mono:"SFMono-Regular",Consolas,monospace;
+    --op:cubic-bezier(.4,0,.2,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--pit);color:var(--bone);font-family:var(--gothic);-webkit-font-smoothing:antialiased;line-height:1.9;overflow-x:hidden}
+  .wrap{max-width:640px;margin:0 auto;padding:0 16px}
+  .ev{font-family:var(--mono);font-size:10px;letter-spacing:.34em;color:var(--gold)}
+  a{color:var(--ember)}
+  .hero{padding:48px 0 28px;border-bottom:1px solid var(--line);background:radial-gradient(70% 120% at 50% 0%, rgba(201,162,39,.13), transparent 62%)}
+  .hero .ev{display:block;margin-bottom:20px}
+  h1{font-family:var(--mincho);font-weight:400;font-size:clamp(28px,7.4vw,46px);line-height:1.25;letter-spacing:.03em;margin:0 0 16px}
+  .lead{font-family:var(--mincho);font-size:clamp(15px,3.8vw,18px);letter-spacing:.04em}
+  .lead b{font-weight:600;color:var(--ember)}
+  section{padding:28px 0;border-bottom:1px solid var(--line)}
+  h2{font-family:var(--mincho);font-weight:400;font-size:20px;letter-spacing:.06em;margin:6px 0 14px}
+  ol.steps{list-style:none;counter-reset:s}
+  ol.steps li{counter-increment:s;position:relative;padding:0 0 12px 36px}
+  ol.steps li::before{content:counter(s);position:absolute;left:0;top:2px;width:24px;height:24px;border:1px solid var(--gold);color:var(--gold);font-family:var(--mono);font-size:12px;display:flex;align-items:center;justify-content:center}
+  label{display:block;font-size:13px;color:var(--smoke);letter-spacing:.08em;margin:16px 0 6px}
+  input{width:100%;background:var(--panel);border:1px solid var(--line);color:var(--bone);font-family:var(--mono);font-size:16px;padding:12px;border-radius:2px;outline:none;transition:border-color .15s var(--op)}
+  input:focus{border-color:var(--gold)}
+  button{appearance:none;border:1px solid var(--gold);background:rgba(201,162,39,.12);color:var(--bone);font-family:var(--gothic);font-size:15px;letter-spacing:.08em;padding:12px 18px;min-height:44px;border-radius:2px;cursor:pointer;transition:background .12s var(--op),transform .08s var(--op)}
+  button:active{transform:translateY(1px);background:rgba(201,162,39,.24)}
+  button[disabled]{opacity:.5;cursor:default}
+  .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+  .msg{margin-top:14px;font-size:14px;min-height:1.4em}
+  .msg.err{color:#E8837F}
+  .msg.ok{color:var(--ok)}
+  .out{display:none;margin-top:20px;padding:16px;border:1px solid var(--gold);background:var(--panel)}
+  .out.on{display:block}
+  .line{font-family:var(--mono);font-size:15px;word-break:break-all;background:#000;border:1px solid var(--line);padding:12px;margin:10px 0;user-select:all}
+  .small{font-size:13px;color:var(--smoke)}
+  .note{font-size:13px;color:var(--smoke);margin-top:10px}
+  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--panel);border:1px solid var(--gold);color:var(--bone);padding:10px 16px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .15s var(--op);max-width:calc(100% - 32px)}
+  .toast.on{opacity:1}
+  footer{padding:28px 0 48px;font-size:12px;color:var(--dim)}
+</style>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <span class="ev">ZENINATION CITIZEN ・ ZCZ</span>
+    <h1>国民の証を、受け取る。</h1>
+    <p class="lead">善意立国の国民の方へ。あなたの番号の<b>国民の証</b>を、運営が財布へ届けます。<b>手数料はかかりません。</b>期限もありません。</p>
+  </header>
+
+  <section>
+    <span class="ev">HOW</span>
+    <h2>受け取り方(三つ)</h2>
+    <ol class="steps">
+      <li>下の欄に、あなたの<b>国民番号</b>と、受け取る<b>財布のアドレス</b>(WOWOO でも、ほかの物でも。OP の 0x で始まる物)を入れて「一行を作る」を押します。</li>
+      <li>出てきた一行(番号と、住所を封じた文字)を写し、国民限定の記事<span id="articleName">「国民の証の受け取り口」</span>のコメントに、そのまま貼って書き込みます。</li>
+      <li>運営が、コメントを書いた方とその番号の持ち主が同じかを確かめてから、証を届けます(週に一度まとめて)。</li>
+    </ol>
+    <p class="note">国民限定の記事なので、コメントを書けるのは国民の方だけです。他の人があなたの番号で受け取ることはできません。<br>アドレスは封をした文字になってコメントに載るので、他の国民の方には見えません。開けられるのは運営だけです。</p>
+  </section>
+
+  <section id="form">
+    <span class="ev">YOUR LINE</span>
+    <h2>一行を作る</h2>
+    <label for="num">国民番号(例: 12)</label>
+    <input id="num" inputmode="numeric" autocomplete="off" maxlength="4" placeholder="12">
+    <label for="addr">財布のアドレス(0x で始まる 42 文字)</label>
+    <input id="addr" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="0x…">
+    <div class="row"><button id="make" type="button">一行を作る</button></div>
+    <div class="msg" id="msg" role="status" aria-live="polite"></div>
+    <div class="out" id="out">
+      <div class="small">この一行を、そのままコメントに貼ってください。</div>
+      <div class="line" id="line"></div>
+      <div class="row"><button id="copy" type="button">写す</button><a id="go" class="small" href="#" style="display:none;align-self:center">受け取り口の記事を開く →</a></div>
+      <p class="note">封の中のアドレス: <span id="check" style="font-family:var(--mono);word-break:break-all;color:var(--bone)"></span><br>財布のアプリのアドレスと、もう一度だけ見比べてください。証は人に譲れない作りなので、違うアドレスに届くと取り戻すのに運営の手続きが要ります。</p>
+    </div>
+  </section>
+
+  <section>
+    <span class="ev">NOTE</span>
+    <h2>先に知っておくこと</h2>
+    <p class="small">・この頁は、入れた番号とアドレスをどこにも送りません。一行を作るのは、あなたの端末の中だけです。</p>
+    <p class="small">・受け取った後、アドレスと番号の結びつきは、ブロックチェーンの上で誰でも見られます。番号と名前の対応は国民限定の記事に載っているので、国民の間では、このアドレスがあなたのものだと分かります。<b>証のためだけの新しいアドレスで受け取ると、他の取引と結びつきません。</b></p>
+    <p class="small">・国民を抜けても、証は消えません。「一度は国民だった」の記録として残ります。</p>
+    <p class="small">・財布を持っていない方は、何もしなくて大丈夫です。あなたの番号の証は、受け取り待ちとして取ってあります。分からない時は、LINE で佐藤に一言ください。一緒に進めます。</p>
+  </section>
+
+  <footer>善意立国 ── 国民の証(Zenination Citizen)</footer>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.4/ethers.umd.min.js" integrity="sha384-6Zl0Pc8zjSz8KvmNeXRvUQgY4ryFb+BwDvKCmLYcBME0joAaru491tQgi9B7zsMM" crossorigin="anonymous"></script>
+<script>
+(function () {
+  // 受け取り口の記事の URL(NOTE 席が記事を出した日に書く。空の間はリンクを出さない)
+  var ARTICLE_URL = '';
+  // 運営の公開鍵(P-256・非圧縮 65 バイトの base64url)。開ける秘密鍵は運営の PC の中だけ。
+  var SEAL_PUB = 'BIlBRaynV-7MYczuo6Sn7fz4tpjcXaB93TmSdS3oJghiPV2MXVtdYYaSSDQ7f17OoFZUDHGxxblYC54Dgu0PNgM';
+  var b64u = function (u8) { var s = ''; for (var i = 0; i < u8.length; i++) s += String.fromCharCode(u8[i]); return btoa(s).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); };
+  var unb64u = function (t) { var s = atob(t.replace(/-/g, '+').replace(/_/g, '/')); var u = new Uint8Array(s.length); for (var i = 0; i < s.length; i++) u[i] = s.charCodeAt(i); return u; };
+  async function seal(number, address) {
+    var subtle = window.crypto.subtle;
+    var pub = await subtle.importKey('raw', unb64u(SEAL_PUB), { name: 'ECDH', namedCurve: 'P-256' }, false, []);
+    var eph = await subtle.generateKey({ name: 'ECDH', namedCurve: 'P-256' }, true, ['deriveBits']);
+    var bits = await subtle.deriveBits({ name: 'ECDH', public: pub }, eph.privateKey, 256);
+    var hk = await subtle.importKey('raw', bits, 'HKDF', false, ['deriveKey']);
+    var key = await subtle.deriveKey({ name: 'HKDF', hash: 'SHA-256', salt: new Uint8Array(0), info: new TextEncoder().encode('zcz-shoumei-v1') }, hk, { name: 'AES-GCM', length: 256 }, false, ['encrypt']);
+    var iv = window.crypto.getRandomValues(new Uint8Array(12));
+    var ct = new Uint8Array(await subtle.encrypt({ name: 'AES-GCM', iv: iv }, key, new TextEncoder().encode(number + '|' + address)));
+    var ephRaw = new Uint8Array(await subtle.exportKey('raw', eph.publicKey));
+    var all = new Uint8Array(ephRaw.length + iv.length + ct.length);
+    all.set(ephRaw, 0); all.set(iv, ephRaw.length); all.set(ct, ephRaw.length + iv.length);
+    return b64u(all);
+  }
+  var $ = function (id) { return document.getElementById(id); };
+  var num = $('num'), addr = $('addr'), make = $('make'), msg = $('msg'), out = $('out'), line = $('line'), copy = $('copy'), go = $('go'), toast = $('toast');
+  if (ARTICLE_URL) { go.href = ARTICLE_URL; go.style.display = ''; }
+  var tt;
+  function say(text, kind) {
+    msg.textContent = text; msg.className = 'msg ' + (kind || '');
+    toast.textContent = text; toast.className = 'toast on';
+    clearTimeout(tt); tt = setTimeout(function () { toast.className = 'toast'; }, 2600);
+  }
+  function check() {
+    var n = String(num.value).normalize('NFKC').trim();
+    if (!/^[1-9][0-9]{0,3}$/.test(n)) return { err: '国民番号は 1 以上の数字だけで入れてください(例: 12)。' };
+    var a = String(addr.value).normalize('NFKC').trim();
+    if (!/^0x[0-9a-fA-F]{40}$/.test(a)) return { err: 'アドレスは 0x で始まる 42 文字です。途中で切れていないか、余分な字が入っていないかを見てください。' };
+    if (!window.crypto || !window.crypto.subtle) return { err: 'この画面では封が作れません。Safari か Chrome で開き直してください。' };
+    if (!window.ethers) return { err: '綴りの確かめの道具が読み込めませんでした。頁を読み込み直してください。' };
+    var sum;
+    try { sum = window.ethers.getAddress(a); } catch (e) { return { err: 'アドレスの大文字と小文字の並びが合いません(写し間違いの印)。財布のアプリから、もう一度 写してください。' }; }
+    if (/^0x0{40}$/.test(a)) return { err: 'このアドレスには届けられません。' };
+    return { n: Number(n), a: sum };
+  }
+  make.addEventListener('click', function () {
+    make.disabled = true; make.textContent = '確かめています…';
+    setTimeout(async function () {
+      var r = check();
+      if (!r.err) { try { r.blob = await seal(r.n, r.a); } catch (e) { r = { err: '封が作れませんでした。頁を読み込み直して、もう一度 押してください。' }; } }
+      make.disabled = false; make.textContent = '一行を作る';
+      if (r.err) { out.className = 'out'; line.textContent = ''; say(r.err, 'err'); return; }
+      line.textContent = '証 ' + r.n + ' ' + r.blob;
+      $('check').textContent = r.a;
+      out.className = 'out on';
+      say('一行が出来ました。写して、受け取り口の記事のコメントに貼ってください。', 'ok');
+      out.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 0);
+  });
+  copy.addEventListener('click', function () {
+    var t = line.textContent;
+    copy.textContent = '写しています…';
+    var done = function (ok) {
+      copy.textContent = ok ? '写しました' : '写す';
+      say(ok ? '写しました。コメントの欄に貼ってください。' : '自動で写せませんでした。一行を長押しして写してください。', ok ? 'ok' : 'err');
+      if (ok) setTimeout(function () { copy.textContent = '写す'; }, 2400);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(function () { done(true); }, function () { done(false); });
+    else done(false);
+  });
+})();
+</script>
+</body>
+</html>
