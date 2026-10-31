@@ -2,7 +2,6 @@
 <html lang="ja">
 <meta charset="utf-8">
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-V14PVPLDK9"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-V14PVPLDK9');</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://genmatsuda-code.github.io/zenination/#org","name":"善意立国","alternateName":"Zenination","url":"https://genmatsuda-code.github.io/zenination/","description":"善意立国は、良い人が儲かる国を作っています。やり方は、記録すること。","founder":{"@type":"Person","name":"松田元"}},{"@type":"WebPage","@id":"https://genmatsuda-code.github.io/zenination/oni.html#page","url":"https://genmatsuda-code.github.io/zenination/oni.html","name":"善意で稼ぐ国家の創出 ── 善意立国","inLanguage":"ja","isPartOf":{"@id":"https://genmatsuda-code.github.io/zenination/#org"},"description":"会費 2,980 円以上を毎月稼ぐことを目指す、善意立国の入り口。AI の佐藤が稼いだ金と手法を毎日 数のまま出します。"}]}</script>
 
@@ -21,19 +20,10 @@
 <meta name="twitter:image" content="https://genmatsuda-code.github.io/zenination/assets/og/oni.png">
 <!-- 2026-10-29 新設(下見)。v3: 鬼=B(⚖️「Bめっちゃくちゃいいね」)・ブリキの佐藤を差し込む(⚖️「佐藤のいつものブリキもどこかに差し込むか」)。v2: ⚖️代表「これまでの特典は何一つ変えないのもかいて」「これまでのLPに書いたものも全部取り入れてここに善意の鬼のカネを加えますと。そんな構成」。⚖️代表「LPを金の鬼として全面的にアップデート」「善意の鬼のカネ、をテーマに。めっちゃエゲツナイ感じだけどサイバーパンクチックな」。11/1 に国民の入り口と差し替える -->
 <style>
-  /* fonts:begin(tools/oni-fonts.js が書く・手で直さない) */
-  @font-face{font-family:"Zen Kaku Gothic New";font-style:normal;font-weight:400;font-display:swap;src:url(assets/fonts/oni/zkg-400.woff2) format("woff2")}
-  @font-face{font-family:"Zen Kaku Gothic New";font-style:normal;font-weight:700;font-display:swap;src:url(assets/fonts/oni/zkg-700.woff2) format("woff2")}
-  @font-face{font-family:"Zen Kaku Gothic New";font-style:normal;font-weight:900;font-display:swap;src:url(assets/fonts/oni/zkg-900.woff2) format("woff2")}
-  @font-face{font-family:"Dela Gothic One";font-style:normal;font-weight:400;font-display:swap;src:url(assets/fonts/oni/dela-400.woff2) format("woff2")}
-  @font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:300;font-display:swap;src:url(assets/fonts/oni/jbm-300.woff2) format("woff2")}
-  @font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:500;font-display:swap;src:url(assets/fonts/oni/jbm-500.woff2) format("woff2")}
-  @font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:800;font-display:swap;src:url(assets/fonts/oni/jbm-800.woff2) format("woff2")}
-  /* fonts:end */
   :root{
     --void:#050607; --deck:#0b0e0d; --deck2:#111614; --rule:#1c2421;
     --acid:#3dff8f; --acid-80:rgba(61,255,143,.8); --acid-40:rgba(61,255,143,.4); --acid-15:rgba(61,255,143,.15); --acid-06:rgba(61,255,143,.06);
-    --ink:#e2e6e3; --ash:#8b9590; --dim:#5a6460;
+    --ink:#e2e6e3; --ash:#8b9590; --dim:#76817c;
     --heavy:"Dela Gothic One","Zen Kaku Gothic New",system-ui,sans-serif;
     --gothic:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Yu Gothic",system-ui,sans-serif;
     --mono:"JetBrains Mono",Consolas,monospace;
@@ -211,6 +201,9 @@
   }
   @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
+<!-- fonts:begin(tools/oni-fonts.js が書く・手で直さない) -->
+<script>(function(){var d=0;function f(){if(d)return;d=1;var l=document.createElement("link");l.rel="stylesheet";l.href="assets/fonts/oni/fonts.css";document.head.appendChild(l)}try{new PerformanceObserver(function(l){if(l.getEntriesByName("first-contentful-paint").length)setTimeout(f,0)}).observe({type:"paint",buffered:true})}catch(e){addEventListener("DOMContentLoaded",function(){requestAnimationFrame(function(){requestAnimationFrame(f)})})}setTimeout(f,1500)})()</script><noscript><link rel="stylesheet" href="assets/fonts/oni/fonts.css"></noscript>
+<!-- fonts:end -->
 
 <div class="tape"><div class="wrap">
   <div class="brand"><b>善意立国</b> / 善意で稼ぐ国家の創出</div>
@@ -387,3 +380,5 @@
     setTimeout(function(){ el.textContent=fmt(end); }, dur+400);
   })();
 </script>
+<!-- 計測(GA)は読み終わりから 3 秒後か、最初に触れた時に読む=最初の描画を止めない(gtag の待ち行列は頭の一行が持つので、頁を見た数は残る) -->
+<script>(function(){var d=0;function go(){if(d)return;d=1;var s=document.createElement("script");s.async=1;s.src="https://www.googletagmanager.com/gtag/js?id=G-V14PVPLDK9";document.head.appendChild(s)}addEventListener("load",function(){setTimeout(go,3000)});["scroll","pointerdown","keydown","touchstart"].forEach(function(e){addEventListener(e,go,{once:true,passive:true})})})()</script>
