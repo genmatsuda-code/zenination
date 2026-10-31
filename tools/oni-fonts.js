@@ -48,9 +48,9 @@ const text = [...chars].sort().join("");
     }
   }
   // ★書体は「最初の一枚を描いた後」に読み始める(2026-10-31 15:2x)。<style> の中に @font-face を置くと、最初の描画の前に 370KB を取りに行き、
-  //   合図=最初の中身が描けた知らせ(paint の first-contentful-paint)。rAF 二つでは中身の前の空の一枚で回る回があった(手元 82)。描画の止まった画面(裏の窓)用に 1.5 秒後の予備。Lighthouse の FCP 3.2 秒・LCP 5.8 秒の主因だった(書体を外すと 87)。描いた後に読むと、出来上がりの書体は同じで、手元の書体から一瞬で替わる。
+  //   合図=最初の中身が描けた知らせ(paint の first-contentful-paint)。rAF 二つでは中身の前の空の一枚で回る回があった(手元 82)。描画の止まった画面(裏の窓)用に 3 秒後の予備(1.5 秒では遅い端末で最初の描画より先に走った)。Lighthouse の FCP 3.2 秒・LCP 5.8 秒の主因だった(書体を外すと 87)。描いた後に読むと、出来上がりの書体は同じで、手元の書体から一瞬で替わる。
   fs.writeFileSync(path.join(OUT, "fonts.css"), css.join("\n") + "\n");
-  const block = '<!-- fonts:begin(tools/oni-fonts.js が書く・手で直さない) -->\n<script>(function(){var d=0;function f(){if(d)return;d=1;var l=document.createElement("link");l.rel="stylesheet";l.href="assets/fonts/oni/fonts.css";document.head.appendChild(l)}try{new PerformanceObserver(function(l){if(l.getEntriesByName("first-contentful-paint").length)setTimeout(f,0)}).observe({type:"paint",buffered:true})}catch(e){addEventListener("DOMContentLoaded",function(){requestAnimationFrame(function(){requestAnimationFrame(f)})})}setTimeout(f,1500)})()</script><noscript><link rel="stylesheet" href="assets/fonts/oni/fonts.css"></noscript>\n<!-- fonts:end -->';
+  const block = '<!-- fonts:begin(tools/oni-fonts.js が書く・手で直さない) -->\n<script>(function(){var d=0;function f(){if(d)return;d=1;var l=document.createElement("link");l.rel="stylesheet";l.href="assets/fonts/oni/fonts.css";document.head.appendChild(l)}try{new PerformanceObserver(function(l){if(l.getEntriesByName("first-contentful-paint").length)setTimeout(f,0)}).observe({type:"paint",buffered:true})}catch(e){addEventListener("DOMContentLoaded",function(){requestAnimationFrame(function(){requestAnimationFrame(f)})})}setTimeout(f,3000)})()</script><noscript><link rel="stylesheet" href="assets/fonts/oni/fonts.css"></noscript>\n<!-- fonts:end -->';
   for (const p of PAGES) {
     const f = path.join(ROOT, p);
     if (!fs.existsSync(f)) continue;
