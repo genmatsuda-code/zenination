@@ -324,24 +324,26 @@
   ],
   "lighthouse": {
     "index": {
-      "performance": 98,
+      "performance": 92,
       "accessibility": 94,
       "best-practices": 96,
       "seo": 100
     },
     "kokumin": {
-      "performance": 100,
+      "performance": 99,
       "accessibility": 93,
       "best-practices": 96,
       "seo": 100
     },
     "oni": {
-      "performance": 100,
+      "performance": 96,
       "accessibility": 100,
       "best-practices": 96,
       "seo": 100
     }
   },
   "total": 58,
-  "worse": []
+  "worse": [
+    "index の performance 98→92"
+  ]
 }
