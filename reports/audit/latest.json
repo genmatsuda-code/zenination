@@ -1,5 +1,5 @@
 {
-  "day": "2026-10-30",
+  "day": "2026-10-31",
   "base": "https://genmatsuda-code.github.io/zenination/",
   "site": {
     "sitemap": 200,
@@ -284,8 +284,7 @@
       "issues": [
         "og:title が無い(X や LINE で貼った時の顔)",
         "og:description が無い(X や LINE で貼った時の顔)",
-        "og:image が無い(X や LINE で貼った時の顔)",
-        "GA の札が無い"
+        "og:image が無い(X や LINE で貼った時の顔)"
       ],
       "title": "国民の証の受け取り ── 善意立国",
       "descLen": 87
@@ -325,7 +324,7 @@
   ],
   "lighthouse": {
     "index": {
-      "performance": 99,
+      "performance": 98,
       "accessibility": 94,
       "best-practices": 96,
       "seo": 100
@@ -337,12 +336,12 @@
       "seo": 100
     },
     "oni": {
-      "performance": 56,
-      "accessibility": 95,
+      "performance": 99,
+      "accessibility": 100,
       "best-practices": 96,
       "seo": 100
     }
   },
-  "total": 59,
+  "total": 58,
   "worse": []
 }
