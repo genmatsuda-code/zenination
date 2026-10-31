@@ -380,5 +380,5 @@
     setTimeout(function(){ el.textContent=fmt(end); }, dur+400);
   })();
 </script>
-<!-- 計測(GA)は読み終わりから 3 秒後か、最初に触れた時に読む=最初の描画を止めない(gtag の待ち行列は頭の一行が持つので、頁を見た数は残る) -->
-<script>(function(){var d=0;function go(){if(d)return;d=1;var s=document.createElement("script");s.async=1;s.src="https://www.googletagmanager.com/gtag/js?id=G-V14PVPLDK9";document.head.appendChild(s)}addEventListener("load",function(){setTimeout(go,3000)});["scroll","pointerdown","keydown","touchstart"].forEach(function(e){addEventListener(e,go,{once:true,passive:true})})})()</script>
+<!-- 計測(GA)は最初に触れた時か、読み終わりから 8 秒後に読む=最初の描画と操作を止めない(3 秒では測りの窓に入り TBT 600ms・8 秒で 210ms)。8 秒以内に一度も触れずに帰った人は数えない(gtag の待ち行列は頭の一行が持つので、頁を見た数は残る) -->
+<script>(function(){var d=0;function go(){if(d)return;d=1;var s=document.createElement("script");s.async=1;s.src="https://www.googletagmanager.com/gtag/js?id=G-V14PVPLDK9";document.head.appendChild(s)}addEventListener("load",function(){setTimeout(go,8000)});["scroll","pointerdown","keydown","touchstart"].forEach(function(e){addEventListener(e,go,{once:true,passive:true})})})()</script>

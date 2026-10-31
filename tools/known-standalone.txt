@@ -18,3 +18,4 @@ kyozai01.html          # 教材1。国民へ番号で渡す
 kyozai02_thanksmap.html # 教材2。同上
 kyozai03_wowoo.html    # 教材3。同上
 kourin.html            # 降臨の間 第一夜(9/18)の告知の頁(過去)。thanksmap.jp/kourin.html からの 308 の行き先として直に開く。第一夜の記録は kourin-kiroku.html(遊び場から辿れる)
+shoumei.html           # 国民の証の受け取り頁。国民限定の記事(n41933fd4dc83)から直に開く=国民だけに渡す入口なので、公開の棚から辿れなくてよい(2026-10-31 NOTE席)
