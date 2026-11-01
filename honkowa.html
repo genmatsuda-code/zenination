@@ -137,7 +137,7 @@
 
 <div class="top"><div class="wrap">
   <div class="brand">本怖 <em>Burn Chronicle</em></div>
-  <nav><a href="#how">仕組み</a><a href="#chron">年代記</a><a href="#belt">帯</a><a href="#sealed">言った証</a><a href="#verify">検証</a><a href="#room">本怖とは</a></nav>
+  <nav><a href="#how">仕組み</a><a href="#chron">年代記</a><a href="#calendar">暦</a><a href="#belt">帯</a><a href="#sealed">言った証</a><a href="#verify">検証</a><a href="#room">本怖とは</a></nav>
 </div></div>
 
 <main>
@@ -171,6 +171,20 @@
   <div class="chron" id="chron"><div class="empty"><b>点火前です。</b>最初のバーンが Optimism に記録された日から、ここに一日一行ずつ並びます。日付・燃えた量・tx。書き換えは、誰にもできません。</div></div>
 </div></section>
 
+<section id="calendar"><div class="wrap">
+  <div class="label">FIRE CALENDAR ── 毎月の行事</div>
+  <h2>燃やす日は、<em>決まっている。</em></h2>
+  <div class="cards" style="grid-template-columns:repeat(3,1fr)">
+    <div class="card"><div class="no">1 日</div><h3>月初の一本</h3><p>国主の「今月の見どころ」と、燃えた枚数の梯子の現在地。</p></div>
+    <div class="card"><div class="no">第 2 金曜</div><h3>国主マッチの夜</h3><p>その夜の返信の火に、国主が自分の財布から上乗せして燃やす。最初は 11 月 14 日。</p></div>
+    <div class="card"><div class="no">20 日</div><h3>来月の目玉の予告</h3><p>抜けるかどうかを決める前に、来月に何が在るかを先に出す。</p></div>
+    <div class="card"><div class="no">25 日</div><h3>月末の目玉</h3><p>その月の目玉を出す日。11 月は帯 SBT「HonKowa」の配り始め(予定)。</p></div>
+    <div class="card"><div class="no">月末</div><h3>総決算</h3><p>皆で燃やした枚数・届いた節目・次の節目まで。</p></div>
+    <div class="card"><div class="no">12 月</div><h3>忘年会で、前倒しの儀</h3><p>帯を持つ人の忘年会で、WWB が燃え尽きる日を早める署名を毎年 一回。</p></div>
+  </div>
+  <p class="hero-p" style="margin-top:14px"><small>次の行事: <b id="nextEvent">11 月 14 日(金) 国主マッチの夜</b>。節目の梯子(本怖+善意立国の燃えた枚数): 10 万 → 20 万 → 30 万 → 50 万 → 80 万 → 100 万 →。届いた日は、その夜の企画がその一本になります。</small></p>
+</div></section>
+
 <section id="belt"><div class="wrap">
   <div class="label">HonKowa SBT ── 続けた月の数</div>
   <h2>帯は、<em>買えない。</em></h2>
@@ -195,9 +209,9 @@
     <dl>
       <dt>チェーン</dt><dd>Optimism Mainnet (chainId 10)</dd>
       <dt>バーンの契約</dt><dd><a href="https://optimistic.etherscan.io/address/0x152327F9Fa1ccB7ecED95A2973830DC9E2206EC2" target="_blank" rel="noopener">0x152327F9Fa1ccB7ecED95A2973830DC9E2206EC2</a> (BurnRouterV2)</dd>
-      <dt>イベント</dt><dd>VoluntaryBurn(bytes32 reasonCode, uint256 amount, address from)</dd>
+      <dt>イベント</dt><dd>Burned(bytes32 indexed reasonCode, uint8 tier, uint256 weight, uint256 amount, uint8 source, uint256 supplyAfter) ── 予算の中の火(書き込みの分)。国主マッチの夜の上乗せだけ VoluntaryBurn(bytes32 reasonCode, uint256 amount, address from)</dd>
       <dt>理由コード</dt><dd id="reason">honkowa.post = 0x000e99555034b0e8cd1d7a9669d6c400672bfc464ff0eccc64d69173f77210a1</dd>
-      <dt>燃やす側の住所</dt><dd id="fromAddr">点火の日に、ここに載せます</dd>
+      <dt>燃やす係</dt><dd id="fromAddr">ルーターの燃やす係が、毎日 まとめて打ちます(予算の窓は THANKS Map の火と同じ)</dd>
     </dl>
     <p>Etherscan で上の契約を開き、イベントを理由コードで絞ると、本怖の分だけが並びます。この頁の数字は、その記録を読んでいるだけです。別の数は持っていません。</p>
   </div>

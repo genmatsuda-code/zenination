@@ -7,7 +7,7 @@
 "use strict";
 const fs = require("fs"), path = require("path");
 const ROOT = path.join(__dirname, "..");
-const PAGES = process.argv.slice(2).length ? process.argv.slice(2) : ["oni.html", "kokumin.html"];
+const PAGES = process.argv.slice(2).length ? process.argv.slice(2) : ["oni.html", "kokumin.html", "sbt.html"];
 const OUT = path.join(ROOT, "assets", "fonts", "oni");
 const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36";
 const FACES = [
