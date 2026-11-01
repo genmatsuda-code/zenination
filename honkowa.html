@@ -3,9 +3,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>本怖 Burn Chronicle ── 書くほど、燃える。</title>
-<meta name="description" content="本当にあった怖い話(松田元の会員制の部屋)。会員の書き込み一つにつき、THANKS Map の 5 倍の WWB が Optimism でバーンされる。続けた月の数で帯の SBT。月額 2,980 円。">
+<meta name="description" content="本当にあった怖い話(松田元の会員制の部屋)。会員の書き込み一つにつき、THANKS Map の 2 倍の WWB が Optimism でバーンされる。続けた月の数で帯の SBT。月額 2,980 円。">
 <meta property="og:title" content="本怖 Burn Chronicle ── 書くほど、燃える。">
-<meta property="og:description" content="会員の書き込み一つにつき、THANKS Map の 5 倍の WWB がバーンされる。続けた月の数で帯の SBT。全部オンチェーンで確かめられる。">
+<meta property="og:description" content="会員の書き込み一つにつき、THANKS Map の 2 倍の WWB がバーンされる。続けた月の数で帯の SBT。全部オンチェーンで確かめられる。">
 <meta property="og:image" content="https://genmatsuda-code.github.io/zenination/assets/og/honkowa.png">
 <meta property="og:url" content="https://genmatsuda-code.github.io/zenination/honkowa.html">
 <meta name="twitter:card" content="summary_large_image">
@@ -143,8 +143,8 @@
 <main>
 <div class="hero"><canvas id="embers"></canvas><div class="wrap inner">
   <div class="label hero-label">ONE POST BURNS ── 書き込み一つで</div>
-  <div class="count tabnum" id="perPost">4,020<span class="unit">WWB</span></div>
-  <p class="hero-sub">THANKS Map の感謝一件(<b id="unitNow">804</b> WWB)の <b>5 倍</b>。<small style="display:block;font-size:12px;color:var(--dim);margin-top:6px">一件の火はいまの値で、日によって変わります。燃やす時にチェーンから読みます。</small></p>
+  <div class="count tabnum" id="perPost">1,608<span class="unit">WWB</span></div>
+  <p class="hero-sub">THANKS Map の感謝一件(<b id="unitNow">804</b> WWB)の <b>2 倍</b>。<small style="display:block;font-size:12px;color:var(--dim);margin-top:6px">一件の火はいまの値で、日によって変わります。燃やす時にチェーンから読みます。</small></p>
   <h2 class="hero-h serif">書くほど、燃える。</h2>
   <p class="hero-p">本当にあった怖い話 ── 上場企業の社長が 2021 年から毎日 自分で書く、会員制の部屋。<small>会員が掲示板に書き込むたび、その数に応じて WWB が Optimism チェーン上でバーンされます。</small></p>
   <div class="pill" id="pill">実データ ── 点火前。最初のバーンが入った日から、この頁の数字は Optimism の記録だけを読みます。</div>
@@ -159,7 +159,7 @@
   <p class="lead">燃える量は、会員の書き込みの数で決まります。社長と運営の投稿は数えません。<b>読むだけなら燃えない。書けば燃える。</b>人数は出しません。出るのは、燃えた量と、その証拠(tx)だけです。</p>
   <div class="cards">
     <div class="card"><div class="no">01</div><h3>会員が掲示板に書く</h3><p>投稿でも返信でも一つは一つ。社長と運営の分は除きます。</p><div class="f">E = その日の会員の書き込みの数</div></div>
-    <div class="card"><div class="no">02</div><h3>翌日、まとめてバーン</h3><p>THANKS Map の感謝 一件の火(いま約 804 WWB・日によって変わる)の <b>5 倍</b>を、書き込み一つにつき燃やします。Optimism 上の BurnRouterV2 を通り、総供給から本当に消えます。</p><div class="f">burn = E × 804 × 5</div></div>
+    <div class="card"><div class="no">02</div><h3>翌日、まとめてバーン</h3><p>THANKS Map の感謝 一件の火(いま約 804 WWB・日によって変わる)の <b>2 倍</b>を、書き込み一つにつき燃やします。Optimism 上の BurnRouterV2 を通り、総供給から本当に消えます。</p><div class="f">burn = E × 804 × 2</div></div>
     <div class="card"><div class="no">03</div><h3>年代記に一行ずつ残る</h3><p>燃えた量と tx が、下の年代記に一日一行ずつ並びます。<b>月末に抜ける人が多ければ、翌月の火は小さくなる。</b>その跡も消えません。</p><div class="f">reason = honkowa.post</div></div>
   </div>
 </div></section>
@@ -167,7 +167,7 @@
 <section id="chron"><div class="wrap">
   <div class="label">CHRONICLE ── 年代記</div>
   <h2>燃えた日は、<em>全部ここに。</em></h2>
-  <div class="stat"><span><b class="tabnum" id="total">0</b>WWB これまでに燃えた</span><span><b class="tabnum" id="days">0</b>日 燃えた日</span></div>
+  <div class="stat"><span><b class="tabnum" id="total">0</b>WWB これまでに燃えた</span><span><b class="tabnum" id="days">0</b>日 燃えた日</span><span title="OP の ChronoBurnCurve.targetDate() を読んでいます">WWB が燃え尽きる日 <b class="tabnum" id="tgtDate">2140-02-11</b><span id="tgtLeft">(残り —)</span></span></div>
   <div class="chron" id="chron"><div class="empty"><b>点火前です。</b>最初のバーンが Optimism に記録された日から、ここに一日一行ずつ並びます。日付・燃えた量・tx。書き換えは、誰にもできません。</div></div>
 </div></section>
 
@@ -252,12 +252,18 @@
     function tick(){ctx.clearRect(0,0,W,H);for(var i=0;i<P.length;i++){var p=P[i];p.y-=p.v;p.x+=Math.sin(p.a+=.01)*.15;if(p.y<-4){p.y=H+4;p.x=Math.random()*W;}ctx.globalAlpha=p.o;ctx.fillStyle='#E8A24C';ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();}if(!document.hidden)requestAnimationFrame(tick);}
     if(P.length)requestAnimationFrame(tick);
   })();
+  // 燃え尽きる日: OP Mainnet の ChronoBurnCurve(0x92433de259E47C4c7B8fC1b08C9A70D22CB30A45).targetDate() を eth_call で直に読む。読めなければ 2140-02-11 のまま
+  (function(){
+    var show=function(sec){var d=new Date(sec*1000),now=Date.now()/1000,left=Math.max(0,sec-now),y=Math.floor(left/31557600),dd=Math.floor((left-y*31557600)/86400);var el=document.getElementById('tgtDate'),l=document.getElementById('tgtLeft');if(!el)return;el.textContent=d.toISOString().slice(0,10);l.textContent='(残り '+y+' 年 '+dd+' 日)';};
+    show(Date.UTC(2140,1,11)/1000);
+    fetch('https://mainnet.optimism.io',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:'eth_call',params:[{to:'0x92433de259E47C4c7B8fC1b08C9A70D22CB30A45',data:'0x488c2ad2'},'latest']})}).then(function(r){return r.json()}).then(function(j){var h=j&&j.result;if(h&&/^0x[0-9a-f]{64}$/.test(h)){var sec=parseInt(h,16);if(sec>1e9&&sec<1e11)show(sec);}}).catch(function(){});
+  })();
   // 数字: data/honkowa-hi.json {unit, mult, reasonHash, from, fires:[{day,amount,tx}]}。無ければ点火前のまま
   (function(){
     var fmt=function(n){return Math.round(Number(n)).toLocaleString('ja-JP')};
     fetch('data/honkowa-hi.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){
       if(!j) return;
-      if(j.unit){document.getElementById('unitNow').textContent=fmt(j.unit);document.getElementById('perPost').innerHTML=fmt(j.unit*(j.mult||5))+'<span class="unit">WWB</span>';}
+      if(j.unit){document.getElementById('unitNow').textContent=fmt(j.unit);document.getElementById('perPost').innerHTML=fmt(j.unit*(j.mult||2))+'<span class="unit">WWB</span>';}
       if(j.reasonHash)document.getElementById('reason').textContent='honkowa.post ── '+j.reasonHash;
       if(j.from)document.getElementById('fromAddr').innerHTML='<a href="https://optimistic.etherscan.io/address/'+j.from+'" target="_blank" rel="noopener">'+j.from+'</a>';
       var f=(j.fires||[]).slice().sort(function(a,b){return a.day<b.day?1:-1}); if(!f.length) return;
