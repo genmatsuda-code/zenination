@@ -2,226 +2,213 @@
 <html lang="ja">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>本怖のお化け屋敷 ── 居るだけで、燃える。</title>
-<meta name="description" content="東証上場 abc(8783)代表 松田元が 2021 年から自分で書いている会員の部屋。居続けた月の数が帯になり、在籍の段の数だけ毎日 WWB が燃える。月額 2,980 円。">
-<meta property="og:title" content="本怖のお化け屋敷 ── 居るだけで、燃える。">
-<meta property="og:description" content="居続けた月の数が帯(白・緑・黒・免許皆伝)になり、在籍の段の数だけ毎日 WWB が燃える。月末に抜ければ火は減り、鎖に残る。">
+<title>本怖 Burn Chronicle ── 書くほど、燃える。</title>
+<meta name="description" content="本当にあった怖い話(松田元の会員制の部屋)。会員の書き込み一つにつき、THANKS Map の 5 倍の WWB が Optimism でバーンされる。続けた月の数で帯の SBT。月額 2,980 円。">
+<meta property="og:title" content="本怖 Burn Chronicle ── 書くほど、燃える。">
+<meta property="og:description" content="会員の書き込み一つにつき、THANKS Map の 5 倍の WWB がバーンされる。続けた月の数で帯の SBT。全部オンチェーンで確かめられる。">
 <meta property="og:image" content="https://genmatsuda-code.github.io/zenination/assets/og/honkowa.png">
 <meta property="og:url" content="https://genmatsuda-code.github.io/zenination/honkowa.html">
 <meta name="twitter:card" content="summary_large_image">
 <!-- Google tag (gtag.js) -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-V14PVPLDK9');</script>
 <style>
-  /* 2026-11-01 本怖の LP。夜と熾火(Burn Chronicle の儀式を継ぐ)+新素材=帯。数は data/honkowa-hi.json(段と火の記録)だけを読む。 */
+  /* 2026-11-01 本怖 Burn Chronicle。型は WOWOO Burn Chronicle(夜・明朝の巨大な数字・小さな英字の札・火の粉)。会員の人数はどこにも出さない。 */
   :root{
-    --bg:#0a0d14; --panel:#10141f; --panel2:#151a27; --line:#1e2534; --line2:#2a3347;
-    --ink:#f6efe2; --sub:#8d95a8; --dim:#5d6578;
-    --amber:#f0b04a; --ember:#c9762f; --deep:#9c5a22; --amber-40:rgba(240,176,74,.4); --amber-15:rgba(240,176,74,.15); --amber-06:rgba(240,176,74,.06);
-    --belt-w:#e9e4d8; --belt-g:#3f8f5a; --belt-k:#15171c; --belt-m:#d8b25a;
-    --serif:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif; --sans:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif; --mono:ui-monospace,"JetBrains Mono",Menlo,monospace;
-    --op:cubic-bezier(.4,0,.2,1); --show:cubic-bezier(.16,1,.3,1);
+    --night:#0B0C10; --night-soft:#14161C; --card:#191C23; --border:#262A33; --border2:#333846;
+    --text:#EDEAE2; --muted:#9A968B; --dim:#5F5C54;
+    --ember:#E8A24C; --ember-deep:#C97B2D; --ember-40:rgba(232,162,76,.4); --ember-15:rgba(232,162,76,.15);
+    --serif:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif; --sans:"Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",sans-serif; --mono:ui-monospace,"JetBrains Mono",Menlo,monospace;
+    --op:cubic-bezier(.4,0,.2,1);
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html{background:var(--bg);scroll-behavior:smooth}
-  body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.9;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-  body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:51;opacity:.05;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
-  .wrap{max-width:1040px;margin:0 auto;padding:0 clamp(16px,4vw,40px);position:relative;z-index:1}
-  .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.32em;color:var(--amber);text-transform:uppercase}
-  .lbl b{color:var(--ink);font-weight:500}
-  .num{font-family:var(--mono);font-variant-numeric:tabular-nums}
-  a{color:var(--amber);text-decoration:none}
-  .glow{height:1px;background:linear-gradient(90deg,transparent,var(--amber-40),transparent)}
+  html{background:var(--night);scroll-behavior:smooth}
+  body{background:var(--night);color:var(--text);font-family:var(--sans);line-height:1.9;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:var(--ember);text-decoration:none}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 clamp(18px,4vw,40px);position:relative;z-index:1}
+  .serif{font-family:var(--serif)}
+  .label{font-size:12px;letter-spacing:.35em;color:var(--muted);text-transform:uppercase}
+  .label b{color:var(--text);font-weight:500}
+  @media (max-width:520px){.label{letter-spacing:.22em;font-size:11px}}
+  .tabnum{font-variant-numeric:tabular-nums}
 
-  /* 天井の帯 */
-  .tape{position:sticky;top:0;z-index:40;background:rgba(10,13,20,.86);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
-  .tape .wrap{display:flex;justify-content:space-between;align-items:center;height:44px;gap:12px}
-  .tape .brand{font-family:var(--mono);font-size:11px;letter-spacing:.26em;color:var(--sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .tape .brand b{color:var(--ink)}
-  .tape .live{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--amber);white-space:nowrap;display:flex;align-items:center;gap:8px}
-  .tape .live i{width:7px;height:7px;background:var(--amber);box-shadow:0 0 10px var(--amber);animation:blink 1.6s steps(2,end) infinite}
-  @keyframes blink{50%{opacity:.25}}
+  /* 天井 */
+  .top{position:sticky;top:0;z-index:40;background:rgba(11,12,16,.88);backdrop-filter:blur(6px);border-bottom:1px solid var(--border)}
+  .top .wrap{display:flex;justify-content:space-between;align-items:center;height:56px;gap:16px}
+  .top .brand{font-family:var(--serif);font-size:16px;letter-spacing:.14em;white-space:nowrap}
+  .top .brand em{font-style:normal;color:var(--ember)}
+  .top nav{display:flex;gap:22px;font-size:13px;color:var(--muted);white-space:nowrap;overflow-x:auto;scrollbar-width:none}
+  .top nav::-webkit-scrollbar{display:none}
+  .top nav a{color:var(--muted);transition:color .2s var(--op)}
+  .top nav a:hover{color:var(--text)}
 
-  /* 一画面目=炉 */
-  .hero{padding:clamp(48px,8vw,96px) 0 clamp(40px,6vw,72px);position:relative}
-  .hero::before{content:"";position:absolute;left:50%;top:38%;width:min(90vw,720px);height:min(90vw,720px);transform:translate(-50%,-50%);background:radial-gradient(circle,var(--amber-15),rgba(201,118,47,.05) 45%,transparent 70%);filter:blur(30px);pointer-events:none}
-  h1.title{font-family:var(--serif);font-weight:600;font-size:clamp(42px,9.4vw,104px);line-height:1.08;letter-spacing:-.01em;margin-top:18px;position:relative}
-  h1.title em{font-style:normal;color:var(--amber);text-shadow:0 0 30px var(--amber-40)}
-  .lead{margin-top:22px;font-size:clamp(15.5px,2.1vw,19px);max-width:40em;color:var(--ink);line-height:1.95}
-  .lead b{color:var(--amber);font-weight:700}
-  .fine{margin-top:12px;font-size:12.5px;color:var(--sub);max-width:46em}
-  .cta{display:inline-flex;align-items:center;gap:14px;margin-top:28px;padding:16px 26px;background:var(--amber);color:#1a1206;font-weight:800;font-size:17px;border-radius:2px;letter-spacing:.02em;box-shadow:0 0 0 1px var(--amber-40),0 12px 40px -12px var(--amber-40),inset 0 1px 0 rgba(255,255,255,.35);transition:transform .25s var(--op),box-shadow .25s var(--op)}
-  .cta:hover{transform:translateY(-2px);box-shadow:0 0 0 1px var(--amber),0 18px 50px -10px var(--amber-40),inset 0 1px 0 rgba(255,255,255,.45)}
-  .cta .p{font-family:var(--mono);font-size:12px;letter-spacing:.18em;padding-left:14px;border-left:1px solid rgba(26,18,6,.3)}
+  /* 一画面目 */
+  .hero{position:relative;text-align:center;padding:clamp(72px,12vw,140px) 0 clamp(56px,8vw,96px);overflow:hidden}
+  .hero canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+  .hero .inner{position:relative}
+  .count{font-family:var(--serif);font-size:clamp(64px,16vw,168px);line-height:1;letter-spacing:-.01em;margin-top:26px;text-shadow:0 0 60px rgba(232,162,76,.18)}
+  .count .unit{font-size:.3em;color:var(--muted);margin-left:12px;letter-spacing:.1em}
+  .hero-sub{margin-top:22px;font-size:clamp(15px,2vw,17px);color:var(--muted)}
+  .hero-sub b{color:var(--ember);font-weight:600}
+  .hero-h{font-family:var(--serif);font-size:clamp(26px,4.6vw,44px);margin-top:54px;letter-spacing:.02em}
+  .hero-p{margin-top:14px;font-size:15px;color:var(--muted)}
+  .hero-p small{display:block;font-size:12.5px;color:var(--dim);margin-top:4px;letter-spacing:.04em}
+  .pill{display:inline-block;margin-top:28px;padding:9px 18px;border:1px solid var(--border2);border-radius:999px;font-size:12px;color:var(--muted);letter-spacing:.04em}
+  .cta{display:inline-flex;align-items:center;gap:14px;margin-top:34px;padding:16px 28px;background:var(--ember);color:#1a1206;font-weight:700;font-size:16px;letter-spacing:.04em;border-radius:3px;box-shadow:0 12px 40px -14px var(--ember-40);transition:transform .25s var(--op),box-shadow .25s var(--op)}
+  .cta:hover{transform:translateY(-2px);box-shadow:0 18px 50px -12px var(--ember-40)}
+  .cta .p{font-family:var(--mono);font-size:12px;letter-spacing:.14em;padding-left:14px;border-left:1px solid rgba(26,18,6,.3)}
 
-  /* 炉の計器: 段 × N */
-  .gauge{margin-top:40px;display:grid;grid-template-columns:1fr auto 1fr;gap:1px;background:var(--line);border:1px solid var(--line);position:relative}
-  .gauge>div{background:var(--panel);padding:20px 22px 18px;position:relative;box-shadow:inset 0 1px 0 rgba(255,255,255,.03)}
-  .gauge .k{font-family:var(--mono);font-size:11px;letter-spacing:.24em;color:var(--sub)}
-  .gauge .v{font-family:var(--mono);font-size:clamp(34px,6vw,56px);font-weight:700;line-height:1.05;margin-top:8px;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
-  .gauge .v small{font-family:var(--sans);font-size:14px;color:var(--sub);font-weight:400;margin-left:6px;letter-spacing:0}
-  .gauge .op{display:grid;place-items:center;font-family:var(--mono);font-size:30px;color:var(--amber);padding:0 18px}
-  .gauge .fire .v{color:var(--amber);text-shadow:0 0 24px var(--amber-40)}
-  .gauge .n{margin-top:6px;font-size:12.5px;color:var(--sub);line-height:1.6}
-  .state{position:absolute;right:14px;top:14px;font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;padding:5px 9px;border:1px solid var(--line2);color:var(--sub)}
-  .state.on{border-color:var(--amber);color:var(--amber)}
+  section{padding:clamp(64px,9vw,112px) 0;border-top:1px solid var(--border)}
+  h2{font-family:var(--serif);font-weight:500;font-size:clamp(28px,4.8vw,48px);line-height:1.3;margin-top:16px;letter-spacing:.01em}
+  h2 em{font-style:normal;color:var(--ember)}
+  .lead{margin-top:18px;font-size:clamp(15px,1.9vw,17px);color:var(--muted);max-width:44em;line-height:2}
+  .lead b{color:var(--text);font-weight:600}
 
-  section{padding-block:clamp(56px,8vw,96px);border-top:1px solid var(--line);position:relative}
-  h2{font-family:var(--serif);font-weight:600;font-size:clamp(28px,5vw,54px);line-height:1.22;margin:14px 0 20px;letter-spacing:-.005em}
-  h2 em{font-style:normal;color:var(--amber)}
-  .sub-lead{font-size:clamp(15px,1.9vw,18px);color:var(--ink);max-width:44em;line-height:2}
-  .sub-lead b{color:var(--amber);font-weight:700}
+  .cards{margin-top:34px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:24px 22px}
+  .card .no{font-family:var(--serif);font-size:28px;color:var(--ember);line-height:1}
+  .card h3{font-size:17px;font-weight:700;margin-top:12px}
+  .card p{font-size:14px;color:var(--muted);line-height:1.85;margin-top:8px}
+  .card p b{color:var(--text);font-weight:600}
+  .card .f{margin-top:12px;font-family:var(--mono);font-size:12px;color:var(--ember);letter-spacing:.06em}
 
-  /* 火の記録(灰の帳) */
-  .ledger{margin-top:28px;border:1px solid var(--line);background:var(--panel)}
-  .ledger .row{display:grid;grid-template-columns:110px 1fr auto;gap:14px;align-items:center;padding:12px 18px;border-top:1px solid var(--line);font-size:14px}
-  .ledger .row:first-child{border-top:0}
-  .ledger .d{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--sub)}
-  .ledger .bar{height:10px;background:var(--panel2);position:relative;overflow:hidden}
-  .ledger .bar i{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,var(--deep),var(--amber));box-shadow:0 0 14px var(--amber-40)}
-  .ledger .a{font-family:var(--mono);font-variant-numeric:tabular-nums;color:var(--amber);white-space:nowrap}
-  .ledger .a small{color:var(--sub);font-family:var(--sans);margin-left:4px}
-  .ledger .row.dip .bar i{background:linear-gradient(90deg,#3a2a24,var(--deep));box-shadow:none}
-  .ledger .row.dip .a{color:var(--sub)}
-  .ledger .empty{padding:22px 18px;color:var(--sub);font-size:14px;line-height:1.8}
-  .ledger .empty b{color:var(--ink)}
+  /* 年代記 */
+  .chron{margin-top:34px;border:1px solid var(--border);border-radius:6px;overflow:hidden;background:var(--card)}
+  .chron .row{display:grid;grid-template-columns:120px 1fr auto;gap:16px;align-items:center;padding:14px 20px;border-top:1px solid var(--border);font-size:14px}
+  .chron .row:first-child{border-top:0}
+  .chron .d{font-family:var(--mono);font-size:12.5px;letter-spacing:.08em;color:var(--muted)}
+  .chron .bar{height:6px;background:var(--night-soft);border-radius:3px;overflow:hidden}
+  .chron .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--ember-deep),var(--ember));border-radius:3px}
+  .chron .a{font-family:var(--serif);font-size:18px;color:var(--text);white-space:nowrap}
+  .chron .a small{font-family:var(--sans);font-size:12px;color:var(--muted);margin-left:5px}
+  .chron .a a{color:var(--text);border-bottom:1px dotted var(--border2)}
+  .chron .empty{padding:28px 22px;color:var(--muted);font-size:14px;line-height:1.9}
+  .chron .empty b{color:var(--text)}
+  .stat{margin-top:16px;display:flex;gap:28px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+  .stat b{font-family:var(--serif);font-size:20px;color:var(--text);margin-right:4px}
 
   /* 帯 */
-  .belts{margin-top:30px;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
-  .belt{background:var(--panel);padding:0 0 18px;position:relative;transition:background .25s var(--op)}
-  .belt:hover{background:var(--panel2)}
-  .belt .cloth{height:26px;position:relative;box-shadow:inset 0 1px 0 rgba(255,255,255,.12),inset 0 -2px 0 rgba(0,0,0,.35)}
-  .belt .cloth::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(0,0,0,.18)}
-  .belt.w .cloth{background:var(--belt-w)}
-  .belt.g .cloth{background:var(--belt-g)}
-  .belt.k .cloth{background:var(--belt-k);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),inset 0 -2px 0 #000}
-  .belt.m .cloth{background:linear-gradient(90deg,var(--belt-k) 0 42%,var(--belt-m) 42% 58%,var(--belt-k) 58%)}
-  .belt .in{padding:16px 18px 0}
-  .belt .w{font-family:var(--mono);font-size:10.5px;letter-spacing:.24em;color:var(--sub)}
-  .belt h3{font-size:19px;font-weight:900;margin:6px 0 4px;letter-spacing:.02em}
-  .belt p{font-size:13px;color:var(--sub);line-height:1.75}
-  .belt .c{margin-top:10px;font-family:var(--mono);font-size:12px;color:var(--amber);letter-spacing:.08em}
-  .perks{margin-top:26px;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line)}
-  .perk{background:var(--panel);padding:20px 22px}
-  .perk .w{font-family:var(--mono);font-size:10.5px;letter-spacing:.24em;color:var(--amber)}
-  .perk h3{font-size:18px;font-weight:900;margin:6px 0 6px}
-  .perk p{font-size:14px;color:var(--sub);line-height:1.8}
-  .perk p b{color:var(--ink);font-weight:700}
+  .belts{margin-top:34px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .belt{background:var(--card);border:1px solid var(--border);border-radius:6px;overflow:hidden}
+  .belt .cloth{height:18px;box-shadow:inset 0 1px 0 rgba(255,255,255,.14),inset 0 -2px 0 rgba(0,0,0,.4)}
+  .belt.w .cloth{background:#E9E4D8}.belt.g .cloth{background:#3F8F5A}.belt.k .cloth{background:#111317;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),inset 0 -2px 0 #000}
+  .belt.m .cloth{background:linear-gradient(90deg,#111317 0 40%,#D8B25A 40% 60%,#111317 60%)}
+  .belt .in{padding:18px 20px 20px}
+  .belt .t{font-family:var(--mono);font-size:11px;letter-spacing:.24em;color:var(--muted)}
+  .belt h3{font-family:var(--serif);font-size:24px;font-weight:500;margin-top:6px}
+  .belt p{font-size:13.5px;color:var(--muted);margin-top:4px;line-height:1.8}
+  .perks{margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .perk{background:var(--night-soft);border:1px solid var(--border);border-radius:6px;padding:22px 22px}
+  .perk .t{font-family:var(--mono);font-size:11px;letter-spacing:.24em;color:var(--ember)}
+  .perk h3{font-size:17px;font-weight:700;margin-top:8px}
+  .perk p{font-size:14px;color:var(--muted);line-height:1.85;margin-top:8px}
+  .perk p b{color:var(--text);font-weight:600}
 
-  /* 鎖の仕組み(三つの箱) */
-  .how{margin-top:28px;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
-  .how>div{background:var(--panel);padding:20px 22px 18px}
-  .how .no{font-family:var(--mono);font-size:12px;letter-spacing:.2em;color:var(--amber)}
-  .how h3{font-size:18px;font-weight:900;margin:6px 0 6px}
-  .how p{font-size:14px;color:var(--sub);line-height:1.8}
-  .how p b{color:var(--ink);font-weight:700}
+  /* 検証 */
+  .verify{margin-top:30px;background:var(--card);border:1px solid var(--border);border-radius:6px;padding:22px 22px}
+  .verify dl{display:grid;grid-template-columns:150px 1fr;gap:10px 18px;font-size:14px}
+  .verify dt{color:var(--muted)}
+  .verify dd{font-family:var(--mono);font-size:12.5px;color:var(--text);word-break:break-all}
+  .verify dd a{color:var(--text);border-bottom:1px dotted var(--border2)}
+  .verify p{margin-top:16px;font-size:13.5px;color:var(--muted);line-height:1.85}
 
-  /* 文書=何の会か(黒塗りの線を継ぐ) */
-  .doc{margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line)}
-  .doc>div{background:var(--panel);padding:20px 22px}
-  .doc .w{font-family:var(--mono);font-size:10.5px;letter-spacing:.24em;color:var(--sub)}
-  .doc h3{font-size:18px;font-weight:900;margin:6px 0 6px}
-  .doc p{font-size:14px;color:var(--sub);line-height:1.8}
-  .doc p b{color:var(--ink);font-weight:700}
-  .black{background:var(--ink);color:var(--ink);padding:0 4px;border-radius:1px}
+  .room{margin-top:30px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .room>div{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:22px}
+  .room .t{font-family:var(--mono);font-size:11px;letter-spacing:.24em;color:var(--muted)}
+  .room h3{font-size:17px;font-weight:700;margin-top:8px}
+  .room p{font-size:14px;color:var(--muted);line-height:1.85;margin-top:8px}
+  .room p b{color:var(--text);font-weight:600}
 
   .gate{text-align:center}
-  .gate h2{font-size:clamp(30px,6vw,64px)}
-  .gate .fine{margin:16px auto 0}
-  .lines{margin-top:26px;font-size:13px;color:var(--sub);line-height:1.9;max-width:52em}
-  .lines b{color:var(--ink);font-weight:700}
-  footer{padding:36px 0 44px;border-top:1px solid var(--line);font-size:12px;color:var(--dim);line-height:1.8}
+  .gate .lines{margin:26px auto 0;font-size:12.5px;color:var(--dim);line-height:1.9;max-width:56em}
+  footer{padding:36px 0 48px;border-top:1px solid var(--border);font-size:12px;color:var(--dim);line-height:1.9}
   footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-  footer b{color:var(--sub);font-weight:500}
+  footer b{color:var(--muted);font-weight:500}
 
-  @media (max-width:820px){.belts{grid-template-columns:1fr 1fr}.how{grid-template-columns:1fr}.perks,.doc{grid-template-columns:1fr}.gauge{grid-template-columns:1fr}.gauge .op{padding:10px 0;font-size:22px}}
-  @media (max-width:420px){.cd{width:9px;height:34px}.candles{gap:10px 6px}.cd i{width:9px;height:15px;top:-19px}.belts{grid-template-columns:1fr}.ledger .row{grid-template-columns:86px 1fr auto;gap:10px;padding:12px 14px}}
-  /* 蝋燭: 段の 10 人ごとに一本。月末に段が下がると、右端から消える(消えた蝋燭は芯だけ残す) */
-  .candles{margin-top:30px;display:flex;flex-wrap:wrap;gap:14px 10px;align-items:flex-end;min-height:64px;position:relative;padding-top:4px}
-  .cd{width:14px;height:44px;position:relative;background:linear-gradient(180deg,#f3ead6,#cfc4ad);border-radius:1px 1px 0 0;box-shadow:inset -3px 0 0 rgba(0,0,0,.14)}
-  .cd::before{content:"";position:absolute;left:50%;top:-6px;width:2px;height:7px;background:#2a2622;transform:translateX(-50%)}
-  .cd i{position:absolute;left:50%;top:-24px;width:12px;height:20px;transform:translateX(-50%);background:radial-gradient(ellipse at 50% 70%,#fff6d9 0,var(--amber) 35%,var(--ember) 70%,transparent 72%);border-radius:50% 50% 50% 50%/60% 60% 40% 40%;filter:blur(.3px);box-shadow:0 0 18px var(--amber-40),0 0 40px rgba(240,176,74,.18);animation:flick 1.3s ease-in-out infinite;transform-origin:50% 100%}
-  .cd:nth-child(3n) i{animation-duration:1.7s}.cd:nth-child(5n) i{animation-duration:1.1s;animation-delay:.3s}
-  .cd.out{background:linear-gradient(180deg,#3a3630,#2a2723);box-shadow:none}
-  .cd.out i{display:none}
-  .cd.out::after{content:"";position:absolute;left:50%;top:-14px;width:1px;height:12px;background:linear-gradient(180deg,transparent,#6b655c);transform:translateX(-50%)}
-  @keyframes flick{0%,100%{transform:translateX(-50%) scale(1,1)}30%{transform:translateX(-52%) scale(.92,1.08)}60%{transform:translateX(-48%) scale(1.05,.94)}}
-  @media (prefers-reduced-motion:reduce){.tape .live i,.cd i{animation:none}}
+  @media (max-width:820px){.cards{grid-template-columns:1fr}.belts{grid-template-columns:1fr 1fr}.perks,.room{grid-template-columns:1fr}.verify dl{grid-template-columns:1fr;gap:4px 0}.verify dt{margin-top:8px}.top nav{gap:16px;font-size:12px}}
+  @media (max-width:420px){.belts{grid-template-columns:1fr}.chron .row{grid-template-columns:92px 1fr auto;gap:10px;padding:12px 14px}}
 </style>
 
-<div class="tape"><div class="wrap">
-  <div class="brand"><b>本怖のお化け屋敷</b> / 2021 年から、本人が書く部屋</div>
-  <div class="live"><i></i>LIVE LEDGER</div>
+<div class="top"><div class="wrap">
+  <div class="brand">本怖 <em>Burn Chronicle</em></div>
+  <nav><a href="#how">仕組み</a><a href="#chron">年代記</a><a href="#belt">帯</a><a href="#verify">検証</a><a href="#room">本怖とは</a></nav>
 </div></div>
 
 <main>
-<div class="wrap hero">
-  <div class="lbl">HAUNTED <b>HOUSE</b> / 本怖のお化け屋敷</div>
-  <h1 class="title">居るだけで、<br><em>燃える。</em></h1>
-  <p class="lead">上場企業の社長が 2021 年から自分で書く部屋。中で何が起きているかは、入った人しか知りません。十一月から、<b>在籍の段の数だけ毎日 WWB が燃え</b>、<b>居続けた月の数が帯になる。</b>どちらも鎖に残り、書き換えられません。</p>
-  <a class="cta" href="https://note.com/gen_matsuda/membership">屋敷に入る <span class="p">¥2,980 / 月</span></a>
-  <p class="fine">燃える量と帯は記録です。会費の値打ちや、トークンの値段を約束する物ではありません。</p>
+<div class="hero"><canvas id="embers"></canvas><div class="wrap inner">
+  <div class="label hero-label">ONE POST BURNS ── 書き込み一つで</div>
+  <div class="count tabnum" id="perPost">4,020<span class="unit">WWB</span></div>
+  <p class="hero-sub">THANKS Map の感謝一件(<b id="unitNow">804</b> WWB)の <b>5 倍</b>。</p>
+  <h2 class="hero-h serif">書くほど、燃える。</h2>
+  <p class="hero-p">本当にあった怖い話 ── 上場企業の社長が 2021 年から毎日 自分で書く、会員制の部屋。<small>会員が掲示板に書き込むたび、その数に応じて WWB が Optimism チェーン上でバーンされます。</small></p>
+  <div class="pill" id="pill">実データ ── 点火前。最初のバーンが入った日から、この頁の数字は Optimism の記録だけを読みます。</div>
+  <div><a class="cta" href="https://note.com/gen_matsuda/membership">本怖に入る <span class="p">¥2,980 / MONTH</span></a></div>
+</div></div>
 
-  <div class="lbl" style="margin-top:30px;letter-spacing:.18em">CANDLES / 10 人に一本・月末に抜ければ右から消える</div>
-  <div class="candles" id="candles"></div>
-
-  <div class="gauge" id="gauge">
-    <div><span class="state" id="tierState">—</span><div class="k">在籍の段(10 人ごと)</div><div class="v num" id="tier">—<small>人の段</small></div><div class="n">素の人数は出しません。段だけが鎖に載ります。</div></div>
-    <div class="op">×</div>
-    <div class="fire"><span class="state" id="fireState">点火前</span><div class="k">今日の火</div><div class="v num" id="today">—<small>WWB</small></div><div class="n" id="todayNote">一人一日の枚数(N)が決まった日から、毎日 燃えます。</div></div>
+<section id="how"><div class="wrap">
+  <div class="label">HOW IT BURNS</div>
+  <h2>書き込みが、<em>そのまま燃料になる。</em></h2>
+  <p class="lead">燃える量は、会員の書き込みの数で決まります。社長と運営の投稿は数えません。<b>読むだけなら燃えない。書けば燃える。</b>人数は出しません。出るのは、燃えた量と、その証拠(tx)だけです。</p>
+  <div class="cards">
+    <div class="card"><div class="no">01</div><h3>会員が掲示板に書く</h3><p>投稿でも返信でも一つは一つ。社長と運営の分は除きます。</p><div class="f">E = その日の会員の書き込みの数</div></div>
+    <div class="card"><div class="no">02</div><h3>翌日、まとめてバーン</h3><p>THANKS Map の感謝 一件の火(いま約 804 WWB)の <b>5 倍</b>を、書き込み一つにつき燃やします。Optimism 上の BurnRouterV2 を通り、総供給から本当に消えます。</p><div class="f">burn = E × 804 × 5</div></div>
+    <div class="card"><div class="no">03</div><h3>年代記に一行ずつ残る</h3><p>燃えた量と tx が、下の年代記に一日一行ずつ並びます。<b>月末に抜ける人が多ければ、翌月の火は小さくなる。</b>その跡も消えません。</p><div class="f">reason = honkowa.post</div></div>
   </div>
-</div>
+</div></section>
 
-<section id="fire"><div class="wrap">
-  <div class="lbl">01 <b>THE HALL</b> / 廊下の蝋燭=月末に抜ければ、火は減る</div>
-  <h2>減った跡も、戻った跡も、<em>鎖に残る。</em></h2>
-  <p class="sub-lead">燃える量は「在籍の段 × 一人一日の枚数」です。月末に抜ける人が多ければ段が下がり、その日の火は小さくなる。月初に戻れば、また大きくなる。<b>本怖の出入りが、そのまま火の大きさになって、誰でも読める帳面に残ります。</b></p>
-  <div class="ledger" id="ledger"><div class="empty"><b>まだ点火していません。</b>一人一日の枚数(N)と元手が決まった日に、最初の火が入ります。火が入った日から、ここに一日一行、燃えた量と取引の印が並びます。</div></div>
-  <p class="fine">燃やすのは、抜ける人への罰ではありません。居る人の数を、消えない形で祝う記録です。燃えた WWB は誰の収益にもなりません。</p>
+<section id="chron"><div class="wrap">
+  <div class="label">CHRONICLE ── 年代記</div>
+  <h2>燃えた日は、<em>全部ここに。</em></h2>
+  <div class="stat"><span><b class="tabnum" id="total">0</b>WWB これまでに燃えた</span><span><b class="tabnum" id="days">0</b>日 燃えた日</span></div>
+  <div class="chron" id="chron"><div class="empty"><b>点火前です。</b>最初のバーンが Optimism に記録された日から、ここに一日一行ずつ並びます。日付・燃えた量・tx。書き換えは、誰にもできません。</div></div>
 </div></section>
 
 <section id="belt"><div class="wrap">
-  <div class="lbl">02 <b>THE BELT</b> / この屋敷に居続けた月の数が、帯になる</div>
-  <h2>帯は、金で<em>買えない。</em></h2>
-  <p class="sub-lead">月末を越えて居た月の数を、本人の番号に刻みます(名前は刻みません)。六か月で白帯、一年で緑帯、三年で黒帯。最初の月から居る方は、免許皆伝。帯は譲れず、売れず、買えません。<b>途中で抜けると、数は 0 に戻ります。</b>戻っても、何も失いません。得る物が、また一から積み上がるだけです。</p>
+  <div class="label">BELT SBT ── 続けた月の数</div>
+  <h2>帯は、<em>買えない。</em></h2>
+  <p class="lead">月末を越えて会員で居た月の数で、Optimism 上の SBT(譲渡できないトークン)が本人の財布に入ります。六か月で白帯、一年で緑帯、三年で黒帯。2021 年 7 月の最初の月から居る方は、免許皆伝。<b>途中で抜けると、数は 0 からやり直し。</b>帯に値段は付きません。売れません。</p>
   <div class="belts">
-    <div class="belt w"><div class="cloth"></div><div class="in"><div class="w">6 MONTHS</div><h3>白帯</h3><p>六か月、月末を越えて居た方。</p><div class="c">本怖 六か月 白帯 SBT</div></div></div>
-    <div class="belt g"><div class="cloth"></div><div class="in"><div class="w">1 YEAR</div><h3>緑帯</h3><p>一年、居続けた方。</p><div class="c">本怖 一年 緑帯 SBT</div></div></div>
-    <div class="belt k"><div class="cloth"></div><div class="in"><div class="w">3 YEARS</div><h3>黒帯</h3><p>三年、居続けた方。</p><div class="c">本怖 黒帯 SBT</div></div></div>
-    <div class="belt m"><div class="cloth"></div><div class="in"><div class="w">SINCE 2021.07</div><h3>免許皆伝</h3><p>最初の月から、ずっと居る方。</p><div class="c">本怖 免許皆伝 SBT</div></div></div>
+    <div class="belt w"><div class="cloth"></div><div class="in"><div class="t">6 MONTHS</div><h3>白帯</h3><p>六か月、続けた方。</p></div></div>
+    <div class="belt g"><div class="cloth"></div><div class="in"><div class="t">1 YEAR</div><h3>緑帯</h3><p>一年、続けた方。</p></div></div>
+    <div class="belt k"><div class="cloth"></div><div class="in"><div class="t">3 YEARS</div><h3>黒帯</h3><p>三年、続けた方。</p></div></div>
+    <div class="belt m"><div class="cloth"></div><div class="in"><div class="t">SINCE 2021.07</div><h3>免許皆伝</h3><p>最初の月から、ずっと。</p></div></div>
   </div>
   <div class="perks">
-    <div class="perk"><div class="w">INVITATION</div><h3>年に一、二度、松田元が個別に食事に誘います。</h3><p>帯を持つ方へ。<b>全部、松田元のご馳走です。</b>場所はおそらく都内。日程は、会員の方の都合に合わせて一人ずつ決めます。合う合わないは、人によって変わります。</p></div>
-    <div class="perk"><div class="w">UPPER BELTS</div><h3>上の帯には、別の物を個別に。</h3><p>黒帯と免許皆伝の方には、食事とは別の物を個別に用意します。中身は<b>本怖の Discord で、本人が説明します</b>(Discord は準備中・十一月)。</p></div>
+    <div class="perk"><div class="t">INVITATION</div><h3>年に一、二度、松田元が個別に食事へ誘います。</h3><p>帯を持つ方へ。<b>全部、松田元のご馳走。</b>場所はおそらく都内。日程は一人ずつ相談します。合う合わないは、人によって変わります。</p></div>
+    <div class="perk"><div class="t">UPPER BELTS</div><h3>黒帯と免許皆伝には、別の物を個別に。</h3><p>中身は<b>本怖の Discord で本人が説明します</b>(Discord は準備中・十一月)。</p></div>
   </div>
-  <p class="fine">帯の配り始めは十一月の予定です(準備中)。帯は本人が自分の財布で受け取ります。運営が勝手に送り付けることはありません。</p>
+  <p class="hero-p" style="margin-top:16px"><small>帯の配り始めは十一月の予定です(準備中)。受け取りは本人が自分の財布で署名して行います。運営から勝手に送り付けることはありません。ガス代は数円です。</small></p>
 </div></section>
 
-<section id="how"><div class="wrap">
-  <div class="lbl">03 <b>THE LEDGER</b> / どうやって記録するか</div>
-  <h2>名前は刻まない。<em>数と印だけ。</em></h2>
-  <div class="how">
-    <div><div class="no">01</div><h3>毎日、段を数える</h3><p>会員の名簿を機械が数え、<b>10 人ごとの段</b>に丸めます。素の人数は、どこにも書きません。</p></div>
-    <div><div class="no">02</div><h3>段 × N を燃やす</h3><p>その段の数に、一人一日の枚数を掛けた WWB を燃やします。<b>取引の印(tx)</b>がこの頁に並びます。燃えた物は戻りません。</p></div>
-    <div><div class="no">03</div><h3>月に一度、帯を封じる</h3><p>番号と連続の月の数から封(ハッシュ)を作り、全員分の根を鎖に打ちます。<b>本人は自分の番号で封を作り直せる</b>ので、嘘が混ざりません。</p></div>
+<section id="verify"><div class="wrap">
+  <div class="label">VERIFY ── 信じなくていい。確かめてください</div>
+  <h2>全部、<em>Optimism に残る。</em></h2>
+  <div class="verify">
+    <dl>
+      <dt>チェーン</dt><dd>Optimism Mainnet (chainId 10)</dd>
+      <dt>バーンの契約</dt><dd><a href="https://optimistic.etherscan.io/address/0x152327F9Fa1ccB7ecED95A2973830DC9E2206EC2" target="_blank" rel="noopener">0x152327F9Fa1ccB7ecED95A2973830DC9E2206EC2</a> (BurnRouterV2)</dd>
+      <dt>イベント</dt><dd>VoluntaryBurn(bytes32 reasonCode, uint256 amount, address from)</dd>
+      <dt>理由コード</dt><dd id="reason">honkowa.post ── keccak256 の値は点火の日に、ここに載せます</dd>
+      <dt>燃やす側の住所</dt><dd id="fromAddr">点火の日に、ここに載せます</dd>
+    </dl>
+    <p>Etherscan で上の契約を開き、イベントを理由コードで絞ると、本怖の分だけが並びます。この頁の数字は、その記録を読んでいるだけです。別の数は持っていません。</p>
   </div>
 </div></section>
 
-<section id="what"><div class="wrap">
-  <div class="lbl">04 <b>THE ROOM</b> / そもそも、何の屋敷か</div>
+<section id="room"><div class="wrap">
+  <div class="label">THE ROOM ── 本怖とは</div>
   <h2>社長に、<em>文句を言える。</em></h2>
-  <p class="sub-lead">毎朝、本人が書きます。相場の見立て、会社の外に出せる範囲の話、負けた取引も。会員が返信すれば、本人が返します。十月は本人の投稿が 152 本、返信が 277 本でした。</p>
-  <div class="doc">
-    <div><div class="w">INSIDE</div><h3>中で読める物</h3><p>本人の相場観と、その日の判断。<b>当たった話も、外れた話も</b>そのまま。株と暗号通貨の話が一番 多い部屋です。</p></div>
-    <div><div class="w">LINE</div><h3>中でも書かない物</h3><p>自社(abc)の<span class="black">未公開の事実</span>。値段の予言。「必ず上がる」。この三つは、中でも黒塗りのままです。それが、この部屋が長く続いている理由です。</p></div>
+  <p class="lead">毎朝、本人が書きます。相場の見立て、会社の外に出せる範囲の話、負けた取引も。会員が返信すれば、本人が返します。十月は本人の投稿が 152 本でした。</p>
+  <div class="room">
+    <div><div class="t">INSIDE</div><h3>中で読める物</h3><p>本人の相場観と、その日の判断。<b>当たった話も、外れた話も</b>そのまま。株と暗号資産の話が一番 多い部屋です。</p></div>
+    <div><div class="t">NEVER</div><h3>中でも書かない物</h3><p>自社(abc)の<b>未公開の事実</b>。値段の予言。「必ず上がる」。この三つは中でも書きません。それが、この部屋が 2021 年から続いている理由です。</p></div>
   </div>
 </div></section>
 
 <section class="gate"><div class="wrap">
-  <div class="lbl">05 <b>THE DOOR</b> / 入る</div>
-  <h2>入った日から、<em>数え始める。</em></h2>
-  <p class="fine">六か月で白帯。月末に抜けると 0 に戻ります。戻っても、何も失いません。</p>
-  <a class="cta" href="https://note.com/gen_matsuda/membership">屋敷に入る <span class="p">¥2,980 / 月</span></a>
-  <p class="lines"><b>線。</b>燃える量も帯も記録であって、会費の値打ち・利回り・トークンの値段を約束する物ではありません。帯に金銭の価値はなく、譲渡も売買もできません。食事の招待は帯を持つ方への個別の連絡で、日程と場所は一人ずつ相談します。本怖の中の話は、自社の未公開の事実に触れず、一人一人の売買の相談には答えません。</p>
+  <div class="label">JOIN</div>
+  <h2>入った月から、<em>数え始める。</em></h2>
+  <a class="cta" href="https://note.com/gen_matsuda/membership">本怖に入る <span class="p">¥2,980 / MONTH</span></a>
+  <p class="lines">バーンの量も帯も記録であって、会費の値打ち・利回り・WWB の値段を約束する物ではありません。帯(SBT)に金銭の価値はなく、譲渡も売買もできません。食事の招待は帯を持つ方への個別の連絡で、日程と場所は一人ずつ相談します。本怖の中の話は自社の未公開の事実に触れず、一人一人の売買の相談には答えません。</p>
 </div></section>
 </main>
 
@@ -231,29 +218,34 @@
 </div></footer>
 
 <script>
-  // 読むのは公開の写し data/honkowa-hi.json だけ。{day, tier, per, fires:[{day,tier,amount,tx}]}。無ければ点火前のまま。
+  // 火の粉(Burn Chronicle と同じ): 軽く・少なく・動きを減らす設定なら止める
   (function(){
-    var fmt=function(n){return Number(n).toLocaleString('ja-JP')};
+    var c=document.getElementById('embers'); if(!c) return;
+    var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var ctx=c.getContext('2d'), W,H,P=[];
+    function size(){W=c.width=c.offsetWidth;H=c.height=c.offsetHeight;}
+    size(); addEventListener('resize',size);
+    for(var i=0;i<(rm?0:46);i++)P.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.6+.4,v:Math.random()*.25+.08,a:Math.random()*Math.PI*2,o:Math.random()*.5+.2});
+    function tick(){ctx.clearRect(0,0,W,H);for(var i=0;i<P.length;i++){var p=P[i];p.y-=p.v;p.x+=Math.sin(p.a+=.01)*.15;if(p.y<-4){p.y=H+4;p.x=Math.random()*W;}ctx.globalAlpha=p.o;ctx.fillStyle='#E8A24C';ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();}if(!document.hidden)requestAnimationFrame(tick);}
+    if(P.length)requestAnimationFrame(tick);
+  })();
+  // 数字: data/honkowa-hi.json {unit, mult, reasonHash, from, fires:[{day,amount,tx}]}。無ければ点火前のまま
+  (function(){
+    var fmt=function(n){return Math.round(Number(n)).toLocaleString('ja-JP')};
     fetch('data/honkowa-hi.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){
       if(!j) return;
-      var tier=document.getElementById('tier'), st=document.getElementById('tierState');
-      if(typeof j.tier==='number'){tier.innerHTML=fmt(j.tier)+'<small>人の段</small>';st.textContent=(j.day||'').replace(/-/g,'.');st.classList.add('on');
-        var cs=document.getElementById('candles'), n=Math.round(j.tier/10), top=Math.max(n, Math.round((j.peakTier||j.tier)/10)); for(var k=0;k<top;k++){var c=document.createElement('span'); c.className='cd'+(k<n?'':' out'); c.innerHTML='<i></i>'; cs.appendChild(c);} }
-      var fires=(j.fires||[]).slice().sort(function(a,b){return a.day<b.day?1:-1});
-      var fs=document.getElementById('fireState'), today=document.getElementById('today'), note=document.getElementById('todayNote');
-      if(fires.length){
-        var last=fires[0]; fs.textContent='ON'; fs.classList.add('on'); today.innerHTML=fmt(last.amount)+'<small>WWB</small>'; note.textContent=last.day.replace(/-/g,'.')+' の火。段 '+fmt(last.tier)+' × '+fmt(j.per||0)+' 枚。';
-        var max=Math.max.apply(null,fires.map(function(f){return f.amount}))||1, led=document.getElementById('ledger'); led.innerHTML='';
-        fires.slice(0,31).forEach(function(f,i){
-          var prev=fires[i+1]; var dip=prev&&f.amount<prev.amount;
-          var row=document.createElement('div'); row.className='row'+(dip?' dip':'');
-          row.innerHTML='<div class="d">'+f.day.replace(/-/g,'.')+'</div><div class="bar"><i style="width:'+Math.max(2,Math.round(100*f.amount/max))+'%"></i></div><div class="a">'+(f.tx?'<a href="https://optimistic.etherscan.io/tx/'+f.tx+'" target="_blank" rel="noopener">':'')+fmt(f.amount)+'<small>WWB</small>'+(f.tx?'</a>':'')+'</div>';
-          led.appendChild(row);
-        });
-      }
+      if(j.unit){document.getElementById('unitNow').textContent=fmt(j.unit);document.getElementById('perPost').innerHTML=fmt(j.unit*(j.mult||5))+'<span class="unit">WWB</span>';}
+      if(j.reasonHash)document.getElementById('reason').textContent='honkowa.post ── '+j.reasonHash;
+      if(j.from)document.getElementById('fromAddr').innerHTML='<a href="https://optimistic.etherscan.io/address/'+j.from+'" target="_blank" rel="noopener">'+j.from+'</a>';
+      var f=(j.fires||[]).slice().sort(function(a,b){return a.day<b.day?1:-1}); if(!f.length) return;
+      var tot=f.reduce(function(s,x){return s+Number(x.amount||0)},0), max=Math.max.apply(null,f.map(function(x){return Number(x.amount||0)}))||1;
+      document.getElementById('total').textContent=fmt(tot); document.getElementById('days').textContent=f.length;
+      document.getElementById('pill').textContent='実データ ── この数字は Optimism チェーン上の記録です(下の「検証」から誰でも確かめられます)';
+      var el=document.getElementById('chron'); el.innerHTML='';
+      f.slice(0,60).forEach(function(x){var r=document.createElement('div');r.className='row';r.innerHTML='<div class="d">'+String(x.day).replace(/-/g,'.')+'</div><div class="bar"><i style="width:'+Math.max(2,Math.round(100*Number(x.amount)/max))+'%"></i></div><div class="a tabnum">'+(x.tx?'<a href="https://optimistic.etherscan.io/tx/'+x.tx+'" target="_blank" rel="noopener">':'')+fmt(x.amount)+'<small>WWB</small>'+(x.tx?'</a>':'')+'</div>';el.appendChild(r);});
     }).catch(function(){});
   })();
 </script>
-<!-- 計測(GA)は読み終わりの 8 秒後か、最初に触れた時に読む(最初の描画を止めない) -->
+<!-- 計測(GA)は読み終わりの 8 秒後か、最初に触れた時に読む -->
 <script>(function(){var d=0;function go(){if(d)return;d=1;var s=document.createElement("script");s.async=1;s.src="https://www.googletagmanager.com/gtag/js?id=G-V14PVPLDK9";document.head.appendChild(s)}addEventListener("load",function(){setTimeout(go,8000)});["scroll","pointerdown","keydown","touchstart"].forEach(function(e){addEventListener(e,go,{once:true,passive:true})})})()</script>
 </html>
