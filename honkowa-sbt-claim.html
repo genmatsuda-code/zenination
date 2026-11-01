@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="ja">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V14PVPLDK9"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-V14PVPLDK9');</script>
+<title>帯を受け取る ── 本怖 HonKowa</title>
+<meta name="description" content="本当にあった怖い話の会員の方へ。続けた月の数の帯(HonKowa・譲渡できない記録)を、自分の財布で署名して受け取る頁です。ガス代は本人持ち。">
+<meta name="robots" content="noindex">
+<!-- 2026-11-01 新設。受け取りの流れ=財布をつなぐ → 番号を入れて「受け取りの一行」(番号と住所を運営の公開鍵で封じた文字)を作る
+     → 会員限定の記事の受け取り口のコメントに貼る → 運営がコメントの書き手と番号の持ち主を照らし、続けた月の数から段を決めて引換券を出す
+     → この頁が番号と財布から引換券を取りに行き、本人が財布で署名して受け取る(ガスは本人の財布から)。
+     運営は送り付けない。帯は譲渡できない。会員の人数と名前はこの頁にも鎖にも出さない(載るのは番号と段)。
+     封と引換券の作りの正=Fable佐藤資料/tools/honkowa/voucher.js・契約=Fable佐藤資料/contracts/contracts/honkowa/HonKowaSBT.sol。 -->
+<style>
+  :root{
+    --night:#0B0C10; --night-soft:#14161C; --card:#191C23; --border:#262A33; --border2:#333846;
+    --text:#EDEAE2; --muted:#9A968B; --dim:#5F5C54; --ok:#8CC79A; --bad:#E8837F;
+    --ember:#E8A24C; --ember-deep:#C97B2D; --ember-40:rgba(232,162,76,.4); --ember-15:rgba(232,162,76,.15);
+    --serif:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif; --sans:"Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",sans-serif; --mono:ui-monospace,"JetBrains Mono",Menlo,Consolas,monospace;
+    --op:cubic-bezier(.4,0,.2,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{background:var(--night)}
+  body{background:var(--night);color:var(--text);font-family:var(--sans);line-height:1.9;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:var(--ember);text-decoration:none}
+  .wrap{max-width:720px;margin:0 auto;padding:0 16px}
+  .label{font-family:var(--mono);font-size:11px;letter-spacing:.3em;color:var(--muted);text-transform:uppercase}
+  .top{position:sticky;top:0;z-index:40;background:rgba(11,12,16,.9);backdrop-filter:blur(6px);border-bottom:1px solid var(--border)}
+  .top .wrap{display:flex;justify-content:space-between;align-items:center;height:52px;gap:12px}
+  .top .brand{font-family:var(--serif);font-size:15px;letter-spacing:.12em;white-space:nowrap}
+  .top .brand em{font-style:normal;color:var(--ember)}
+  .top a.back{font-size:12.5px;color:var(--muted);white-space:nowrap}
+
+  .hero{padding:56px 0 36px;text-align:center;background:radial-gradient(70% 90% at 50% 0%,rgba(232,162,76,.12),transparent 64%)}
+  h1{font-family:var(--serif);font-weight:500;font-size:clamp(28px,7vw,44px);line-height:1.3;letter-spacing:.02em;margin-top:18px}
+  h1 em{font-style:normal;color:var(--ember)}
+  .lead{margin:16px auto 0;font-size:15px;color:var(--muted);max-width:36em}
+  .lead b{color:var(--text);font-weight:600}
+  .netpill{display:inline-block;margin-top:22px;padding:8px 16px;border:1px solid var(--border2);border-radius:999px;font-size:12.5px;color:var(--muted)}
+  .netpill.test{border-color:var(--ember-40);color:var(--ember)}
+
+  .belts{margin-top:28px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;text-align:left}
+  .belt{background:var(--card);border:1px solid var(--border);border-radius:6px;overflow:hidden}
+  .belt .cloth{height:14px;box-shadow:inset 0 1px 0 rgba(255,255,255,.14),inset 0 -2px 0 rgba(0,0,0,.4)}
+  .belt.w .cloth{background:#E9E4D8}.belt.g .cloth{background:#3F8F5A}.belt.k .cloth{background:#111317;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),inset 0 -2px 0 #000}
+  .belt.m .cloth{background:linear-gradient(90deg,#111317 0 40%,#D8B25A 40% 60%,#111317 60%)}
+  .belt .in{padding:12px 14px 14px}
+  .belt .t{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--muted)}
+  .belt h3{font-family:var(--serif);font-size:19px;font-weight:500;margin-top:2px}
+  .belt p{font-size:12px;color:var(--muted);line-height:1.7;margin-top:2px}
+
+  section{padding:36px 0;border-top:1px solid var(--border)}
+  h2{font-family:var(--serif);font-weight:500;font-size:22px;letter-spacing:.04em;margin:8px 0 12px}
+  .step{display:grid;grid-template-columns:34px 1fr;gap:12px}
+  .step .no{width:28px;height:28px;border:1px solid var(--ember);color:var(--ember);font-family:var(--mono);font-size:13px;display:flex;align-items:center;justify-content:center;border-radius:2px;margin-top:6px}
+  .step p.d{font-size:14px;color:var(--muted)}
+  .step p.d b{color:var(--text);font-weight:600}
+  label{display:block;font-size:13px;color:var(--muted);letter-spacing:.06em;margin:14px 0 6px}
+  input{width:100%;background:var(--night-soft);border:1px solid var(--border2);color:var(--text);font-family:var(--mono);font-size:16px;padding:12px;border-radius:3px;outline:none;transition:border-color .15s var(--op)}
+  input:focus{border-color:var(--ember)}
+  .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;align-items:center}
+  button,.btn{appearance:none;border:1px solid var(--ember);background:var(--ember-15);color:var(--text);font-family:var(--sans);font-size:15px;letter-spacing:.06em;padding:11px 18px;min-height:44px;border-radius:3px;cursor:pointer;transition:background .12s var(--op),transform .08s var(--op);display:inline-flex;align-items:center}
+  button.primary{background:var(--ember);color:#1a1206;font-weight:700}
+  button:active{transform:translateY(1px)}
+  button[disabled]{opacity:.55;cursor:default}
+  .msg{margin-top:12px;font-size:14px;min-height:1.4em}
+  .msg.err{color:var(--bad)} .msg.ok{color:var(--ok)}
+  .wallet{font-family:var(--mono);font-size:13px;color:var(--text);word-break:break-all}
+  .line{font-family:var(--mono);font-size:14px;word-break:break-all;background:#000;border:1px solid var(--border);padding:12px;margin:10px 0;user-select:all}
+  .box{display:none;margin-top:14px;padding:16px;border:1px solid var(--border2);background:var(--card);border-radius:6px}
+  .box.on{display:block}
+  dl.kv{display:grid;grid-template-columns:96px 1fr;gap:6px 14px;font-size:14px}
+  dl.kv dt{color:var(--muted)} dl.kv dd{word-break:break-all}
+  .small{font-size:13px;color:var(--muted)}
+  .small b{color:var(--text);font-weight:600}
+  .notes p{font-size:13.5px;color:var(--muted);margin-top:8px}
+  .notes b{color:var(--text);font-weight:600}
+  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--card);border:1px solid var(--ember);color:var(--text);padding:10px 16px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .15s var(--op);max-width:calc(100% - 32px);border-radius:3px;z-index:50}
+  .toast.on{opacity:1}
+  footer{padding:30px 0 46px;border-top:1px solid var(--border);font-size:12px;color:var(--dim);line-height:1.9}
+  @media (max-width:560px){.belts{grid-template-columns:1fr 1fr}dl.kv{grid-template-columns:84px 1fr}}
+</style>
+<body>
+<div class="top"><div class="wrap">
+  <div class="brand">本怖 <em>HonKowa</em></div>
+  <a class="back" href="honkowa.html#belt">← 本怖 Burn Chronicle</a>
+</div></div>
+
+<header class="hero"><div class="wrap">
+  <div class="label">HONKOWA SBT ── 帯を受け取る</div>
+  <h1>帯は、<em>自分の財布</em>で受け取る。</h1>
+  <p class="lead">本当にあった怖い話を続けた月の数の帯です。Optimism の上の、<b>譲渡できない記録</b>(SBT)。運営から送り付けることはありません。<b>あなたが自分の財布で署名して受け取ります。ガス代(OP の ETH・数円ほど・その時の混み具合で変わります)は本人持ちです。</b></p>
+  <div class="netpill" id="netpill">確かめています…</div>
+  <div class="belts">
+    <div class="belt w"><div class="cloth"></div><div class="in"><div class="t">6 MONTHS</div><h3>白帯</h3><p>六か月、続けた方。</p></div></div>
+    <div class="belt g"><div class="cloth"></div><div class="in"><div class="t">1 YEAR</div><h3>緑帯</h3><p>一年、続けた方。</p></div></div>
+    <div class="belt k"><div class="cloth"></div><div class="in"><div class="t">3 YEARS</div><h3>黒帯</h3><p>三年、続けた方。</p></div></div>
+    <div class="belt m"><div class="cloth"></div><div class="in"><div class="t">SINCE 2021.07</div><h3>免許皆伝</h3><p>最初の月から居る方。</p></div></div>
+  </div>
+  <p class="small" style="margin-top:14px">一人に一つの帯が、続けるほど段で育ちます(配り直しません)。途中で抜けると、続けた月の数は 0 からやり直しです。帯は上がるだけで、下がりません。</p>
+  <p class="small" style="margin-top:8px">帯には段とは別に<b>節目の星</b>が付きます。本怖と善意立国で燃えた WWB の枚数が 10 万・50 万・100 万・300 万・1,000 万に届くたびに、星が一つ増える引換券が出ます。星も上がるだけで、下がりません。</p>
+</div></header>
+
+<main>
+<section id="s1"><div class="wrap step">
+  <div class="no">1</div>
+  <div>
+    <div class="label">WALLET</div>
+    <h2>財布をつなぐ</h2>
+    <p class="d">帯を受け取る財布を、この頁につなぎます。<b>MetaMask など、ブラウザに財布が入っている所</b>でこの頁を開いてください。</p>
+    <div class="msg" id="m1" role="status" aria-live="polite"></div>
+    <div class="row"><button id="connect" type="button" class="primary">財布をつなぐ</button><a class="btn" id="mmlink" href="#" style="display:none">MetaMask のアプリで開く</a></div>
+    <p class="small" style="margin-top:10px">つないだ財布: <span class="wallet" id="who">まだ</span></p>
+    <p class="small" style="margin-top:6px">WOWOO アプリの中での受け取りは準備中です(アプリの中のブラウザがこの頁の署名に応えるかを確かめてから、ここに道を書きます)。</p>
+  </div>
+</div></section>
+
+<section id="s2"><div class="wrap step">
+  <div class="no">2</div>
+  <div>
+    <div class="label">YOUR NUMBER</div>
+    <h2>番号を入れる</h2>
+    <p class="d">note のメンバーシップ「本当にあった怖い話」の<b>会員番号</b>を入れます。引換券がもう出ていれば、そのまま 3 へ進めます。</p>
+    <label for="num">会員番号(数字だけ)</label>
+    <input id="num" inputmode="numeric" autocomplete="off" maxlength="9" placeholder="例: 55">
+    <div class="msg" id="m2" role="status" aria-live="polite"></div>
+    <div class="row"><button id="find" type="button" class="primary">引換券を探す</button><button id="make" type="button">受け取りの一行を作る</button></div>
+    <div class="box" id="mine"><div class="small">この番号の帯(鎖の記録)</div><dl class="kv" style="margin-top:8px"><dt>段</dt><dd id="mBelt"></dd><dt>節目</dt><dd id="mStars"></dd><dt>確かめた月</dt><dd id="mMonth"></dd><dt>財布</dt><dd id="mHolder"></dd></dl></div>
+    <div class="box" id="req">
+      <div class="small">まだ引換券が出ていない方へ。この一行を写して、<b>会員限定の記事の受け取り口のコメント</b>に、そのまま貼ってください。</div>
+      <div class="line" id="line"></div>
+      <div class="row"><button id="copy" type="button">写す</button><a class="small" id="article" href="#" style="display:none">受け取り口の記事を開く →</a><span class="small" id="articleSoon">受け取り口の記事は準備中です。</span></div>
+      <p class="small" style="margin-top:10px">一行の中には、番号と財布の住所が<b>運営の公開鍵で封をされて</b>入っています。他の会員の方には番号も住所も見えません。開けられるのは運営だけです。運営は、コメントを書いた方とその番号の持ち主が同じかを確かめ、続けた月の数から段を決めて、この財布宛ての引換券を出します。出たら、この頁の「引換券を探す」で見つかります。</p>
+    </div>
+  </div>
+</div></section>
+
+<section id="s3"><div class="wrap step">
+  <div class="no">3</div>
+  <div>
+    <div class="label">CLAIM</div>
+    <h2>財布で署名して受け取る</h2>
+    <p class="d">引換券は、<b>あなたの財布宛て</b>に運営が署名した物です。他の財布では使えません。期限は発行から 30 日です。</p>
+    <div class="box" id="vbox"><dl class="kv" id="vinfo"></dl></div>
+    <div class="msg" id="m3" role="status" aria-live="polite"></div>
+    <div class="row"><button id="claim" type="button" class="primary" disabled>引換券が見つかると押せます</button></div>
+  </div>
+</div></section>
+
+<section class="notes"><div class="wrap">
+  <div class="label">NOTE</div>
+  <h2>先に知っておくこと</h2>
+  <p>・帯に値段は付きません。譲渡も売買もできません。帯は記録であって、会費の値打ちや WWB の値段を約束する物ではありません。</p>
+  <p>・鎖に載るのは、<b>会員番号と段と節目の星と、確かめた月だけ</b>です。名前は載りません。受け取った後、その番号の帯がどの財布に在るかは、誰でも鎖の上で見られます。<b>帯のためだけの新しい財布で受け取ると、他の取引と結びつきません。</b></p>
+  <p>・ガス代は本人持ちです。財布に OP の ETH が少し要ります(帯そのものは無料で、運営に払うお金はありません)。</p>
+  <p>・財布をなくした時は、本人を確かめた上で、運営がその番号の帯を新しい財布へ付け替えます(段はそのまま)。</p>
+  <p>・この頁は、入れた番号と住所をどこにも送りません。一行の封と引換券の照らし合わせは、あなたの端末の中だけで行います。</p>
+</div></section>
+</main>
+
+<footer><div class="wrap">本当にあった怖い話 ── 続けた月の数の帯(HonKowa)<br><a href="honkowa.html">本怖 Burn Chronicle に戻る</a></div></footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.4/ethers.umd.min.js" integrity="sha384-6Zl0Pc8zjSz8KvmNeXRvUQgY4ryFb+BwDvKCmLYcBME0joAaru491tQgi9B7zsMM" crossorigin="anonymous"></script>
+<script>
+(function () {
+  'use strict';
+  // 鎖ごとの契約の住所。鎖に出した日にここへ書く(空=まだ出ていない=準備中と言う)
+  var NETS = {
+    10:       { name: 'OP Mainnet', rpc: 'https://mainnet.optimism.io', exp: 'https://optimistic.etherscan.io', addr: '' },
+    11155420: { name: 'OP Sepolia(試しの鎖)', rpc: 'https://sepolia.optimism.io', exp: 'https://sepolia-optimism.etherscan.io', addr: '0x63a8e3f45C1631C35358ae9C127EB6CF89823FbA' }
+  };
+  // 受け取り口の記事(会員限定)。記事を出した日に書く。空の間はリンクを出さず「準備中」と言う
+  var ARTICLE_URL = '';
+  // 運営の公開鍵(P-256・非圧縮 65 バイトの base64url)。開ける秘密鍵は運営の発行の便の中だけ。info で国民の証の封と分ける
+  var SEAL_PUB = 'BIlBRaynV-7MYczuo6Sn7fz4tpjcXaB93TmSdS3oJghiPV2MXVtdYYaSSDQ7f17OoFZUDHGxxblYC54Dgu0PNgM';
+  var SEAL_INFO = 'honkowa-sbt-v1';
+  var BELT = { 1: '白帯', 2: '緑帯', 3: '黒帯', 4: '免許皆伝' };
+  var ABI = [
+    'function claim(uint32 membershipNumber, uint8 belt, uint8 stars, uint32 month, uint256 issuedAt, uint256 deadline, bytes signature) returns (uint256)',
+    'function numberOf(address) view returns (uint256)',
+    'function ownerOf(uint256) view returns (address)',
+    'function recordOf(uint256) view returns (tuple(uint8 level, uint8 stars, uint32 month, uint32 epoch))',
+    'error NotIssuerSignature()', 'error Expired()', 'error TooLong()', 'error BadIssuedAt()', 'error BadNumber()', 'error BadLevel()', 'error BadMonth()',
+    'error NotHigher(uint8 current)', 'error BadStars()', 'error StarsWentDown(uint8 current)', 'error MonthWentBack(uint32 current)', 'error NotHolder()', 'error AlreadyHasToken()', 'error VoucherUsed()', 'error NoToken()'
+  ];
+  var REASON = {
+    NotIssuerSignature: '引換券の署名が合いません(別の財布宛てか、運営が引換券を出し直しています)。受け取り口でもう一度お知らせください。',
+    Expired: '引換券の期限(発行から 30 日)が過ぎています。受け取り口でもう一度お知らせください。',
+    TooLong: '引換券の期限が長すぎます。運営に知らせてください。',
+    BadIssuedAt: '引換券の時刻が合いません。数分おいて、もう一度押してください。',
+    BadNumber: '番号が読めません。運営に知らせてください。', BadLevel: '段が読めません。運営に知らせてください。', BadMonth: '月が合いません。運営に知らせてください。',
+    NotHigher: 'この帯はもう同じ段・同じ節目か、それより上です。',
+    BadStars: '節目の数が読めません。運営に知らせてください。',
+    StarsWentDown: 'この引換券の節目は、いまの帯の節目より少ない物です。新しい引換券を待ってください。',
+    MonthWentBack: 'この引換券は、いまの帯より前の月の物です。新しい引換券を待ってください。',
+    NotHolder: 'この番号の帯は、別の財布に在ります。財布を替えたい時は運営に知らせてください(付け替えます)。',
+    AlreadyHasToken: 'この財布は、もう別の番号の帯を持っています(一つの財布に一つ)。別の財布で受け取ってください。',
+    VoucherUsed: 'この引換券はもう使われています。帯はもう届いているかもしれません。2 で番号を入れて確かめてください。'
+  };
+  var E = window.ethers;
+  var $ = function (id) { return document.getElementById(id); };
+  var q = new URLSearchParams(location.search);
+  var hq = new URLSearchParams(location.hash.replace(/^#/, ''));
+  var tt;
+  function toast(t) { var el = $('toast'); el.textContent = t; el.className = 'toast on'; clearTimeout(tt); tt = setTimeout(function () { el.className = 'toast'; }, 3200); }
+  // 結果は三重に: ボタンの上の一行・トースト・その行が見える所まで送る
+  function say(el, t, kind) { el.textContent = t; el.className = 'msg' + (kind ? ' ' + kind : ''); if (t) { toast(t); el.scrollIntoView({ block: 'center', behavior: 'smooth' }); } }
+  function short(a) { return a.slice(0, 6) + '…' + a.slice(-4); }
+  function starTxt(n) { n = Number(n || 0); return n ? '★'.repeat(n) + '(節目 ' + n + ')' : 'まだ'; }
+  function ym(m) { m = Number(m); return Math.floor(m / 100) + '年' + (m % 100) + '月'; }
+  var b64u = function (u8) { var s = ''; for (var i = 0; i < u8.length; i++) s += String.fromCharCode(u8[i]); return btoa(s).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); };
+  var unb64u = function (t) { var s = atob(String(t).replace(/-/g, '+').replace(/_/g, '/')); var u = new Uint8Array(s.length); for (var i = 0; i < s.length; i++) u[i] = s.charCodeAt(i); return u; };
+
+  // ── どの鎖か: 引換券の鎖 > ?chain= > 本番。契約の住所はこの頁に書いた物だけを使う ──
+  var linkVoucher = null;
+  if (hq.get('v')) { try { linkVoucher = JSON.parse(new TextDecoder().decode(unb64u(hq.get('v')))); } catch (e) { linkVoucher = null; } }
+  var chainId = linkVoucher && NETS[linkVoucher.c] ? Number(linkVoucher.c) : Number(q.get('chain') || 10);
+  if (!NETS[chainId]) chainId = 10;
+  var net = NETS[chainId];
+  var reader = (net.addr && E) ? new E.Contract(net.addr, ABI, new E.JsonRpcProvider(net.rpc, chainId, { staticNetwork: true })) : null;
+  var pill = $('netpill');
+  if (!net.addr) { pill.textContent = '帯の受け取りは準備中です。鎖に出した日に、この頁でそのまま受け取れるようになります。'; }
+  else if (chainId !== 10) { pill.textContent = 'いまは ' + net.name + ' で動いています。本物の帯ではありません。'; pill.className = 'netpill test'; }
+  else { pill.textContent = net.name + ' ・ 帯の契約 ' + short(net.addr); }
+
+  if (ARTICLE_URL) { $('article').href = ARTICLE_URL; $('article').style.display = ''; $('articleSoon').style.display = 'none'; }
+  if (!window.ethereum) { var mm = $('mmlink'); mm.href = 'https://metamask.app.link/dapp/' + location.host + location.pathname + location.search; mm.style.display = ''; }
+
+  var account = null, voucher = null;
+
+  // ── 1. 財布をつなぐ ──
+  async function connect(quiet) {
+    var btn = $('connect'), m = $('m1');
+    if (!window.ethereum) { if (!quiet) say(m, 'この画面には財布が入っていません。MetaMask のアプリの中のブラウザで、この頁を開いてください(下のボタンで開けます)。', 'err'); return null; }
+    btn.disabled = true; btn.textContent = 'つないでいます…';
+    try {
+      var bp = new E.BrowserProvider(window.ethereum);
+      var accts = await bp.send(quiet ? 'eth_accounts' : 'eth_requestAccounts', []);
+      if (!accts || !accts.length) { if (!quiet) say(m, '財布が住所を渡しませんでした。財布の画面で「接続」を許してください。', 'err'); return null; }
+      account = E.getAddress(accts[0]);
+      $('who').textContent = account;
+      btn.textContent = 'つなぎました';
+      if (!quiet) say(m, '財布をつなぎました(' + short(account) + ')。2 で会員番号を入れてください。', 'ok');
+      return account;
+    } catch (e) {
+      if (!quiet) say(m, e && (e.code === 4001 || e.code === 'ACTION_REJECTED') ? '財布で取り消されました。もう一度押せばつなげます。' : '財布につなげませんでした: ' + String((e && (e.shortMessage || e.message)) || e).slice(0, 120), 'err');
+      return null;
+    } finally { if (!account) { btn.disabled = false; btn.textContent = '財布をつなぐ'; } }
+  }
+  $('connect').addEventListener('click', function () { connect(false); });
+  if (window.ethereum && window.ethereum.on) window.ethereum.on('accountsChanged', function (a) { account = a && a[0] ? E.getAddress(a[0]) : null; $('who').textContent = account || 'まだ'; resetVoucher(); });
+
+  function numVal() { var n = String($('num').value).normalize('NFKC').trim(); return /^[1-9][0-9]{0,8}$/.test(n) ? Number(n) : null; }
+  async function voucherId(n, to) {
+    var d = await crypto.subtle.digest('SHA-256', new TextEncoder().encode('honkowa-v1|' + n + '|' + to.toLowerCase()));
+    return Array.from(new Uint8Array(d)).map(function (b) { return b.toString(16).padStart(2, '0'); }).join('');
+  }
+  async function showMine(n) {
+    var box = $('mine'); box.className = 'box';
+    if (!reader) return;
+    try {
+      var holder = await reader.ownerOf(n); var r = await reader.recordOf(n);
+      $('mBelt').textContent = BELT[Number(r.level)] || '—';
+      $('mStars').textContent = starTxt(r.stars);
+      $('mMonth').textContent = ym(r.month);
+      $('mHolder').textContent = account && holder === account ? 'つないだ財布(' + short(holder) + ')' : '別の財布(' + short(holder) + ')';
+      box.className = 'box on';
+    } catch (_) { /* まだ無い */ }
+  }
+  function resetVoucher() { voucher = null; $('vbox').className = 'box'; $('vinfo').innerHTML = ''; var c = $('claim'); c.disabled = true; c.textContent = '引換券が見つかると押せます'; }
+  function setVoucher(p) {
+    voucher = p;
+    var m = p.m, info = $('vinfo'); info.innerHTML = '';
+    [['帯', BELT[Number(m.level)] || '—'], ['節目', starTxt(m.stars)], ['番号', '#' + m.membershipNumber], ['確かめた月', ym(m.month)], ['宛先の財布', m.to], ['期限', new Date(Number(m.deadline) * 1000).toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' }) + ' まで'], ['鎖', net.name]]
+      .forEach(function (r) { var dt = document.createElement('dt'); dt.textContent = r[0]; var dd = document.createElement('dd'); dd.textContent = r[1]; info.appendChild(dt); info.appendChild(dd); });
+    $('vbox').className = 'box on';
+    var c = $('claim'); c.disabled = false; c.textContent = '財布で署名して受け取る(ガスは本人持ち)';
+  }
+  function voucherProblem(p, n) {
+    if (!p || !p.m || !p.s || !E.isAddress(p.a)) return '引換券の形が読めません。運営に知らせてください。';
+    if (!net.addr || Number(p.c) !== chainId) return '帯の受け取りは準備中です。鎖に出した日に、この引換券で受け取れるようになります。';
+    if (E.getAddress(p.a) !== E.getAddress(net.addr)) return 'この引換券は、本物の帯の契約宛てではありません。使わずに運営に知らせてください。';
+    if (n && Number(p.m.membershipNumber) !== n) return 'この引換券は、入れた番号の物ではありません。';
+    if (Date.now() / 1000 > Number(p.m.deadline)) return REASON.Expired;
+    return null;
+  }
+
+  // ── 2. 引換券を探す ──
+  $('find').addEventListener('click', async function () {
+    var btn = $('find'), m = $('m2');
+    btn.disabled = true; btn.textContent = '探しています…'; resetVoucher();
+    try {
+      var n = numVal();
+      if (!n) { say(m, '会員番号は 1 以上の数字だけで入れてください。', 'err'); return; }
+      if (!account && !(await connect(true))) { say(m, '先に 1 で財布をつないでください。引換券は財布ごとに出ます。', 'err'); return; }
+      showMine(n);
+      var id = await voucherId(n, account);
+      var r = await fetch('honkowa-sbt/v/' + id + '.json', { cache: 'no-store' });
+      if (r.status === 404) { say(m, 'この番号とこの財布の引換券は、まだ出ていません。「受け取りの一行を作る」を押して、受け取り口に貼ってください。', ''); return; }
+      if (!r.ok) { say(m, '引換券を読みに行けませんでした(' + r.status + ')。少しおいて、もう一度押してください。', 'err'); return; }
+      var p = await r.json();
+      var prob = voucherProblem(p, n);
+      if (prob) { say(m, prob, 'err'); return; }
+      if (E.getAddress(p.m.to) !== account) { say(m, 'この引換券は別の財布宛てです。', 'err'); return; }
+      setVoucher(p);
+      say(m, '引換券が見つかりました(' + (BELT[Number(p.m.level)] || '') + ')。3 で受け取れます。', 'ok');
+    } catch (e) {
+      say(m, '探せませんでした: ' + String((e && (e.shortMessage || e.message)) || e).slice(0, 120), 'err');
+    } finally { btn.disabled = false; btn.textContent = '引換券を探す'; }
+  });
+
+  // ── 2'. 受け取りの一行(封) ──
+  async function seal(n, address) {
+    var subtle = window.crypto.subtle;
+    var pub = await subtle.importKey('raw', unb64u(SEAL_PUB), { name: 'ECDH', namedCurve: 'P-256' }, false, []);
+    var eph = await subtle.generateKey({ name: 'ECDH', namedCurve: 'P-256' }, true, ['deriveBits']);
+    var bits = await subtle.deriveBits({ name: 'ECDH', public: pub }, eph.privateKey, 256);
+    var hk = await subtle.importKey('raw', bits, 'HKDF', false, ['deriveKey']);
+    var key = await subtle.deriveKey({ name: 'HKDF', hash: 'SHA-256', salt: new Uint8Array(0), info: new TextEncoder().encode(SEAL_INFO) }, hk, { name: 'AES-GCM', length: 256 }, false, ['encrypt']);
+    var iv = window.crypto.getRandomValues(new Uint8Array(12));
+    var ct = new Uint8Array(await subtle.encrypt({ name: 'AES-GCM', iv: iv }, key, new TextEncoder().encode('honkowa|' + n + '|' + address)));
+    var ephRaw = new Uint8Array(await subtle.exportKey('raw', eph.publicKey));
+    var all = new Uint8Array(ephRaw.length + iv.length + ct.length);
+    all.set(ephRaw, 0); all.set(iv, ephRaw.length); all.set(ct, ephRaw.length + iv.length);
+    return b64u(all);
+  }
+  $('make').addEventListener('click', async function () {
+    var btn = $('make'), m = $('m2');
+    btn.disabled = true; btn.textContent = '作っています…';
+    try {
+      var n = numVal();
+      if (!n) { say(m, '会員番号は 1 以上の数字だけで入れてください。', 'err'); return; }
+      if (!account && !(await connect(true))) { say(m, '先に 1 で財布をつないでください。一行には、受け取る財布の住所が封をして入ります。', 'err'); return; }
+      if (!window.crypto || !window.crypto.subtle) { say(m, 'この画面では封が作れません。Safari か Chrome で開き直してください。', 'err'); return; }
+      $('line').textContent = '帯 ' + (await seal(n, account));
+      $('req').className = 'box on';
+      say(m, '一行が出来ました。写して、受け取り口のコメントに貼ってください(番号も住所も、他の方には見えません)。', 'ok');
+    } catch (e) {
+      say(m, '一行が作れませんでした。頁を読み込み直して、もう一度押してください。', 'err');
+    } finally { btn.disabled = false; btn.textContent = '受け取りの一行を作る'; }
+  });
+  $('copy').addEventListener('click', function () {
+    var b = $('copy'), t = $('line').textContent, m = $('m2');
+    b.textContent = '写しています…';
+    var done = function (ok) { b.textContent = ok ? '写しました' : '写す'; say(m, ok ? '写しました。受け取り口のコメントの欄に貼ってください。' : '自動で写せませんでした。一行を長押しして写してください。', ok ? 'ok' : 'err'); if (ok) setTimeout(function () { b.textContent = '写す'; }, 2400); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(function () { done(true); }, function () { done(false); }); else done(false);
+  });
+
+  // ── 3. 財布で署名して受け取る ──
+  function decodeErr(e) {
+    var data = e && (e.data || (e.info && e.info.error && e.info.error.data) || (e.error && e.error.data));
+    try { if (data) { var p = new E.Interface(ABI).parseError(data); if (p && REASON[p.name]) return REASON[p.name]; } } catch (_) {}
+    if (e && e.revert && REASON[e.revert.name]) return REASON[e.revert.name];
+    if (e && (e.code === 'ACTION_REJECTED' || e.code === 4001)) return '財布で取り消されました。もう一度押せば受け取れます。';
+    if (e && e.code === 'INSUFFICIENT_FUNDS') return 'この財布に OP の ETH が足りません。ガス代(数円ほど)を入れてから、もう一度押してください。';
+    return 'うまくいきませんでした: ' + String((e && (e.shortMessage || e.message)) || e).slice(0, 140);
+  }
+  $('claim').addEventListener('click', async function () {
+    var btn = $('claim'), m = $('m3');
+    if (!voucher) return;
+    btn.disabled = true; btn.textContent = '財布をつないでいます…'; say(m, '');
+    var done = false;
+    try {
+      var prob = voucherProblem(voucher, null); if (prob) { say(m, prob, 'err'); return; }
+      if (!window.ethereum) { say(m, 'この画面には財布が入っていません。MetaMask のアプリの中のブラウザで開いてください。', 'err'); return; }
+      var bp = new E.BrowserProvider(window.ethereum);
+      var accts = await bp.send('eth_requestAccounts', []);
+      if (!accts.length || E.getAddress(accts[0]) !== E.getAddress(voucher.m.to)) { say(m, 'つないだ財布(' + (accts[0] ? short(accts[0]) : 'なし') + ')は、引換券の宛先(' + short(voucher.m.to) + ')ではありません。宛先の財布に切り替えてください。', 'err'); return; }
+      if (Number((await bp.getNetwork()).chainId) !== chainId) {
+        btn.textContent = '鎖を切り替えています…';
+        try { await bp.send('wallet_switchEthereumChain', [{ chainId: '0x' + chainId.toString(16) }]); }
+        catch (e) { say(m, '財布の鎖を「' + net.name + '」に切り替えてから、もう一度押してください。', 'err'); return; }
+        bp = new E.BrowserProvider(window.ethereum);
+      }
+      if ((await bp.getBalance(voucher.m.to)) === 0n) { say(m, 'この財布に OP の ETH がありません。ガス代(数円ほど)が要ります。入れてから、もう一度押してください。', 'err'); return; }
+      var c = new E.Contract(net.addr, ABI, await bp.getSigner());
+      var v = voucher.m;
+      btn.textContent = '財布で承認してください…';
+      await c.claim.staticCall(v.membershipNumber, v.level, v.stars || 0, v.month, v.issuedAt, v.deadline, voucher.s);
+      var tx = await c.claim(v.membershipNumber, v.level, v.stars || 0, v.month, v.issuedAt, v.deadline, voucher.s);
+      btn.textContent = '鎖に載るのを待っています…';
+      say(m, '送りました。鎖に載るのを待っています(数十秒)。', '');
+      await tx.wait();
+      done = true;
+      btn.textContent = '受け取りました';
+      say(m, (BELT[Number(v.level)] || '帯') + 'を受け取りました。' + (net.exp ? '鎖の記録: ' + net.exp + '/tx/' + tx.hash : ''), 'ok');
+      showMine(Number(v.membershipNumber));
+    } catch (e) {
+      say(m, decodeErr(e), 'err');
+    } finally { if (!done) { btn.disabled = false; btn.textContent = '財布で署名して受け取る(ガスは本人持ち)'; } }
+  });
+
+  // リンクで引換券を渡された時(#v=…): 番号を入れ、宛先の財布につながっていれば 3 をすぐ押せる形に
+  if (linkVoucher) {
+    var prob = voucherProblem(linkVoucher, null);
+    if (prob) say($('m3'), prob, 'err');
+    else { $('num').value = String(linkVoucher.m.membershipNumber); setVoucher(linkVoucher); }
+  }
+  if (window.ethereum) connect(true);
+})();
+</script>
+</body>
+</html>
