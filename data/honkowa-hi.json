@@ -1,0 +1,1 @@
+{"day":"2026-11-01","tier":160,"peakTier":180,"per":0,"fires":[],"note":"段=本怖の在籍を 10 人ごとに切り捨て(meibo_count)。peakTier=10/31 の段。fires は点火後に一日一行(day,tier,amount,tx)。素の人数は書かない。"}

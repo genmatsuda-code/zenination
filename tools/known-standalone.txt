@@ -20,3 +20,4 @@ kyozai03_wowoo.html    # 教材3。同上
 kourin.html            # 降臨の間 第一夜(9/18)の告知の頁(過去)。thanksmap.jp/kourin.html からの 308 の行き先として直に開く。第一夜の記録は kourin-kiroku.html(遊び場から辿れる)
 shoumei.html           # 国民の証の受け取り頁。国民限定の記事(n41933fd4dc83)から直に開く=国民だけに渡す入口なので、公開の棚から辿れなくてよい(2026-10-31 NOTE席)
 kokumin-kyu-2026-10.html # 2026-11-01 に kokumin.html を金の鬼の中身へ替えた時の、前の国民の入り口の控え(消さずに残す・noindex)
+honkowa.html           # 本怖のお化け屋敷(本怖の火と帯の LP・2026-11-01)。note の本怖の案内と X から直に開く(善意立国の棚からは辿らない=公私と会の壁)
