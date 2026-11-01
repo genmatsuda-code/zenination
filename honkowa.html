@@ -12,7 +12,7 @@
 <meta name="theme-color" content="#000000">
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-V14PVPLDK9');</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Yuji+Boku&family=Zen+Kaku+Gothic+New:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Yuji+Boku&family=Zen+Kaku+Gothic+New:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <!-- 2026-11-01 v3 全面やり直し(⚖️松田さん「本怖の LP は論外」「フジテレビのほん怖のテイスト × サイバーパンク × ファイナンス、和洋折衷。一ミクロンも佐藤臭を出すな」)。
      型=テレビの怪談(黒・血の赤・走査線・ノイズ・筆の題・太いゴシック)に、相場のボード(等幅の数・板・ティッカー・格付け)を載せる。
      捨てた物: 明朝×琥珀×熾火(佐藤の手癖)。色は 黒+血の赤+データの青 の三つだけ。角丸ゼロ。
@@ -23,7 +23,7 @@
     --w:#f2f2f2; --w2:#bdbdbd; --w3:#7a7a7a;
     --blood:#c8102e; --blood2:#8f0b20; --blood-glow:rgba(200,16,46,.45);
     --data:#19d3ff; --data-dim:rgba(25,211,255,.35);
-    --brush:"Yuji Boku","Hiragino Mincho ProN",serif; --heavy:"Dela Gothic One","Zen Kaku Gothic New",sans-serif; --sans:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif; --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+    --brush:"Yuji Boku","Hiragino Mincho ProN",serif; --heavy:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif; --sans:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif; --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
     --op:cubic-bezier(.4,0,.2,1);
   }
   *{box-sizing:border-box;margin:0;padding:0}
@@ -76,7 +76,7 @@
   .ticket .big .n{font-family:var(--mono);font-weight:700;font-size:clamp(50px,9vw,96px);line-height:1;letter-spacing:-.03em;color:var(--w)}
   .ticket .big .u{font-family:var(--mono);font-size:13px;letter-spacing:.24em;color:var(--w3)}
   .ticket .big .up{font-family:var(--mono);font-size:14px;color:var(--data);letter-spacing:.1em}
-  .ticket .cap{font-family:var(--heavy);font-size:clamp(22px,3.6vw,38px);line-height:1.2;margin-top:12px;letter-spacing:.02em}
+  .ticket .cap{font-family:var(--heavy);font-weight:900;font-size:clamp(22px,3.6vw,38px);line-height:1.25;margin-top:12px;letter-spacing:.02em}
   .ticket .cap b{color:var(--blood);font-weight:400}
   .ticket .sub{font-size:13.5px;color:var(--w2);margin-top:10px;max-width:40em}
   .ticket .sub small{display:block;font-size:11.5px;color:var(--w3);margin-top:4px}
@@ -86,7 +86,7 @@
   .ticket dd{font-family:var(--mono);font-size:15px;color:var(--w);margin-top:3px;font-variant-numeric:tabular-nums}
   .ticket dd.red{color:var(--blood)} .ticket dd.cy{color:var(--data)}
   .ticket .cta-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:16px}
-  .cta{display:inline-flex;align-items:center;gap:14px;background:var(--blood);color:#fff;font-family:var(--heavy);font-size:15px;letter-spacing:.06em;padding:14px 20px;border:1px solid var(--blood);transition:background .15s var(--op),transform .1s var(--op)}
+  .cta{display:inline-flex;align-items:center;gap:14px;background:var(--blood);color:#fff;font-family:var(--heavy);font-weight:900;font-size:15px;letter-spacing:.06em;padding:14px 20px;border:1px solid var(--blood);transition:background .15s var(--op),transform .1s var(--op)}
   .cta:hover{background:var(--blood2);text-decoration:none} .cta:active{transform:translateY(1px)}
   .cta .p{font-family:var(--mono);font-size:11px;letter-spacing:.16em;border-left:1px solid rgba(255,255,255,.4);padding-left:12px}
   .pill{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--w3)}
@@ -112,7 +112,7 @@
   /* ── 節 ── */
   section{padding:clamp(40px,6vw,76px) 0;border-top:1px solid var(--line);position:relative}
   section::before{content:"";position:absolute;left:0;top:-1px;width:120px;height:3px;background:var(--blood)}
-  h2{font-family:var(--heavy);font-size:clamp(26px,4.6vw,48px);line-height:1.2;letter-spacing:.01em;margin-top:10px}
+  h2{font-family:var(--heavy);font-weight:900;font-size:clamp(26px,4.6vw,48px);line-height:1.25;letter-spacing:.01em;margin-top:10px}
   h2 b{color:var(--blood);font-weight:400}
   .lead{margin-top:16px;font-size:clamp(14.5px,1.8vw,16.5px);color:var(--w2);max-width:46em;line-height:1.95}
   .lead b{color:var(--w);font-weight:700}
