@@ -137,7 +137,7 @@
 
 <div class="top"><div class="wrap">
   <div class="brand">本怖 <em>Burn Chronicle</em></div>
-  <nav><a href="#how">仕組み</a><a href="#chron">年代記</a><a href="#belt">帯</a><a href="#verify">検証</a><a href="#room">本怖とは</a></nav>
+  <nav><a href="#how">仕組み</a><a href="#chron">年代記</a><a href="#belt">帯</a><a href="#sealed">言った証</a><a href="#verify">検証</a><a href="#room">本怖とは</a></nav>
 </div></div>
 
 <main>
@@ -200,6 +200,20 @@
       <dt>燃やす側の住所</dt><dd id="fromAddr">点火の日に、ここに載せます</dd>
     </dl>
     <p>Etherscan で上の契約を開き、イベントを理由コードで絞ると、本怖の分だけが並びます。この頁の数字は、その記録を読んでいるだけです。別の数は持っていません。</p>
+  </div>
+</div></section>
+
+<section id="sealed"><div class="wrap">
+  <div class="label">SEALED ── 言った証</div>
+  <h2>先に封をして、<em>後で開ける。</em></h2>
+  <p class="lead">本人が書いた物のハッシュを、その日のうちに公証して Optimism に残します。本文は送りません。後で本文を公開した時、誰でもハッシュを作り直して突き合わせられます。<b>後出しも書き換えも、できません。</b></p>
+  <div class="verify">
+    <dl>
+      <dt>第一弾</dt><dd>11月のコミットリスト(2026.11.01 本人の投稿)── 12 月に答え合わせ</dd>
+      <dt>docHash</dt><dd>sha256(題 + 改行 + 本文) = cf3375151dc10fa6928260084a2601665cff0f6fae8fe4f61266959d74266a79</dd>
+      <dt>公証の番号</dt><dd>nt_65d875e851073f8c53(2026-11-01)</dd>
+      <dt>確かめ方</dt><dd><a href="https://admin.wowoo-ecosystem.com/api/koku/verify?date=2026-11-01&proofHash=fb611b40a15f6c871d28ed3bc0759a9bcc4fc2213cd5045bc0ae0fa0ccb70b9e" target="_blank" rel="noopener">/api/koku/verify?date=2026-11-01&proofHash=fb611b40…b70b9e</a>(当日分がまとめて打刻された後に tx が出ます)</dd>
+    </dl>
   </div>
 </div></section>
 
