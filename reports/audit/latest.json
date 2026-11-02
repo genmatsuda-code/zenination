@@ -1,5 +1,5 @@
 {
-  "day": "2026-10-31",
+  "day": "2026-11-02",
   "base": "https://genmatsuda-code.github.io/zenination/",
   "site": {
     "sitemap": 200,
@@ -178,11 +178,9 @@
       "file": "kokumin.html",
       "url": "https://genmatsuda-code.github.io/zenination/kokumin.html",
       "status": 200,
-      "issues": [
-        "og:image が無い(X や LINE で貼った時の顔)"
-      ],
-      "title": "国民の入り口 ── 善意立国",
-      "descLen": 55
+      "issues": [],
+      "title": "善意で稼ぐ国家の創出 ── 善意立国",
+      "descLen": 111
     },
     {
       "file": "kourin-kiroku.html",
@@ -320,23 +318,49 @@
       ],
       "title": "持株の有言実行率 — 佐藤の道具",
       "descLen": 56
+    },
+    {
+      "file": "honkowa.html",
+      "url": "https://genmatsuda-code.github.io/zenination/honkowa.html",
+      "status": 200,
+      "issues": [],
+      "title": "本怖 Burn Chronicle ── 書くほど、燃える。",
+      "descLen": 102
+    },
+    {
+      "file": "sbt.html",
+      "url": "https://genmatsuda-code.github.io/zenination/sbt.html",
+      "status": 200,
+      "issues": [
+        "og:image が無い(X や LINE で貼った時の顔)"
+      ],
+      "title": "国民の証の図鑑 ── 善意立国",
+      "descLen": 67
+    },
+    {
+      "file": "honkowa-zukan.html",
+      "url": "https://genmatsuda-code.github.io/zenination/honkowa-zukan.html",
+      "status": 200,
+      "issues": [],
+      "title": "本怖 帯の板 ── 続けた月の数が、札になる。",
+      "descLen": 98
     }
   ],
   "lighthouse": {
     "index": {
-      "performance": 92,
+      "performance": 84,
       "accessibility": 94,
       "best-practices": 96,
       "seo": 100
     },
     "kokumin": {
-      "performance": 99,
-      "accessibility": 93,
+      "performance": 100,
+      "accessibility": 100,
       "best-practices": 96,
       "seo": 100
     },
     "oni": {
-      "performance": 96,
+      "performance": 100,
       "accessibility": 100,
       "best-practices": 96,
       "seo": 100
@@ -344,6 +368,6 @@
   },
   "total": 58,
   "worse": [
-    "index の performance 98→92"
+    "index の performance 92→84"
   ]
 }
