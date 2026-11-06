@@ -1,0 +1,37 @@
+# 本怖のサイトの数の紙を鎖から書く(2026-11-06)。鍵は要らない(公開の口だけ)。
+# ★ 一つも読めなければ紙を書き替えない。見える物が変わった時だけ commit する。
+name: honkowa-hi
+
+on:
+  schedule:
+    - cron: '23 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: honkowa-hi
+  cancel-in-progress: false
+
+jobs:
+  write:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - name: '試験'
+        run: node tools/honkowa-hi.js --self-test
+      - name: '鎖を読んで紙を書く'
+        run: node tools/honkowa-hi.js
+      - name: '紙だけを commit する'
+        run: |
+          if [ -z "$(git status --porcelain data/honkowa-hi.json)" ]; then echo '変わりなし'; exit 0; fi
+          git config user.name "sato-honkowa-hi"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/honkowa-hi.json
+          git commit -q -m "data: 本怖のサイトの数を鎖から書いた"
+          for i in 1 2 3; do git fetch -q origin main && git rebase -q origin/main && git push -q origin HEAD:main && exit 0; sleep 5; done
+          echo '::error::push できなかった(次の回に鎖から書き直す)'; exit 1
