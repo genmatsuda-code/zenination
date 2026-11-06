@@ -20,6 +20,8 @@ const T_VOLUNTARY = '0x36fc147909e2d39d2869658e709abb98a16dded50082d2b4980de891b
 const T_BURNED = '0xdbc2fc2d062a47c7856889e04b4f0b4f58867d3c24b759551ad5681669fc9ffa';
 const SEL = { windowBudget: '0xcd3bd815', baselineDemand: '0xa8831751', weightOf: '0x4c108d6d' };
 const MULT = 2;              // ⚖️2026-11-01 15:3x 重み 2
+const KEY = '';               // 燃やす鍵の住所(小文字)。recordVoluntaryBurn は誰でも呼べるので、この鍵の物だけ数える。空の間は一本も数えない
+const KEEP_BLOCKS = 300000;   // 見える物が変わらなくても、これだけ進んだら lastBlock を残す(約一週間)
 const FIRST_BLOCK = 159170000;   // 燃やし始めより前(2026-11-06)
 const STEP = 9000;           // 公開の口の eth_getLogs は 10,000 ブロックまで
 
@@ -28,14 +30,14 @@ const toWWB = (wei) => Number(wei / 10n ** 12n) / 1e6;    // 小数 6 桁まで
 const jstDay = (sec) => new Date((Number(sec) + 9 * 3600) * 1000).toISOString().slice(0, 10);
 
 /** 純粋な判断: 新しいログを紙に足す。logs は {topics,data,transactionHash,blockNumber(10 進)}、ts はブロック→秒。 */
-function applyLogs(prev, logs, ts, { unit, head }) {
+function applyLogs(prev, logs, ts, { unit, head, key = KEY }) {
   const fires = new Map((prev.fires || []).map((f) => [f.day, { ...f }]));
   let from = prev.from || '';
   const sorted = logs.slice().sort((a, b) => a.blockNumber - b.blockNumber);
   for (const l of sorted) {
     if (l.topics[1] !== REASON) continue;
     let amount;
-    if (l.topics[0] === T_VOLUNTARY) { amount = BigInt('0x' + l.data.slice(2, 66)); from = '0x' + l.topics[2].slice(26); }
+    if (l.topics[0] === T_VOLUNTARY) { if (!key || '0x' + l.topics[2].slice(26) !== key) continue; amount = BigInt('0x' + l.data.slice(2, 66)); from = key; }
     else if (l.topics[0] === T_BURNED) { amount = BigInt('0x' + l.data.slice(2 + 64 * 2, 2 + 64 * 3)); from = from || ROUTER; }
     else continue;
     const day = jstDay(ts[l.blockNumber]);
@@ -48,12 +50,13 @@ function applyLogs(prev, logs, ts, { unit, head }) {
     day: prev.day, unit, mult: MULT, reasonHash: REASON, from,
     fires: [...fires.values()].sort((a, b) => (a.day < b.day ? -1 : 1)),
     lastBlock: head,
-    note: 'unit=THANKS Map の感謝 一件の火(ブロックチェーンから読む)。mult=本怖は 2 倍。fires は燃えた日ごとに一行(day,amount,tx)。会員の人数は書かない。',
+    note: 'unit=THANKS Map の感謝一件で燃える量(ブロックチェーンから読む)。mult=本怖は 2 倍。fires は燃えた日ごとに一行(day,amount,tx)。会員の人数は書かない。',
   };
 }
 
 /** 見える物(単位・倍率・住所・火)が変わった時だけ書く=毎日 同じ紙で commit しない。lastBlock だけの差では書かない。 */
 function changed(prev, next) {
+  if (Number.isInteger(next.lastBlock) && next.lastBlock - (prev.lastBlock || 0) > KEEP_BLOCKS) return true;
   const face = (j) => JSON.stringify({ unit: j.unit, mult: j.mult, reasonHash: j.reasonHash, from: j.from, fires: j.fires });
   return face(prev) !== face(next);
 }
@@ -74,6 +77,7 @@ async function main() {
   const file = process.argv.includes('--file') ? process.argv[process.argv.indexOf('--file') + 1] : path.join(__dirname, '..', 'data', 'honkowa-hi.json');
   const prev = JSON.parse(fs.readFileSync(file, 'utf8'));
   const head = parseInt(await rpc('eth_blockNumber', []), 16);
+  if (!Number.isInteger(head) || head <= 0) throw new Error('ブロックの番号が読めない');
   const start = (Number.isInteger(prev.lastBlock) ? prev.lastBlock : FIRST_BLOCK - 1) + 1;
   const logs = [];
   for (let f = start; f <= head; f += STEP) {
@@ -86,7 +90,8 @@ async function main() {
   const B = BigInt(await call(SEL.windowBudget + '0'.repeat(64)));
   const base = BigInt(await call(SEL.baselineDemand));
   const w = BigInt(await call(SEL.weightOf + THANKS.slice(2)));
-  const unit = Number((B * w) / base / WEI);
+  // 一件×2 の表示が実際と合うよう 0.5 刻み(1,609.26 → unit 804.5 → 1,609)。細かく動いても毎回は書かない
+  const unit = Math.round((Number((B * w) / base / 10n ** 12n) / 1e6) * 2) / 2;
   if (!(unit > 0)) throw new Error('一件の火が読めない');
   const next = applyLogs(prev, logs, ts, { unit, head });
   console.log('見たブロック ' + start + '〜' + head + '・本怖の火 ' + logs.length + ' 本・一件 ' + unit + ' WWB');
@@ -106,11 +111,14 @@ function selfTest() {
   const day1 = Date.parse('2026-11-24T14:00:00Z') / 1000, day2 = Date.parse('2026-11-24T16:00:00Z') / 1000;   // JST 23 時と翌 1 時
   const ts = { 1: day1, 2: day1 + 60, 3: day2 };
   const base = { day: '2026-11-01', unit: 804, mult: 2, reasonHash: REASON, from: '', fires: [] };
-  const a = applyLogs(base, [vol(1609, 1, '0xa'), vol(1, 2, '0xb'), brn(100, 3, '0xc'), other], ts, { unit: 846, head: 9 });
-  const fresh = applyLogs(a, [], {}, { unit: 846, head: 10 });
-  const moved = applyLogs(a, [], {}, { unit: 900, head: 10 });
-  const cont = applyLogs(a, [vol(5, 3, '0xd')], ts, { unit: 846, head: 11 });
-  const big = applyLogs(base, [vol(1000000, 1, '0xe')], ts, { unit: 846, head: 11 });
+  const K = '0x' + 'ab'.repeat(20);
+  const a = applyLogs(base, [vol(1609, 1, '0xa'), vol(1, 2, '0xb'), brn(100, 3, '0xc'), other], ts, { unit: 846, head: 9, key: K });
+  const stranger = applyLogs(base, [{ ...vol(5, 1, '0xs'), topics: [T_VOLUNTARY, REASON, '0x' + '00'.repeat(12) + 'cd'.repeat(20)] }], ts, { unit: 846, head: 9, key: K });
+  const nokey = applyLogs(base, [vol(5, 1, '0xs')], ts, { unit: 846, head: 9, key: '' });
+  const fresh = applyLogs(a, [], {}, { unit: 846, head: 10, key: K });
+  const moved = applyLogs(a, [], {}, { unit: 900, head: 10, key: K });
+  const cont = applyLogs(a, [vol(5, 3, '0xd')], ts, { unit: 846, head: 11, key: K });
+  const big = applyLogs(base, [vol(1000000, 1, '0xe')], ts, { unit: 846, head: 11, key: K });
   const cases = [
     ['同じ日は一行に足す・tx は最後の一本', a.fires[0].day === '2026-11-24' && a.fires[0].amount === 1610 && a.fires[0].tx === '0xb'],
     ['日は JST で切る', a.fires[1].day === '2026-11-25'],
@@ -121,6 +129,9 @@ function selfTest() {
     ['続きの回は前の火に足す', cont.fires[1].amount === 105 && cont.fires[1].tx === '0xd'],
     ['大きな量も桁が落ちない', big.fires[0].amount === 1000000],
     ['見える物が同じなら書かない', !changed(a, fresh)],
+    ['鍵でない人の燃やしは数えない', stranger.fires.length === 0 && stranger.from === ''],
+    ['鍵が決まるまで一本も数えない', nokey.fires.length === 0],
+    ['止まっていても一週間で番号を残す', changed({ ...a, lastBlock: 1 }, { ...a, lastBlock: 300002 })],
     ['一件の火が変われば書く', changed(a, moved)],
     ['火が増えれば書く', changed(a, cont)],
     ['会員の数の欄が無い', !/members|people|人数":/.test(JSON.stringify(a))],
