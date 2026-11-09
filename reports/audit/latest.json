@@ -1,5 +1,5 @@
 {
-  "day": "2026-11-02",
+  "day": "2026-11-09",
   "base": "https://genmatsuda-code.github.io/zenination/",
   "site": {
     "sitemap": 200,
@@ -65,13 +65,9 @@
       "file": "en/index.html",
       "url": "https://genmatsuda-code.github.io/zenination/en/index.html",
       "status": 200,
-      "issues": [
-        "og:title が無い(X や LINE で貼った時の顔)",
-        "og:description が無い(X や LINE で貼った時の顔)",
-        "og:image が無い(X や LINE で貼った時の顔)"
-      ],
-      "title": "SEKIZEN ── The Goodwill Nation",
-      "descLen": 150
+      "issues": [],
+      "title": "Become a Citizen ── Zenination",
+      "descLen": 139
     },
     {
       "file": "en/nation.html",
@@ -235,8 +231,8 @@
       "url": "https://genmatsuda-code.github.io/zenination/oni.html",
       "status": 200,
       "issues": [],
-      "title": "善意で稼ぐ国家の創出 ── 善意立国",
-      "descLen": 111
+      "title": "AI だけでどこまで稼げるか ── 善意の鬼のカネ(善意立国)",
+      "descLen": 134
     },
     {
       "file": "press.html",
@@ -325,7 +321,7 @@
       "status": 200,
       "issues": [],
       "title": "本怖 Burn Chronicle ── 書くほど、燃える。",
-      "descLen": 102
+      "descLen": 109
     },
     {
       "file": "sbt.html",
@@ -342,14 +338,14 @@
       "url": "https://genmatsuda-code.github.io/zenination/honkowa-zukan.html",
       "status": 200,
       "issues": [],
-      "title": "本怖 帯の板 ── 続けた月の数が、札になる。",
-      "descLen": 98
+      "title": "本怖 SBT ── 続けた月の数で、帯の色が上がる。",
+      "descLen": 100
     }
   ],
   "lighthouse": {
     "index": {
-      "performance": 84,
-      "accessibility": 94,
+      "performance": 97,
+      "accessibility": 92,
       "best-practices": 96,
       "seo": 100
     },
@@ -360,14 +356,14 @@
       "seo": 100
     },
     "oni": {
-      "performance": 100,
+      "performance": 90,
       "accessibility": 100,
       "best-practices": 96,
       "seo": 100
     }
   },
-  "total": 58,
+  "total": 55,
   "worse": [
-    "index の performance 92→84"
+    "oni の performance 100→90"
   ]
 }
