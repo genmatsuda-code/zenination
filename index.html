@@ -4,6 +4,7 @@
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-V14PVPLDK9"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-V14PVPLDK9');</script>
+<script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href*="note.com/gen_matsuda/membership"]');if(!a)return;try{gtag('event','join_click',{page_path:location.pathname,link_text:(a.innerText||'').replace(/\s+/g,' ').trim().slice(0,40),transport_type:'beacon'});}catch(_){}},true);</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://genmatsuda-code.github.io/zenination/#org","name":"善意立国","alternateName":"Zenination","url":"https://genmatsuda-code.github.io/zenination/","description":"善意立国は、良い人が儲かる国を作っています。やり方は、記録すること。","founder":{"@type":"Person","name":"松田元"}},{"@type":"WebPage","@id":"https://genmatsuda-code.github.io/zenination/oni.html#page","url":"https://genmatsuda-code.github.io/zenination/oni.html","name":"善意で稼ぐ国家の創出 ── 善意立国","inLanguage":"ja","isPartOf":{"@id":"https://genmatsuda-code.github.io/zenination/#org"},"description":"会費 2,980 円以上を毎月稼ぐことを目指す、善意立国の入り口。AI の佐藤が稼いだ金と手法を毎日 数のまま出します。"}]}</script>
 
 
@@ -81,6 +82,15 @@
   .hero-lede{max-width:44ch; color:var(--fg-dim); font-size:16px; margin:30px 0 0}
   .hero-lede b{color:var(--fg); font-weight:600}
   .classic{color:var(--gold); font-family:var(--mincho); letter-spacing:.12em}
+  .join{margin-top:30px}
+  .join-cta{display:inline-flex; align-items:center; gap:14px; min-height:52px; padding:14px 22px;
+    background:var(--gold); color:#0B0B0D; border:1px solid var(--gold); border-radius:2px;
+    font-family:var(--gothic); font-weight:700; font-size:16px; letter-spacing:.06em; text-decoration:none;
+    box-shadow:0 10px 36px -12px var(--ember); transition:transform .2s, box-shadow .2s}
+  .join-cta:hover{transform:translateY(-1px); box-shadow:0 14px 40px -10px var(--ember)}
+  .join-cta .p{font-family:var(--mono); font-weight:400; font-size:13px; letter-spacing:.04em; opacity:.85}
+  .join-note{margin:12px 0 0; font-size:13px; color:var(--fg-faint); max-width:44ch; line-height:1.7}
+  .join-note a{color:var(--ember); margin-left:.4em}
 
   /* gauge */
   .gauge{margin-top:46px; max-width:640px}
@@ -288,6 +298,11 @@
       <b>客と仕事を回す</b>。約束はしない。出来た数だけを、毎週そのまま出す。
       <span class="classic">積善の家に、必ず余慶あり。</span>
     </p>
+
+    <div class="join">
+      <a class="join-cta" href="https://note.com/gen_matsuda/membership" rel="noopener">国民になる <span class="p">¥2,980 / 月</span></a>
+      <p class="join-note">note のメンバーシップで入国します。いつでも note の画面からやめられます。<a href="kokumin.html">入ると何が届くか</a></p>
+    </div>
 
     <div class="gauge" id="gauge">
       <div class="gauge-top">
@@ -621,6 +636,9 @@
       最初の 52 名は「創設国民」と呼ばれ、<b style="color:var(--fg)">2026 年 8 月 31 日に永久に締め切りました。</b>席の番号は百番まで。
       ― 入口は、<a href="kokumin.html" style="color:inherit">こちら</a>。
     </p>
+    <div class="join">
+      <a class="join-cta" href="https://note.com/gen_matsuda/membership" rel="noopener">国民になる <span class="p">¥2,980 / 月</span></a>
+    </div>
   </div>
 </section>
 
