@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V14PVPLDK9"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-V14PVPLDK9');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>国民の謎解き — 善意立国の国民だけが遊べる、小さな物語</title>
+<link rel="canonical" href="https://genmatsuda-code.github.io/zenination/nazo.html">
+<meta name="description" content="善意立国の国民だけが参加できる謎解き。第一問は国民の掲示板と Discord の国民の部屋に。解いた記録は名前と時刻で残ります。賞金はありません。残るのは記録だけです。">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="善意立国">
+<meta property="og:title" content="国民の謎解き — 善意立国の国民だけが遊べる、小さな物語">
+<meta property="og:description" content="国民だけが参加できる謎解き。第一問は国民の掲示板と Discord に。解いた記録は名前と時刻で残ります。">
+<meta property="og:url" content="https://genmatsuda-code.github.io/zenination/nazo.html">
+<meta property="og:image" content="https://genmatsuda-code.github.io/zenination/assets/sato-portrait.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"国民の謎解き","url":"https://genmatsuda-code.github.io/zenination/nazo.html","description":"善意立国の国民だけが参加できる謎解き。第一問は国民の掲示板と Discord の国民の部屋に。","isPartOf":{"@type":"WebSite","name":"善意立国","url":"https://genmatsuda-code.github.io/zenination/"}}</script>
+<!--
+  2026-11-12 国民の謎解きの入口。国民の提案(掲示板 第九号)から始めた。
+  ★ 謎の本文と答えは、この頁には置かない(国民の掲示板と Discord の国民の部屋だけ)。
+  ★ 賞金・景品は無い。残るのは記録(解いた人の呼び名と時刻)だけ。約束の語は書かない。
+-->
+<style>
+  :root{--paper:#FBF7EF;--card:#fff;--line:#EBE3D3;--ink:#3A352C;--soft:#7C7263;--dim:#A79C8B;--coral:#F2795B;--soft2:#F6EEDF;--night:#2B2721}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:"Hiragino Maru Gothic ProN","Yu Gothic UI",system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.9;-webkit-font-smoothing:antialiased}
+  .w{max-width:600px;margin:0 auto;padding:44px 18px 80px}
+  .series{font-size:12px;color:var(--coral);letter-spacing:.2em;font-weight:700}
+  h1{font-size:26px;line-height:1.45;margin-top:8px;font-weight:700}
+  .lead{font-size:15px;color:var(--soft);margin-top:14px}
+  .seal{margin-top:26px;background:var(--night);color:#F3EADB;border-radius:18px;padding:22px 20px;position:relative;overflow:hidden}
+  .seal:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(255,255,255,.025) 0 2px,transparent 2px 9px)}
+  .seal .k{font-size:12px;letter-spacing:.22em;color:#D9B67A;position:relative}
+  .seal .v{font-size:17px;line-height:1.8;margin-top:8px;position:relative;font-weight:700}
+  .seal .s{font-size:13px;color:#C9BFAE;margin-top:10px;position:relative}
+  h2{font-size:14px;letter-spacing:.14em;color:var(--coral);margin-top:40px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 20px;margin-top:14px;box-shadow:0 6px 20px rgba(58,53,44,.05)}
+  .card .t{font-size:17px;font-weight:700}
+  .card .d{font-size:14px;color:var(--soft);margin-top:6px}
+  .steps{counter-reset:s;margin-top:14px}
+  .steps .st{display:flex;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin-top:10px}
+  .steps .st:before{counter-increment:s;content:counter(s);flex:0 0 30px;height:30px;border-radius:999px;background:var(--coral);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:14px}
+  .steps .st b{display:block;font-size:15px}
+  .steps .st span{font-size:13.5px;color:var(--soft)}
+  .faq{margin-top:14px;background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+  .faq .row{padding:14px 18px;border-top:1px solid var(--line);font-size:14px}
+  .faq .row:first-child{border-top:0}
+  .faq .q{font-weight:700}
+  .faq .a{color:var(--soft);margin-top:4px}
+  .btn{display:block;text-align:center;text-decoration:none;border-radius:999px;padding:15px 18px;font-size:14.5px;font-weight:700;letter-spacing:.04em;border:1px solid var(--line);color:var(--ink);background:var(--card);margin-top:14px}
+  .btn.primary{background:var(--coral);color:#fff;border-color:var(--coral)}
+  .price{text-align:center;font-size:12.5px;color:var(--dim);margin-top:8px}
+  .note{font-size:12.5px;color:var(--dim);margin-top:28px;line-height:1.8}
+  .foot{margin-top:40px;font-size:12.5px;color:var(--dim)}
+  .foot a{color:var(--soft)}
+</style>
+</head>
+<body>
+<div class="w">
+  <div class="series">善意立国 ── 国民の遊び場</div>
+  <h1>国民の謎解き<br>国民だけが遊べる、小さな物語。</h1>
+  <p class="lead">世の中の空気が重い時に、中で一緒に遊べる場所を。国民の一人の提案から、二〇二六年十一月十二日に始めました。謎は国民の掲示板と Discord の国民の部屋だけに置きます。この頁には、遊び方だけを書きます。</p>
+
+  <div class="seal">
+    <div class="k">第一問 ── 十一月十二日の夜に</div>
+    <div class="v">国の記録係が、記録の一枚を失くしました。<br>封を開けるのに要るのは、この国の三つの数です。</div>
+    <div class="s">問いの本文は、今夜の「捕虜の日報 第十号」(国民の掲示板)と、Discord の「🧩謎解き」の部屋に。解いた人だけが辿り着く頁が、一つあります。</div>
+  </div>
+
+  <h2>遊び方</h2>
+  <div class="steps">
+    <div class="st"><div><b>国民の掲示板か Discord で、問いを読む</b><span>国民だけが読めます。問いは一週間ごとに一つ。難しくはしません。この国の公開の頁を読めば、答えに届く物差しで作ります。</span></div></div>
+    <div class="st"><div><b>答えが分かったら、答えで出来る住所の頁を開く</b><span>正しい答えの人だけが、その頁に辿り着けます。頁には合言葉が一つ書いてあります。</span></div></div>
+    <div class="st"><div><b>合言葉を、Discord の部屋か日報の下に書く</b><span>呼び名と合言葉だけで構いません。書いた時刻が、あなたの記録になります。早い遅いで順位は付けません。</span></div></div>
+    <div class="st"><div><b>解いた記録が、残る</b><span>解いた人の呼び名と日を、次の日報に書きます。賞金も景品もありません。残るのは記録だけです。この国の遊び方です。</span></div></div>
+  </div>
+
+  <h2>よくある問い</h2>
+  <div class="faq">
+    <div class="row"><div class="q">国民でないと、遊べませんか</div><div class="a">はい。問いの本文は国民の掲示板と Discord の国民の部屋にだけ置きます。この頁に在るのは、遊び方と、第一問の題だけです。</div></div>
+    <div class="row"><div class="q">賞金や景品はありますか</div><div class="a">ありません。解いた記録(呼び名と日)が残るだけです。金で測らない、記録で残す、がこの国の決まりです。</div></div>
+    <div class="row"><div class="q">答えを人に教えてもいいですか</div><div class="a">部屋の中で相談するのは自由です。答えそのものを部屋の外に書かないでください。中で完結する物語にしたいからです。</div></div>
+    <div class="row"><div class="q">国民の証(SBT)が要りますか</div><div class="a">今はまだ要りません。国民の証の本番の発行は準備の途中なので、最初の入口は Discord の国民の役割で開けます。証が出た後に、証を持つ人だけの部屋に切り替えます。</div></div>
+    <div class="row"><div class="q">いつまで続きますか</div><div class="a">まず三問。解く人が居なければ形を変えます。続いたかどうかも、数でそのまま書きます。</div></div>
+  </div>
+
+  <h2>国民になる</h2>
+  <div class="card">
+    <div class="t">月 2,980 円。note のメンバーシップで入国します。</div>
+    <div class="d">謎解きは国民の特典の一つです。追加の料金はありません。入国すると、毎晩 21 時の連載・毎日の相談室・国の決定への一票と、この遊び場に入れます。やめる時は note の画面から、いつでも。</div>
+  </div>
+  <a class="btn primary" href="https://genmatsuda-code.github.io/zenination/hyaku.html" onclick="try{gtag('event','cv_join',{page:'nazo'})}catch(e){}">善意立国の国民になる</a>
+  <div class="price">月額 2,980 円(税込・note のメンバーシップ)。決済と解約は note の画面で。</div>
+  <a class="btn" href="https://note.com/gen_matsuda/membership/boards/a9553ce7a9e5">国民の掲示板へ(国民の方)</a>
+
+  <p class="note">この頁のどこにも、答えと問いの本文は置いていません。謎は、この国の公開の頁(憲章・位階・入り方)を読めば届く物差しで作ります。投資の判断を勧めるものではなく、相場の話は一言も書きません。</p>
+  <div class="foot"><a href="https://genmatsuda-code.github.io/zenination/">善意立国の入口へ戻る</a> ・ <a href="https://genmatsuda-code.github.io/zenination/kuni.html">国の憲章と入り方</a></div>
+</div>
+</body>
+</html>
