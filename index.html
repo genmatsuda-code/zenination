@@ -97,6 +97,15 @@
     background:var(--gold); color:#0B0B0D; border:1px solid var(--gold); border-radius:2px;
     font-family:var(--gothic); font-weight:700; font-size:16px; letter-spacing:.06em; text-decoration:none;
     box-shadow:0 10px 36px -12px var(--ember); transition:transform .2s, box-shadow .2s}
+  .facts1{margin-top:22px;border:1px solid var(--fg-faint);padding:14px 16px;max-width:520px}
+  .facts1 .f1{display:flex;align-items:baseline;gap:10px}
+  .facts1 .f1 b{font-size:34px;line-height:1;color:var(--fg)}
+  .facts1 .f1 span{font-size:13px;color:var(--fg-dim)}
+  .facts1 p{margin-top:8px;font-size:13px;line-height:1.7;color:var(--fg-dim)}
+  .facts1 a{color:var(--ember);text-decoration:underline}
+  .join-band{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;justify-content:center;align-items:center;gap:12px;min-height:48px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:var(--ember);color:#0b0b0b;font-weight:700;font-size:15px;text-decoration:none;box-shadow:0 -8px 24px -8px rgba(0,0,0,.6)}
+  .join-band[hidden]{display:none}
+  .join-band .p{font-weight:400;font-size:13px;opacity:.85}
   .join-cta:hover{transform:translateY(-1px); box-shadow:0 14px 40px -10px var(--ember)}
   .join-cta .p{font-family:var(--mono); font-weight:400; font-size:13px; letter-spacing:.04em; opacity:.85}
   .join-note{margin:12px 0 0; font-size:13px; color:var(--fg-faint); max-width:44ch; line-height:1.7}
@@ -314,17 +323,10 @@
       <p class="join-note">note のメンバーシップで入国します。いつでも note の画面からやめられます。<a href="kokumin.html">入ると何が届くか</a></p>
     </div>
 
-    <div class="gauge" id="gauge">
-      <div class="gauge-top">
-        <span class="gauge-label">射程 ── 的の数(いまの人数ではない)</span>
-        <span class="gauge-count"><b class="num" id="live">0</b> ／ <span class="num">10,000</span> 名</span>
-      </div>
-      <div class="track"><div class="fill" id="fill"></div></div>
-      <div class="ticks">
-        <span class="tick"><b class="num">100</b>席</span>
-        <span class="tick"><b class="num">2,000</b>コミュニティ</span>
-        <span class="tick gate"><b class="num">10,000</b>立国</span>
-      </div>
+    <!-- 2026-11-12: 一画面目は事実の数(三席の表 v1 順 4)。的の数の帯は下の「三つの相」へ移した(消していない) -->
+    <div class="facts1">
+      <div class="f1"><b class="num" id="cbDays">–</b><span>日目 ── 毎日の帳面(2026-11-01 から)</span></div>
+      <p>佐藤が稼いだ数と手法を、0 円の日もそのまま出しています。<a href="oni.html">帳面を見る</a></p>
     </div>
   </div>
 </section>
@@ -337,6 +339,19 @@
       いきなり国はつくらない。まず小さく確かな<b style="color:var(--fg)">村</b>を建て、
       その民が次を招く。10,000名を超えたとき、広がりは自走する。ここがしきい値。
     </p>
+    <div class="gauge" id="gauge">
+      <div class="gauge-top">
+        <span class="gauge-label">射程 ── 的の数(いまの人数ではない)</span>
+        <span class="gauge-count"><b class="num" id="live">0</b> ／ <span class="num">10,000</span> 名</span>
+      </div>
+      <div class="track"><div class="fill" id="fill"></div></div>
+      <div class="ticks">
+        <span class="tick"><b class="num">100</b>席</span>
+        <span class="tick"><b class="num">2,000</b>コミュニティ</span>
+        <span class="tick gate"><b class="num">10,000</b>立国</span>
+      </div>
+    </div>
+
     <div class="phases">
       <div class="phase on">
         <span class="ord">相 ⅰ</span>
@@ -796,5 +811,20 @@
     if(e.isIntersecting && !tSeen){ tSeen=true; tResize(); requestAnimationFrame(tAnim); } }); },{threshold:.3});
   tio.observe(tc);
   addEventListener('resize', function(){ if(tSeen){ tResize(); drawTree(1); } });
+})();
+</script>
+
+<a class="join-band" id="joinBand" href="https://note.com/gen_matsuda/membership" rel="noopener" hidden>国民になる <span class="p">¥2,980 / 月</span></a>
+<script>
+/* 2026-11-12: 二画面目から下に細い申込の帯(三席の表 v1 順 4)。一画面目と最後の釦が見えている間は出さない */
+(function(){
+  var band=document.getElementById('joinBand'), hero=document.querySelector('.hero'), all=document.querySelectorAll('.join-cta'), last=all[all.length-1];
+  var d=document.getElementById('cbDays');
+  if(d){var n=Math.floor((Date.now()+9*3600e3-Date.parse('2026-11-01T00:00:00Z'))/864e5)+1; d.textContent=String(Math.max(1,n));}
+  if(!band||!hero||!('IntersectionObserver' in window))return;
+  var heroIn=true,lastIn=false;
+  function upd(){ band.hidden = heroIn || lastIn; }
+  new IntersectionObserver(function(es){es.forEach(function(e){heroIn=e.isIntersecting;});upd();},{threshold:0}).observe(hero);
+  if(last&&!hero.contains(last)) new IntersectionObserver(function(es){es.forEach(function(e){lastIn=e.isIntersecting;});upd();},{threshold:0}).observe(last);
 })();
 </script>

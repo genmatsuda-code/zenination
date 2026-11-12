@@ -91,6 +91,9 @@
   .ticket dt{font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--w3)}
   .ticket dd{font-family:var(--mono);font-size:15px;color:var(--w);margin-top:3px;font-variant-numeric:tabular-nums}
   .ticket dd.red{color:var(--blood)} .ticket dd.cy{color:var(--data)}
+  .ticket .lead1{margin-top:14px;padding-bottom:16px;border-bottom:1px solid var(--line)}
+  .ticket .lead1-t{font-family:var(--heavy);font-weight:700;color:#fff;font-size:clamp(22px,5.6vw,34px);line-height:1.35;letter-spacing:.02em}
+  .ticket .lead1-s{margin:10px 0 14px;color:var(--w2,#cfcfcf);font-size:14px;line-height:1.7}
   .ticket .cta-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:16px}
   .cta{display:inline-flex;align-items:center;gap:14px;background:var(--blood);color:#fff;font-family:var(--heavy);font-weight:700;font-size:15px;letter-spacing:.08em;padding:14px 20px;border:1px solid var(--blood);transition:background .15s var(--op),transform .1s var(--op)}
   .cta:hover{background:var(--blood2);text-decoration:none} .cta:active{transform:translateY(1px)}
@@ -220,9 +223,15 @@
   <h1 class="tate"><span data-t="本当にあった怖い話">本当にあった怖い話</span><small>HONKOWA ── 2021.07 —</small></h1>
   <div class="ticket">
     <div class="hd"><span>HONKOWA.POST ／ OPTIMISM MAINNET</span><span class="live"><i></i><span id="pill">PRE-IGNITION</span></span></div>
-    <div class="big"><span class="n tab" id="perPost">1,608</span><span class="u">WWB / POST</span><span class="up">× 2.0 ── THANKS Map の一件(<b id="unitNow">804</b>)の二倍</span></div>
+    <!-- 2026-11-12: 一画面目は払う理由と申込(三席の表 v1 順 3)。燃えた量の札は下へ移した(消していない) -->
+    <div class="lead1">
+      <p class="lead1-t">上場企業の社長が、<br>2021 年から毎朝 自分で書く部屋。</p>
+      <p class="lead1-s">相場の見立て、会社の外に出せる範囲の話、負けた取引も。会員が返信すれば、本人が返します。</p>
+      <a class="cta" href="https://note.com/gen_matsuda/membership">本怖に入る <span class="p">¥2,980 / MONTH</span></a>
+    </div>
     <div class="cap">書くほど、<b>燃える。</b></div>
-    <p class="sub">上場企業の社長が 2021 年から毎日 自分で書く、会員制の部屋。燃やし始める日(点火の日。日取りは決まり次第 この頁に書きます)から、会員が掲示板に書き込むたび、その数に応じて WWB が Optimism で燃えます。<small>一件の火はいまの値で、日によって変わります。燃やす時にチェーンから読みます。</small></p>
+    <div class="big"><span class="n tab" id="perPost">1,608</span><span class="u">WWB / POST</span><span class="up">× 2.0 ── THANKS Map の一件(<b id="unitNow">804</b>)の二倍</span></div>
+    <p class="sub">上場企業の社長が 2021 年から毎朝 自分で書く、会員制の部屋。燃やし始める日(点火の日。日取りは決まり次第 この頁に書きます)から、会員が掲示板に書き込むたび、その数に応じて WWB が Optimism で燃えます。<small>一件の火はいまの値で、日によって変わります。燃やす時にチェーンから読みます。</small></p>
     <dl>
       <div><dt>累計 BURNED</dt><dd class="tab" id="total">0 <small>WWB</small></dd></div>
       <div><dt>燃えた日</dt><dd class="tab" id="days">0</dd></div>
