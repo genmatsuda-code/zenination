@@ -23,3 +23,5 @@ kokumin-kyu-2026-10.html # 2026-11-01 に kokumin.html を金の鬼の中身へ�
 honkowa.html           # 本怖のお化け屋敷(本怖の火と帯の LP・2026-11-01)。note の本怖の案内と X から直に開く(善意立国の棚からは辿らない=公私と会の壁)
 honkowa-sbt-claim.html # HonKowa SBT の受け取りの頁(2026-11-01・メインネットは準備中)。本怖の案内から直に開く。監査と GO の後に honkowa.html から結ぶ
 honkowa-zukan.html
+bughunter.html         # バグ狩りの国民の証を確かめる・受け取る頁(2026-10-20 から在る)。バグを報せてくれた本人へ、案内から直に渡す入口=公開の棚からは辿らない。10/20 に足した時に、この控えへ書き忘れていた(2026-11-16 NOTE席・CEO 席の頼み)
+googlefa9cba25b9d7c58a.html # Google Search Console の持ち主確認のファイル(2026-11-10)。Google が直に読む物で、人が辿る頁ではない(消すと持ち主の確認が外れる)
