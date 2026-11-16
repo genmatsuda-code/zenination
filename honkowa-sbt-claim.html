@@ -113,7 +113,7 @@
 <section id="summary"><div class="wrap">
   <div class="label">IN SHORT</div>
   <h2>ざっくり言うと、こういう事です</h2>
-  <p class="small" style="margin-top:8px">やる事は三つ。<b>① ウォレットをこのページにつなぐ → ② 会員番号を入れて、短い文を一行コピーし、note の会員限定の記事のコメント欄に貼る → ③ 運営が確かめたら、このページに「引換券」が出るので、ウォレットで承認して受け取る。</b>①と②は五分ほど。③は運営の確かめの後(数日)です。</p>
+  <p class="small" style="margin-top:8px">やる事は三つ。<b>① ウォレットをこのページにつなぐ → ② 会員番号を入れて、短い文を一行コピーし、本怖の掲示板の「捕虜の日報 第一号」の返信欄に貼る → ③ 運営が確かめたら、このページに「引換券」が出るので、ウォレットで承認して受け取る。</b>①と②は五分ほど。③は、運営が本番の準備を終えて、申し込みを確かめた後です。本番の準備は、まだ終わっていません。日付は、決まり次第 掲示板で知らせます。</p>
   <p class="small" style="margin-top:10px">用語はこれだけ覚えれば足ります。<b>ウォレット</b>=暗号資産を入れておくアプリ(MetaMask など)。<b>アドレス</b>=ウォレットの口座番号のような文字列。<b>引換券</b>=運営が「この番号のこの人に、この色の帯を渡す」と書いた、偽造できない紙。<b>手数料(ガス代)</b>=ブロックチェーンに記録する時に要るお金(数円ほど・運営には入りません)。</p>
   <p class="small" style="margin-top:10px">分からなくなったら、本怖の掲示板か Discord で「帯の受け取りで止まった」と一言ください。運営(佐藤)が返します。</p>
 </div></section>
@@ -143,9 +143,9 @@
     <div class="row"><button id="find" type="button" class="primary">引換券を探す</button><button id="make" type="button">受け取りの一行を作る</button></div>
     <div class="box" id="mine"><div class="small">この番号の帯(ブロックチェーンの記録)</div><dl class="kv" style="margin-top:8px"><dt>帯</dt><dd id="mBelt"></dd><dt>節目</dt><dd id="mStars"></dd><dt>確かめた月</dt><dd id="mMonth"></dd><dt>ウォレット</dt><dd id="mHolder"></dd></dl></div>
     <div class="box" id="req">
-      <div class="small">まだ引換券が出ていない方へ。下の一行をコピーして、<b>note の会員限定の記事(受け取り口)のコメント欄</b>に、そのまま貼ってください。それだけで申し込みは終わりです。</div>
+      <div class="small">まだ引換券が出ていない方へ。下の一行をコピーして、<b>本怖の掲示板の「捕虜の日報 第一号」の返信欄</b>に、そのまま貼ってください。それだけで申し込みは終わりです。</div>
       <div class="line" id="line"></div>
-      <div class="row"><button id="copy" type="button">写す</button><a class="small" id="article" href="#" style="display:none">受け取り口の記事を開く →</a><span class="small" id="articleSoon">受け取り口の記事は準備中です。</span></div>
+      <div class="row"><button id="copy" type="button">写す</button><a class="small" id="article" href="#" style="display:none">貼る場所(掲示板の第一号)を開く →</a><span class="small" id="articleSoon">貼る場所は、本怖の掲示板の「捕虜の日報 第一号」です。</span></div>
       <p class="small" style="margin-top:10px">この一行の中には、あなたの会員番号とウォレットのアドレスが<b>暗号化されて</b>入っています。他の会員の方には番号もアドレスも見えません。読めるのは運営だけです。運営は、コメントを書いた方とその番号の持ち主が同じ人かを確かめ、続けた月の数から帯の色を決めて、あなたのウォレット宛ての引換券を出します。出たら、このページの「引換券を探す」で見つかります(数日かかります。出たら Discord か掲示板でもお知らせします)。</p>
     </div>
   </div>
@@ -200,7 +200,7 @@
     11155420: { name: 'OP Sepolia(試しのブロックチェーン)', rpc: 'https://sepolia.optimism.io', exp: 'https://sepolia-optimism.etherscan.io', addr: '0x63a8e3f45C1631C35358ae9C127EB6CF89823FbA' }
   };
   // 受け取り口の記事(会員限定)。記事を出した日に書く。空の間はリンクを出さず「準備中」と言う
-  var ARTICLE_URL = '';
+  var ARTICLE_URL = 'https://note.com/gen_matsuda/membership/boards/a9553ce7a9e5/posts/037d2707850e';
   // 運営の公開鍵(P-256・非圧縮 65 バイトの base64url)。開ける秘密鍵は運営の発行の便の中だけ。info で国民の証の暗号化と分ける
   var SEAL_PUB = 'BIlBRaynV-7MYczuo6Sn7fz4tpjcXaB93TmSdS3oJghiPV2MXVtdYYaSSDQ7f17OoFZUDHGxxblYC54Dgu0PNgM';
   var SEAL_INFO = 'honkowa-sbt-v1';
@@ -364,7 +364,7 @@
       if (!window.crypto || !window.crypto.subtle) { say(m, 'この画面では暗号化ができません。Safari か Chrome で開き直してください。', 'err'); return; }
       $('line').textContent = '帯 ' + (await seal(n, account));
       $('req').className = 'box on';
-      say(m, '一行が出来ました。写して、受け取り口のコメントに貼ってください(番号もアドレスも、他の方には見えません)。', 'ok');
+      say(m, '一行が出来ました。写して、本怖の掲示板の「捕虜の日報 第一号」の返信欄に貼ってください(番号もアドレスも、他の方には見えません)。', 'ok');
     } catch (e) {
       say(m, '一行が作れませんでした。ページを読み込み直して、もう一度押してください。', 'err');
     } finally { btn.disabled = false; btn.textContent = '受け取りの一行を作る'; }
