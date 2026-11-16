@@ -68,8 +68,14 @@ async function run(source, opt) {
       return { ok: true, json: async () => (o.snap || SNAP) };
     },
   };
-  const m = source.match(/<script>([\s\S]*?)<\/script>/);
-  if (!m) throw new Error('頁に script が無い');
+  /* ★ 頁の本体の script を選ぶ(2026-11-16): 10/30 に全頁へ Google アナリティクスの一行(<script>window.dataLayer…)を
+     足したので、「最初の <script>」はそちらになり、門番は本体でなく GA を動かして「window is not defined」で
+     赤 10 件を出していた(製品は本番で正しく数を出していた)。本体=写しの紙の時刻(asof)を書く script。
+     本体が見つからなければ赤のまま(弱めない)。 */
+  const blocks = [...source.matchAll(/<script>([\s\S]*?)<\/script>/g)].map((x) => x[1]);
+  const body = blocks.filter((s) => /\(\s*['"]asof['"]\s*\)/.test(s)); // 本体は el('asof') で時刻の行を書く
+  if (body.length !== 1) throw new Error('頁の本体の script が一つに決まらない(' + body.length + ' 個)');
+  const m = [null, body[0]];
   /* ★ 頁の中で落ちた時に、**この門番ごと死なせない**(変異を一つ当てた時に実際に死んだ)。
      落ちた事は「落ちた」として持ち帰り、赤として数える。 */
   let crashed = '';
