@@ -275,24 +275,40 @@
       if (!window.ethereum) { say(vm, '財布が見つかりません。MetaMask などの財布のアプリの中のブラウザで、このリンクを開いてください。', 'bad'); return; }
       btn.disabled = true; btn.textContent = '財布をつないでいます…'; say(vm, '');
       try {
-        var bp = new E.BrowserProvider(window.ethereum);
-        var accts = await bp.send('eth_requestAccounts', []);
-        if (!accts.length || E.getAddress(accts[0]) !== E.getAddress(m.to)) { say(vm, 'つないだ財布(' + (accts[0] ? short(accts[0]) : 'なし') + ')は引換券の宛先(' + short(m.to) + ')ではありません。宛先の財布に切り替えてください。', 'bad'); return; }
-        var cur = Number((await bp.getNetwork()).chainId);
-        if (cur !== chainId) {
+        // 財布のアプリによって、数(残高・ガス・つなぎ先)の返し方が違い、読み取りで止まる事が在った(2026-11-16 本怖の帯の頁「invalid BigNumberish value」)。
+        // 予行・ガスの見積もり・記録の待ちは、この頁が公開の口(pub)で読む。財布には、そのままの形で頼む(住所・切り替え・送る)
+        var eth = window.ethereum, pub = reader.runner;
+        var accts = await eth.request({ method: 'eth_requestAccounts' });
+        var from = E.getAddress(m.to);
+        if (!accts || !accts.length || E.getAddress(accts[0]) !== from) { say(vm, 'つないだ財布(' + (accts && accts[0] ? short(accts[0]) : 'なし') + ')は引換券の宛先(' + short(m.to) + ')ではありません。宛先の財布に切り替えてください。', 'bad'); return; }
+        var curChain = async function () { try { var x = await eth.request({ method: 'eth_chainId' }); var n = (typeof x === 'string' || typeof x === 'number') ? Number(x) : NaN; return isFinite(n) ? n : null; } catch (_) { return null; } };
+        if ((await curChain()) !== chainId) {
           btn.textContent = '鎖を切り替えています…';
-          try { await bp.send('wallet_switchEthereumChain', [{ chainId: '0x' + chainId.toString(16) }]); }
+          try { await eth.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: '0x' + chainId.toString(16) }] }); }
           catch (e) { say(vm, '財布の鎖を「' + net.name + '」に切り替えてから、もう一度押してください。', 'bad'); return; }
-          bp = new E.BrowserProvider(window.ethereum);
+          var after = await curChain();
+          if (after !== null && after !== chainId) { say(vm, '財布の鎖を「' + net.name + '」に切り替えてから、もう一度押してください。', 'bad'); return; }
         }
-        var signer = await bp.getSigner();
-        var c = new E.Contract(contractAddr, ABI, signer);
+        var args = [m.level, m.sinceMonth, m.proof, m.issuedAt, m.deadline, voucher.s];
+        await reader.claim.staticCall(args[0], args[1], args[2], args[3], args[4], args[5], { from: from });
+        var gas = await reader.claim.estimateGas(args[0], args[1], args[2], args[3], args[4], args[5], { from: from });
         btn.textContent = '財布で承認してください…';
-        await c.claim.staticCall(m.level, m.sinceMonth, m.proof, m.issuedAt, m.deadline, voucher.s);
-        var tx = await c.claim(m.level, m.sinceMonth, m.proof, m.issuedAt, m.deadline, voucher.s);
+        var hash = await eth.request({ method: 'eth_sendTransaction', params: [{ from: from, to: contractAddr, data: reader.interface.encodeFunctionData('claim', args), value: '0x0', gas: '0x' + (gas * 13n / 10n).toString(16) }] });
+        if (typeof hash !== 'string' || !/^0x[0-9a-fA-F]{64}$/.test(hash)) hash = null;
         btn.textContent = '鎖に載るのを待っています…';
         say(vm, '送りました。鎖に載るのを待っています(数十秒)。', '');
-        await tx.wait();
+        var got = false;
+        if (hash) {
+          var rc = null; try { rc = await pub.waitForTransaction(hash, 1, 120000); } catch (_) { rc = null; }
+          if (rc && rc.status === 0) { say(vm, '送りましたが、鎖に載る時に取り消されました。少しおいて、もう一度押してください。', 'bad'); return; }
+          got = !!(rc && rc.status === 1);
+        }
+        // 受け取りの印が読めない時は、財布の記録を直に読む(一分まで)
+        for (var i = 0; !got && i < 12; i++) {
+          try { var tid = await reader.tokenOf(from); if (tid !== 0n && Number((await reader.recordOf(tid)).level) === Number(m.level)) { got = true; break; } } catch (_) {}
+          await new Promise(function (r) { setTimeout(r, 5000); });
+        }
+        if (!got) { say(vm, '送りました。記録は、まだ読めていません。一分ほどおいて、下の「確かめる」を押してください。', ''); verify(m.to); return; }
         say(vm, '受け取りました。下で確かめられます。', 'ok');
         btn.textContent = '受け取りました';
         verify(m.to);
