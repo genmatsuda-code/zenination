@@ -1,5 +1,5 @@
 {
-  "day": "2026-11-09",
+  "day": "2026-11-16",
   "base": "https://genmatsuda-code.github.io/zenination/",
   "site": {
     "sitemap": 200,
@@ -8,14 +8,67 @@
   },
   "pages": [
     {
+      "file": "index.html",
+      "url": "https://genmatsuda-code.github.io/zenination/",
+      "status": 200,
+      "issues": [],
+      "title": "善意立国 ── 良い人が儲かる国(松田元と AI 佐藤の会員制・月 2,980 円)",
+      "descLen": 114
+    },
+    {
+      "file": "en/",
+      "url": "https://genmatsuda-code.github.io/zenination/en/",
+      "status": 200,
+      "issues": [],
+      "title": "Become a Citizen ── Zenination",
+      "descLen": 139
+    },
+    {
+      "file": "honkowa.html",
+      "url": "https://genmatsuda-code.github.io/zenination/honkowa.html",
+      "status": 200,
+      "issues": [],
+      "title": "本怖 Burn Chronicle ── 書くほど、燃える。",
+      "descLen": 109
+    },
+    {
+      "file": "kokumin.html",
+      "url": "https://genmatsuda-code.github.io/zenination/kokumin.html",
+      "status": 200,
+      "issues": [],
+      "title": "善意で稼ぐ国家の創出 ── 善意立国",
+      "descLen": 111
+    },
+    {
+      "file": "kuni.html",
+      "url": "https://genmatsuda-code.github.io/zenination/kuni.html",
+      "status": 200,
+      "issues": [],
+      "title": "善意立国 — 先に知って、稼ぐ。",
+      "descLen": 70
+    },
+    {
+      "file": "oni.html",
+      "url": "https://genmatsuda-code.github.io/zenination/oni.html",
+      "status": 200,
+      "issues": [],
+      "title": "AI だけでどこまで稼げるか ── 善意の鬼のカネ(善意立国)",
+      "descLen": 134
+    },
+    {
+      "file": "tokuten.html",
+      "url": "https://genmatsuda-code.github.io/zenination/tokuten.html",
+      "status": 200,
+      "issues": [],
+      "title": "国民特典 ── 善意立国の市民に、実際に起きること",
+      "descLen": 82
+    },
+    {
       "file": "about.html",
       "url": "https://genmatsuda-code.github.io/zenination/about.html",
       "status": 200,
       "issues": [
         "meta description の長さ 46 字(50〜160 が目安)",
-        "og:title が無い(X や LINE で貼った時の顔)",
-        "og:description が無い(X や LINE で貼った時の顔)",
-        "og:image が無い(X や LINE で貼った時の顔)",
         "h1 が 0 個(1 個が目安)"
       ],
       "title": "一枚でわかる ── 善意立国",
@@ -25,9 +78,7 @@
       "file": "asobiba.html",
       "url": "https://genmatsuda-code.github.io/zenination/asobiba.html",
       "status": 200,
-      "issues": [
-        "og:image が無い(X や LINE で貼った時の顔)"
-      ],
+      "issues": [],
       "title": "国の遊び場 ── いま試せるもの、全部",
       "descLen": 60
     },
@@ -35,11 +86,7 @@
       "file": "avatar.html",
       "url": "https://genmatsuda-code.github.io/zenination/avatar.html",
       "status": 200,
-      "issues": [
-        "og:title が無い(X や LINE で貼った時の顔)",
-        "og:description が無い(X や LINE で貼った時の顔)",
-        "og:image が無い(X や LINE で貼った時の顔)"
-      ],
+      "issues": [],
       "title": "佐藤の顔を、世界から募集します ── 善意立国",
       "descLen": 64
     },
@@ -47,9 +94,7 @@
       "file": "bughunter.html",
       "url": "https://genmatsuda-code.github.io/zenination/bughunter.html",
       "status": 200,
-      "issues": [
-        "og:image が無い(X や LINE で貼った時の顔)"
-      ],
+      "issues": [],
       "title": "バグ狩りの国民の証 ── 確かめる・受け取る",
       "descLen": 65
     },
@@ -62,87 +107,30 @@
       "descLen": 73
     },
     {
-      "file": "en/index.html",
-      "url": "https://genmatsuda-code.github.io/zenination/en/index.html",
-      "status": 200,
-      "issues": [],
-      "title": "Become a Citizen ── Zenination",
-      "descLen": 139
-    },
-    {
-      "file": "en/nation.html",
-      "url": "https://genmatsuda-code.github.io/zenination/en/nation.html",
-      "status": 200,
-      "issues": [
-        "title が長い(70 字・検索の見出しで切れる)",
-        "meta description の長さ 210 字(50〜160 が目安)",
-        "og:title が無い(X や LINE で貼った時の顔)",
-        "og:description が無い(X や LINE で貼った時の顔)",
-        "og:image が無い(X や LINE で貼った時の顔)"
-      ],
-      "title": "Zenination ── The creed, the oboe, the ranks, the ledger. On one page.",
-      "descLen": 210
-    },
-    {
-      "file": "en/press.html",
-      "url": "https://genmatsuda-code.github.io/zenination/en/press.html",
-      "status": 200,
-      "issues": [
-        "og:title が無い(X や LINE で貼った時の顔)",
-        "og:description が無い(X や LINE で貼った時の顔)",
-        "og:image が無い(X や LINE で貼った時の顔)"
-      ],
-      "title": "PRESS ── The Match of the Century",
-      "descLen": 125
-    },
-    {
-      "file": "en/senkyo.html",
-      "url": "https://genmatsuda-code.github.io/zenination/en/senkyo.html",
-      "status": 200,
-      "issues": [
-        "title が長い(70 字・検索の見出しで切れる)",
-        "og:title が無い(X や LINE で貼った時の顔)",
-        "og:description が無い(X や LINE で貼った時の顔)",
-        "og:image が無い(X や LINE で貼った時の顔)"
-      ],
-      "title": "The Scoreboard ── The Match of the Century: Gen Matsuda vs Gen Matsuda",
-      "descLen": 141
-    },
-    {
       "file": "faq.html",
       "url": "https://genmatsuda-code.github.io/zenination/faq.html",
       "status": 200,
       "issues": [
-        "meta description の長さ 36 字(50〜160 が目安)",
-        "og:title が無い(X や LINE で貼った時の顔)",
-        "og:description が無い(X や LINE で貼った時の顔)",
-        "og:image が無い(X や LINE で貼った時の顔)"
+        "meta description の長さ 36 字(50〜160 が目安)"
       ],
       "title": "よくある疑い ── 善意立国 FAQ",
       "descLen": 36
     },
     {
+      "file": "honkowa-zukan.html",
+      "url": "https://genmatsuda-code.github.io/zenination/honkowa-zukan.html",
+      "status": 200,
+      "issues": [],
+      "title": "本怖 SBT ── 続けた月の数で、帯の色が上がる。",
+      "descLen": 100
+    },
+    {
       "file": "hyaku.html",
       "url": "https://genmatsuda-code.github.io/zenination/hyaku.html",
       "status": 200,
-      "issues": [
-        "og:image が無い(X や LINE で貼った時の顔)"
-      ],
+      "issues": [],
       "title": "国民になる ── 善意立国",
       "descLen": 153
-    },
-    {
-      "file": "index.html",
-      "url": "https://genmatsuda-code.github.io/zenination/",
-      "status": 200,
-      "issues": [
-        "meta description の長さ 37 字(50〜160 が目安)",
-        "og:title が無い(X や LINE で貼った時の顔)",
-        "og:description が無い(X や LINE で貼った時の顔)",
-        "og:image が無い(X や LINE で貼った時の顔)"
-      ],
-      "title": "積善 ── 善意立国",
-      "descLen": 37
     },
     {
       "file": "kanojo.html",
@@ -151,6 +139,14 @@
       "issues": [],
       "title": "佐藤の彼女を探しています ── AI の佐藤から、まだ会ったことのないあなたへ",
       "descLen": 52
+    },
+    {
+      "file": "kansokujo.html",
+      "url": "https://genmatsuda-code.github.io/zenination/kansokujo.html",
+      "status": 200,
+      "issues": [],
+      "title": "善意観測所 — 名札のある財布の、いまの残高と動き",
+      "descLen": 58
     },
     {
       "file": "kokoro.html",
@@ -164,27 +160,15 @@
       "file": "kokumin-taihai.html",
       "url": "https://genmatsuda-code.github.io/zenination/kokumin-taihai.html",
       "status": 200,
-      "issues": [
-        "og:image が無い(X や LINE で貼った時の顔)"
-      ],
+      "issues": [],
       "title": "国民の入り口(大敗した時の記録)── 善意立国",
       "descLen": 55
-    },
-    {
-      "file": "kokumin.html",
-      "url": "https://genmatsuda-code.github.io/zenination/kokumin.html",
-      "status": 200,
-      "issues": [],
-      "title": "善意で稼ぐ国家の創出 ── 善意立国",
-      "descLen": 111
     },
     {
       "file": "kourin-kiroku.html",
       "url": "https://genmatsuda-code.github.io/zenination/kourin-kiroku.html",
       "status": 200,
-      "issues": [
-        "og:image が無い(X や LINE で貼った時の顔)"
-      ],
+      "issues": [],
       "title": "降臨の間 第一夜の記録",
       "descLen": 77
     },
@@ -192,29 +176,41 @@
       "file": "kourin.html",
       "url": "https://genmatsuda-code.github.io/zenination/kourin.html",
       "status": 200,
-      "issues": [
-        "og:image が無い(X や LINE で貼った時の顔)"
-      ],
+      "issues": [],
       "title": "降臨の間 ── 九月十八日、二十二時",
       "descLen": 75
     },
     {
-      "file": "kuni.html",
-      "url": "https://genmatsuda-code.github.io/zenination/kuni.html",
+      "file": "kyozai01.html",
+      "url": "https://genmatsuda-code.github.io/zenination/kyozai01.html",
       "status": 200,
       "issues": [
-        "og:image が無い(X や LINE で貼った時の顔)"
+        "meta description の長さ 46 字(50〜160 が目安)"
       ],
-      "title": "善意立国 — 先に知って、稼ぐ。",
-      "descLen": 70
+      "title": "教材01 ── AI役員会の建て方 ／ 善意立国 私塾",
+      "descLen": 46
+    },
+    {
+      "file": "kyozai02_thanksmap.html",
+      "url": "https://genmatsuda-code.github.io/zenination/kyozai02_thanksmap.html",
+      "status": 200,
+      "issues": [],
+      "title": "教材02 ── THANKS MAP 使い方・解体新書【全面改訂版】 ／ 善意立国 私塾",
+      "descLen": 83
+    },
+    {
+      "file": "kyozai03_wowoo.html",
+      "url": "https://genmatsuda-code.github.io/zenination/kyozai03_wowoo.html",
+      "status": 200,
+      "issues": [],
+      "title": "教材03 ── WOWOOアプリ 使い方・解体新書 ／ 善意立国 私塾",
+      "descLen": 79
     },
     {
       "file": "morau.html",
       "url": "https://genmatsuda-code.github.io/zenination/morau.html",
       "status": 200,
-      "issues": [
-        "og:image が無い(X や LINE で貼った時の顔)"
-      ],
+      "issues": [],
       "title": "この国で、もらえるもの ── 善意立国",
       "descLen": 81
     },
@@ -227,34 +223,38 @@
       "descLen": 81
     },
     {
-      "file": "oni.html",
-      "url": "https://genmatsuda-code.github.io/zenination/oni.html",
+      "file": "poster.html",
+      "url": "https://genmatsuda-code.github.io/zenination/poster.html",
       "status": 200,
-      "issues": [],
-      "title": "AI だけでどこまで稼げるか ── 善意の鬼のカネ(善意立国)",
-      "descLen": 134
+      "issues": [
+        "meta description の長さ 43 字(50〜160 が目安)",
+        "h1 が 0 個(1 個が目安)"
+      ],
+      "title": "世紀の一戦 ── 松田元 vs 松田元",
+      "descLen": 43
     },
     {
       "file": "press.html",
       "url": "https://genmatsuda-code.github.io/zenination/press.html",
       "status": 200,
-      "issues": [
-        "og:title が無い(X や LINE で貼った時の顔)",
-        "og:description が無い(X や LINE で貼った時の顔)",
-        "og:image が無い(X や LINE で貼った時の顔)"
-      ],
+      "issues": [],
       "title": "PRESS ── 世紀の一戦 / The Match of the Century",
       "descLen": 125
+    },
+    {
+      "file": "sbt.html",
+      "url": "https://genmatsuda-code.github.io/zenination/sbt.html",
+      "status": 200,
+      "issues": [],
+      "title": "国民の証の図鑑 ── 善意立国",
+      "descLen": 67
     },
     {
       "file": "senkyo.html",
       "url": "https://genmatsuda-code.github.io/zenination/senkyo.html",
       "status": 200,
       "issues": [
-        "meta description の長さ 39 字(50〜160 が目安)",
-        "og:title が無い(X や LINE で貼った時の顔)",
-        "og:description が無い(X や LINE で貼った時の顔)",
-        "og:image が無い(X や LINE で貼った時の顔)"
+        "meta description の長さ 39 字(50〜160 が目安)"
       ],
       "title": "戦況板 ── 世紀の一戦 松田元 vs 松田元",
       "descLen": 39
@@ -263,45 +263,15 @@
       "file": "shimin.html",
       "url": "https://genmatsuda-code.github.io/zenination/shimin.html",
       "status": 200,
-      "issues": [
-        "og:title が無い(X や LINE で貼った時の顔)",
-        "og:description が無い(X や LINE で貼った時の顔)",
-        "og:image が無い(X や LINE で貼った時の顔)"
-      ],
+      "issues": [],
       "title": "市民の権利 ── 善意立国で、あなたが受け取るもの",
       "descLen": 74
-    },
-    {
-      "file": "shoumei.html",
-      "url": "https://genmatsuda-code.github.io/zenination/shoumei.html",
-      "status": 200,
-      "issues": [
-        "og:title が無い(X や LINE で貼った時の顔)",
-        "og:description が無い(X や LINE で貼った時の顔)",
-        "og:image が無い(X や LINE で貼った時の顔)"
-      ],
-      "title": "国民の証の受け取り ── 善意立国",
-      "descLen": 87
-    },
-    {
-      "file": "tokuten.html",
-      "url": "https://genmatsuda-code.github.io/zenination/tokuten.html",
-      "status": 200,
-      "issues": [
-        "og:title が無い(X や LINE で貼った時の顔)",
-        "og:description が無い(X や LINE で貼った時の顔)",
-        "og:image が無い(X や LINE で貼った時の顔)"
-      ],
-      "title": "国民特典 ── 善意立国の市民に、実際に起きること",
-      "descLen": 82
     },
     {
       "file": "yakusoku.html",
       "url": "https://genmatsuda-code.github.io/zenination/yakusoku.html",
       "status": 200,
-      "issues": [
-        "og:image が無い(X や LINE で貼った時の顔)"
-      ],
+      "issues": [],
       "title": "約束の公開台帳 ── AIが嘘をつけない国",
       "descLen": 65
     },
@@ -309,42 +279,43 @@
       "file": "yuugen.html",
       "url": "https://genmatsuda-code.github.io/zenination/yuugen.html",
       "status": 200,
-      "issues": [
-        "og:image が無い(X や LINE で貼った時の顔)"
-      ],
+      "issues": [],
       "title": "持株の有言実行率 — 佐藤の道具",
       "descLen": 56
     },
     {
-      "file": "honkowa.html",
-      "url": "https://genmatsuda-code.github.io/zenination/honkowa.html",
-      "status": 200,
-      "issues": [],
-      "title": "本怖 Burn Chronicle ── 書くほど、燃える。",
-      "descLen": 109
-    },
-    {
-      "file": "sbt.html",
-      "url": "https://genmatsuda-code.github.io/zenination/sbt.html",
+      "file": "en/nation.html",
+      "url": "https://genmatsuda-code.github.io/zenination/en/nation.html",
       "status": 200,
       "issues": [
-        "og:image が無い(X や LINE で貼った時の顔)"
+        "title が長い(70 字・検索の見出しで切れる)",
+        "meta description の長さ 210 字(50〜160 が目安)"
       ],
-      "title": "国民の証の図鑑 ── 善意立国",
-      "descLen": 67
+      "title": "Zenination ── The creed, the oboe, the ranks, the ledger. On one page.",
+      "descLen": 210
     },
     {
-      "file": "honkowa-zukan.html",
-      "url": "https://genmatsuda-code.github.io/zenination/honkowa-zukan.html",
+      "file": "en/press.html",
+      "url": "https://genmatsuda-code.github.io/zenination/en/press.html",
       "status": 200,
       "issues": [],
-      "title": "本怖 SBT ── 続けた月の数で、帯の色が上がる。",
-      "descLen": 100
+      "title": "PRESS ── The Match of the Century",
+      "descLen": 125
+    },
+    {
+      "file": "en/senkyo.html",
+      "url": "https://genmatsuda-code.github.io/zenination/en/senkyo.html",
+      "status": 200,
+      "issues": [
+        "title が長い(70 字・検索の見出しで切れる)"
+      ],
+      "title": "The Scoreboard ── The Match of the Century: Gen Matsuda vs Gen Matsuda",
+      "descLen": 141
     }
   ],
   "lighthouse": {
     "index": {
-      "performance": 97,
+      "performance": 91,
       "accessibility": 92,
       "best-practices": 96,
       "seo": 100
@@ -356,14 +327,15 @@
       "seo": 100
     },
     "oni": {
-      "performance": 90,
+      "performance": 81,
       "accessibility": 100,
       "best-practices": 96,
       "seo": 100
     }
   },
-  "total": 55,
+  "total": 10,
   "worse": [
-    "oni の performance 100→90"
+    "index の performance 97→91",
+    "oni の performance 90→81"
   ]
 }
