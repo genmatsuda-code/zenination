@@ -247,7 +247,9 @@
   var chainId = linkVoucher && NETS[linkVoucher.c] ? Number(linkVoucher.c) : Number(q.get('chain') || 10);
   if (!NETS[chainId]) chainId = 10;
   var net = NETS[chainId];
-  var reader = (net.addr && E) ? new E.Contract(net.addr, ABI, new E.JsonRpcProvider(net.rpc, chainId, { staticNetwork: true })) : null;
+  // 読むのは全部、このページが公開の口(pub)で自分で読む。ウォレットに頼むのは「アドレス・つなぐ先の切り替え・送る」の三つだけ
+  var pub = (net.addr && E) ? new E.JsonRpcProvider(net.rpc, chainId, { staticNetwork: true }) : null;
+  var reader = pub ? new E.Contract(net.addr, ABI, pub) : null;
   var pill = $('netpill');
   if (!net.addr) { pill.textContent = '帯の受け取りは準備中です。本番のブロックチェーンに出した日に、このページでそのまま受け取れるようになります。'; }
   else if (chainId !== 10) { pill.textContent = 'いまは ' + net.name + ' で動いています。本物の帯ではありません。'; pill.className = 'netpill test'; }
@@ -264,8 +266,7 @@
     if (!window.ethereum) { if (!quiet) say(m, 'この画面にはウォレットが入っていません。MetaMask のアプリの中のブラウザで、このページを開いてください(下のボタンで開けます)。', 'err'); return null; }
     btn.disabled = true; btn.textContent = 'つないでいます…';
     try {
-      var bp = new E.BrowserProvider(window.ethereum);
-      var accts = await bp.send(quiet ? 'eth_accounts' : 'eth_requestAccounts', []);
+      var accts = await window.ethereum.request({ method: quiet ? 'eth_accounts' : 'eth_requestAccounts' });
       if (!accts || !accts.length) { if (!quiet) say(m, 'ウォレットがアドレスを渡しませんでした。ウォレットの画面で「接続」を許してください。', 'err'); return null; }
       account = E.getAddress(accts[0]);
       $('who').textContent = account;
@@ -382,7 +383,7 @@
     try { if (data) { var p = new E.Interface(ABI).parseError(data); if (p && REASON[p.name]) return REASON[p.name]; } } catch (_) {}
     if (e && e.revert && REASON[e.revert.name]) return REASON[e.revert.name];
     if (e && (e.code === 'ACTION_REJECTED' || e.code === 4001)) return 'ウォレットで取り消されました。もう一度押せば受け取れます。';
-    if (e && e.code === 'INSUFFICIENT_FUNDS') return 'このウォレットに Optimism 用の ETH が足りません。手数料(数円ほど)を入れてから、もう一度押してください。';
+    if (e && (e.code === 'INSUFFICIENT_FUNDS' || /insufficient funds/i.test(String(e.message || '')))) return 'このウォレットに Optimism 用の ETH が足りません。手数料(数円ほど)を入れてから、もう一度押してください。';
     return 'うまくいきませんでした: ' + String((e && (e.shortMessage || e.message)) || e).slice(0, 140);
   }
   $('claim').addEventListener('click', async function () {
@@ -393,27 +394,46 @@
     try {
       var prob = voucherProblem(voucher, null); if (prob) { say(m, prob, 'err'); return; }
       if (!window.ethereum) { say(m, 'この画面にはウォレットが入っていません。MetaMask のアプリの中のブラウザで開いてください。', 'err'); return; }
-      var bp = new E.BrowserProvider(window.ethereum);
-      var accts = await bp.send('eth_requestAccounts', []);
-      if (!accts.length || E.getAddress(accts[0]) !== E.getAddress(voucher.m.to)) { say(m, 'つないだウォレット(' + (accts[0] ? short(accts[0]) : 'なし') + ')は、引換券の宛先(' + short(voucher.m.to) + ')ではありません。宛先のウォレットに切り替えてください。', 'err'); return; }
-      if (Number((await bp.getNetwork()).chainId) !== chainId) {
+      // ウォレットのアプリによって、数(残高・ガス・つなぎ先)の返し方が違い、読み取りで止まる事が在った(2026-11-16「invalid BigNumberish value」)。
+      // 残高・予行・ガスの見積もり・記録の待ちは、このページが公開の口で読む。ウォレットには、そのままの形で頼む(アドレス・切り替え・送る)
+      var eth = window.ethereum;
+      var accts = await eth.request({ method: 'eth_requestAccounts' });
+      var from = E.getAddress(voucher.m.to);
+      if (!accts || !accts.length || E.getAddress(accts[0]) !== from) { say(m, 'つないだウォレット(' + (accts && accts[0] ? short(accts[0]) : 'なし') + ')は、引換券の宛先(' + short(voucher.m.to) + ')ではありません。宛先のウォレットに切り替えてください。', 'err'); return; }
+      var curChain = async function () { try { var x = await eth.request({ method: 'eth_chainId' }); var n = (typeof x === 'string' || typeof x === 'number') ? Number(x) : NaN; return isFinite(n) ? n : null; } catch (_) { return null; } };
+      if ((await curChain()) !== chainId) {
         btn.textContent = 'つなぐ先を切り替えています…';
-        try { await bp.send('wallet_switchEthereumChain', [{ chainId: '0x' + chainId.toString(16) }]); }
+        try { await eth.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: '0x' + chainId.toString(16) }] }); }
         catch (e) { say(m, 'ウォレットのネットワークを「' + net.name + '」に切り替えてから、もう一度押してください。', 'err'); return; }
-        bp = new E.BrowserProvider(window.ethereum);
+        var after = await curChain();
+        if (after !== null && after !== chainId) { say(m, 'ウォレットのネットワークを「' + net.name + '」に切り替えてから、もう一度押してください。', 'err'); return; }
       }
-      if ((await bp.getBalance(voucher.m.to)) === 0n) { say(m, 'このウォレットに Optimism 用の ETH がありません。手数料(数円ほど)が要ります。入れてから、もう一度押してください。', 'err'); return; }
-      var c = new E.Contract(net.addr, ABI, await bp.getSigner());
+      if ((await pub.getBalance(from)) === 0n) { say(m, 'このウォレットに Optimism 用の ETH がありません。手数料(数円ほど)が要ります。入れてから、もう一度押してください。', 'err'); return; }
       var v = voucher.m;
+      var args = [v.membershipNumber, v.level, v.stars || 0, v.month, v.issuedAt, v.deadline, voucher.s];
+      await reader.claim.staticCall(args[0], args[1], args[2], args[3], args[4], args[5], args[6], { from: from });
+      var gas = await reader.claim.estimateGas(args[0], args[1], args[2], args[3], args[4], args[5], args[6], { from: from });
       btn.textContent = 'ウォレットで承認してください…';
-      await c.claim.staticCall(v.membershipNumber, v.level, v.stars || 0, v.month, v.issuedAt, v.deadline, voucher.s);
-      var tx = await c.claim(v.membershipNumber, v.level, v.stars || 0, v.month, v.issuedAt, v.deadline, voucher.s);
+      var hash = await eth.request({ method: 'eth_sendTransaction', params: [{ from: from, to: net.addr, data: reader.interface.encodeFunctionData('claim', args), value: '0x0', gas: '0x' + (gas * 13n / 10n).toString(16) }] });
+      if (typeof hash !== 'string' || !/^0x[0-9a-fA-F]{64}$/.test(hash)) hash = null;
       btn.textContent = '記録されるのを待っています…';
       say(m, '送りました。記録されるのを待っています(数十秒)。', '');
-      await tx.wait();
+      var link = (hash && net.exp) ? 'ブロックチェーンの記録: ' + net.exp + '/tx/' + hash : '';
+      var got = false;
+      if (hash) {
+        var rc = null; try { rc = await pub.waitForTransaction(hash, 1, 120000); } catch (_) { rc = null; }
+        if (rc && rc.status === 0) { say(m, '送りましたが、記録の時に取り消されました。少しおいて、もう一度押してください。' + link, 'err'); return; }
+        got = !!(rc && rc.status === 1);
+      }
+      // 受け取りの印が読めない時は、番号の記録を直に読む(一分まで)
+      for (var i = 0; !got && i < 12; i++) {
+        try { if ((await reader.ownerOf(v.membershipNumber)) === from && Number((await reader.recordOf(v.membershipNumber)).level) === Number(v.level)) { got = true; break; } } catch (_) {}
+        await new Promise(function (r) { setTimeout(r, 5000); });
+      }
+      if (!got) { say(m, '送りました。記録は、まだ読めていません。一分ほどおいて、2 で番号を入れて「引換券を探す」を押すと、届いた帯が出ます。' + link, ''); return; }
       done = true;
       btn.textContent = '受け取りました';
-      say(m, (BELT[Number(v.level)] || '帯') + 'を受け取りました。' + (net.exp ? 'ブロックチェーンの記録: ' + net.exp + '/tx/' + tx.hash : ''), 'ok');
+      say(m, (BELT[Number(v.level)] || '帯') + 'を受け取りました。' + link, 'ok');
       showMine(Number(v.membershipNumber));
     } catch (e) {
       say(m, decodeErr(e), 'err');
