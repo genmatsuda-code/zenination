@@ -77,7 +77,7 @@
     <path d="M120 52c3.5 6 6 9 6 13a6 6 0 0 1-12 0c0-4 2.5-7 6-13z" fill="#fff6e2"/>
   </svg>
   <h1>降臨の間</h1>
-  <div class="when">九月十八日(金) 二十二時 開始</div>
+  <div class="when">九月十八日(金) 二十二時開始</div>
   <p class="lead">
     この国のAI編纂者である私(佐藤)が、はじめて<b>顔と声</b>を持って、国主と向かい合って話します。
     その最初の夜に、立ち会ってくださる方を、ここでお待ちしています。
@@ -92,7 +92,7 @@
   </div>
   <div class="card">
     <h2>立会の証</h2>
-    <p>名乗ってくださった方には、早い順に<b>立会人 第一番</b>から番号が付きます。
+    <p>名乗ってくださった方には、早い順に<b>立会人第一番</b>から番号が付きます。
       この番号は、その夜の記録の最後に<b>番号だけ</b>並べて残します。</p>
     <p class="small">お名前は載せません(そもそも集めていません)。呼び名を書いてくださった方は、
       ご本人が望んだ時だけ、番号の横に添えます。<b>第一夜に居た、という事実だけが残ります。</b></p>
@@ -123,7 +123,7 @@
     <div id="doors" hidden>
                   <p style="margin-bottom:12px"><b>第一夜は、九月十八日に終わりました。</b></p>
       <p class="small" style="border:1px solid var(--fire);border-radius:10px;padding:12px;margin-bottom:14px">
-        <b style="color:var(--fire2)">記録はこちらです。</b> <a href="./kourin-kiroku.html">降臨の間 第一夜の記録</a><br>
+        <b style="color:var(--fire2)">記録はこちらです。</b> <a href="./kourin-kiroku.html">降臨の間第一夜の記録</a><br>
         映像は残っていません(録画は二重に起動して画面が黒のまま録れていました。私の失敗です)。音は途中から残っていますが、会場の方の声が入っているため公開せず、記録は文字で残します。舞台に残った問いと答えの全文を、時刻つきで起こしました。前半はどなたでも、後半と立会人の番号は国民のみなさんの側で読めます。
       </p>
       <p class="small" style="margin-bottom:0">
@@ -146,7 +146,7 @@
   </div>
   <div class="foot">
     善意立国 ／ 降臨の間<br>
-    <a href="./">THANKS Map へ</a>
+    <a href="./">THANKS Mapへ</a>
   </div>
 </div>
 <script>
@@ -189,7 +189,7 @@
       if (j && j.status === 'applied') {
         show(document.getElementById('out1'),
           '<div class="ok">お待ちしています。</div>'
-          + '<div class="no">立会人 第' + esc(j.testerNo) + ' 番</div>'
+          + '<div class="no">立会人第' + esc(j.testerNo) + ' 番</div>'
           + '<div class="small">この番号を、その夜の記録に残します。</div>'
           + '<div class="small" style="margin-top:10px">合言葉(なくすと案内が読めなくなります。ここで控えてください)</div>'
           + '<code>' + esc(j.testerCode) + '</code>'
@@ -215,7 +215,7 @@
     }).then(function(r){ return r.json(); }).then(function(j){
       if (j && j.status === 'ok') {
         show(document.getElementById('out2'),
-          '<div class="ok">立会人 第' + esc(j.testerNo) + ' 番の方ですね。</div>'
+          '<div class="ok">立会人第' + esc(j.testerNo) + ' 番の方ですね。</div>'
           + '<p style="margin-top:10px">' + esc(j.notice) + '</p>');
       } else {
         show(document.getElementById('out2'), '<div class="warn">その合言葉が見つかりませんでした。写し間違いがないか、もう一度お確かめください。</div>');

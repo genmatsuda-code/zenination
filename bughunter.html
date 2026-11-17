@@ -99,7 +99,7 @@
     <span class="ev">VERIFY</span>
     <h2>ウォレットのアドレスで確かめる</h2>
     <div class="card">
-      <label for="addr">ウォレットのアドレス(0x で始まる 42 文字)</label>
+      <label for="addr">ウォレットのアドレス(0xで始まる42文字)</label>
       <input id="addr" inputmode="text" autocomplete="off" spellcheck="false" placeholder="0x…">
       <div class="msg" id="msg" role="status" aria-live="polite"></div>
       <button id="go" type="button">確かめる</button>
@@ -123,14 +123,14 @@
     <span class="ev">HOW</span>
     <h2>証が届くまで</h2>
     <ol class="how">
-      <li>不具合を見つけたら、Discord の <b>#🐛バグ狩り場</b> か、THANKS Map の「うまく動かない時は」から報せる。</li>
+      <li>不具合を見つけたら、Discordの <b>#🐛バグ狩り場</b> か、THANKS Mapの「うまく動かない時は」から報せる。</li>
       <li>再現できたら一匹。<b>三匹(うち一つは「直った」と確かめた)</b>で 🏹 バグ狩り、<b>十匹か重い一匹</b>で 🦅 名手。</li>
       <li>運営が台帳で段を確かめ、あなたのウォレット宛ての<b>引換券のリンク</b>を届ける。開いて受け取るだけ。</li>
     </ol>
     <p class="note">数えるのは行いだけです。お金や持っている量は見ません。段は上がるだけで、下がりません。</p>
   </section>
 
-  <footer>照合用の印は、控えの番号と 128 ビットの塩のハッシュです。番号を本人が示したい時だけ、運営から受け取った番号と塩をリンクに添えると、この頁が照らし合わせます。</footer>
+  <footer>照合用の印は、控えの番号と128ビットの塩のハッシュです。番号を本人が示したい時だけ、運営から受け取った番号と塩をリンクに添えると、この頁が照らし合わせます。</footer>
 </main>
 <div id="toast" role="status"></div>
 
@@ -155,7 +155,7 @@
   var REASON = {
     NotIssuerSignature: '引換券の署名が運営のものではないか、運営が引換券を出し直しています。新しいリンクを運営に頼んでください。',
     Expired: '引換券の期限が過ぎています。新しいリンクを運営に頼んでください。',
-    TooLong: '引換券の期限が長すぎます(発行から 30 日まで)。新しいリンクを運営に頼んでください。',
+    TooLong: '引換券の期限が長すぎます(発行から30日まで)。新しいリンクを運営に頼んでください。',
     BadIssuedAt: '引換券の発行の時刻が合いません。数分おいてもう一度押してください。',
     BadLevel: '引換券の段が読めません。運営に知らせてください。',
     BadMonth: '始めた月が合いません(段を上げる時は、最初の月のままです)。運営に知らせてください。',
@@ -211,7 +211,7 @@
     var btn = $('go'); var msg = $('msg');
     $('badge').style.display = 'none';
     addr = String(addr || '').trim();
-    if (!E.isAddress(addr)) { say(msg, 'アドレスの形が違います。0x で始まる 42 文字を貼ってください。', 'bad'); return; }
+    if (!E.isAddress(addr)) { say(msg, 'アドレスの形が違います。0xで始まる42文字を貼ってください。', 'bad'); return; }
     if (!reader) { say(msg, 'この証はまだブロックチェーンに出ていません。出した日に、この頁で確かめられるようになります。', 'bad'); return; }
     btn.disabled = true; btn.textContent = 'ブロックチェーンを読んでいます…'; say(msg, '');
     try {
@@ -272,7 +272,7 @@
     $('vBtn').addEventListener('click', async function () {
       var btn = $('vBtn'), vm = $('vMsg');
       if (!contractAddr) { say(vm, 'この証はまだブロックチェーンに出ていません。出した日に、このリンクで受け取れるようになります。', 'bad'); return; }
-      if (!window.ethereum) { say(vm, 'ウォレットが見つかりません。MetaMask などのウォレットのアプリの中のブラウザで、このリンクを開いてください。', 'bad'); return; }
+      if (!window.ethereum) { say(vm, 'ウォレットが見つかりません。MetaMaskなどのウォレットのアプリの中のブラウザで、このリンクを開いてください。', 'bad'); return; }
       btn.disabled = true; btn.textContent = 'ウォレットをつないでいます…'; say(vm, '');
       try {
         // 財布のアプリによって、数(残高・ガス・つなぎ先)の返し方が違い、読み取りで止まる事が在った(2026-11-16 本怖の帯の頁「invalid BigNumberish value」)。

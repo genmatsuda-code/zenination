@@ -112,14 +112,14 @@
 
   <div class="box">
     <h2>① 開示の文を貼る</h2>
-    <textarea id="src" placeholder="適時開示の PDF を開いて、本文を全部コピーして貼ってください(Ctrl+A → Ctrl+C)。"></textarea>
+    <textarea id="src" placeholder="適時開示のPDFを開いて、本文を全部コピーして貼ってください(Ctrl+A → Ctrl+C)。"></textarea>
     <div class="row">
-      <label class="file">📄 PDF を選ぶ<input type="file" id="pdf" accept="application/pdf"></label>
+      <label class="file">📄 PDFを選ぶ<input type="file" id="pdf" accept="application/pdf"></label>
       <button id="go">約束を拾う</button>
       <button class="ghost" id="clr">消す</button>
     </div>
     <div class="hint">
-      貼った文も、選んだ PDF も、<b>どこへも送りません</b>。全部この端末の中で読んでいます
+      貼った文も、選んだPDFも、<b>どこへも送りません</b>。全部この端末の中で読んでいます
       ——持株は、あなたの持ち物だからです。
     </div>
     <div class="err" id="err" hidden></div>
@@ -141,17 +141,17 @@
   <div class="box sample">
     <h2>見本 — abc株式会社(8783)を、同じ道具で数えた</h2>
     <div class="big" id="sRate">66.7<span class="unit">%</span></div>
-    <div class="hint">2025-10-02 〜 2026-10-02 の開示 92 件のうち、8 件から約束を拾いました</div>
+    <div class="hint">2025-10-02 〜 2026-10-02の開示92件のうち、8件から約束を拾いました</div>
     <table>
-      <tr><td>期日が来て、確かめ終わった約束</td><td>6 件</td></tr>
-      <tr><td>期日内に履行</td><td>3 件</td></tr>
-      <tr><td>遅れて履行</td><td>1 件</td></tr>
-      <tr><td>未履行(会社が自分から延期・中止を開示)</td><td>1 件</td></tr>
-      <tr><td>未履行(期日を過ぎて、続報が見つからない)</td><td>1 件</td></tr>
-      <tr><td>期日の書かれていない言い方</td><td>3 件</td></tr>
+      <tr><td>期日が来て、確かめ終わった約束</td><td>6件</td></tr>
+      <tr><td>期日内に履行</td><td>3件</td></tr>
+      <tr><td>遅れて履行</td><td>1件</td></tr>
+      <tr><td>未履行(会社が自分から延期・中止を開示)</td><td>1件</td></tr>
+      <tr><td>未履行(期日を過ぎて、続報が見つからない)</td><td>1件</td></tr>
+      <tr><td>期日の書かれていない言い方</td><td>3件</td></tr>
     </table>
     <div class="hint">
-      この見本だけは、<b>語で絞らず12か月の開示を全部</b>読んで作りました(92 件・落とせたもの 0)。
+      この見本だけは、<b>語で絞らず12か月の開示を全部</b>読んで作りました(92件・落とせたもの0)。
       自分の会社の数を先に出さずに、よその会社の数を出すのは筋が通らないからです。
     </div>
   </div>
@@ -164,9 +164,9 @@
       ・「誠実な会社」「良い会社」といった評価はしません。出すのは<b>開示の履歴から数えた率</b>だけです。<br>
       ・<b>期日の書かれていない言い方を「未履行」に数えません。</b>「順次実施します」「検討しております」は、
       約束の形になっていないだけで、破った訳ではないからです。件数は別に出します。<br>
-      ・<b>母数が5件に満たない時は、% を出しません。</b>1件で 0%・100% は、数ではなく当てこすりです。
+      ・<b>母数が5件に満たない時は、%を出しません。</b>1件で0%・100%は、数ではなく当てこすりです。
     </p>
-    <p><b>v0 で、まだ出来ないこと(正直に書きます)</b></p>
+    <p><b>v0で、まだ出来ないこと(正直に書きます)</b></p>
     <p>
       ・<b>履行したかどうかは、貼った文だけでは分かりません。</b>約束と、その後どうなったかは別の開示に載るからです。
       続報の開示も続けて貼ると、「履行」「遅れて履行」まで出ます。1本だけなら「期日が来た/まだ来ていない」までです。<br>
@@ -175,7 +175,7 @@
       ・「続報が見つからない」は「やっていない」ではありません。見ているのは公開の開示の中だけです。
     </p>
     <p class="hint">
-      ※ 本文の文字は NFKC で正規化してから読んでいます。開示の PDF は「月」「日」を別の文字で出すことがあり、
+      ※ 本文の文字はNFKCで正規化してから読んでいます。開示のPDFは「月」「日」を別の文字で出すことがあり、
       そのままだと<b>どの会社も「約束ゼロ」</b>になってしまうためです。
     </p>
   </div>
@@ -238,7 +238,7 @@
       if (!live.length) continue;
       var due = live.map(function (x) { return x.iso; }).sort().slice(-1)[0];
       /* ★ 同じ約束は、本文の中で何度も言い換えて出てくる(実測: 8/12 の開示は同じ 8月末を3回)。
-         文ごとに数えると、約束の数が勝手に膨らむ。**期日で畳む**——引用は全部 残して見せる。 */
+         文ごとに数えると、約束の数が勝手に膨らむ。**期日で畳む**——引用は全部残して見せる。 */
       var g = null;
       for (var k = 0; k < dated.length; k++) if (dated[k].due === due) { g = dated[k]; break; }
       if (g) { if (g.quotes.indexOf(L) < 0) g.quotes.push(L); continue; }
@@ -269,7 +269,7 @@
         + '</div>';
     } else if (due < MIN_DENOM) {
       h = '<div class="big">—</div><div class="hint">期日が来た約束が <b>' + due + ' 件</b>('
-        + MIN_DENOM + ' 件未満)なので、% は出しません。1件で 0%・100% は、数ではなく当てこすりになるからです。</div>';
+        + MIN_DENOM + ' 件未満)なので、%は出しません。1件で0%・100%は、数ではなく当てこすりになるからです。</div>';
     } else {
       h = '<div class="big">—<span class="unit">%</span></div>'
         + '<div class="hint">期日が来た約束は <b>' + due + ' 件</b>。'
@@ -291,7 +291,7 @@
     });
     $('list').innerHTML = list;
 
-    $('scope').innerHTML = '<b>読んだ範囲</b>: 貼られた開示 <b>1 本</b>'
+    $('scope').innerHTML = '<b>読んだ範囲</b>: 貼られた開示 <b>1本</b>'
       + (r.base ? '(日付 ' + r.base + ')' : '(日付が読めませんでした)')
       + '。<br>この率は、その1本の中のことしか言っていません。'
       + '<b>語で絞ってはいません</b>——貼られた文を端から端まで読んでいます。';
@@ -326,8 +326,8 @@
     $('err').hidden = true;
     loadPdfJs(function (pdfjs) {
       if (!pdfjs) {
-        $('err').innerHTML = 'この端末では PDF をそのまま読めませんでした。'
-          + 'お手数ですが、PDF を開いて本文をコピーし、上の枠に貼ってください(その方が速いこともあります)。';
+        $('err').innerHTML = 'この端末ではPDFをそのまま読めませんでした。'
+          + 'お手数ですが、PDFを開いて本文をコピーし、上の枠に貼ってください(その方が速いこともあります)。';
         $('err').hidden = false; return;
       }
       var fr = new FileReader();
@@ -342,7 +342,7 @@
             }).catch(function () { next(); });
           })();
         }).catch(function () {
-          $('err').textContent = 'この PDF は読めませんでした。本文をコピーして貼ってください。';
+          $('err').textContent = 'このPDFは読めませんでした。本文をコピーして貼ってください。';
           $('err').hidden = false;
         });
       };
@@ -386,7 +386,7 @@
       ['期日が来た', last.due + ' 件'],
       ['まだ期日前', last.notYet + ' 件'],
       ['期日の無い言い方', last.r.vague + ' 件'],
-      ['読んだ開示', '1 本' + (last.r.base ? '(' + last.r.base + ')' : '')],
+      ['読んだ開示', '1本' + (last.r.base ? '(' + last.r.base + ')' : '')],
     ];
     pairs.forEach(function (p, i) {
       g.fillText(p[0], 72, 320 + i * 50);
@@ -405,7 +405,7 @@
     var t = '持株の有言実行率(開示の履歴から数えた率)\n'
       + '期日つきの約束 ' + last.r.dated.length + ' 件 / 期日が来た ' + last.due + ' 件 / '
       + 'まだ期日前 ' + last.notYet + ' 件 / 期日の無い言い方 ' + last.r.vague + ' 件\n'
-      + '読んだ開示 1 本' + (last.r.base ? '(' + last.r.base + ')' : '') + '\n'
+      + '読んだ開示1本' + (last.r.base ? '(' + last.r.base + ')' : '') + '\n'
       + '※ 株価のことは何も言っていません。';
     navigator.clipboard && navigator.clipboard.writeText(t);
     this.textContent = 'コピーしました';

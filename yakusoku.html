@@ -157,7 +157,7 @@
       var d=el("div","stat"),n=el("div","n"+(p[2]&&c[p[0]]?" bad":""),String(c[p[0]]!=null?c[p[0]]:"—"));
       d.appendChild(n);d.appendChild(el("div","l",p[1]));sum.appendChild(d);
     });
-    document.getElementById("privacy").textContent=(j.privacy||"")+(j.hiddenRows?" この日 伏せた行: "+j.hiddenRows+"件(数だけ残します)":"");
+    document.getElementById("privacy").textContent=(j.privacy||"")+(j.hiddenRows?" この日伏せた行: "+j.hiddenRows+"件(数だけ残します)":"");
     var late=j.promises.filter(function(r){return r.status==="overdue";});
     var lb=document.getElementById("late");
     if(late.length)lb.appendChild(table(late));
@@ -182,7 +182,7 @@
     s.appendChild(el("div",null,"作り方: "+(j.sealHow||"—")));
     s.appendChild(el("div",null,"元の口: "+API));
     if(j.anchor&&j.anchor.txHash)s.appendChild(el("div",null,"刻: "+j.anchor.txHash));
-    else s.appendChild(el("div",null,"刻: この封は、まだ消せない台帳に打っていません(毎日 打ちます)。"));
+    else s.appendChild(el("div",null,"刻: この封は、まだ消せない台帳に打っていません(毎日打ちます)。"));
   }).catch(function(e){err(e&&e.message);});
 })();
 </script>

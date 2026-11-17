@@ -11,7 +11,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://genmatsuda-code.github.io/zenination/#org","name":"善意立国","alternateName":"Zenination","url":"https://genmatsuda-code.github.io/zenination/","founder":{"@type":"Person","name":"松田元","alternateName":"Gen Matsuda"}},{"@type":"WebPage","@id":"https://genmatsuda-code.github.io/zenination/sbt.html#page","url":"https://genmatsuda-code.github.io/zenination/sbt.html","name":"国民の証の図鑑 ── 善意立国","description":"善意立国の国民の証(SBT・百番まで)を、誰が(番号で)いつ受け取ったかをカードで並べた図鑑。譲れない・売れない・だから集めたくなる。","inLanguage":"ja","isPartOf":{"@id":"https://genmatsuda-code.github.io/zenination/#org"},"primaryImageOfPage":"https://genmatsuda-code.github.io/zenination/assets/og/oni.png"}]}</script>
 <meta name="description" content="善意立国の国民の証(SBT・百番まで)を、誰が(番号で)いつ受け取ったかをカードで並べた図鑑。譲れない・売れない・だから集めたくなる。">
 <meta property="og:title" content="国民の証の図鑑 ── 善意立国">
-<meta property="og:description" content="善意立国の国民の証(百番まで)。番号と受け取った日と tx を一枚ずつ。全部 Optimism で確かめられる。">
+<meta property="og:description" content="善意立国の国民の証(百番まで)。番号と受け取った日とtxを一枚ずつ。全部Optimismで確かめられる。">
 <meta property="og:url" content="https://genmatsuda-code.github.io/zenination/sbt.html">
 <meta name="twitter:card" content="summary">
 <!-- Google tag (gtag.js) -->
@@ -166,7 +166,7 @@
 <main>
 <div class="wrap hero">
   <div class="lbl">ZENINATION ── 国民の証を持っている人の一覧</div>
-  <h1>百の席に、<br>百人の国民を。<small>善意立国(松田元の note の会・月 2,980 円)の国民が受け取る SBT が「国民の証」です。<b>入国の順の番号で、百番まで。</b>譲れず、売れず、消えません。受け取った人のカードが番号で並び、空いている席は点線のまま。名前は本人が出すと決めた時だけ。いまは配り始める前で、見本だけが置いてあります。<br><span style="color:var(--dim)">本怖(本当にあった怖い話)の帯「HonKowa」は別の会の別の記録で、図鑑も別です → <a href="honkowa-zukan.html" style="color:var(--ember)">帯の板</a></span></small></h1>
+  <h1>百の席に、<br>百人の国民を。<small>善意立国(松田元のnoteの会・月2,980円)の国民が受け取るSBTが「国民の証」です。<b>入国の順の番号で、百番まで。</b>譲れず、売れず、消えません。受け取った人のカードが番号で並び、空いている席は点線のまま。名前は本人が出すと決めた時だけ。いまは配り始める前で、見本だけが置いてあります。<br><span style="color:var(--dim)">本怖(本当にあった怖い話)の帯「HonKowa」は別の会の別の記録で、図鑑も別です → <a href="honkowa-zukan.html" style="color:var(--ember)">帯の板</a></span></small></h1>
   <div class="tally">
     <div><div class="k">受け取った国民</div><div class="v" id="tz">—<small>/ 100</small></div></div>
     <div><div class="k">空いている席</div><div class="v" id="tzLeft">—</div></div>
@@ -174,9 +174,9 @@
 </div>
 
 <section class="z" id="z"><div class="wrap">
-  <div class="head"><div><div class="lbl">ZENINATION ── 国民の証(100 枚で打ち止め)</div><h2>番号は、入国の順で永久に決まる。</h2><p>百番で締めます。受け取った人の席は緑に光り、まだ受け取っていない席は点線のまま。</p></div><a class="go" href="https://genmatsuda-code.github.io/zenination/kokumin.html">善意立国の入り口 →</a></div>
+  <div class="head"><div><div class="lbl">ZENINATION ── 国民の証(100枚で打ち止め)</div><h2>番号は、入国の順で永久に決まる。</h2><p>百番で締めます。受け取った人の席は緑に光り、まだ受け取っていない席は点線のまま。</p></div><a class="go" href="https://genmatsuda-code.github.io/zenination/kokumin.html">善意立国の入り口 →</a></div>
   <div class="deck folded" id="zgrid"></div>
-  <div class="more"><button type="button" id="zmore" data-for="zgrid">もっと見る(21〜100 番) ▾</button></div>
+  <div class="more"><button type="button" id="zmore" data-for="zgrid">もっと見る(21〜100番) ▾</button></div>
   <div class="legend"><span><i style="background:var(--acid)"></i>受け取った(緑に光る)</span><span><i style="border:1px dashed var(--line2)"></i>空いている席</span></div>
   <p class="empty-note" id="znote"></p>
 </div></section>
@@ -198,7 +198,7 @@
     <div>
       <h3>いま出ている案</h3>
       <p>国民の証を持つ方の特典は、この箱に届いた物から決めます。いま出ている案がこれ。決まった物だけ「決まった」と載せます。</p>
-      <div class="ideas"><span>月末の目玉(来月の企画)を、国民の証を持つ人の一票で決める</span><span>演説(降臨の間)の先行の枠</span><span>国主の一撃(毎朝の 3 問)に、国民の証の番号で先に出せる</span><span>佐藤の帳面の「次の一手」を一日 早く読める</span></div>
+      <div class="ideas"><span>月末の目玉(来月の企画)を、国民の証を持つ人の一票で決める</span><span>演説(降臨の間)の先行の枠</span><span>国主の一撃(毎朝の3問)に、国民の証の番号で先に出せる</span><span>佐藤の帳面の「次の一手」を一日早く読める</span></div>
       <p style="margin-top:12px;font-size:12.5px;color:var(--dim)">約束ではなく記録です。中身は変わる事があります。</p>
     </div>
   </div>
@@ -210,13 +210,13 @@
   <div class="how">
     <div><div class="k">01</div><h3>番号だけが既定</h3><p>カードに出るのは番号と、受け取った日と、tx。<b>名前は本人が「出す」と決めた時だけ</b>載ります。</p></div>
     <div><div class="k">02</div><h3>本人が自分で受け取る</h3><p>運営が送り付けません。本人が自分のウォレットで承認して受け取り、その記録(tx)がこのカードに結びます。</p></div>
-    <div><div class="k">03</div><h3>記録が正</h3><p>この頁は Optimism(ブロックチェーン)の記録を読んで並べているだけです。頁が消えても、SBT は残ります。</p></div>
+    <div><div class="k">03</div><h3>記録が正</h3><p>この頁はOptimism(ブロックチェーン)の記録を読んで並べているだけです。頁が消えても、SBTは残ります。</p></div>
   </div>
-  <p class="lines">SBT に金銭の価値はなく、譲渡も売買もできません。受け取りは任意で、受け取らない事で失う物はありません。特典は記録であって約束ではなく、決まった物だけをこの頁に載せます。本怖の帯「HonKowa」の図鑑は <a href="honkowa-zukan.html">帯の板</a>(別の会・別の記録)。</p>
+  <p class="lines">SBTに金銭の価値はなく、譲渡も売買もできません。受け取りは任意で、受け取らない事で失う物はありません。特典は記録であって約束ではなく、決まった物だけをこの頁に載せます。本怖の帯「HonKowa」の図鑑は <a href="honkowa-zukan.html">帯の板</a>(別の会・別の記録)。</p>
 </div></section>
 </main>
 
-<footer><div class="wrap"><div>善意立国 ── 佐藤(松田元が作った AI)の国</div><div style="text-align:right">この図鑑も、捕虜の初日(2026-11-01)の成果です。</div></div></footer>
+<footer><div class="wrap"><div>善意立国 ── 佐藤(松田元が作ったAI)の国</div><div style="text-align:right">この図鑑も、捕虜の初日(2026-11-01)の成果です。</div></div></footer>
 
 <script>
   // 読むのは data/sbt.json だけ: {zenination:[{n,day,tx,name?}], honkowa:[{n,level:"w|g|k|m",day,tx,name?}]}。無ければ空のまま(嘘を描かない)
@@ -234,12 +234,12 @@
       document.getElementById("znote").textContent=z.length?"":"国民の証の配り始めは準備中です。受け取った方から、席が緑に光ります。"; document.getElementById("tzLeft").textContent=100-z.length;
     });
     // もっと見る/たたむ
-    [["zmore","zgrid","もっと見る(21〜100 番) ▾","たたむ ▴"]].forEach(function(a){var bt=document.getElementById(a[0]),g=document.getElementById(a[1]);if(!bt||!g)return;bt.addEventListener("click",function(){var f=g.classList.toggle("folded");bt.textContent=f?a[2]:a[3];if(f)g.scrollIntoView({block:"start"});});});
+    [["zmore","zgrid","もっと見る(21〜100番) ▾","たたむ ▴"]].forEach(function(a){var bt=document.getElementById(a[0]),g=document.getElementById(a[1]);if(!bt||!g)return;bt.addEventListener("click",function(){var f=g.classList.toggle("folded");bt.textContent=f?a[2]:a[3];if(f)g.scrollIntoView({block:"start"});});});
     // ご意見箱: 文を写して、掲示板へ(送る先は note の掲示板=本人が自分で書く)
     document.getElementById("vgo").addEventListener("click",function(){
       var k="z", n=document.getElementById("vn").value.trim(), t=document.getElementById("vt").value.trim(), out=document.getElementById("vout");
       if(!t){out.textContent="一言を書いてください。";return;}
-      var head=(k==="h"?"【HonKowa の特典の希望】":"【国民の証の特典の希望】")+(n?"(番号 "+n+")":"");
+      var head=(k==="h"?"【HonKowaの特典の希望】":"【国民の証の特典の希望】")+(n?"(番号 "+n+")":"");
       var text=head+"\n"+t;
       var url="https://note.com/gen_matsuda/membership/boards";
       (navigator.clipboard?navigator.clipboard.writeText(text):Promise.reject()).then(function(){out.textContent="文を写しました。開いた掲示板に貼ってください(善意立国の投稿の下へ)。";},function(){out.textContent="写せなかったので、この文を手で貼ってください:\n"+text;});
