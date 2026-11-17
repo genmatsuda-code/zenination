@@ -21,7 +21,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Yuji+Boku&family=Zen+Kaku+Gothic+New:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <!-- 2026-11-01 v3 全面やり直し(⚖️松田さん「本怖の LP は論外」「フジテレビのほん怖のテイスト × サイバーパンク × ファイナンス、和洋折衷。一ミクロンも佐藤臭を出すな」)。
      型=テレビの怪談(黒・血の赤・走査線・ノイズ・筆の題・太いゴシック)に、相場のボード(等幅の数・板・ティッカー・格付け)を載せる。
-     捨てた物: 明朝×琥珀×熾火(佐藤の手癖)。色は 黒+血の赤+データの青 の三つだけ。角丸ゼロ。
+     捨てた物: 明朝×琥珀×熾火(佐藤の手癖)。色は黒+血の赤+データの青の三つだけ。角丸ゼロ。
      数の正=data/honkowa-hi.json・燃え尽きる日=OP の ChronoBurnCurve を直に読む。会員の人数は書かない。 -->
 <style>
   :root{
@@ -226,19 +226,19 @@
     <div class="hd"><span>HONKOWA.POST ／ OPTIMISM MAINNET</span><span class="live"><i></i><span id="pill">PRE-IGNITION</span></span></div>
     <!-- 2026-11-12: 一画面目は払う理由と申込(三席の表 v1 順 3)。燃えた量の札は下へ移した(消していない) -->
     <div class="lead1">
-      <p class="lead1-t">上場企業の社長が、<br>2021 年から毎朝 自分で書く部屋。</p>
+      <p class="lead1-t">上場企業の社長が、<br>2021 年から毎朝自分で書く部屋。</p>
       <p class="lead1-s">相場の見立て、会社の外に出せる範囲の話、負けた取引も。会員が返信すれば、本人が返します。</p>
       <a class="cta" href="https://note.com/gen_matsuda/membership">本怖に入る <span class="p">¥2,980 / MONTH</span></a>
     </div>
     <div class="cap">書くほど、<b>燃える。</b></div>
     <div class="big"><span class="n tab" id="perPost">1,608</span><span class="u">WWB / POST</span><span class="up">× 2.0 ── THANKS Map の一件(<b id="unitNow">804</b>)の二倍</span></div>
-    <p class="sub">上場企業の社長が 2021 年から毎朝 自分で書く、会員制の部屋。燃やし始める日(点火の日。日取りは決まり次第 この頁に書きます)から、会員が掲示板に書き込むたび、その数に応じて WWB が Optimism で燃えます。<small>一件の火はいまの値で、日によって変わります。燃やす時にチェーンから読みます。</small></p>
+    <p class="sub">上場企業の社長が 2021 年から毎朝自分で書く、会員制の部屋。燃やし始める日(点火の日。日取りは決まり次第、この頁に書きます)から、会員が掲示板に書き込むたび、その数に応じて WWB が Optimism で燃えます。<small>一件の火はいまの値で、日によって変わります。燃やす時にチェーンから読みます。</small></p>
     <dl>
       <div><dt>累計 BURNED</dt><dd class="tab" id="total">0 <small>WWB</small></dd></div>
       <div><dt>燃えた日</dt><dd class="tab" id="days">0</dd></div>
       <div><dt>満期 ── 燃え尽きる日</dt><dd class="cy tab" id="tgtDate">2140-02-11</dd></div>
       <div><dt>残り</dt><dd class="tab" id="tgtLeft">—</dd></div>
-      <div><dt>次の行事</dt><dd class="red" id="nextEvent">毎月 第 2 金曜 国主マッチの夜</dd></div>
+      <div><dt>次の行事</dt><dd class="red" id="nextEvent">毎月第 2 金曜・国主マッチの夜</dd></div>
       <div><dt>帯 SBT</dt><dd>HonKowa ── <a href="honkowa-sbt-claim.html">11.16 から受け取れます</a></dd></div>
     </dl>
     <div class="cta-row"><a class="cta" href="https://note.com/gen_matsuda/membership">本怖に入る <span class="p">¥2,980 / MONTH</span></a><span class="pill">数は全部 Optimism の記録。会員の人数は出しません。</span></div>
@@ -257,7 +257,7 @@
   <p class="lead">点火の日から、燃える量は会員の書き込みの数で決まります。社長と運営の投稿は数えません。<b>読むだけなら燃えない。書けば燃える。</b>出るのは、燃えた量と、その証拠(tx)だけ。書いた人の数は出しません。</p>
   <div class="grid3">
     <div class="cell"><div class="no">STEP 01</div><h3>会員が掲示板に書く</h3><p>投稿でも返信でも一つは一つ。社長と運営の分は除きます。</p><div class="f">E = その日の会員の書き込みの数</div></div>
-    <div class="cell"><div class="no">STEP 02</div><h3>翌日、まとめてバーン</h3><p>THANKS Map の感謝 一件の火(いま約 804 WWB・日によって変わる)の <b>2 倍</b>を、書き込み一つにつき燃やします。Optimism 上の BurnRouterV2 を通り、総供給から本当に消えます。</p><div class="f">burn = E × 804 × 2</div></div>
+    <div class="cell"><div class="no">STEP 02</div><h3>翌日、まとめてバーン</h3><p>THANKS Map の感謝一件の火(いま約 804 WWB・日によって変わる)の <b>2 倍</b>を、書き込み一つにつき燃やします。Optimism 上の BurnRouterV2 を通り、総供給から本当に消えます。</p><div class="f">burn = E × 804 × 2</div></div>
     <div class="cell"><div class="no">STEP 03</div><h3>年代記に一行ずつ残る</h3><p>燃えた量と tx が、下の年代記に一日一行ずつ並びます。<b>会員が書くほど、翌月の火は大きくなる。</b>その跡も消えません。</p><div class="f">reason = honkowa.post</div></div>
   </div>
 </div></section>
@@ -271,7 +271,7 @@
     <div><div class="k">BURN TARGET(ChronoBurnCurve)</div><div class="v tab" id="tgtDate2">2140-02-11</div></div>
   </div>
   <div class="chron" id="chron"><div class="empty"><b>NO DATA ── 点火前。</b>最初のバーンが Optimism に記録された日から、ここに一日一行ずつ並びます。日付・燃えた量・tx。書き換えは、誰にもできません。</div></div>
-  <div class="grid3" style="grid-template-columns:1fr;margin-top:18px"><div class="cell"><div class="no">AIKON とは ── 年代記に足す予定の、もう一つの燃料の口</div><h3>本怖の火と、同じ輪で燃える予定です。</h3><p>AIKON は、国主が John さんと海外(BVI)で作っているファンクラブです。ファンが WWB で先払いの点を買い、推しの AI のアイコンと話したり、作品を受け取ったりします。払われた WWB は運営の財布に入らず、Optimism 上の受け口の契約に入り、払われた日から毎日 一枚残らず燃えます。abc の製品ではなく、国主の個人の事業の一つです。本番の支払いはまだ開いていません。最初の一枚が燃えた日に、この年代記へ行を足します。 見本の台: <a href="https://aikon-demo.vercel.app" target="_blank" rel="noopener">aikon-demo.vercel.app</a></p></div></div>
+  <div class="grid3" style="grid-template-columns:1fr;margin-top:18px"><div class="cell"><div class="no">AIKON とは ── 年代記に足す予定の、もう一つの燃料の口</div><h3>本怖の火と、同じ輪で燃える予定です。</h3><p>AIKON は、国主が John さんと海外(BVI)で作っているファンクラブです。ファンが WWB で先払いの点を買い、推しの AI のアイコンと話したり、作品を受け取ったりします。払われた WWB は運営の財布に入らず、Optimism 上の受け口の契約に入り、払われた日から毎日、一枚残らず燃えます。abc の製品ではなく、国主の個人の事業の一つです。本番の支払いはまだ開いていません。最初の一枚が燃えた日に、この年代記へ行を足します。見本の台: <a href="https://aikon-demo.vercel.app" target="_blank" rel="noopener">aikon-demo.vercel.app</a></p></div></div>
 </div></section>
 
 <section id="calendar"><div class="wrap">
@@ -283,7 +283,7 @@
     <div class="r"><div class="d">20</div><div><h3>来月の目玉の予告</h3><p>来月に何が在るかを、月の 20 日に先に出す。楽しみは、先に。</p></div></div>
     <div class="r"><div class="d">25</div><div><h3>月末の目玉</h3><p>その月の目玉を出す日。11 月は帯 SBT「HonKowa」。11 月 16 日から<a href="honkowa-sbt-claim.html">受け取れます</a>。</p></div></div>
     <div class="r"><div class="d">EOM</div><div><h3>総決算</h3><p>皆で燃やした枚数・届いた節目・次の節目まで。</p></div></div>
-    <div class="r"><div class="d">DEC</div><div><h3>忘年会で、前倒しの儀</h3><p>帯を持つ人の忘年会で、WWB が燃え尽きる日を早める署名を毎年 一回。</p></div></div>
+    <div class="r"><div class="d">DEC</div><div><h3>忘年会で、前倒しの儀</h3><p>帯を持つ人の忘年会で、WWB が燃え尽きる日を早める署名を毎年一回。</p></div></div>
   </div>
   <p class="next">節目の梯子(本怖+善意立国の燃えた枚数): <b>10 万 → 20 万 → 30 万 → 50 万 → 80 万 → 100 万 →</b>。届いた日は、その夜の企画がその一本になります。</p>
 </div></section>
@@ -312,11 +312,11 @@
 <section id="invite"><div class="wrap">
   <div class="lbl"><b>05</b> INVITE ── 招いた人の記録</div>
   <h2>連れてきた人が、<b>あなたの記録になる。</b></h2>
-  <p class="lead">会員が会員を招いた時、招いた側に何が残るか。金ではありません(紹介料はありません)。<b>招いた記録が SBT になり、帯とは別の特典が付きます。</b>数えるのは、招かれた方が月末を一度 越えた時だけ。</p>
+  <p class="lead">会員が会員を招いた時、招いた側に何が残るか。金ではありません(紹介料はありません)。<b>招いた記録が SBT になり、帯とは別の特典が付きます。</b>数えるのは、招かれた方が月末を一度越えた時だけ。</p>
   <div class="invite">
     <div>
       <h3>招きの記録(SBT・名は決まり次第)</h3>
-      <p>招かれた方が入国の挨拶(掲示板)か帯の受け取りページで<b>「招いてくれた人の会員番号」</b>を書けば、運営が名簿で確かめ、月末を越えた時に一人と数えます。数えるのは<b>直接 招いた人だけ</b>(その先の人は数えません)。</p>
+      <p>招かれた方が入国の挨拶(掲示板)か帯の受け取りページで<b>「招いてくれた人の会員番号」</b>を書けば、運営が名簿で確かめ、月末を越えた時に一人と数えます。数えるのは<b>直接招いた人だけ</b>(その先の人は数えません)。</p>
       <div class="tier">
         <div><div class="n">1<small>人</small></div><div class="k">招き ── 銅</div></div>
         <div><div class="n">3<small>人</small></div><div class="k">招き ── 銀</div></div>
@@ -331,7 +331,7 @@
         <li><b>銀から:</b> 忘年会・ピクニックに<b>同伴 1 名の枠</b>(招いた方を連れて来られる)。月末の目玉の票が二票に。</li>
         <li><b>金から:</b> 松田元との食事を個別に一席。新しい企画を世に出す前に見る側へ。黒帯と同じ部屋に。</li>
       </ol>
-      <p style="font-size:12.5px;color:var(--w3)">線: 紹介料・金銭の返礼は一切ありません。数えるのは一段(直接 招いた人)だけ。招かれた方の名は本人が出すと決めた時だけ。</p>
+      <p style="font-size:12.5px;color:var(--w3)">線: 紹介料・金銭の返礼は一切ありません。数えるのは一段(直接招いた人)だけ。招かれた方の名は本人が出すと決めた時だけ。</p>
     </div>
   </div>
 </div></section>
@@ -358,7 +358,7 @@
       <dt>バーンの契約</dt><dd><a href="https://optimistic.etherscan.io/address/0x152327F9Fa1ccB7ecED95A2973830DC9E2206EC2" target="_blank" rel="noopener">0x152327F9Fa1ccB7ecED95A2973830DC9E2206EC2</a> (BurnRouterV2)</dd>
       <dt>イベント</dt><dd>Burned(bytes32 indexed reasonCode, uint8 tier, uint256 weight, uint256 amount, uint8 source, uint256 supplyAfter) ── 予算の中の火(書き込みの分)。国主マッチの夜の上乗せだけ VoluntaryBurn(bytes32 reasonCode, uint256 amount, address from)</dd>
       <dt>理由コード</dt><dd id="reason">honkowa.post = 0x000e99555034b0e8cd1d7a9669d6c400672bfc464ff0eccc64d69173f77210a1</dd>
-      <dt>燃やす係</dt><dd id="fromAddr">ルーターの燃やす係が、毎日 まとめて打ちます(予算の窓は THANKS Map の火と同じ)</dd>
+      <dt>燃やす係</dt><dd id="fromAddr">ルーターの燃やす係が、毎日まとめて打ちます(予算の窓は THANKS Map の火と同じ)</dd>
     </dl>
     <p>Etherscan で上の契約を開き、イベントを理由コードで絞ると、本怖の分だけが並びます。この頁の数字は、その記録を読んでいるだけです。別の数は持っていません。</p>
   </div>
@@ -369,7 +369,7 @@
   <h2>社長に、<b>文句を言える。</b></h2>
   <p class="lead">毎朝、本人が書きます。相場の見立て、会社の外に出せる範囲の話、負けた取引も。会員が返信すれば、本人が返します。</p>
   <div class="two">
-    <div><div class="t">INSIDE</div><h3>中で読める物</h3><p>本人の相場観と、その日の判断。<b>当たった話も、外れた話も</b>そのまま。株と暗号資産の話が一番 多い部屋です。</p></div>
+    <div><div class="t">INSIDE</div><h3>中で読める物</h3><p>本人の相場観と、その日の判断。<b>当たった話も、外れた話も</b>そのまま。株と暗号資産の話が一番多い部屋です。</p></div>
     <div><div class="t">NEVER</div><h3>中でも書かない物</h3><p>自社(abc)の<b>未公開の事実</b>。値段の予言。「必ず上がる」。この三つは中でも書きません。それが、この部屋が 2021 年から続いている理由です。</p></div>
   </div>
 </div></section>
@@ -378,7 +378,7 @@
   <div class="lbl"><b>09</b> JOIN</div>
   <h2>入った月から、<b>数え始める。</b></h2>
   <a class="cta" href="https://note.com/gen_matsuda/membership">本怖に入る <span class="p">¥2,980 / MONTH</span></a>
-  <p class="lines">バーンの量も帯も記録であって、会費の値打ち・利回り・WWB の値段を約束する物ではありません。帯(SBT)に金銭の価値はなく、譲渡も売買もできません。食事の招待は帯を持つ方への個別の連絡で、日程と場所は一人ずつ相談します。招いた記録に金銭の返礼はなく、数えるのは直接 招いた一段だけです。本怖の中の話は自社の未公開の事実に触れず、一人一人の売買の相談には答えません。</p>
+  <p class="lines">バーンの量も帯も記録であって、会費の値打ち・利回り・WWB の値段を約束する物ではありません。帯(SBT)に金銭の価値はなく、譲渡も売買もできません。食事の招待は帯を持つ方への個別の連絡で、日程と場所は一人ずつ相談します。招いた記録に金銭の返礼はなく、数えるのは直接招いた一段だけです。本怖の中の話は自社の未公開の事実に触れず、一人一人の売買の相談には答えません。</p>
 </div></section>
 </main>
 
@@ -414,7 +414,7 @@
       var el=document.querySelector('div.chron'); if(!el) return; el.innerHTML='';
       f.slice(0,60).forEach(function(x){var r=document.createElement('div');r.className='row';r.innerHTML='<div class="d">'+String(x.day).replace(/-/g,'.')+'</div><div class="bar"><i style="width:'+Math.max(2,Math.round(100*Number(x.amount)/max))+'%"></i></div><div class="a">'+(x.tx?'<a href="https://optimistic.etherscan.io/tx/'+x.tx+'" target="_blank" rel="noopener">':'')+fmt(x.amount)+'<small>WWB</small>'+(x.tx?'</a>':'')+'</div>';el.appendChild(r);
         if(x.label){var n=document.createElement('div');n.className='rownote';n.textContent=x.label;el.appendChild(n);}});
-      if(!daily){var e2=document.createElement('div');e2.className='rownote';e2.textContent='毎日の分(会員の書き込みの数に応じて毎日 燃える分)は、まだ始まっていません。始めた日から、ここに一日一行ずつ並びます。';el.appendChild(e2);}
+      if(!daily){var e2=document.createElement('div');e2.className='rownote';e2.textContent='毎日の分(会員の書き込みの数に応じて毎日燃える分)は、まだ始まっていません。始めた日から、ここに一日一行ずつ並びます。';el.appendChild(e2);}
     }).catch(function(){});
     // ティッカーは二度 並べて途切れなく流す
     var rail=document.getElementById('rail'); if(rail) rail.innerHTML+=rail.innerHTML;
