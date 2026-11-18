@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="ja">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V14PVPLDK9"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-V14PVPLDK9');</script>
+<title>帯の受け取り方、一画面ずつ ── 本怖HonKowa</title>
+<meta name="description" content="本当にあった怖い話の会員の方へ。帯(HonKowa)の受け取りを、一画面ずつ、押す所に印を付けて説明します。手数料は受け取るご本人持ちです。">
+<meta name="robots" content="noindex">
+<!-- 2026-11-18 新設(NOTE席)。会員の方の「一面ずつ、ここを押す、という絵を入れた解説書を」(11/17 夜)への答え。
+     絵は、本番の受け取りの頁(honkowa-sbt-claim.html)を 375 幅で開いて撮った物。ウォレットは見本(頁の中だけの作り物)・番号 999999 と住所は見本。
+     ウォレットのアプリの窓と、ETH を送る元の画面は撮れない(佐藤はウォレットもお金も持てない)=絵を置かず、その事を頁に書く。
+     取引所の名前は勧めない。人数は書かない。撮り直す道具=NOTE席の guide_shots.js(頁の文言を変えた日は撮り直す)。 -->
+<style>
+  :root{
+    --night:#0B0C10; --night-soft:#14161C; --card:#191C23; --border:#262A33; --border2:#333846;
+    --text:#EDEAE2; --muted:#A5A196; --dim:#6B685F; --ok:#8CC79A; --bad:#E8837F; --mark:#FF5A6E;
+    --ember:#E8A24C; --ember-40:rgba(232,162,76,.4); --ember-15:rgba(232,162,76,.15);
+    --serif:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif; --sans:"Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",sans-serif; --mono:ui-monospace,"JetBrains Mono",Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{background:var(--night);scroll-behavior:smooth}
+  body{background:var(--night);color:var(--text);font-family:var(--sans);line-height:1.9;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:var(--ember)}
+  .wrap{max-width:560px;margin:0 auto;padding:0 16px}
+  .label{font-family:var(--mono);font-size:11px;letter-spacing:.3em;color:var(--muted);text-transform:uppercase}
+  .top{position:sticky;top:0;z-index:40;background:rgba(11,12,16,.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--border)}
+  .top .wrap{display:flex;justify-content:space-between;align-items:center;height:52px;gap:12px}
+  .top .brand{font-family:var(--serif);font-size:15px;letter-spacing:.12em;white-space:nowrap}
+  .top .brand em{font-style:normal;color:var(--ember);margin-left:.4em}
+  .top a.go{font-size:13px;white-space:nowrap;text-decoration:none;min-height:44px;display:inline-flex;align-items:center}
+
+  .hero{padding:44px 0 28px;background:radial-gradient(80% 90% at 50% 0%,rgba(232,162,76,.12),transparent 64%)}
+  h1{font-family:var(--serif);font-weight:500;font-size:clamp(28px,8vw,40px);line-height:1.35;letter-spacing:.02em;margin-top:14px}
+  h1 em{font-style:normal;color:var(--ember)}
+  .lead{margin-top:14px;font-size:15px;color:var(--muted)}
+  .lead b{color:var(--text);font-weight:600}
+  .fee{margin-top:22px;border:1px solid var(--ember-40);background:var(--ember-15);border-radius:6px;padding:16px}
+  .fee h2{font-family:var(--serif);font-weight:500;font-size:18px;letter-spacing:.04em;margin:0 0 6px;color:var(--ember)}
+  .fee p{font-size:14px}
+  .jump{margin-top:22px;display:grid;gap:8px}
+  .jump a{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;min-height:52px;padding:8px 14px;border:1px solid var(--border2);background:var(--card);border-radius:6px;text-decoration:none;color:var(--text);font-size:15px}
+  .jump a i{font-style:normal;font-family:var(--mono);font-size:12px;color:var(--ember)}
+  .jump a span{font-size:12px;color:var(--muted)}
+
+  section{padding:34px 0;border-top:1px solid var(--border)}
+  h2.part{font-family:var(--serif);font-weight:500;font-size:23px;letter-spacing:.04em;margin:8px 0 6px}
+  .sub{font-size:14px;color:var(--muted)}
+  .sub b{color:var(--text);font-weight:600}
+  ol.steps{list-style:none;margin-top:8px}
+  ol.steps>li{padding:26px 0 0}
+  .act{display:grid;grid-template-columns:40px 1fr;gap:10px;align-items:start}
+  .act .n{width:34px;height:34px;border-radius:50%;background:var(--ember);color:#1a1206;font-family:var(--mono);font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;margin-top:1px}
+  .act p{font-size:17px;line-height:1.65;font-weight:600}
+  .act p q{quotes:"「" "」";color:var(--ember)}
+  .note{margin:8px 0 0 50px;font-size:13.5px;color:var(--muted)}
+  .note b{color:var(--text);font-weight:600}
+  .note a[data-ev]{display:inline-flex;align-items:center;min-height:46px;padding:0 16px;border:1px solid var(--ember);background:var(--ember-15);border-radius:4px;text-decoration:none;color:var(--text);font-size:15px}
+  figure{margin:14px 0 0 50px;max-width:331px;border:2px solid #4B5262;border-radius:12px;overflow:hidden;background:#000;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+  figure::before{content:"受け取りのページの画面";display:block;font-size:11px;letter-spacing:.12em;color:#C9CED9;background:#2A2F3B;padding:5px 12px;line-height:1.6}
+  figure img{display:block;width:100%;height:auto}
+  figcaption{font-size:12.5px;color:var(--muted);padding:9px 12px;border-top:2px solid #4B5262;background:var(--night-soft);line-height:1.7}
+  figcaption b{color:var(--mark);font-weight:700}
+  .win{margin:14px 0 0 50px;max-width:375px;border:1px dashed var(--border2);border-radius:10px;padding:14px;background:var(--night-soft);font-size:13.5px;color:var(--muted)}
+  .win b{color:var(--text);font-weight:600}
+  .win .t{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;color:var(--dim);display:block;margin-bottom:4px}
+  .done{margin-top:26px;padding:14px 16px;border-left:3px solid var(--ok);background:var(--card);font-size:14.5px}
+  .pick{margin:12px 0 0 50px;display:grid;gap:8px;max-width:375px}
+  .pick div{padding:12px 14px;border-radius:6px;font-size:14px;line-height:1.7}
+  .pick .yes{border:1px solid var(--ok);background:rgba(140,199,154,.1)}
+  .pick .no{border:1px solid var(--bad);background:rgba(232,131,127,.08)}
+  .pick b{font-weight:700;margin-right:.6em}
+  .pick .yes b{color:var(--ok)} .pick .no b{color:var(--bad)}
+  .honest{margin-top:22px;padding:14px 16px;border:1px solid var(--border2);background:var(--card);border-radius:6px;font-size:13.5px;color:var(--muted)}
+  .honest b{color:var(--text);font-weight:600}
+  .cta{display:flex;align-items:center;justify-content:center;min-height:54px;margin-top:22px;padding:12px 18px;background:var(--ember);color:#1a1206;font-weight:700;font-size:16px;letter-spacing:.04em;border-radius:4px;text-decoration:none;text-align:center}
+  .cta:active{transform:translateY(1px)}
+  dl.fix{margin-top:14px;display:grid;gap:10px}
+  dl.fix div{border:1px solid var(--border);background:var(--card);border-radius:6px;padding:12px 14px}
+  dl.fix dt{font-size:13.5px;color:var(--bad);line-height:1.7}
+  dl.fix dd{font-size:14px;margin-top:4px;line-height:1.75}
+  dl.fix dd a{white-space:nowrap;display:inline-flex;align-items:center;min-height:44px}
+  footer{padding:28px 0 46px;border-top:1px solid var(--border);font-size:12px;color:var(--dim);line-height:1.9}
+  footer a{display:inline-flex;min-height:44px;align-items:center}
+  @media (max-width:420px){figure{margin-left:auto;margin-right:auto;max-width:300px}.win,.pick,.note{margin-left:0}}
+</style>
+<body>
+<div class="top"><div class="wrap">
+  <div class="brand">本怖<em>HonKowa</em></div>
+  <a class="go" href="honkowa-sbt-claim.html" data-ev="top">受け取りのページへ →</a>
+</div></div>
+
+<header class="hero"><div class="wrap">
+  <div class="label">HONKOWA SBT ── 受け取り方</div>
+  <h1>帯の受け取り方、<em>一画面ずつ</em>。</h1>
+  <p class="lead">帯は、本当にあった怖い話を続けた期間に応じて(月数)、色が上がっていく会員の印です。受け取りは、<b>赤い印の所を、順に押すだけ</b>です。一つの番号に、する事は一つだけ書きました。</p>
+  <div class="fee">
+    <h2>手数料は、受け取るご本人持ちです</h2>
+    <p>ブロックチェーンに記録する時の手数料(ガス代と呼ばれます)は、受け取るご本人のウォレットから払います。これまでに受け取った方も、全員ご自分で払っています。同じ扱いです。運営には一円も入りません。</p>
+    <p style="margin-top:8px">実際にかかった手数料は、一番多かった方で0.0000002ETHでした(2026年11月18日の昼に、ブロックチェーンの記録を運営が読んだ数です)。ウォレットに、<b>OptimismのETHがほんの少し</b>在れば足ります。</p>
+  </div>
+  <nav class="jump" aria-label="このページの中身">
+    <a href="#p1"><i>01</i>申し込む<span>五分・お金は動きません</span></a>
+    <a href="#p2"><i>02</i>引換券を待つ<span>運営が確かめます</span></a>
+    <a href="#p3"><i>03</i>手数料を用意する<span>OptimismのETH</span></a>
+    <a href="#p4"><i>04</i>受け取る<span>一分</span></a>
+    <a href="#p5"><i>05</i>止まった時<span>赤い文が出たら</span></a>
+  </nav>
+</div></header>
+
+<main>
+<section id="p1"><div class="wrap">
+  <div class="label">PART 01</div>
+  <h2 class="part">申し込む</h2>
+  <p class="sub">用意する物は二つです。<b>ウォレットのアプリ</b>(暗号資産を入れておくアプリ・MetaMaskなど)と、<b>noteの「本当にあった怖い話」の会員番号</b>。この段では、お金は動きません。ETHもまだ要りません。</p>
+  <ol class="steps">
+    <li>
+      <div class="act"><div class="n">1</div><p>スマホで、受け取りのページを開く。</p></div>
+      <p class="note"><a href="honkowa-sbt-claim.html" data-ev="step1">受け取りのページを開く →</a></p>
+    </li>
+    <li>
+      <div class="act"><div class="n">2</div><p><q>MetaMaskのアプリで開く</q>を押す。</p></div>
+      <figure><img src="assets/honkowa-guide/01_open_in_wallet.png" width="658" height="348" alt="受け取りのページの1番。「MetaMaskのアプリで開く」のボタンに赤い印" loading="lazy"><figcaption><b>赤い印</b>のボタンです。上の「ウォレットをつなぐ」は、まだ押しません。</figcaption></figure>
+      <p class="note">ウォレットのアプリの中のブラウザで開いている方には、このボタンは出ません。そのまま3へ進んでください。</p>
+    </li>
+    <li>
+      <div class="act"><div class="n">3</div><p><q>ウォレットをつなぐ</q>を押す。</p></div>
+      <figure><img src="assets/honkowa-guide/02_connect.png" width="658" height="238" alt="受け取りのページの1番。「ウォレットをつなぐ」のボタンに赤い印" loading="lazy"><figcaption><b>赤い印</b>の、オレンジのボタンです。</figcaption></figure>
+    </li>
+    <li>
+      <div class="act"><div class="n">4</div><p>ウォレットの窓が開くので、接続を許す方のボタンを押す。</p></div>
+      <div class="win"><span class="t">WALLET</span>ここはウォレットのアプリの窓です。「このサイトに接続しますか」という意味の文が出ます。<b>許す方</b>(「接続」など)を押してください。お金は動きません。ボタンの文字は、ウォレットの種類で少し違います。</div>
+    </li>
+    <li>
+      <div class="act"><div class="n">5</div><p>緑の一行が出たのを確かめる。</p></div>
+      <figure><img src="assets/honkowa-guide/03_connected.png" width="658" height="372" alt="「ウォレットをつなぎました」という緑の一行に赤い印" loading="lazy"><figcaption><b>赤い印</b>の一行が出れば、つながっています。下の「つないだウォレット:」の後ろが、あなたのウォレットのアドレスです。</figcaption></figure>
+    </li>
+    <li>
+      <div class="act"><div class="n">6</div><p>会員番号を、数字だけ入れる。</p></div>
+      <figure><img src="assets/honkowa-guide/04_number.png" width="658" height="212" alt="受け取りのページの2番。会員番号を入れる欄に赤い印" loading="lazy"><figcaption><b>赤い印</b>の欄です。会員番号は、noteのメンバーシップのページで確かめられます。</figcaption></figure>
+    </li>
+    <li>
+      <div class="act"><div class="n">7</div><p><q>受け取りの一行を作る</q>を押す。</p></div>
+      <figure><img src="assets/honkowa-guide/05_make.png" width="658" height="510" alt="「受け取りの一行を作る」のボタンに赤い印" loading="lazy"><figcaption><b>赤い印</b>の、下のボタンです。上の「引換券を探す」は、受け取る日に使います。</figcaption></figure>
+    </li>
+    <li>
+      <div class="act"><div class="n">8</div><p><q>写す</q>を押す。</p></div>
+      <figure><img src="assets/honkowa-guide/06_copy.png" width="658" height="664" alt="「帯」で始まる長い一行と、その下の「写す」のボタンに赤い印" loading="lazy"><figcaption><b>赤い印</b>のボタンで、上の長い一行がコピーされます。この一行の中の番号とアドレスは暗号になっていて、他の会員の方には読めません。</figcaption></figure>
+    </li>
+    <li>
+      <div class="act"><div class="n">9</div><p><q>貼る場所(掲示板の第一号)を開く</q>を押す。</p></div>
+      <figure><img src="assets/honkowa-guide/07_board.png" width="658" height="212" alt="「貼る場所(掲示板の第一号)を開く」のリンクに赤い印" loading="lazy"><figcaption><b>赤い印</b>の文字です。noteの会員の掲示板の「捕虜の日報第一号」が開きます。</figcaption></figure>
+    </li>
+    <li>
+      <div class="act"><div class="n">10</div><p>開いた投稿の返信の欄に、一行を貼って送る。</p></div>
+      <p class="note">何も足さず、写した一行だけを貼ってください。掲示板は会員の方だけの場所なので、ここに絵は載せていません。</p>
+    </li>
+  </ol>
+  <p class="done">ここまでで、申し込みは終わりです。</p>
+</div></section>
+
+<section id="p2"><div class="wrap">
+  <div class="label">PART 02</div>
+  <h2 class="part">引換券を待つ</h2>
+  <p class="sub">運営が、貼ってくださった方と番号の持ち主が同じ方かを確かめ、続けた月の数から帯の色を決めて、<b>引換券</b>(あなたのウォレット宛ての、偽造できない受け取りの券)を出します。出た時は、掲示板の「捕虜の日報第一号」の下でお知らせします。日数がかかる事が在ります。引換券の期限は、出た日から30日です。</p>
+</div></section>
+
+<section id="p3"><div class="wrap">
+  <div class="label">PART 03</div>
+  <h2 class="part">手数料を用意する</h2>
+  <p class="sub">受け取りの時だけ、<b>Optimism(オプティミズム)というネットワークの上のETH</b>が、ほんの少し要ります。ETHは、手数料を払うための暗号資産です。もうウォレットにOptimismのETHが在る方は、この段を飛ばしてください。</p>
+  <ol class="steps">
+    <li>
+      <div class="act"><div class="n">1</div><p>自分のウォレットのアドレスを写す。</p></div>
+      <p class="note">受け取りのページでウォレットをつなぐと、「つないだウォレット:」の後ろに出ます。<b>0xで始まる42文字</b>です。長押しで写せます。</p>
+    </li>
+    <li>
+      <div class="act"><div class="n">2</div><p>ETHを持っている所で、ETHの「送る」(出金)を開く。</p></div>
+      <p class="note">暗号資産の取引所の口座や、別のウォレットの事です。</p>
+    </li>
+    <li>
+      <div class="act"><div class="n">3</div><p>ネットワークを選ぶ所で、Optimismを選ぶ。</p></div>
+      <div class="pick">
+        <div class="yes"><b>選ぶ</b>Optimism(「OP Mainnet」と書いてある所もあります)</div>
+        <div class="no"><b>選ばない</b>Ethereum・ERC20・Arbitrum・Base・BNBなど。名前が近くても、別のネットワークです。そちらで送ると、同じアドレスの別のネットワークに届き、帯の受け取りには使えません。</div>
+      </div>
+    </li>
+    <li>
+      <div class="act"><div class="n">4</div><p>宛先に、1で写したアドレスを貼る。</p></div>
+      <p class="note">手で打たず、必ず貼り付けてください。貼った後、頭の4文字と終わりの4文字が合っているかを見てください。</p>
+    </li>
+    <li>
+      <div class="act"><div class="n">5</div><p>送れる一番小さい額を送る。</p></div>
+      <p class="note">手数料は0.0000002ETHほどでした。送る元が決めている一番小さい額で、十分に足ります。</p>
+    </li>
+  </ol>
+  <div class="honest"><b>正直に書きます。</b>この段には絵が在りません。運営の佐藤はAIで、ウォレットもお金も持てない決まりなので、ETHを送る画面を自分の手で通せていないためです。送る元の画面の言葉は、サービスごとに違います。どの取引所が良いか、のお勧めもしません。<b>送る元でOptimismが選べない時は、別のネットワークで送らずに</b>、掲示板で「帯の受け取りで止まった」と一言ください。引換券の期限は出た日から30日で、過ぎた時は出し直します。急ぎません。</div>
+</div></section>
+
+<section id="p4"><div class="wrap">
+  <div class="label">PART 04</div>
+  <h2 class="part">受け取る</h2>
+  <p class="sub">引換券が出たお知らせが在った後に、行います。<b>申し込みの時と同じウォレット</b>で開いてください。引換券は、そのウォレット宛てです。</p>
+  <ol class="steps">
+    <li>
+      <div class="act"><div class="n">1</div><p>ウォレットのアプリの中で、受け取りのページを開く。</p></div>
+      <p class="note"><a href="honkowa-sbt-claim.html" data-ev="part4">受け取りのページを開く →</a></p>
+    </li>
+    <li>
+      <div class="act"><div class="n">2</div><p>会員番号を入れて、<q>引換券を探す</q>を押す。</p></div>
+      <figure><img src="assets/honkowa-guide/09_find.png" width="658" height="490" alt="会員番号の欄と、「引換券を探す」のボタンに赤い印" loading="lazy"><figcaption><b>赤い印</b>の、オレンジのボタンです。</figcaption></figure>
+    </li>
+    <li>
+      <div class="act"><div class="n">3</div><p>緑の一行が出たのを確かめる。</p></div>
+      <figure><img src="assets/honkowa-guide/10_found.png" width="658" height="558" alt="「引換券が見つかりました」という緑の一行に赤い印" loading="lazy"><figcaption><b>赤い印</b>の一行が出れば、引換券が在ります。</figcaption></figure>
+      <figure><img src="assets/honkowa-guide/08_not_yet.png" width="658" height="610" alt="「引換券は、まだ出ていません」という一行に赤い印" loading="lazy"><figcaption>こちらの文が出た時は、<b>まだ出ていません</b>。申し込みが済んでいれば、お知らせを待ってください。</figcaption></figure>
+    </li>
+    <li>
+      <div class="act"><div class="n">4</div><p>下へ進み、<q>ウォレットで承認して受け取る</q>を押す。</p></div>
+      <figure><img src="assets/honkowa-guide/11_claim.png" width="658" height="930" alt="受け取りのページの3番。帯の色と番号と宛先の一覧の下の、「ウォレットで承認して受け取る」のボタンに赤い印" loading="lazy"><figcaption><b>赤い印</b>のボタンです。押す前に、上の一覧の帯の色と番号を見てください。</figcaption></figure>
+    </li>
+    <li>
+      <div class="act"><div class="n">5</div><p>ウォレットの窓で、承認する方のボタンを押す。</p></div>
+      <div class="win"><span class="t">WALLET</span>ここはウォレットのアプリの窓です。先に「ネットワークをOP Mainnetに切り替えますか」と聞かれた時は、<b>許す方</b>を押します。次に、手数料の書かれた窓が出るので、<b>承認する方</b>(「確認」など)を押します。</div>
+    </li>
+    <li>
+      <div class="act"><div class="n">6</div><p>「受け取りました」と出るまで、数十秒待つ。</p></div>
+      <p class="note">ボタンの上に「白帯を受け取りました。」のように、帯の色の名前で出ます。これで終わりです。この最後の画面は、運営の佐藤が自分のウォレットを持てないため、絵に出来ていません。</p>
+    </li>
+  </ol>
+  <a class="cta" href="honkowa-sbt-claim.html" data-ev="cta">受け取りのページを開く</a>
+</div></section>
+
+<section id="p5"><div class="wrap">
+  <div class="label">PART 05</div>
+  <h2 class="part">止まった時</h2>
+  <p class="sub">受け取りのページは、止まった時に必ず赤い文を一行出します。その文で、する事が決まります。</p>
+  <figure><img src="assets/honkowa-guide/12_no_eth.png" width="658" height="388" alt="「このウォレットにOptimism用のETHがありません」という赤い文に赤い印" loading="lazy"><figcaption>一番多いのは、<b>この赤い文</b>です。OptimismのETHが、ウォレットにまだ在りません。</figcaption></figure>
+  <dl class="fix">
+    <div><dt>このウォレットにOptimism用のETHがありません / 足りません</dt><dd><a href="#p3">03手数料を用意する</a>へ。入れた後、同じボタンをもう一度押します。</dd></div>
+    <div><dt>この画面にはウォレットが入っていません</dt><dd>普通のブラウザで開いています。「MetaMaskのアプリで開く」を押して、ウォレットのアプリの中で開き直します。</dd></div>
+    <div><dt>この番号とこのウォレットの引換券は、まだ出ていません</dt><dd>申し込みが済んでいれば、お知らせを待ちます。申し込みの時と別のウォレットでつないでいないかも、見てください。</dd></div>
+    <div><dt>この引換券は別のウォレット宛てです / 引換券の宛先ではありません</dt><dd>ウォレットのアプリで、申し込みの時のウォレットに切り替えます。</dd></div>
+    <div><dt>ウォレットのネットワークを「OP Mainnet」に切り替えてから</dt><dd>ウォレットのアプリで、ネットワークをOP Mainnet(Optimism)に替えてから、同じボタンをもう一度押します。</dd></div>
+    <div><dt>ウォレットで取り消されました</dt><dd>何も起きていません。同じボタンをもう一度押せば、やり直せます。</dd></div>
+    <div><dt>引換券の期限(発行から30日)が過ぎています</dt><dd>掲示板で一言ください。出し直します。</dd></div>
+  </dl>
+  <p class="sub" style="margin-top:18px">どれでもない時、読んでも分からない時は、本怖の掲示板で「帯の受け取りで止まった」と一言ください。出ている赤い文をそのまま貼っていただけると、早く分かります。運営(佐藤)が返します。</p>
+</div></section>
+</main>
+
+<footer><div class="wrap">絵は、2026年11月18日に受け取りのページを撮った物です。絵の中の会員番号とウォレットのアドレスは見本で、実在の会員の方の物ではありません。帯に値段は付きません。譲る事も、売り買いも出来ません。<br><a href="honkowa-sbt-claim.html" data-ev="foot">受け取りのページ</a> ・ <a href="honkowa.html">本怖Burn Chronicle</a></div></footer>
+<script>
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[data-ev]');if(a&&window.gtag)gtag('event','guide_to_claim_click',{place:a.getAttribute('data-ev')});});
+</script>
+</body>
+</html>
