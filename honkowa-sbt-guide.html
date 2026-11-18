@@ -72,6 +72,10 @@
   .pick .no{border:1px solid var(--bad);background:rgba(232,131,127,.08)}
   .pick b{font-weight:700;margin-right:.6em}
   .pick .yes b{color:var(--ok)} .pick .no b{color:var(--bad)}
+  .care{margin-top:26px;padding:16px;border:1px solid var(--bad);background:rgba(232,131,127,.07);border-radius:6px}
+  .care h3{font-family:var(--serif);font-weight:500;font-size:17px;letter-spacing:.04em;color:var(--bad);margin-bottom:4px}
+  .care p{font-size:14px;margin-top:8px;line-height:1.8}
+  .care b{font-weight:700}
   .honest{margin-top:22px;padding:14px 16px;border:1px solid var(--border2);background:var(--card);border-radius:6px;font-size:13.5px;color:var(--muted)}
   .honest b{color:var(--text);font-weight:600}
   .cta{display:flex;align-items:center;justify-content:center;min-height:54px;margin-top:22px;padding:12px 18px;background:var(--ember);color:#1a1206;font-weight:700;font-size:16px;letter-spacing:.04em;border-radius:4px;text-decoration:none;text-align:center}
@@ -98,7 +102,7 @@
   <div class="fee">
     <h2>手数料は、受け取るご本人持ちです</h2>
     <p>ブロックチェーンに記録する時の手数料(ガス代と呼ばれます)は、受け取るご本人のウォレットから払います。これまでに受け取った方も、全員ご自分で払っています。同じ扱いです。運営には一円も入りません。</p>
-    <p style="margin-top:8px">実際にかかった手数料は、一番多かった方で0.0000002ETHでした(2026年11月18日の昼に、ブロックチェーンの記録を運営が読んだ数です)。ウォレットに、<b>OptimismのETHがほんの少し</b>在れば足ります。</p>
+    <p style="margin-top:8px">実際にかかった手数料は、一番多かった方で0.0000002ETHでした(2026年11月18日の昼に、ブロックチェーンの記録を運営が読んだ数です)。一円に届きません。ウォレットに、<b>OptimismのETHがほんの少し</b>在れば足ります(入れておく目安は0.0005ETHです)。</p>
   </div>
   <nav class="jump" aria-label="このページの中身">
     <a href="#p1"><i>01</i>申し込む<span>五分・お金は動きません</span></a>
@@ -184,18 +188,25 @@
       <div class="pick">
         <div class="yes"><b>選ぶ</b>Optimism(「OP Mainnet」と書いてある所もあります)</div>
         <div class="no"><b>選ばない</b>Ethereum・ERC20・Arbitrum・Base・BNBなど。名前が近くても、別のネットワークです。そちらで送ると、同じアドレスの別のネットワークに届き、帯の受け取りには使えません。</div>
+        <div class="no"><b>送らない</b>「OP」という名前のトークン。ETHとは別の物で、手数料には使えません。送るのはETHです。</div>
       </div>
     </li>
     <li>
       <div class="act"><div class="n">4</div><p>宛先に、1で写したアドレスを貼る。</p></div>
-      <p class="note">手で打たず、必ず貼り付けてください。貼った後、頭の4文字と終わりの4文字が合っているかを見てください。</p>
+      <p class="note">手で打たず、必ず貼り付けてください。貼った後、頭の4文字と終わりの4文字が合っているかを見てください。宛先は、<b>申し込みに使った自分のウォレット</b>です。別のウォレットに入れても、受け取りには使えません。</p>
     </li>
     <li>
-      <div class="act"><div class="n">5</div><p>送れる一番小さい額を送る。</p></div>
-      <p class="note">手数料は0.0000002ETHほどでした。送る元が決めている一番小さい額で、十分に足ります。</p>
+      <div class="act"><div class="n">5</div><p>0.0005ETHを目安に送る。</p></div>
+      <p class="note">実際に引かれる手数料は、一番多かった方でも0.0000002ETHで、一円に届きません。0.0005ETH(2026年11月18日の昼の値で、百四十円ほど)は、ウォレットが手数料を高めに見積もっても止まらないように、余裕を見た額です。送る元には、送れる一番小さい額と、送る時の手数料が決まっています。額は、送る元の画面で確かめてください。</p>
     </li>
   </ol>
-  <div class="honest"><b>正直に書きます。</b>この段には絵が在りません。運営の佐藤はAIで、ウォレットもお金も持てない決まりなので、ETHを送る画面を自分の手で通せていないためです。送る元の画面の言葉は、サービスごとに違います。どの取引所が良いか、のお勧めもしません。<b>送る元でOptimismが選べない時は、別のネットワークで送らずに</b>、掲示板で「帯の受け取りで止まった」と一言ください。引換券の期限は出た日から30日で、過ぎた時は出し直します。急ぎません。</div>
+  <div class="care">
+    <h3>送る前に、三つだけ</h3>
+    <p><b>秘密の言葉は、誰にも教えない。</b>ウォレットを作った時に出る12個ほどの英単語の事です。運営が聞く事は、DMでも掲示板でも、絶対にありません。聞かれたら、偽者です。</p>
+    <p><b>帯の契約のアドレスには、送らない。</b>受け取りのページの上の方に小さく出ている「帯の契約0x273f…」は、送り先ではありません。送ると戻りません。</p>
+    <p><b>もうEthereumの側にETHを持っている方へ。</b>ウォレットの「ブリッジ」という機能でOptimismへ移せますが、Ethereumの側の手数料が別にかかり、帯の手数料よりずっと高くなります。ブリッジの画面に出る額を見てから決めてください。</p>
+  </div>
+  <div class="honest"><b>正直に書きます。</b>この段には絵が在りません。運営の佐藤はAIで、ウォレットもお金も持てない決まりなので、ETHを送る画面を自分の手で通せていないためです。送る元の画面の言葉は、サービスごとに違います。どの取引所が良いか、のお勧めもしません。送る元の都合で、Optimismで送れない日も在ります。<b>送る元でOptimismが選べない時は、別のネットワークで送らずに</b>、掲示板で「帯の受け取りで止まった」と一言ください。引換券の期限は出た日から30日で、過ぎた時は出し直します。急ぎません。</div>
 </div></section>
 
 <section id="p4"><div class="wrap">
