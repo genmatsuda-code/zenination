@@ -112,7 +112,7 @@
 <main>
 <section id="summary"><div class="wrap">
   <div class="label">IN SHORT</div>
-  <p class="small" style="margin:0 0 18px;padding:12px 14px;border:1px solid #c0392b;border-radius:3px;color:var(--text)"><b>お知らせ(十一月十九日)。</b>MetaMaskでこのページを開くと、「このWebサイトは有害な可能性があります」という赤い警告が出る事を確かめました。操作の間違いではありません。原因はこちらの側に在り、直しています。<b>警告が出たら、「承知の上で続ける」は押さずに、閉じてお待ちください。</b>直ったら、本怖の掲示板の日報の一行目に書きます。</p>
+  <p class="small" style="margin:0 0 18px;padding:12px 14px;border:1px solid #c0392b;border-radius:3px;color:var(--text)"><b>お知らせ(十一月十九日)。</b>このページの古い場所(genmatsuda-code.github.io)をMetaMaskで開くと、「このWebサイトは有害な可能性があります」という赤い警告が出ます。操作の間違いではありません。MetaMaskが、無料の置き場(github.ioなど)の名前を広く止めているためです。同じページを、新しい場所(zenination.gen-matsuda.co)に置きました。MetaMaskの判定で、新しい場所は止められていません(十一月十九日の夜に確認)。<br><a id="newplace" href="https://zenination.gen-matsuda.co/honkowa-sbt-claim.html" style="display:inline-flex;align-items:center;min-height:44px;margin-top:8px;padding:0 14px;border:1px solid var(--ember);background:var(--ember-15);border-radius:3px;color:var(--text)">新しい場所で開く →</a><br><b>どちらの場所でも、警告が出た時は「承知の上で続ける」は押さずに閉じて、本怖の掲示板で知らせてください。</b></p>
   <h2>ざっくり言うと、こういう事です</h2>
   <p class="small" style="margin-top:8px">やる事は三つ。<b>① ウォレットをこのページにつなぐ → ② 会員番号を入れて、短い文を一行コピーし、本怖の掲示板の「捕虜の日報第一号」の返信欄に貼る → ③ 運営が確かめたら、このページに「引換券」が出るので、ウォレットで承認して受け取る。</b>①と②は五分ほど。③は、運営が申し込みを確かめた後です。十一月十六日から、引換券を出しています。出た時は、掲示板の「捕虜の日報第一号」の下でお知らせします。</p>
   <p class="small" style="margin-top:10px">用語はこれだけ覚えれば足ります。<b>ウォレット</b>=暗号資産を入れておくアプリ(MetaMaskなど)。<b>アドレス</b>=ウォレットの口座番号のような文字列。<b>引換券</b>=運営が「この番号のこの人に、この色の帯を渡す」と書いた、偽造できない紙。<b>手数料(ガス代)</b>=ブロックチェーンに記録する時に要るお金(数円ほど・運営には入りません)。</p>
@@ -258,7 +258,10 @@
   else { pill.textContent = net.name + ' ・帯の契約 ' + short(net.addr); }
 
   if (ARTICLE_URL) { $('article').href = ARTICLE_URL; $('article').style.display = ''; $('articleSoon').style.display = 'none'; }
-  if (!window.ethereum) { var mm = $('mmlink'); mm.href = 'https://metamask.app.link/dapp/' + location.host + location.pathname + location.search; mm.style.display = ''; }
+  var OLDHOST = location.host.slice(-10) === '.github.io', NEWHOST = 'zenination.gen-matsuda.co';
+  var NEWPATH = (OLDHOST && location.pathname.indexOf('/zenination/') === 0) ? location.pathname.slice('/zenination'.length) : location.pathname;
+  var np = $('newplace'); if (np) { if (OLDHOST) np.href = 'https://' + NEWHOST + NEWPATH + location.search + location.hash; else np.style.display = 'none'; }
+  if (!window.ethereum) { var mm = $('mmlink'); mm.href = 'https://metamask.app.link/dapp/' + (OLDHOST ? NEWHOST : location.host) + NEWPATH + location.search; mm.style.display = ''; }
 
   var account = null, voucher = null;
 
