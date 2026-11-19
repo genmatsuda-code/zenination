@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/zenination/:path*", "destination": "/:path*" }
+  ]
+}
