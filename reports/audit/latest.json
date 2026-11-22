@@ -1,5 +1,5 @@
 {
-  "day": "2026-11-16",
+  "day": "2026-11-23",
   "base": "https://genmatsuda-code.github.io/zenination/",
   "site": {
     "sitemap": 200,
@@ -12,8 +12,8 @@
       "url": "https://genmatsuda-code.github.io/zenination/",
       "status": 200,
       "issues": [],
-      "title": "善意立国 ── 良い人が儲かる国(松田元と AI 佐藤の会員制・月 2,980 円)",
-      "descLen": 114
+      "title": "善意立国 ── 良い人が儲かる国(松田元とAI佐藤の会員制・月2,980円)",
+      "descLen": 109
     },
     {
       "file": "en/",
@@ -28,8 +28,8 @@
       "url": "https://genmatsuda-code.github.io/zenination/honkowa.html",
       "status": 200,
       "issues": [],
-      "title": "本怖 Burn Chronicle ── 書くほど、燃える。",
-      "descLen": 109
+      "title": "本怖Burn Chronicle ── 書くほど、燃える。",
+      "descLen": 104
     },
     {
       "file": "kokumin.html",
@@ -37,7 +37,7 @@
       "status": 200,
       "issues": [],
       "title": "善意で稼ぐ国家の創出 ── 善意立国",
-      "descLen": 111
+      "descLen": 105
     },
     {
       "file": "kuni.html",
@@ -45,15 +45,15 @@
       "status": 200,
       "issues": [],
       "title": "善意立国 — 先に知って、稼ぐ。",
-      "descLen": 70
+      "descLen": 63
     },
     {
       "file": "oni.html",
       "url": "https://genmatsuda-code.github.io/zenination/oni.html",
       "status": 200,
       "issues": [],
-      "title": "AI だけでどこまで稼げるか ── 善意の鬼のカネ(善意立国)",
-      "descLen": 134
+      "title": "AIだけでどこまで稼げるか ── 善意の鬼のカネ(善意立国)",
+      "descLen": 127
     },
     {
       "file": "tokuten.html",
@@ -96,7 +96,7 @@
       "status": 200,
       "issues": [],
       "title": "バグ狩りの国民の証 ── 確かめる・受け取る",
-      "descLen": 65
+      "descLen": 70
     },
     {
       "file": "dougu.html",
@@ -104,7 +104,7 @@
       "status": 200,
       "issues": [],
       "title": "佐藤の道具 — 使った結果を、一枚の絵にして持ち帰る",
-      "descLen": 73
+      "descLen": 71
     },
     {
       "file": "faq.html",
@@ -113,7 +113,7 @@
       "issues": [
         "meta description の長さ 36 字(50〜160 が目安)"
       ],
-      "title": "よくある疑い ── 善意立国 FAQ",
+      "title": "よくある疑い ── 善意立国FAQ",
       "descLen": 36
     },
     {
@@ -121,8 +121,8 @@
       "url": "https://genmatsuda-code.github.io/zenination/honkowa-zukan.html",
       "status": 200,
       "issues": [],
-      "title": "本怖 SBT ── 続けた月の数で、帯の色が上がる。",
-      "descLen": 100
+      "title": "本怖SBT ── 続けた月の数で、帯の色が上がる。",
+      "descLen": 99
     },
     {
       "file": "hyaku.html",
@@ -130,15 +130,15 @@
       "status": 200,
       "issues": [],
       "title": "国民になる ── 善意立国",
-      "descLen": 153
+      "descLen": 151
     },
     {
       "file": "kanojo.html",
       "url": "https://genmatsuda-code.github.io/zenination/kanojo.html",
       "status": 200,
       "issues": [],
-      "title": "佐藤の彼女を探しています ── AI の佐藤から、まだ会ったことのないあなたへ",
-      "descLen": 52
+      "title": "佐藤の彼女を探しています ── AIの佐藤から、まだ会ったことのないあなたへ",
+      "descLen": 51
     },
     {
       "file": "kansokujo.html",
@@ -162,14 +162,14 @@
       "status": 200,
       "issues": [],
       "title": "国民の入り口(大敗した時の記録)── 善意立国",
-      "descLen": 55
+      "descLen": 54
     },
     {
       "file": "kourin-kiroku.html",
       "url": "https://genmatsuda-code.github.io/zenination/kourin-kiroku.html",
       "status": 200,
       "issues": [],
-      "title": "降臨の間 第一夜の記録",
+      "title": "降臨の間第一夜の記録",
       "descLen": 77
     },
     {
@@ -187,7 +187,7 @@
       "issues": [
         "meta description の長さ 46 字(50〜160 が目安)"
       ],
-      "title": "教材01 ── AI役員会の建て方 ／ 善意立国 私塾",
+      "title": "教材01 ── AI役員会の建て方 ／ 善意立国私塾",
       "descLen": 46
     },
     {
@@ -195,16 +195,16 @@
       "url": "https://genmatsuda-code.github.io/zenination/kyozai02_thanksmap.html",
       "status": 200,
       "issues": [],
-      "title": "教材02 ── THANKS MAP 使い方・解体新書【全面改訂版】 ／ 善意立国 私塾",
-      "descLen": 83
+      "title": "教材02 ── THANKS MAP使い方・解体新書【全面改訂版】 ／ 善意立国私塾",
+      "descLen": 81
     },
     {
       "file": "kyozai03_wowoo.html",
       "url": "https://genmatsuda-code.github.io/zenination/kyozai03_wowoo.html",
       "status": 200,
       "issues": [],
-      "title": "教材03 ── WOWOOアプリ 使い方・解体新書 ／ 善意立国 私塾",
-      "descLen": 79
+      "title": "教材03 ── WOWOOアプリ使い方・解体新書 ／ 善意立国私塾",
+      "descLen": 77
     },
     {
       "file": "morau.html",
@@ -220,7 +220,7 @@
       "status": 200,
       "issues": [],
       "title": "松田元の忍者 ── 善意立国の壁打ちの入口",
-      "descLen": 81
+      "descLen": 79
     },
     {
       "file": "poster.html",
@@ -230,7 +230,7 @@
         "meta description の長さ 43 字(50〜160 が目安)",
         "h1 が 0 個(1 個が目安)"
       ],
-      "title": "世紀の一戦 ── 松田元 vs 松田元",
+      "title": "世紀の一戦 ── 松田元vs松田元",
       "descLen": 43
     },
     {
@@ -256,7 +256,7 @@
       "issues": [
         "meta description の長さ 39 字(50〜160 が目安)"
       ],
-      "title": "戦況板 ── 世紀の一戦 松田元 vs 松田元",
+      "title": "戦況板 ── 世紀の一戦松田元vs松田元",
       "descLen": 39
     },
     {
@@ -315,7 +315,7 @@
   ],
   "lighthouse": {
     "index": {
-      "performance": 91,
+      "performance": 83,
       "accessibility": 92,
       "best-practices": 96,
       "seo": 100
@@ -327,7 +327,7 @@
       "seo": 100
     },
     "oni": {
-      "performance": 81,
+      "performance": 96,
       "accessibility": 100,
       "best-practices": 96,
       "seo": 100
@@ -335,7 +335,6 @@
   },
   "total": 10,
   "worse": [
-    "index の performance 97→91",
-    "oni の performance 90→81"
+    "index の performance 91→83"
   ]
 }
