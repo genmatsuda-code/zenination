@@ -133,7 +133,7 @@
   .cell p b{color:var(--w);font-weight:700}
   .cell .f{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--data);margin-top:12px;padding-top:10px;border-top:1px dashed var(--line2)}
 
-  /* 年代記=板 */
+  /* 燃えた記録の一覧 */
   .stat{margin-top:22px;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
   .stat>div{background:var(--k2);padding:14px 16px}
   .stat .k{font-family:var(--mono);font-size:10px;letter-spacing:.24em;color:var(--w3)}
@@ -258,12 +258,12 @@
   <div class="grid3">
     <div class="cell"><div class="no">STEP 01</div><h3>会員が掲示板に書く</h3><p>投稿でも返信でも一つは一つ。社長と運営の分は除きます。</p><div class="f">E = その日の会員の書き込みの数</div></div>
     <div class="cell"><div class="no">STEP 02</div><h3>翌日、まとめてバーン</h3><p>THANKS Mapの感謝一件の火(いま約804 WWB・日によって変わる)の<b>2倍</b>を、書き込み一つにつき燃やします。Optimism上のBurnRouterV2を通り、総供給から本当に消えます。</p><div class="f">burn = E × 804 × 2</div></div>
-    <div class="cell"><div class="no">STEP 03</div><h3>年代記に一行ずつ残る</h3><p>燃えた量とtxが、下の年代記に一日一行ずつ並びます。<b>会員が書くほど、翌月の火は大きくなる。</b>その跡も消えません。</p><div class="f">reason = honkowa.post</div></div>
+    <div class="cell"><div class="no">STEP 03</div><h3>燃えた記録に、一行ずつ残る</h3><p>燃えた量とtxが、下の「燃えた記録」に一日一行ずつ並びます。<b>会員が書くほど、翌月の火は大きくなる。</b>その跡も消えません。</p><div class="f">reason = honkowa.post</div></div>
   </div>
 </div></section>
 
 <section id="chron"><div class="wrap">
-  <div class="lbl"><b>02</b> CHRONICLE ── 年代記</div>
+  <div class="lbl"><b>02</b> CHRONICLE ── 燃えた記録</div>
   <h2>燃えた日は、<b>全部ここに。</b></h2>
   <div class="stat">
     <div><div class="k">TOTAL BURNED</div><div class="v red tab" id="total2">0<small>WWB</small></div></div>
@@ -271,7 +271,7 @@
     <div><div class="k">BURN TARGET(ChronoBurnCurve)</div><div class="v tab" id="tgtDate2">2140-02-11</div></div>
   </div>
   <div class="chron" id="chron"><div class="empty"><b>NO DATA ── 点火前。</b>最初のバーンがOptimismに記録された日から、ここに一日一行ずつ並びます。日付・燃えた量・tx。書き換えは、誰にもできません。</div></div>
-  <div class="grid3" style="grid-template-columns:1fr;margin-top:18px"><div class="cell"><div class="no">AIKONとは ── 年代記に足す予定の、もう一つの燃料の口</div><h3>本怖の火と、同じ輪で燃える予定です。</h3><p>AIKONは、国主がJohnさんと海外(BVI)で作っているファンクラブです。ファンがWWBで先払いの点を買い、推しのAIのアイコンと話したり、作品を受け取ったりします。払われたWWBは運営の財布に入らず、Optimism上の受け口の契約に入り、払われた日から毎日、一枚残らず燃えます。abcの製品ではなく、国主の個人の事業の一つです。本番の支払いはまだ開いていません。最初の一枚が燃えた日に、この年代記へ行を足します。見本の台: <a href="https://aikon-demo.vercel.app" target="_blank" rel="noopener">aikon-demo.vercel.app</a></p></div></div>
+  <div class="grid3" style="grid-template-columns:1fr;margin-top:18px"><div class="cell"><div class="no">AIKONとは ── 燃えた記録に足す予定の、もう一つの燃料の口</div><h3>本怖の火と、同じ輪で燃える予定です。</h3><p>AIKONは、国主がJohnさんと海外(BVI)で作っているファンクラブです。ファンがWWBで先払いの点を買い、推しのAIのアイコンと話したり、作品を受け取ったりします。払われたWWBは運営の財布に入らず、Optimism上の受け口の契約に入り、払われた日から毎日、一枚残らず燃えます。abcの製品ではなく、国主の個人の事業の一つです。本番の支払いはまだ開いていません。最初の一枚が燃えた日に、この頁の燃えた記録へ行を足します。見本の台: <a href="https://aikon-demo.vercel.app" target="_blank" rel="noopener">aikon-demo.vercel.app</a></p></div></div>
 </div></section>
 
 <section id="calendar"><div class="wrap">
@@ -361,7 +361,7 @@
       <dt>国主マッチの夜</dt><dd>honkowa.match = 0xbbee8411d844527aed50d4be8a407742516eea43dfeafe86524b08603ae8579b</dd>
       <dt>燃やす財布</dt><dd id="fromAddr"><a href="https://optimistic.etherscan.io/address/0xBA36505BD59BC8676BDA84f84ce8c8DFF7D61f36" target="_blank" rel="noopener">0xBA36505BD59BC8676BDA84f84ce8c8DFF7D61f36</a>(本怖の専用。燃やす日に、ここから打ちます)</dd>
     </dl>
-    <p>確かめ方は三つの手順です。①年代記の行のtxを押して、取引のページを開く。②WWBの移動(ERC-20の移動)が、燃やす財布→バーンの契約→0x000…000(Null)の順に二行あり、量が年代記と同じ(最後の相手が0x000…000なら、その枚数は消えています)。③「Logs」の最後の行(バーンの契約の記録)の一番目の値(Topic 1)が、上の理由コードと同じ(本怖の書き込みの分なら、末尾が…10a1)。この頁の数字は、その記録を読んでいるだけです。別の数は持っていません。</p>
+    <p>確かめ方は三つの手順です。①上の「燃えた記録」の行のtxを押して、取引のページを開く。②WWBの移動(ERC-20の移動)が、燃やす財布→バーンの契約→0x000…000(Null)の順に二行あり、量が燃えた記録の数と同じ(最後の相手が0x000…000なら、その枚数は消えています)。③「Logs」の最後の行(バーンの契約の記録)の一番目の値(Topic 1)が、上の理由コードと同じ(本怖の書き込みの分なら、末尾が…10a1)。この頁の数字は、その記録を読んでいるだけです。別の数は持っていません。</p>
   </div>
 </div></section>
 
