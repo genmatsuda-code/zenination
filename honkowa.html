@@ -356,11 +356,12 @@
   <div class="term"><div class="ttl">OPTIMISM MAINNET ── chainId 10</div>
     <dl>
       <dt>バーンの契約</dt><dd><a href="https://optimistic.etherscan.io/address/0x152327F9Fa1ccB7ecED95A2973830DC9E2206EC2" target="_blank" rel="noopener">0x152327F9Fa1ccB7ecED95A2973830DC9E2206EC2</a> (BurnRouterV2)</dd>
-      <dt>イベント</dt><dd>Burned(bytes32 indexed reasonCode, uint8 tier, uint256 weight, uint256 amount, uint8 source, uint256 supplyAfter) ── 予算の中の火(書き込みの分)。国主マッチの夜の上乗せだけVoluntaryBurn(bytes32 reasonCode, uint256 amount, address from)</dd>
+      <dt>イベント</dt><dd>VoluntaryBurn(bytes32 indexed reasonCode, uint256 amount, address indexed from) ── 書き込みの分も、国主マッチの夜の上乗せも、この記録に残ります</dd>
       <dt>理由コード</dt><dd id="reason">honkowa.post = 0x000e99555034b0e8cd1d7a9669d6c400672bfc464ff0eccc64d69173f77210a1</dd>
-      <dt>燃やす係</dt><dd id="fromAddr">ルーターの燃やす係が、毎日まとめて打ちます(予算の窓はTHANKS Mapの火と同じ)</dd>
+      <dt>国主マッチの夜</dt><dd>honkowa.match = 0xbbee8411d844527aed50d4be8a407742516eea43dfeafe86524b08603ae8579b</dd>
+      <dt>燃やす財布</dt><dd id="fromAddr"><a href="https://optimistic.etherscan.io/address/0xBA36505BD59BC8676BDA84f84ce8c8DFF7D61f36" target="_blank" rel="noopener">0xBA36505BD59BC8676BDA84f84ce8c8DFF7D61f36</a>(本怖の専用。燃やす日に、ここから打ちます)</dd>
     </dl>
-    <p>Etherscanで上の契約を開き、イベントを理由コードで絞ると、本怖の分だけが並びます。この頁の数字は、その記録を読んでいるだけです。別の数は持っていません。</p>
+    <p>確かめ方は三つの手順です。①年代記の行のtxを押して、取引のページを開く。②WWBの移動(ERC-20の移動)が、燃やす財布→バーンの契約→0x000…000(Null)の順に二行あり、量が年代記と同じ(最後の相手が0x000…000なら、その枚数は消えています)。③「Logs」の最後の行(バーンの契約の記録)の一番目の値(Topic 1)が、上の理由コードと同じ(本怖の書き込みの分なら、末尾が…10a1)。この頁の数字は、その記録を読んでいるだけです。別の数は持っていません。</p>
   </div>
 </div></section>
 
