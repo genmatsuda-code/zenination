@@ -1,12 +1,12 @@
 {
- "asOf": "2026-11-27T18:17:52.071Z",
+ "asOf": "2026-11-27T19:12:17.988Z",
  "nyan": {
   "wallets": {
    "Abt54GpGwR4rnFzrSiCnKhLf1Hj1GJ9qCCfZAz7Jknyv": 0,
    "D6T8HzLGHU4K2mgpSsRZHbYXwZ7RUQFmF8aeNeRyeyjT": 0,
    "AZN2KdS2TLy4g49XSaYF3rwnhDtQhsDNAsAMSGix2yhM": 0,
    "EZsS49ApgjxcCbu7eufiFnfupSHJqP8JaRnXoYqUqjKB": 0,
-   "5Q544fKrFoe6tsEbD7S8EmxGTJYAKtTVhAW5Q5pge4j1": 4237176841.527173,
+   "5Q544fKrFoe6tsEbD7S8EmxGTJYAKtTVhAW5Q5pge4j1": 4237164849.05651,
    "CgH6BbwFanjEaNrn3dBqRKXVhcDYDsKCvUEPw6eGCHWw": 1300000100
   },
   "supply": 49321641555.616066
@@ -24,7 +24,7 @@
    "0x03cc5fef38896537c10fcb30a53a1b12be101da6": 0,
    "0x5db284d904f0e5f477433e6132e30fa939c72849": 222115051.64
   },
-  "supply": 1109235835.189
+  "supply": 1109224570.749
  },
  "failed": []
 }
